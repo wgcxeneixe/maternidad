@@ -1,5 +1,10 @@
 package sami
 
+import maternidad.EstadoCivil
+import maternidad.Localidad
+import maternidad.Pais
+import maternidad.TipoDocumento
+
 class Persona {
 
     Boolean personaFisica = true

@@ -1,5 +1,8 @@
 package sami
 
+import maternidad.Localidad
+import maternidad.Pais
+
 class Provincia {
 
 	String nombre

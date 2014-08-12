@@ -1,5 +1,7 @@
 package sami
 
+import maternidad.Pais
+
 class TipoDocumento {
 
 	Boolean activo

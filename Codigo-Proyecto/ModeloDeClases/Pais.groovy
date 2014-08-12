@@ -1,5 +1,7 @@
 package sami
 
+import maternidad.Provincia
+
 class Pais {
 
 	String codigo

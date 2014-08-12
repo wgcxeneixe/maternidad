@@ -1,5 +1,7 @@
 package sami
 
+import maternidad.Rol
+import maternidad.Usuario
 import org.apache.commons.lang.builder.HashCodeBuilder
 
 class UsuarioRol implements Serializable {

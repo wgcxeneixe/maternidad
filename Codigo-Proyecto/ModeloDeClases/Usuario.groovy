@@ -1,5 +1,9 @@
 package sami
 
+import maternidad.Persona
+import maternidad.Rol
+import maternidad.UsuarioRol
+
 class Usuario {
     transient springSecurityService
 

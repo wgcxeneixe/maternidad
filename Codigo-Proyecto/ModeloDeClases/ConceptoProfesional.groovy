@@ -1,5 +1,7 @@
 package sami
 
+import maternidad.Usuario
+
 class ConceptoProfesional {
 
     String codigo
