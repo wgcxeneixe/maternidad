@@ -9,6 +9,7 @@ class EstadoCivil {
 	}	
 
     static constraints = {
+        denominacion(nullable: false,blank: false,matches: "[a-zA-Z]+")
     }
 
     String toString() { "${denominacion}" }
