@@ -38,5 +38,5 @@ prodDb.script
 application.properties
 #Archivos de proyecto de Intellij IDEA
 *.iml
-.idea/workspace.xml
+/.idea/workspace.xml
 !.idea/codeStyleSettings.xml
