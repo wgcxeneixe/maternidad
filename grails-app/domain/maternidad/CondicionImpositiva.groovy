@@ -11,4 +11,6 @@ class CondicionImpositiva {
         codigo(size:2..10, nullable:true, blank:true)
 
     }
+
+    String toString() { "${nombre}" }
 }
