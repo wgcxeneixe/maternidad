@@ -30,6 +30,7 @@ prodDb.properties
 # default HSQL database files for production mode
 /.launch
 # IDE support files
+/.idea
 prodDb.script
 /web-app/WEB-INF/classes
 /*.tmproj
@@ -37,5 +38,5 @@ prodDb.script
 application.properties
 #Archivos de proyecto de Intellij IDEA
 *.iml
-/.idea
-#!.idea/codeStyleSettings.xml
+.idea/workspace.xml
+!.idea/codeStyleSettings.xml
