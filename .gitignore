@@ -1,0 +1,41 @@
+*.iws
+# .gitignore for Grails 1.2 and 1.3
+/test/reports
+*Db.properties
+/*.war
+/*.zip
+# plugin release file
+/target
+/prodDb.*
+# general HSQL database files
+# logs
+# web application files
+# "temporary" build files
+/eclipse
+/logs
+prodDb.properties
+*Db.script
+/ivy*
+/.project
+/web-app/plugins
+/.settings
+# older plugin install locations
+/plugins
+# project release file
+# other
+/stacktrace.log
+/web-app/WEB-INF
+/.classpath
+/*.launch
+# default HSQL database files for production mode
+/.launch
+# IDE support files
+prodDb.script
+/web-app/WEB-INF/classes
+/*.tmproj
+#lo q yo omito
+application.properties
+#Archivos de proyecto de Intellij IDEA
+*.iml
+.idea/*
+!.idea/codeStyleSettings.xml
