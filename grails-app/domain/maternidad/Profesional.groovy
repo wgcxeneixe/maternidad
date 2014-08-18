@@ -9,6 +9,17 @@ class Profesional {
     Date fechaMatriculacion
     String cbu
     Banco banco
+    SortedSet<ConceptoPorProfesional> listaConceptos
+
+    static belongsTo = [
+            persona : Persona,
+            banco : Banco
+    ]
+
+    static hasMany = [
+            listaConceptos        : ConceptoPorProfesional
+
+    ]
 
     static constraints = {
 
