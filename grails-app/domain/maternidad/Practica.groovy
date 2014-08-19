@@ -12,7 +12,7 @@ class Practica {
     ObraSocial obrasocial
 
     static constraints = {
-        nombre(size:2..35, nullable:false, blank:false)
+        nombre(size:2..120, nullable:false, blank:false)
         codigo(size:2..10, nullable:false, blank:false)
         observacion(size:0..5000, nullable:true, blank:true)
         nomenclada(nullable:true, blank:true)
