@@ -22,4 +22,6 @@ class ObraSocial {
     }
 
 
+    String toString() { "${sigla}" }
+
 }
