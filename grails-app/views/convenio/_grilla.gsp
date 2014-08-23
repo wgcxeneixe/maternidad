@@ -50,5 +50,5 @@
     </tbody>
 </table>
 <div class="pagination">
-    <g:paginate total="${convenioInstanceCount ?: 0}" />
+    <g:paginate total="${convenioInstanceCount ?: 0}" params="${filters}" />
 </div>
