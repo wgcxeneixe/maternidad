@@ -36,6 +36,8 @@ Convenio
 
             <g:sortableColumn property="activo" title="${message(code: 'plan.activo.label', default: 'Activo')}" />
 
+            <th>Galenos</th>
+
         </tr>
         </thead>
         <tbody>
@@ -49,6 +51,11 @@ Convenio
                 <td>${fieldValue(bean: planConvenio?.plan, field: "observacion")}</td>
 
                 <td><g:formatBoolean boolean="${planConvenio?.plan?.activo}" /></td>
+
+                <td><g:link controller="valorGalenoGasto" action="asignarValorGalenoGasto" id="${planConvenio?.id}">Galenos de Gastos</g:link>
+              |  <g:link controller="valorGalenoHonorario" action="asignarValorGalenoHonorario" id="${planConvenio?.id}">Galenos de Honorario</g:link>
+                </td>
+
 
             </tr>
         </g:each>

@@ -5,7 +5,7 @@ class Plan {
     String nombre
     String codigo
     String observacion
-    Boolean activo
+    Boolean activo = true
     ObraSocial obrasocial
 
 
