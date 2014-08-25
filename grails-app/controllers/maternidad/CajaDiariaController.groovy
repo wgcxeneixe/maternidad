@@ -8,7 +8,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class CajaDiariaController {
 
-    static scaffold = true
+   // static scaffold = true
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -22,7 +22,18 @@ class CajaDiariaController {
     }
 
     def create() {
-        respond new CajaDiaria(params)
+        def cajaDiariaAbiertaInstance =  CajaDiaria.findByFechaCierreIsNull()
+        if(cajaDiariaAbiertaInstance == null ){
+            def cajaDiariaInstance = new CajaDiaria(params)
+            //cajaDiariaInstance.usuarioApertura = springSecurityService.currentUser
+            /* Buscamos el saldo final de la ultima caja */
+            def cajaDiariaUltimaInstance = CajaDiaria.listOrderByFechaCierre()
+            cajaDiariaInstance.saldoInicial = cajaDiariaUltimaInstance.first().saldoFinal
+            respond cajaDiariaInstance}
+        else{
+            redirect action: "edit", method: "POST", params: [id:cajaDiariaAbiertaInstance.id]
+        }
+
     }
 
     @Transactional
@@ -49,6 +60,8 @@ class CajaDiariaController {
     }
 
     def edit(CajaDiaria cajaDiariaInstance) {
+        //cajaDiariaInstance.usuarioApertura = springSecurityService.currentUser
+
         respond cajaDiariaInstance
     }
 
