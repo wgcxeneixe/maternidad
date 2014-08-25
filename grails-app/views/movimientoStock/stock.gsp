@@ -37,7 +37,7 @@
                     <td valign="top" class="name">
                         <label for="producto">Producto</label>
                     </td>
-                    <td valign="top" class="value ${hasErrors(bean: documentacionTipoTramiteInstance, field: 'tipoTramite', 'errors')}">
+                    <td valign="top" class="value ">
                         <g:select id="producto" name="producto.id" from="${maternidad.Producto.list()}" optionKey="id" noSelection="['null':'Seleccione un Producto']"
                                   onchange="${remoteFunction(controller: 'movimientoStock',
                                           action: 'getStock',

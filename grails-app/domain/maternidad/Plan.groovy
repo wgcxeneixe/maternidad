@@ -19,4 +19,6 @@ class Plan {
         obrasocial(nullable: false,blank:false)
         activo(nullable: true,blank:true)
     }
+
+    String toString() { "${nombre + " - " + obrasocial.sigla}" }
 }
