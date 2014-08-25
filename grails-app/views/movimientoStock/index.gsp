@@ -5,7 +5,21 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'movimientoStock.label', default: 'MovimientoStock')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
+
+        <script>
+            jQuery(function() {
+
+
+                jQuery.datepicker.regional[ "es" ];
+                updateDatePicker();
+
+                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                    updateDatePicker();
+                });
+            })
+        </script>
+
+			<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
 		<a href="#list-movimientoStock" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -20,47 +34,54 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-			<thead>
-					<tr>
-					
-						<th><g:message code="movimientoStock.producto.label" default="Producto" /></th>
-					
-						<th><g:message code="movimientoStock.destino.label" default="Destino" /></th>
-					
-						<g:sortableColumn property="cantidad" title="${message(code: 'movimientoStock.cantidad.label', default: 'Cantidad')}" />
-					
-						<g:sortableColumn property="ingreso" title="${message(code: 'movimientoStock.ingreso.label', default: 'Ingreso')}" />
-					
-						<g:sortableColumn property="descripcion" title="${message(code: 'movimientoStock.descripcion.label', default: 'Descripcion')}" />
-					
-						<g:sortableColumn property="fecha" title="${message(code: 'movimientoStock.fecha.label', default: 'Fecha')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${movimientoStockInstanceList}" status="i" var="movimientoStockInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${movimientoStockInstance.id}">${fieldValue(bean: movimientoStockInstance, field: "producto")}</g:link></td>
-					
-						<td>${fieldValue(bean: movimientoStockInstance, field: "destino")}</td>
-					
-						<td>${fieldValue(bean: movimientoStockInstance, field: "cantidad")}</td>
-					
-						<td><g:formatBoolean boolean="${movimientoStockInstance.ingreso}" /></td>
-					
-						<td>${fieldValue(bean: movimientoStockInstance, field: "descripcion")}</td>
-					
-						<td><g:formatDate date="${movimientoStockInstance.fecha}" /></td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${movimientoStockInstanceCount ?: 0}" />
-			</div>
-		</div>
+
+
+            <div class="filters">
+                <g:form action="index">
+
+                    <table>
+                        <tr>
+                            <td> <p><label for="fechaDesde">Fecha Desde</label>
+                                <g:datePicker name="fechaDesde" precision="day" value="${filters?.fechaDesde}" /></p></td>
+
+                            <td> <p><label for="fechaHasta">Fecha Hasta</label>
+                                <g:datePicker name="fechaHasta" precision="day" value="${filters?.fechaHasta}" /></p></td>
+
+                            <td>
+                                <p><label for="codigo">Código</label>
+                                    <g:textField name="codigo" value="${filters?.codigo}" /></p></td>
+
+                            <td>
+                                <p><label for="nombre">Nombre Producto</label>
+                                    <g:textField id="nombre" name="nombre" value="${filters?.nombre}" /></p></td>
+
+                            </tr>
+                            <tr>
+                            <td>
+                                <p><label for="nombreDestino">Nombre Destino</label>
+                                    <g:textField id="nombreDestino" name="nombreDestino" value="${filters?.nombreDestino}" /></p></td>
+
+                            <td>
+                                <p><label for="codigoDestino">Codigo Destino</label>
+                                    <g:textField id="codigoDestino" name="codigoDestino" value="${filters?.codigoDestino}" /></p></td>
+                            <td>
+                                <p><g:submitButton name="filter" value="Filtrar" /></p></td>
+                        </tr>
+                    </table>
+
+
+
+
+                </g:form>
+            </div>
+
+            <br />
+            <div id="grid">
+                <g:render template="grilla" model="model" />
+            </div>
+            <br />
+
+
+        </div>
 	</body>
 </html>

@@ -10,6 +10,10 @@ class MovimientoStock {
     Date fecha
     Usuario usuario
 
+    static mapping = {
+        sort fecha: "desc"
+    }
+
     static constraints = {
 
         producto(nullable: false,blank:false)

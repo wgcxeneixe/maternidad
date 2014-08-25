@@ -9,10 +9,63 @@ class MovimientoStockController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    /*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond MovimientoStock.list(params), model: [movimientoStockInstanceCount: MovimientoStock.count()]
+    } */
+
+
+
+    def index = {
+
+        /*  if (!springSecurityService.isLoggedIn()){
+              redirect(controller: 'login', action: "auth")
+          }
+  */
+        def query = {
+            if (params.fechaDesde && params.fechaHasta) {
+                between('fecha', params.fechaDesde, params.fechaHasta)
+            }
+            if (params.codigo) {
+              producto{  ilike('codigo', '%' + params.codigo + '%') }
+            }
+
+            if (params.nombre) {
+                producto{ilike('nombre', '%' + params.nombre + '%')}
+
+            }
+
+            if (params.codigoDestino) {
+                destino{  ilike('codigo', '%' + params.codigoDestino + '%') }
+            }
+
+            if (params.nombreDestino) {
+                destino{ilike('nombre', '%' + params.nombreDestino + '%')}
+
+            }
+
+            if (params.sort){
+                order(params.sort,params.order)
+            }
+        }
+
+        def criteria = MovimientoStock.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        def movimientos = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [fechaDesde: params.fechaDesde,fechaHasta: params.fechaHasta,codigo:params.codigo,nombre:params.nombre,codigoDestino:params.codigoDestino,nombreDestino:params.nombreDestino]
+
+        def model = [movimientoStockInstanceList: movimientos, movimientoStockInstanceTotal:movimientos.size(), filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grilla", model: model)
+        }
+        else {
+            model
+        }
     }
+
 
     def show(MovimientoStock movimientoStockInstance) {
         respond movimientoStockInstance

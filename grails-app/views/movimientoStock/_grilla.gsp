@@ -1,22 +1,18 @@
-<div class="fieldcontain">
-Total=${total}
-</div>
 <table>
     <thead>
     <tr>
 
-        <th><g:message code="movimientoStock.producto.label" default="Producto" /></th>
+        <th><g:message code="movimientoStock.producto.label" default="Producto" params="${filters}" /></th>
 
-        <th><g:message code="movimientoStock.destino.label" default="Destino" /></th>
+        <th><g:message code="movimientoStock.destino.label" default="Destino" params="${filters}" /></th>
 
-        <g:sortableColumn property="cantidad" title="${message(code: 'movimientoStock.cantidad.label', default: 'Cantidad')}" />
+        <g:sortableColumn property="cantidad" title="${message(code: 'movimientoStock.cantidad.label', default: 'Cantidad')}" params="${filters}" />
 
-        <g:sortableColumn property="ingreso" title="${message(code: 'movimientoStock.ingreso.label', default: 'Ingreso')}" />
+        <g:sortableColumn property="ingreso" title="${message(code: 'movimientoStock.ingreso.label', default: 'Ingreso')}" params="${filters}" />
 
-        <g:sortableColumn property="descripcion" title="${message(code: 'movimientoStock.descripcion.label', default: 'Descripcion')}" />
+        <g:sortableColumn property="descripcion" title="${message(code: 'movimientoStock.descripcion.label', default: 'Descripcion')}" params="${filters}" />
 
-        <g:sortableColumn property="fecha" title="${message(code: 'movimientoStock.fecha.label', default: 'Fecha')}" />
-
+<th><g:message code="movimientoStock.fecha.label" default="Fecha" params="${filters}"/> </th>
     </tr>
     </thead>
     <tbody>
@@ -40,5 +36,5 @@ Total=${total}
     </tbody>
 </table>
 <div class="pagination">
-    <g:paginate total="${movimientoStockInstanceCount ?: 0}" />
+    <g:paginate total="${movimientoStockInstanceCount ?: 0}" params="${filters}" />
 </div>
