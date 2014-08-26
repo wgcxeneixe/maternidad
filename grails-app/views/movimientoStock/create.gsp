@@ -37,9 +37,98 @@
                     else{
                         $("#divdestino").hide();
                     }
-                })
+                });
 
-            })
+
+
+
+
+$("#boton").click(function( event ) {
+    event.preventDefault();
+   if ( $("#divradio input[type='radio']:checked").val() == 'true')  {
+    //es ingreso
+       $("#formulario").submit();
+   } else {
+    // es egreso
+     var cant=  $("#cantidad").val();
+     var producto=  $("#producto").val();
+
+
+      if(!existeStock( cant , producto )) {
+
+          if (confirm('${message(code: 'stock.nohaystock', default: 'No existe Stock suficiente. Desea Continuar?')}')) {
+              $("#formulario").submit();
+          }
+
+      }
+       else if (!existeCantidadMinima( cant , producto )){
+
+          if (confirm('${message(code: 'stock.nohaycantidadminima', default: 'El producto quedara por debajo de la cantidad mínima. Desea Continuar?')}')) {
+              $("#formulario").submit();
+          }
+
+      }
+       else {   $("#formulario").submit(); }
+
+   }
+
+});
+
+
+            });
+
+
+            function existeStock(cantidad,producto){
+                var resultado=false;
+                var url = "${createLink(controller:'movimientoStock', action:'chequearCantidad')}";
+
+                jQuery.ajax({
+                    url:url,
+                    dataType: 'json',
+                    type:'POST',
+                    async:false,
+                    data: {
+                        cantidad: cantidad,producto:producto
+                    },
+                    success: function(data) {
+                        resultado=data.resultado;
+                    },
+                    error: function(request, status, error) {
+                    },
+                    complete: function() {
+                        //alert(data);
+                    }
+                });
+
+                return resultado;
+            }
+
+
+            function existeCantidadMinima(cantidad,producto){
+                var resultado=false;
+                var url = "${createLink(controller:'movimientoStock', action:'chequearMinimo')}";
+
+                jQuery.ajax({
+                    url:url,
+                    dataType: 'json',
+                    type:'POST',
+                    async:false,
+                    data: {
+                        cantidad: cantidad,producto:producto
+                    },
+                    success: function(data) {
+                        resultado=data.resultado;
+                    },
+                    error: function(request, status, error) {
+                    },
+                    complete: function() {
+                        //alert(data);
+                    }
+                });
+
+                return resultado;
+            }
+
 
         </script>
 
@@ -65,12 +154,12 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:movimientoStockInstance, action:'save']" >
+			<g:form url="[resource:movimientoStockInstance, action:'save']"  id="formulario" >
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<g:submitButton name="create" class="save" id="boton" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
 			</g:form>
 		</div>

@@ -12,10 +12,10 @@
         <th>Ingreso</th>
 
         <th>Egreso</th>
-
+<!--
         <g:sortableColumn property="observacion" title="${message(code: 'movimientoPlan.observacion.label', default: 'Observacion')}" />
 
-
+-->
 
     </tr>
     </thead>
@@ -42,9 +42,9 @@ ${movimientoPlanInstance.monto}
 
             </td>
 
-
+<!--
             <td>${fieldValue(bean: movimientoPlanInstance, field: "observacion")}</td>
-
+-->
 
 
 
@@ -57,5 +57,5 @@ ${movimientoPlanInstance.monto}
     <g:paginate total="${movimientoPlanInstanceCount ?: 0}" />
 </div>
 <div class="fieldcontain">
-    Total=${total}
+  Saldo Total=${total}
 </div>

@@ -17,7 +17,7 @@
 		<g:message code="movimientoStock.cantidad.label" default="Cantidad" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="cantidad" type="number" value="${movimientoStockInstance.cantidad}" required=""/>
+	<g:field name="cantidad" id="cantidad" type="number" value="${movimientoStockInstance.cantidad}" required=""/>
 
 </div>
 

@@ -9,6 +9,7 @@
             $("#producto").select2({allowClear: true});
 
 
+
         })
 
     </script>

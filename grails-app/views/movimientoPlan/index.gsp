@@ -13,7 +13,8 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
+                <li><g:link class="create" action="saldo">Saldo</g:link></li>
+            </ul>
 		</div>
 		<div id="list-movimientoPlan" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
@@ -28,15 +29,16 @@
 					
 						<g:sortableColumn property="fecha" title="${message(code: 'movimientoPlan.fecha.label', default: 'Fecha')}" />
 					
-						<g:sortableColumn property="observacion" title="${message(code: 'movimientoPlan.observacion.label', default: 'Observacion')}" />
-					
+
 						<th><g:message code="movimientoPlan.plan.label" default="Plan" /></th>
 					
 						<th><g:message code="movimientoPlan.conceptoPlan.label" default="Concepto Plan" /></th>
 					
 						<g:sortableColumn property="credito" title="${message(code: 'movimientoPlan.credito.label', default: 'Credito')}" />
-					
-					</tr>
+
+
+
+                    </tr>
 				</thead>
 				<tbody>
 				<g:each in="${movimientoPlanInstanceList}" status="i" var="movimientoPlanInstance">
@@ -46,15 +48,15 @@
 					
 						<td><g:formatDate date="${movimientoPlanInstance.fecha}" /></td>
 					
-						<td>${fieldValue(bean: movimientoPlanInstance, field: "observacion")}</td>
-					
+
 						<td>${fieldValue(bean: movimientoPlanInstance, field: "plan")}</td>
 					
 						<td>${fieldValue(bean: movimientoPlanInstance, field: "conceptoPlan")}</td>
 					
 						<td><g:formatBoolean boolean="${movimientoPlanInstance.credito}" /></td>
-					
-					</tr>
+
+
+                    </tr>
 				</g:each>
 				</tbody>
 			</table>

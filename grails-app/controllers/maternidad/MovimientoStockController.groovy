@@ -194,4 +194,82 @@ def movimientos = MovimientoStock.findAllById(0)
        }
     }
 
+
+    def chequearCantidad = {
+
+      def cantidad=  params.cantidad as Long
+
+      def producto = Producto.get(params.producto)
+
+
+        def ingreso = MovimientoStock.executeQuery("select sum(cantidad) from MovimientoStock ms " +
+                "where ms.ingreso=true and  ms.producto = :producto",
+                [producto: producto])
+
+        def egreso = MovimientoStock.executeQuery("select sum(cantidad) from MovimientoStock ms " +
+                "where ms.ingreso=false and  ms.producto = :producto",
+                [producto: producto])
+
+        def ing  = (ingreso[0])? ingreso[0]:0
+
+        def egr  = (egreso[0])? egreso[0]:0
+
+        def total = ing- egr
+
+       total= total - cantidad
+
+        def resultado
+
+        if(total >= 0){
+            resultado= true
+        }
+        else {
+            resultado= false
+        }
+
+
+        response.contentType = "application/json"
+        render """{"resultado":${resultado}}"""
+
+    }
+
+
+    def chequearMinimo = {
+
+        def cantidad=  params.cantidad as Long
+
+        def producto = Producto.get(params.producto)
+
+
+        def ingreso = MovimientoStock.executeQuery("select sum(cantidad) from MovimientoStock ms " +
+                "where ms.ingreso=true and  ms.producto = :producto",
+                [producto: producto])
+
+        def egreso = MovimientoStock.executeQuery("select sum(cantidad) from MovimientoStock ms " +
+                "where ms.ingreso=false and  ms.producto = :producto",
+                [producto: producto])
+
+        def ing  = (ingreso[0])? ingreso[0]:0
+
+        def egr  = (egreso[0])? egreso[0]:0
+
+        def total = ing- egr
+
+        total= total - cantidad
+
+        def resultado
+
+        if(total >= producto.cantidadMinima){
+            resultado= true
+        }
+        else {
+            resultado= false
+        }
+
+
+        response.contentType = "application/json"
+        render """{"resultado":${resultado}}"""
+
+    }
+
 }
