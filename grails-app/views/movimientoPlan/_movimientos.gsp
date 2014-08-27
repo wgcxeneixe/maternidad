@@ -54,7 +54,7 @@ ${movimientoPlanInstance.monto}
     </tbody>
 </table>
 <div class="pagination">
-    <g:paginate total="${movimientoPlanInstanceCount ?: 0}" />
+    <g:paginate total="${movimientoPlanInstanceCount ?: 0}"  />
 </div>
 <div class="fieldcontain">
   Saldo Total=${total}

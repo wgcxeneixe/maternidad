@@ -9,9 +9,9 @@ Total=${total}
 
         <th><g:message code="movimientoStock.destino.label" default="Destino" /></th>
 
-        <g:sortableColumn property="cantidad" title="${message(code: 'movimientoStock.cantidad.label', default: 'Cantidad')}" />
+        <th>Ingreso</th>
 
-        <g:sortableColumn property="ingreso" title="${message(code: 'movimientoStock.ingreso.label', default: 'Ingreso')}" />
+        <th>Egreso</th>
 
         <g:sortableColumn property="descripcion" title="${message(code: 'movimientoStock.descripcion.label', default: 'Descripcion')}" />
 
@@ -27,9 +27,18 @@ Total=${total}
 
             <td>${fieldValue(bean: movimientoStockInstance, field: "destino")}</td>
 
-            <td>${fieldValue(bean: movimientoStockInstance, field: "cantidad")}</td>
+            <td><g:if test="${movimientoStockInstance.ingreso}">
+                ${movimientoStockInstance.cantidad}
+            </g:if></td>
 
-            <td><g:formatBoolean boolean="${movimientoStockInstance.ingreso}" /></td>
+            <td>
+
+                <g:if test="${!movimientoStockInstance.ingreso}">
+                    ${movimientoStockInstance.cantidad}
+                </g:if>
+
+
+            </td>
 
             <td>${fieldValue(bean: movimientoStockInstance, field: "descripcion")}</td>
 
@@ -40,5 +49,5 @@ Total=${total}
     </tbody>
 </table>
 <div class="pagination">
-    <g:paginate total="${movimientoStockInstanceCount ?: 0}" />
+    <util:remotePaginate  total="${movimientoStockInstanceCount ?: 0}" update="divstock" action="getSaldoStock" pageSizes="[5: '5 por Página',10:'10 por Página',15:'15 por Página']" params="${[idProducto:idProducto]}"  />
 </div>

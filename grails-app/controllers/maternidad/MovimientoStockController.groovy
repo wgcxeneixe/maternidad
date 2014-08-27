@@ -13,11 +13,11 @@ class MovimientoStockController {
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond MovimientoStock.list(params), model: [movimientoStockInstanceCount: MovimientoStock.count()]
-    } */
+    }
+*/
 
 
-
-    def index = {
+    def index (Integer max) {
 
         /*  if (!springSecurityService.isLoggedIn()){
               redirect(controller: 'login', action: "auth")
@@ -51,11 +51,13 @@ class MovimientoStockController {
         }
 
         def criteria = MovimientoStock.createCriteria()
-        params.max = Math.min(params.max ? params.int('max') : 20, 100)
-        def movimientos = criteria.list(query, max: params.max, offset: params.offset)
+       // params.max = Math.min(params.max ? params.int('max') : 10, 100)
+         params.max = Math.min(max ?: 10, 100)
+        def movimientos = criteria.list(query, max: params.max, offset: params.offset).unique()
         def filters = [fechaDesde: params.fechaDesde,fechaHasta: params.fechaHasta,codigo:params.codigo,nombre:params.nombre,codigoDestino:params.codigoDestino,nombreDestino:params.nombreDestino]
 
-        def model = [movimientoStockInstanceList: movimientos, movimientoStockInstanceTotal:movimientos.size(), filters: filters]
+
+        def model = [movimientoStockInstanceList: movimientos, movimientoStockInstanceCount:movimientos.totalCount, filters: filters]
 
         if (request.xhr) {
             // ajax request
@@ -165,11 +167,13 @@ def movimientos = MovimientoStock.findAllById(0)
 
     }
 
-    def getStock = {
+    def getSaldoStock = {
 
        if(params.idProducto && params.idProducto!='null' ) {
+
+           params.max = Math.min(params.max ? params.int('max') : 10, 100)
            def productoInstance = Producto.read(params?.idProducto as String)
-           def movimientos = MovimientoStock.findAllByProducto(productoInstance, [sort: "fecha", order: "desc"])
+           def movimientos = MovimientoStock.findAllByProducto(productoInstance, [sort: "fecha", order: "desc",max: params.max, offset: params.offset])
 
            def ingreso = MovimientoStock.executeQuery("select sum(cantidad) from MovimientoStock ms " +
                    "where ms.ingreso=true and  ms.producto = :producto",
@@ -185,7 +189,8 @@ def movimientos = MovimientoStock.findAllById(0)
 
            def total = ing- egr
 
-           render(template: 'movimientos', model: [movimientoStockInstanceList: movimientos, movimientoStockInstanceCount: movimientos.size(), total: total])
+
+           render(template: 'movimientos', model: [movimientoStockInstanceList: movimientos, movimientoStockInstanceCount: MovimientoStock.findAllByProducto(productoInstance).size(), total: total,idProducto:productoInstance.id])
        }
         else {
            def movimientos = MovimientoStock.findAllById(0)

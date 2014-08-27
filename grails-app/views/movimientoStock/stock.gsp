@@ -3,6 +3,7 @@
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'movimientoStock.label', default: 'MovimientoStock')}" />
+    <g:setProvider library="prototype"/>
     <script>
         $(function() {
 
@@ -41,7 +42,7 @@
                     <td valign="top" class="value ">
                         <g:select id="producto" name="producto.id" from="${maternidad.Producto.list()}" optionKey="id" noSelection="['null':'Seleccione un Producto']"
                                   onchange="${remoteFunction(controller: 'movimientoStock',
-                                          action: 'getStock',
+                                          action: 'getSaldoStock',
                                           params: '\'idProducto=\' + this.value',
                                           update: 'divstock')}"
                         />
@@ -70,6 +71,7 @@
 
                 </tbody>
             </table>
+
         </fieldset>
 
 </div>

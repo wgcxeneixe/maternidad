@@ -40,11 +40,11 @@ class ProductoController {
         }
 
         def criteria = Producto.createCriteria()
-        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
         def productos = criteria.list(query, max: params.max, offset: params.offset)
         def filters = [codigo:params.codigo,nombre:params.nombre]
 
-        def model = [productoInstanceList: productos, productoInstanceTotal:productos.size(), filters: filters]
+        def model = [productoInstanceList: productos, productoInstanceTotal:productos.totalCount, filters: filters]
 
         if (request.xhr) {
             // ajax request

@@ -48,7 +48,7 @@ class ConvenioController {
         def convenios = criteria.list(query, max: params.max, offset: params.offset)
         def filters = [sigla: params.sigla,codigo:params.codigo,nombre:params.nombre]
 
-        def model = [convenioInstanceList: convenios, convenioInstanceTotal:convenios.size(), filters: filters]
+        def model = [convenioInstanceList: convenios, convenioInstanceCount:convenios.totalCount, filters: filters]
 
         if (request.xhr) {
             // ajax request

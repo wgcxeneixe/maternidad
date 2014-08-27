@@ -42,11 +42,11 @@ class ObraSocialController {
         }
 
         def criteria = ObraSocial.createCriteria()
-        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
         def obrasociales = criteria.list(query, max: params.max, offset: params.offset)
         def filters = [sigla: params.sigla,codigo:params.codigo,nombre:params.nombre]
 
-        def model = [obraSocialInstanceList: obrasociales, obraSocialInstanceTotal:obrasociales.size(), filters: filters]
+        def model = [obraSocialInstanceList: obrasociales, obraSocialInstanceTotal:obrasociales.totalCount, filters: filters]
 
         if (request.xhr) {
             // ajax request
