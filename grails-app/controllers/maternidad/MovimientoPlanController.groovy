@@ -116,8 +116,8 @@ class MovimientoPlanController {
 
         if(params.idPlan && params.idPlan!='null' ) {
             def planInstance = Plan.read(params?.idPlan as String)
-
-            def movimientos = MovimientoPlan.findAllByPlan(planInstance,[sort: "fecha", order: "desc"])
+            params.max = Math.min(params.max ? params.int('max') : 10, 100)
+            def movimientos = MovimientoPlan.findAllByPlan(planInstance,[sort: "fecha", order: "desc",max: params.max, offset: params.offset])
 
             def credito = MovimientoPlan.executeQuery("select sum(monto) from MovimientoPlan mp " +
                     "where mp.credito=true and  mp.plan = :plan",
@@ -133,7 +133,7 @@ class MovimientoPlanController {
 
             def total = ing- egr
 
-            render(template: 'movimientos', model: [movimientoPlanInstanceList: movimientos, movimientoPlanInstanceCount: movimientos.size(), total: total])
+            render(template: 'movimientos', model: [movimientoPlanInstanceList: movimientos, movimientoPlanInstanceCount: MovimientoPlan.findAllByPlan(planInstance).size(), total: total,idPlan:planInstance?.id])
         }
         else {
             def movimientos = MovimientoPlan.findAllById(0)

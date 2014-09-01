@@ -53,8 +53,9 @@ ${movimientoPlanInstance.monto}
     </g:each>
     </tbody>
 </table>
+
 <div class="pagination">
-    <g:paginate total="${movimientoPlanInstanceCount ?: 0}"  />
+    <util:remotePaginate  total="${movimientoPlanInstanceCount ?: 0}" update="divplan" action="getmovimientosPlan" pageSizes="[5: '5 por Página',10:'10 por Página',15:'15 por Página']" params="${[idPlan:idPlan]}"  />
 </div>
 <div class="fieldcontain">
   Saldo Total=${total}
