@@ -4,7 +4,7 @@ class Profesional {
 
 
     Persona persona
-    Boolean activo
+    Boolean activo=true
     String matriculaProvincial
     Date fechaMatriculacion
     String cbu
@@ -31,6 +31,9 @@ class Profesional {
     banco(nullable: true , blank:true)
 
     }
+
+    String toString() { "${persona.razonSocial?:persona.apellido+', '+persona.nombre}" }
+
 }
 
 

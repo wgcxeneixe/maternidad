@@ -3,7 +3,7 @@ package maternidad
 class Banco {
 
     String nombre
-    Boolean activo
+    Boolean activo=true
 
     static constraints = {
 
@@ -11,4 +11,6 @@ class Banco {
         activo(nullable: true , blank:true)
 
     }
+
+    String toString() { "${nombre}"  }
 }

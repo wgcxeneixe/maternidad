@@ -3,7 +3,7 @@ package maternidad
 class ConceptoLiquidacion {
 
     String observacion
-    Boolean activo
+    Boolean activo=true
     String nombre
     Boolean esMensual
     String codigo
@@ -15,7 +15,7 @@ class ConceptoLiquidacion {
     static constraints = {
 
         observacion(size:0..5000, nullable:true, blank:true)
-        nombre(size:2..35, nullable:true, blank:true)
+        nombre(size:2..120, nullable:false, blank:false)
         codigo(size:2..10, nullable:true, blank:true)
         esMensual( nullable:true, blank:true)
         credito( nullable:false, blank:false)

@@ -2,16 +2,22 @@ package maternidad
 
 class ConceptoPorProfesional {
 
-    String observaciones
+    String observacion
     ConceptoLiquidacion conceptoLiquidacion
     Profesional profesional
     Double montoFijo
     Double porcentaje
-    Boolean porUnicaVez
+    Boolean porUnicaVez=true
     Usuario usuario
     Date fecha
-    Boolean activo
+    Boolean activo=true
 
     static constraints = {
+
+        observacion(size:0..5000, nullable:true, blank:true)
+        montoFijo(nullable: true,blank:true)
+        porcentaje(nullable: true,blank:true)
+        usuario(nullable: true,blank:true)
+
     }
 }

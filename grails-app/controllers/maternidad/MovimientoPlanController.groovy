@@ -133,7 +133,7 @@ class MovimientoPlanController {
 
             def total = ing- egr
 
-            render(template: 'movimientos', model: [movimientoPlanInstanceList: movimientos, movimientoPlanInstanceCount: movimientos.totalCount, total: total])
+            render(template: 'movimientos', model: [movimientoPlanInstanceList: movimientos, movimientoPlanInstanceCount: movimientos.size(), total: total])
         }
         else {
             def movimientos = MovimientoPlan.findAllById(0)
