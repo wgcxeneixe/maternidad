@@ -21,9 +21,14 @@ class Profesional {
 
     ]
 
+
+    static mapping = {
+       persona cascade: 'all'
+    }
+
     static constraints = {
 
-    persona(nullable: false , blank:false)
+    persona(nullable: true , blank:true)
     activo(nullable: true , blank:true)
     matriculaProvincial(nullable: true , blank:true)
     fechaMatriculacion(nullable: true , blank:true)

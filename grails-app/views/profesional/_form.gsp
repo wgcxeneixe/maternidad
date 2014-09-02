@@ -1,7 +1,7 @@
 <%@ page import="maternidad.Profesional" %>
 
 
-
+<!--
 <div class="fieldcontain ${hasErrors(bean: profesionalInstance, field: 'persona', 'error')} required">
 	<label for="persona">
 		<g:message code="profesional.persona.label" default="Persona" />
@@ -10,7 +10,7 @@
 	<g:select id="persona" name="persona.id" from="${maternidad.Persona.list()}" optionKey="id" required="" value="${profesionalInstance?.persona?.id}" class="many-to-one"/>
 
 </div>
-
+-->
 <div class="fieldcontain ${hasErrors(bean: profesionalInstance, field: 'activo', 'error')} ">
 	<label for="activo">
 		<g:message code="profesional.activo.label" default="Activo" />
@@ -56,6 +56,8 @@
 
 </div>
 
+
+<!--
 <div class="fieldcontain ${hasErrors(bean: profesionalInstance, field: 'listaConceptos', 'error')} ">
 	<label for="listaConceptos">
 		<g:message code="profesional.listaConceptos.label" default="Lista Conceptos" />
@@ -73,4 +75,4 @@
 
 
 </div>
-
+-->

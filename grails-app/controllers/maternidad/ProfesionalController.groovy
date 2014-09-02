@@ -72,20 +72,35 @@ class ProfesionalController {
     }
 
     def create() {
-        respond new Profesional(params)
+        //respond new Profesional(params)
+        render(view: "create", model: [profesionalInstance: new Profesional(params),personaInstance:new Persona(params)])
     }
 
     @Transactional
-    def save(Profesional profesionalInstance) {
+    def save(Profesional profesionalInstance,Persona personaInstance) {
         if (profesionalInstance == null) {
             notFound()
             return
         }
 
+        if (personaInstance == null) {
+            notFound()
+            return
+        }
+
+        if (personaInstance.hasErrors()) {
+            respond profesionalInstance.errors, view: 'create'
+            return
+        }
+
+        personaInstance.save flush: true
+        profesionalInstance.persona=personaInstance
+
         if (profesionalInstance.hasErrors()) {
             respond profesionalInstance.errors, view: 'create'
             return
         }
+
 
         profesionalInstance.save flush: true
 
@@ -99,15 +114,35 @@ class ProfesionalController {
     }
 
     def edit(Profesional profesionalInstance) {
-        respond profesionalInstance
+     //   respond profesionalInstance
+        render(view: "edit", model: [profesionalInstance: profesionalInstance,personaInstance:profesionalInstance.persona])
     }
 
     @Transactional
-    def update(Profesional profesionalInstance) {
+    def update(Profesional profesionalInstance,Persona personaInstance) {
         if (profesionalInstance == null) {
             notFound()
             return
         }
+
+
+        profesionalInstance.persona.apellido=params?.apellido
+        profesionalInstance.persona.calle=params?.calle
+        profesionalInstance.persona.codigoPostal=params?.codigoPostal
+        profesionalInstance.persona.cuit=(params?.cuit != '')?params?.cuit as Long:null
+        profesionalInstance.persona.departamento=params?.departamento
+        profesionalInstance.persona?.estadoCivil=(params?.estadoCivil.id!='null')?EstadoCivil.get(params?.estadoCivil.id as Long):null
+        profesionalInstance.persona?.localidad=(params?.localidad.id!='null')?Localidad.get(params?.localidad.id as Long):null
+        profesionalInstance.persona?.nacionalidad=(params?.nacionalidad.id!='null')?Pais.get(params?.nacionalidad.id as Long):null
+        profesionalInstance.persona.nombre=params?.nombre
+        profesionalInstance.persona.nroDocumento=params?.nroDocumento as Long
+        profesionalInstance.persona.numero=params?.numero
+        profesionalInstance.persona.piso=params?.piso
+        profesionalInstance.persona.razonSocial=params?.razonSocial
+        profesionalInstance.persona?.tipoDocumento=TipoDocumento.get(params?.tipoDocumento.id as Long)
+
+        profesionalInstance.persona.save flush: true
+       // profesionalInstance.persona=personaInstance
 
         if (profesionalInstance.hasErrors()) {
             respond profesionalInstance.errors, view: 'edit'

@@ -43,7 +43,7 @@
         <g:message code="persona.nroDocumento.label" default="Nro Documento" />
         <span class="required-indicator">*</span>
     </label>
-    <g:textField name="nroDocumento" id="nroDocumento" value="${personaInstance.nroDocumento}" />
+    <g:textField name="nroDocumento" id="nroDocumento" value="${personaInstance?.nroDocumento}" />
 
 </div>
 
@@ -74,7 +74,7 @@
         <g:message code="persona.cuit.label" default="Cuit" />
         <span class="required-indicator">*</span>
     </label>
-    <g:textField name="cuit" id="cuit" value="${personaInstance.cuit}" />
+    <g:textField name="cuit" id="cuit" value="${personaInstance?.cuit}" />
 
 </div>
 
