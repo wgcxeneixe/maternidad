@@ -32,7 +32,7 @@ class Profesional {
 
     }
 
-    String toString() { "${persona.razonSocial?:persona.apellido+', '+persona.nombre}" }
+    String toString() { if(persona){"${persona.razonSocial?:persona.apellido+', '+persona.nombre}"} else {""} }
 
 }
 
