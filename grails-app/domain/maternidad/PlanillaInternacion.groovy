@@ -14,10 +14,10 @@ class PlanillaInternacion {
         paciente(nullable: true,blank:true)
         plan(nullable: false,blank:false)
         fechaInternacion(nullable: false,blank:false, attributes:[precision:"day"])
-        nombreFamiliarResponsable(matches: "[a-zA-Z]+",nullable: false,blank:false)
+        nombreFamiliarResponsable(nullable: false,blank:false)
         telefonoFamiliarResponsable(phoneNumber:true)
-        fechaAlta(validator: { val, obj ->val?.after(obj.fechaInternacion) || val?.equals(obj.fechaInternacion)},attributes:[precision:"day"])
-
+        fechaAlta(nullable: true,blank:true,validator: { val, obj ->val?.after(obj.fechaInternacion) || val?.equals(obj.fechaInternacion)},attributes:[precision:"day"])
+        observaciones(nullable: true,blank:true, size: 0..5000)
     }
 
     String toString() { "Nº ${id}" }

@@ -13,3 +13,9 @@ INSERT INTO sami.persona VALUES (1,0,'Migueles','Piedras 13','3260',20666666666,
 
 insert into sami.usuario values (1,0,false,false,true,'',false,1,'Usuario1');
 insert into sami.usuario values (2,0,false,false,true,'',false,1,'Usuario2');
+
+insert into sami.concepto_caja values(1,0,true,'EFE','EFECTIVO','EFECTIVO');
+
+insert into sami.obra_social values(1,0,true,'OS100',20282094712,'OS100',1,'');
+
+insert into sami.plan values(1,0,true,'F100','F100',1,'');
