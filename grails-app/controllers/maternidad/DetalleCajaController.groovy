@@ -12,8 +12,15 @@ class DetalleCajaController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
+        if (params.caja) {
+            eq('caja', params.caja )
+        }
+        if (params.id) {
+            eqId(1)
+        }
         params.max = Math.min(max ?: 10, 100)
-        respond DetalleCaja.list(params), model: [detalleCajaInstanceCount: DetalleCaja.count()]
+        def filters = [caja: params.caja,id:params.id]
+        respond DetalleCaja.list(params), model: [detalleCajaInstanceCount: DetalleCaja.count()], filters: filters
     }
 
     def show(DetalleCaja detalleCajaInstance) {
@@ -21,7 +28,16 @@ class DetalleCajaController {
     }
 
     def create() {
-        respond new DetalleCaja(params)
+        def cajaDiariaAbiertaInstance =  CajaDiaria.findByFechaCierreIsNull()
+        if(cajaDiariaAbiertaInstance == null ){
+            //No existe una caja abierta
+            redirect action: "create", method: "POST", controller: "cajaDiaria"
+        }
+        else{
+            //Existe una caja abierta, paso los datos
+            params.setProperty('CajaDiariaAbierta',cajaDiariaAbiertaInstance)
+            respond new DetalleCaja(params)
+        }
     }
 
     @Transactional

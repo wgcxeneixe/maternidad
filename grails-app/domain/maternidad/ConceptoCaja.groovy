@@ -13,4 +13,6 @@ class ConceptoCaja {
         activo(nullable:false, blank:false)
         descripcion(size:0..5000, nullable:true, blank:true)
     }
+
+    String toString() { "${nombre}" }
 }

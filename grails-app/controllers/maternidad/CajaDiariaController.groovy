@@ -28,7 +28,8 @@ class CajaDiariaController {
             //cajaDiariaInstance.usuarioApertura = springSecurityService.currentUser
             /* Buscamos el saldo final de la ultima caja */
             def cajaDiariaUltimaInstance = CajaDiaria.listOrderByFechaCierre()
-            cajaDiariaInstance.saldoInicial = cajaDiariaUltimaInstance.first().saldoFinal
+            if(cajaDiariaUltimaInstance.size() > 0 ){
+            cajaDiariaInstance.saldoInicial = cajaDiariaUltimaInstance.first().saldoFinal}
             respond cajaDiariaInstance}
         else{
             redirect action: "edit", method: "POST", params: [id:cajaDiariaAbiertaInstance.id]
@@ -48,11 +49,23 @@ class CajaDiariaController {
             return
         }
 
+        /* Controlamos la ultima fecha y la fecha de apertura */
+        /* Buscamos el saldo final de la ultima caja */
+        def cajaDiariaUltimaInstance = CajaDiaria.listOrderByFechaCierre()
+        if(cajaDiariaUltimaInstance.size() > 0 ){
+            def fecha = cajaDiariaUltimaInstance.last().fechaCierre
+            if(cajaDiariaUltimaInstance.last().fechaCierre > cajaDiariaInstance.fechaApertura){
+                flash.message = message(code: 'cajaDiaria.ultimocierremayor.message', args: [message(code: 'cajaDiaria.label', default: 'Caja diaria'), cajaDiariaInstance.id])
+                respond cajaDiariaInstance.errors, view:'create'
+                return
+            }
+        }
+
         cajaDiariaInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'cajaDiaria.label', default: 'CajaDiaria'), cajaDiariaInstance.id])
+                flash.message = message(code: 'cajaDiaria.created.message', args: [message(code: 'cajaDiaria.label', default: 'Caja diaria'), cajaDiariaInstance.id])
                 redirect cajaDiariaInstance
             }
             '*' { respond cajaDiariaInstance, [status: CREATED] }
@@ -61,8 +74,24 @@ class CajaDiariaController {
 
     def edit(CajaDiaria cajaDiariaInstance) {
         //cajaDiariaInstance.usuarioApertura = springSecurityService.currentUser
-
-        respond cajaDiariaInstance
+        def detallesCaja = DetalleCaja.findAllByCaja(cajaDiariaInstance)
+        def saldofinal = 0
+        for(undetalle in detallesCaja)
+        {
+           if(undetalle.credito == true){
+               saldofinal = saldofinal + undetalle.monto
+           }else{
+               saldofinal = saldofinal - undetalle.monto
+           }
+        }
+        cajaDiariaInstance.saldoFinal = saldofinal
+        def cajacerrada = new Boolean(false)
+        if(cajaDiariaInstance.fechaCierre != null){
+            cajacerrada = true
+        }else{
+            cajaDiariaInstance.fechaCierre = new Date()
+        }
+        respond cajaDiariaInstance, model:[cajaDiariaInstanceCerrada: cajacerrada]
     }
 
     @Transactional
@@ -73,8 +102,21 @@ class CajaDiariaController {
         }
 
         if (cajaDiariaInstance.hasErrors()) {
-            respond cajaDiariaInstance.errors, view:'edit'
+            respond cajaDiariaInstance.errors, view:'edit', model:[cajaDiariaInstanceCerrada: false]
             return
+        }
+
+        /* Controlamos la ultima fecha y la fecha de apertura */
+        /* Buscamos el saldo final de la ultima caja */
+        //CajaDiaria.listOrderByFechaCierre()
+        def cajaDiariaUltimaInstance = CajaDiaria.findAllByIdNotEqual(cajaDiariaInstance.id, [sort: "fechaCierre", order: "asc"])
+        if(cajaDiariaUltimaInstance.size() > 0 ){
+            def fecha = cajaDiariaUltimaInstance.last().fechaCierre
+            if(cajaDiariaUltimaInstance.last().fechaCierre > cajaDiariaInstance.fechaApertura){
+                flash.message = message(code: 'cajaDiaria.ultimocierremayor.message', args: [message(code: 'cajaDiaria.label', default: 'Caja diaria'), cajaDiariaInstance.id])
+                respond cajaDiariaInstance.errors, view:'edit', model:[cajaDiariaInstanceCerrada: false]
+                return
+            }
         }
 
         cajaDiariaInstance.save flush:true

@@ -10,8 +10,8 @@ class CajaDiaria {
     Usuario usuarioCierre
 
     static constraints = {
-        fechaApertura(nullable: false,blank:false,attributes:[precision:"minute"])
-        fechaCierre(nullable: true,blank:true,attributes:[precision:"minute"],validator: { val, obj ->val?.after(obj.fechaApertura)})
+        fechaApertura(format:'dd-MM-yyyy',nullable: false,blank:false,attributes:[precision:"minute"])
+        fechaCierre(format:'dd-MM-yyyy',nullable: true,blank:true,attributes:[precision:"minute"],validator: { val, obj ->val?.after(obj.fechaApertura)})
         saldoInicial(nullable: false,blank: false,editable: false,scale: 2, matches: "[0-9]")
         saldoFinal(nullable: true,blank: true,editable: false,scale: 2, matches: "[0-9]")
         observaciones(size:0..5000,nullable: true,blank:true)
@@ -22,4 +22,6 @@ class CajaDiaria {
     static hasMany = [
         detallesCaja: DetalleCaja
     ]
+
+    String toString() { "Nº ${id}" }
 }

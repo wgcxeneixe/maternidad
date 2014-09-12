@@ -11,14 +11,14 @@ class PlanillaInternacion {
     String observaciones
 
     static constraints = {
-        paciente(nullable: false,blank:false)
+        paciente(nullable: true,blank:true)
         plan(nullable: false,blank:false)
         fechaInternacion(nullable: false,blank:false, attributes:[precision:"day"])
-        nombreFamiliarResponsable(matches: "[a-zA-Z]+")
+        nombreFamiliarResponsable(matches: "[a-zA-Z]+",nullable: false,blank:false)
         telefonoFamiliarResponsable(phoneNumber:true)
-        fechaAlta(validator: { val, obj ->val?.after(obj.fechaInternacion)},attributes:[precision:"day"])
+        fechaAlta(validator: { val, obj ->val?.after(obj.fechaInternacion) || val?.equals(obj.fechaInternacion)},attributes:[precision:"day"])
 
     }
 
-    String toString() { "${id}" }
+    String toString() { "Nº ${id}" }
 }
