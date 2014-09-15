@@ -10,6 +10,10 @@
                 jQuery("#spinner").ajaxComplete(function (event, request, settings) {
                     updateDatePicker();
                 });
+                //Selector para planilla de internacion
+                $("#planillainternacion").select2({allowClear: true});
+                //Selector para Concepto
+                $("#conceptocaja").select2({allowClear: true});
             })
         </script>
 		<meta name="layout" content="main">
