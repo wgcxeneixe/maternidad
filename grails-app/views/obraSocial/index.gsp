@@ -24,7 +24,7 @@
             <div class="filters">
                 <g:form action="index">
 
-                    <table>
+                    <table >
                         <tr>
                             <td> <p><label for="sigla">Sigla</label>
                                 <g:textField name="sigla" value="${filters?.sigla}" /></p></td>

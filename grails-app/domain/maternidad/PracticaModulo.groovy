@@ -10,6 +10,8 @@ class PracticaModulo {
     Practica practica
     Practica modulo
 
+
+
     static constraints = {
 
         valorGasto(nullable: true,blank:true)
@@ -19,4 +21,8 @@ class PracticaModulo {
         practica(nullable: false,blank:false)
         modulo(nullable: false,blank:false)
     }
+
+
+    String toString() { "${practica?:practica.codigo+' - '+practica.nombre}" }
+
 }

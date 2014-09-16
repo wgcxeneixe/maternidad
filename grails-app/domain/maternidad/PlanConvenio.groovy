@@ -5,7 +5,7 @@ class PlanConvenio {
     Plan plan
     Convenio convenio
 
-    static hasMany = [valoresGalenoGasto:ValorGalenoGasto,valoresGalenoHonorario:ValorGalenoHonorario]
+    static hasMany = [valoresGalenoGasto:ValorGalenoGasto,valoresGalenoHonorario:ValorGalenoHonorario,valoresPracticas:ValorPractica]
 
     static constraints = {
 

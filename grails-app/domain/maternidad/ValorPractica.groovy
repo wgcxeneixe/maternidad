@@ -7,6 +7,8 @@ class ValorPractica {
     Double valorAnestecista
     Double valorGasto
     Double valorHonorario
+    Double valorHonorarioModulo
+    Double valorGastoModulo
     Practica practica
     Plan plan
     PlanConvenio planConvenio
@@ -23,5 +25,7 @@ class ValorPractica {
         plan(nullable: false,blank:false)
         planConvenio(nullable: false,blank:false)
         fechaActualizado(nullable: false,blank:false)
+        valorGastoModulo(nullable: true,blank:true)
+        valorHonorarioModulo(nullable: true,blank:true)
     }
 }

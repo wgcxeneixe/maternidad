@@ -55,8 +55,12 @@ Convenio
                 <td><g:link controller="valorGalenoGasto" action="asignarValorGalenoGasto" id="${planConvenio?.id}">Galenos de Gastos</g:link>
               |  <g:link controller="valorGalenoHonorario" action="asignarValorGalenoHonorario" id="${planConvenio?.id}">Galenos de Honorario</g:link>
                 </td>
-
-
+<td>
+<g:link controller="practica" action="verModulos" id="${planConvenio?.id}" >Modulos</g:link>
+</td>
+<td>
+    <g:link controller="practica" action="createModulo" id="${planConvenio?.id}" >Crear Modulo</g:link>
+</td>
             </tr>
         </g:each>
         </tbody>

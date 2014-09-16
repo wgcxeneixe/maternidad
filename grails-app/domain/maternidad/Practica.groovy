@@ -11,6 +11,10 @@ class Practica {
     Double multiplicadorGasto
     ObraSocial obrasocial
 
+    static mappedBy = [practicasModulos: 'modulo']
+
+    static hasMany = [practicasModulos:PracticaModulo]
+
     static constraints = {
         nombre(size:2..120, nullable:false, blank:false)
         codigo(size:2..10, nullable:false, blank:false)
@@ -21,4 +25,7 @@ class Practica {
         multiplicadorGasto(nullable:true, blank:true)
         obrasocial(nullable:true, blank:true)
     }
+
+    String toString() { "${codigo+" - "+nombre}"  }
+
 }
