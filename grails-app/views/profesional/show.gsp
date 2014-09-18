@@ -81,13 +81,13 @@
 				<li class="fieldcontain">
 					<span id="listaConceptos-label" class="property-label"><g:message code="profesional.listaConceptos.label" default="Lista Conceptos" /></span>
 					
-						<g:each in="${profesionalInstance.listaConceptos}" var="l">
+						<g:each in="${profesionalInstance?.listaConceptos}" var="l">
 						<span class="property-value" aria-labelledby="listaConceptos-label"><g:link controller="conceptoPorProfesional" action="show" id="${l.id}">${l?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>
 				</g:if>
-			
+
 			</ol>
 			<g:form url="[resource:profesionalInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">

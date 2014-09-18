@@ -77,7 +77,7 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${obraSocialInstance?.convenios}">
+		<!--		<g:if test="${obraSocialInstance?.convenios}">
 				<li class="fieldcontain">
 					<span id="convenios-label" class="property-label"><g:message code="obraSocial.convenios.label" default="Convenios" /></span>
 					
@@ -111,6 +111,8 @@
 				</g:if>
 			
 			</ol>
+
+			-->
 			<g:form url="[resource:obraSocialInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${obraSocialInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>

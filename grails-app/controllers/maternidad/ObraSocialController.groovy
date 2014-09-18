@@ -122,9 +122,9 @@ class ObraSocialController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'obraSocial.label', default: 'ObraSocial'), obraSocialInstance.id])
-                redirect obraSocialInstance
+                redirect(action: "index")
             }
-            '*' { respond obraSocialInstance, [status: CREATED] }
+            '*' { respond obraSocialInstance, [status: CREATED],view: 'index' }
         }
     }
 
@@ -149,7 +149,7 @@ class ObraSocialController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'ObraSocial.label', default: 'ObraSocial'), obraSocialInstance.id])
-                redirect obraSocialInstance
+                redirect(action: "index")
             }
             '*'{ respond obraSocialInstance, [status: OK] }
         }

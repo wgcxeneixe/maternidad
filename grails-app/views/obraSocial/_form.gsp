@@ -56,12 +56,18 @@
 
 </div>
 
+
+
+<!--
+
 <div class="fieldcontain ${hasErrors(bean: obraSocialInstance, field: 'convenios', 'error')} ">
 	<label for="convenios">
 		<g:message code="obraSocial.convenios.label" default="Convenios" />
 		
 	</label>
-	
+
+
+
 <ul class="one-to-many">
 <g:each in="${obraSocialInstance?.convenios?}" var="c">
     <li><g:link controller="convenio" action="show" id="${c.id}">${c?.encodeAsHTML()}</g:link></li>
@@ -107,6 +113,6 @@
 </li>
 </ul>
 
-
 </div>
+-->
 

@@ -9,7 +9,7 @@ class Profesional {
     Date fechaMatriculacion
     String cbu
     Banco banco
-    SortedSet<ConceptoPorProfesional> listaConceptos
+    //SortedSet<ConceptoPorProfesional> listaConceptos
 
     static belongsTo = [
             persona : Persona,
