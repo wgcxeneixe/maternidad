@@ -34,7 +34,7 @@ class ValorGalenoGastoController {
         for(gasto in TipoGasto.list()){
 
 
-            if ( lista.contains(gasto?.id as String)  ){
+            if ( lista?.contains(gasto?.id as String)  ){
                 def valorGalenoGasto = new ValorGalenoGasto()
 
                 valorGalenoGasto.planConvenio=planConvenio

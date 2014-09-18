@@ -32,7 +32,7 @@ class ValorGalenoHonorarioController {
         for(honorario in TipoHonorario.list()){
 
 
-            if ( lista.contains(honorario?.id as String)  ){
+            if ( lista?.contains(honorario?.id as String)  ){
                 def valorGalenoHonorario = new ValorGalenoHonorario()
 
                 valorGalenoHonorario.planConvenio=planConvenio

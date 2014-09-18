@@ -116,11 +116,19 @@
                     <td>Valor Especialista</td>
                 </tr>
                 <g:each in="${practicaInstance.practicasModulos}" var="practicaM">
-                    <tr><td>${practicaM?.practica?.toString()}</td>
-                        <td>${practicaM?.valorGasto}</td>
-                        <td>${practicaM?.valorAnestecista}</td>
-                        <td>${practicaM?.valorAyudante}</td>
-                        <td>${practicaM?.valorEspecialista}</td>
+                    <tr>
+                        <td><g:checkBox name="practicasDelModulo" checked="true" value="${practicaM?.id}"/></td>
+                        <td>
+                        <g:select  name="practica${practicaM?.id}" from="${maternidad.Practica.findByNomenclada(Boolean.TRUE).list()}" optionKey="id" value="${practicaM?.practica?.id}"  class="many-to-one" />
+                       </td>
+                        <td><g:textField name="valorGasto${practicaM?.id}" value="${practicaM?.valorGasto}"/>
+                            </td>
+                        <td><g:textField name="valorAnestesista${practicaM?.id}" value="${practicaM?.valorAnestecista}"/>
+                        </td>
+                        <td><g:textField name="valorAyudante${practicaM?.id}" value="${practicaM?.valorAyudante}"/>
+                        </td>
+                        <td><g:textField name="valorEspecialista${practicaM?.id}" value="${practicaM?.valorEspecialista}"/>
+                        </td>
                     </tr>
                 </g:each>
             </table>

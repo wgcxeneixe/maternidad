@@ -268,16 +268,33 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
 
         valorPracticaInstance.save flush: true
 
+
+
+        def listaPracticasExistentes = params.practicasDelModulo as List
+
+        for( i in listaPracticasExistentes ) {
+            def practicaModulo= PracticaModulo.findById(i)
+
+            practicaModulo.practica=Practica.findById(params['practica'+i] as Long)
+            practicaModulo.valorEspecialista =(params['valorEspecialista'+i])?params['valorEspecialista'+i] as Double:null
+            practicaModulo.valorAyudante =(params['valorAyudante'+i])?params['valorAyudante'+i] as Double:null
+            practicaModulo.valorAnestecista=(params['valorAnestesista'+i])?params['valorAnestesista'+i] as Double:null
+            practicaModulo.valorGasto=(params['valorGasto'+i])?params['valorGasto'+i] as Double:null
+            practicaModulo.save()
+        }
+
+
+
         def listaPracticas = params.practicas as List
 
         for( i in listaPracticas ) {
             def practicaModulo= new PracticaModulo()
             practicaModulo.modulo=practicaInstance
             practicaModulo.practica=Practica.findById(params['practica'+i] as Long)
-            practicaModulo.valorEspecialista =(params['valorEspecialista'+i])?params['valorEspecialista'+i] as Double:0
-            practicaModulo.valorAyudante =(params['valorAyudante'+i])?params['valorAyudante'+i] as Double:0
-            practicaModulo.valorAnestecista=(params['valorAnestesista'+i])?params['valorAnestesista'+i] as Double:0
-            practicaModulo.valorGasto=(params['valorGasto'+i])?params['valorGasto'+i] as Double:0
+            practicaModulo.valorEspecialista =(params['valorEspecialista'+i])?params['valorEspecialista'+i] as Double:null
+            practicaModulo.valorAyudante =(params['valorAyudante'+i])?params['valorAyudante'+i] as Double:null
+            practicaModulo.valorAnestecista=(params['valorAnestesista'+i])?params['valorAnestesista'+i] as Double:null
+            practicaModulo.valorGasto=(params['valorGasto'+i])?params['valorGasto'+i] as Double:null
             practicaModulo.save()
         }
 
