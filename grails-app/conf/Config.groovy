@@ -115,3 +115,30 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+grails.views.gsp.encoding="UTF-8"
+
+grails.plugins.remotepagination.max=10
+grails.views.javascript.library="jquery"
+
+
+
+grails.plugin.springsecurity.password.algorithm = 'SHA-256'
+grails.plugin.springsecurity.password.hash.iterations = 1
+
+
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'maternidad.Usuario'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'maternidad.UsuarioRol'
+grails.plugin.springsecurity.authority.className = 'maternidad.Rol'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                              ['permitAll'],
+	'/index':                         ['permitAll'],
+	'/index.gsp':                     ['permitAll'],
+	'/assets/**':                     ['permitAll'],
+	'/**/js/**':                      ['permitAll'],
+	'/**/css/**':                     ['permitAll'],
+	'/**/images/**':                  ['permitAll'],
+	'/**/favicon.ico':                ['permitAll']
+]
+
