@@ -1,10 +1,13 @@
 package maternidad
 
 import com.sun.org.apache.xpath.internal.operations.Bool
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+
+@Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 @Transactional(readOnly = false)
 class ConceptoPorProfesionalController {
 

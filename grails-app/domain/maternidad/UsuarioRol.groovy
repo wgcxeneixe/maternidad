@@ -4,54 +4,95 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 
 class UsuarioRol implements Serializable {
 
-    Usuario usuario
-    Rol rol
+	private static final long serialVersionUID = 1
 
-    boolean equals(other) {
-        if (!(other instanceof UsuarioRol)) {
-            return false
-        }
+	Usuario usuario
+	Rol rol
 
-        other.usuario?.id == usuario?.id &&
-                other.rol?.id == rol?.id
-    }
+	boolean equals(other) {
+		if (!(other instanceof UsuarioRol)) {
+			return false
+		}
 
-    int hashCode() {
-        def builder = new HashCodeBuilder()
-        if (usuario) builder.append(usuario.id)
-        if (rol) builder.append(rol.id)
-        builder.toHashCode()
-    }
+		other.usuario?.id == usuario?.id &&
+		other.rol?.id == rol?.id
+	}
 
-    static UsuarioRol get(long usuarioId, long rolId) {
-        find 'from UsuarioRol where usuario.id=:usuarioId and rol.id=:rolId',
-                [usuarioId: usuarioId, rolId: rolId]
-    }
+	int hashCode() {
+		def builder = new HashCodeBuilder()
+		if (usuario) builder.append(usuario.id)
+		if (rol) builder.append(rol.id)
+		builder.toHashCode()
+	}
 
-    static UsuarioRol create(Usuario usuario, Rol rol, boolean flush = false) {
-        new UsuarioRol(usuario: usuario, rol: rol).save(flush: flush, insert: true)
-    }
+	static UsuarioRol get(long usuarioId, long rolId) {
+		UsuarioRol.where {
+			usuario == Usuario.load(usuarioId) &&
+			rol == Rol.load(rolId)
+		}.get()
+	}
 
-    static boolean remove(Usuario usuario, Rol rol, boolean flush = false) {
-        UsuarioRol instance = UsuarioRol.findByUsuarioAndRol(usuario, rol)
-        if (!instance) {
-            return false
-        }
+	static boolean exists(long usuarioId, long rolId) {
+		UsuarioRol.where {
+			usuario == Usuario.load(usuarioId) &&
+			rol == Rol.load(rolId)
+		}.count() > 0
+	}
 
-        instance.delete(flush: flush)
-        true
-    }
+	static UsuarioRol create(Usuario usuario, Rol rol, boolean flush = false) {
+		def instance = new UsuarioRol(usuario: usuario, rol: rol)
+		instance.save(flush: flush, insert: true)
+		instance
+	}
 
-    static void removeAll(Usuario usuario) {
-        executeUpdate 'DELETE FROM UsuarioRol WHERE usuario=:usuario', [usuario: usuario]
-    }
+	static boolean remove(Usuario u, Rol r, boolean flush = false) {
+		if (u == null || r == null) return false
 
-    static void removeAll(Rol rol) {
-        executeUpdate 'DELETE FROM UsuarioRol WHERE rol=:rol', [rol: rol]
-    }
+		int rowCount = UsuarioRol.where {
+			usuario == Usuario.load(u.id) &&
+			rol == Rol.load(r.id)
+		}.deleteAll()
 
-    static mapping = {
-        id composite: ['rol', 'usuario']
-        version false
-    }
+		if (flush) { UsuarioRol.withSession { it.flush() } }
+
+		rowCount > 0
+	}
+
+	static void removeAll(Usuario u, boolean flush = false) {
+		if (u == null) return
+
+		UsuarioRol.where {
+			usuario == Usuario.load(u.id)
+		}.deleteAll()
+
+		if (flush) { UsuarioRol.withSession { it.flush() } }
+	}
+
+	static void removeAll(Rol r, boolean flush = false) {
+		if (r == null) return
+
+		UsuarioRol.where {
+			rol == Rol.load(r.id)
+		}.deleteAll()
+
+		if (flush) { UsuarioRol.withSession { it.flush() } }
+	}
+
+	static constraints = {
+		rol validator: { Rol r, UsuarioRol ur ->
+			if (ur.usuario == null) return
+			boolean existing = false
+			UsuarioRol.withNewSession {
+				existing = UsuarioRol.exists(ur.usuario.id, r.id)
+			}
+			if (existing) {
+				return 'userRole.exists'
+			}
+		}
+	}
+
+	static mapping = {
+		id composite: ['rol', 'usuario']
+		version false
+	}
 }

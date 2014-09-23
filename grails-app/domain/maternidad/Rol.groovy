@@ -2,15 +2,13 @@ package maternidad
 
 class Rol {
 
-    String authority
+	String authority
 
-    static mapping = {
-        cache true
-    }
+	static mapping = {
+		cache true
+	}
 
-    static constraints = {
-        authority blank: false, unique: true
-    }
-
-    String toString() { "${authority}" }
+	static constraints = {
+		authority blank: false, unique: true
+	}
 }

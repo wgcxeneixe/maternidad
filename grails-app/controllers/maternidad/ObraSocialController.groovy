@@ -1,10 +1,12 @@
 package maternidad
 
-
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+
+@Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 @Transactional(readOnly = true)
 class ObraSocialController {
 
@@ -124,7 +126,7 @@ class ObraSocialController {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'obraSocial.label', default: 'ObraSocial'), obraSocialInstance.id])
                 redirect(action: "index")
             }
-            '*' { respond obraSocialInstance, [status: CREATED],view: 'index' }
+            '*' { respond obraSocialInstance, [status: CREATED],view: 'index'  }
         }
     }
 

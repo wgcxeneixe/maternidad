@@ -29,11 +29,16 @@
 
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-custom.css')}"/>
 
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}"/>
+
+
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-responsive.css')}"/>
 
 
     <asset:javascript src="utilidades.js"/>
     <asset:javascript src="select2.js"/>
     <asset:javascript src="datepicker-es.js"/>
+    <asset:javascript src="superfish.js"/>
 
     <asset:stylesheet src="application.css"/>
 		<asset:javascript src="application.js"/>
@@ -41,8 +46,33 @@
 	</head>
 	<body>
 		<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>
-		<g:layoutBody/>
+
+
+<g:link controller="logout" action="index" >Logout</g:link>
+    <div class="container">
+
+
+
+    </div> <!-- /container -->
+
+
+    <script type="text/javascript">
+
+        jQuery(document).ready(function(){
+
+           // jQuery('#menu').superfish();
+
+        });
+
+    </script>
+
+
+
+
+    <g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
-	</body>
+    <asset:javascript src="bootstrap.js"/>
+
+    </body>
 </html>
