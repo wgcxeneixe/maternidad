@@ -19,3 +19,14 @@ insert into sami.concepto_caja values(1,0,true,'EFE','EFECTIVO','EFECTIVO');
 insert into sami.obra_social values(1,0,true,'OS100',20282094712,'OS100',1,'');
 
 insert into sami.plan values(1,0,true,'F100','F100',1,'');
+
+
+INSERT INTO rol (id, version, authority) VALUES (1, 0, 'ROLE_ADMIN');
+INSERT INTO rol (id, version, authority) VALUES (2, 0, 'ROLE_USER');
+
+INSERT INTO usuario (id, version, account_expired, account_locked, enabled, password, password_expired, persona_id, username) VALUES (2, 0, false, false, true, '', false, 1, 'Usuario');
+INSERT INTO usuario (id, version, account_expired, account_locked, enabled, password, password_expired, persona_id, username) VALUES (1, 0, false, false, true, '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', false, 1, 'admin');
+
+
+INSERT INTO usuario_rol (rol_id, usuario_id) VALUES (1, 1);
+INSERT INTO usuario_rol (rol_id, usuario_id) VALUES (2, 2);
