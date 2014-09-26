@@ -61,7 +61,7 @@ class ConceptoPorProfesionalController {
 
         if(profesional) {
 
-            for (conceptoL in ConceptoLiquidacion.list()) {
+            for (conceptoL in ConceptoProfesional.list()) {
 
 
                 def lista = params?.conceptos as List

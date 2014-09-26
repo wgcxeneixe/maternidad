@@ -1,4 +1,4 @@
-<%@ page import="maternidad.ConceptoLiquidacion" %>
+<%@ page import="maternidad.ConceptoProfesional" %>
 
 <div class="fieldcontain ${hasErrors(bean: conceptoLiquidacionInstance, field: 'credito', 'error')} ">
     <label for="credito">

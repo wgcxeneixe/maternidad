@@ -85,12 +85,20 @@ class ConvenioController {
 
         convenioInstance.save flush: true
 
+        for( plan in convenioInstance?.obrasocial?.planes ) {
+           PlanConvenio planConvenio=new PlanConvenio()
+            planConvenio.convenio=convenioInstance
+            planConvenio.activo=true
+            planConvenio.plan=plan
+            planConvenio.save flush: true
+        }
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'convenio.label', default: 'Convenio'), convenioInstance.id])
-                redirect convenioInstance
+                redirect(action: "index")
             }
-            '*' { respond convenioInstance, [status: CREATED] }
+            '*' { respond convenioInstance, [status: CREATED],view:'index' }
         }
     }
 
@@ -115,9 +123,9 @@ class ConvenioController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Convenio.label', default: 'Convenio'), convenioInstance.id])
-                redirect convenioInstance
+                redirect(action: "index")
             }
-            '*' { respond convenioInstance, [status: OK] }
+            '*' { respond convenioInstance, [status: OK],view:'index' }
         }
     }
 
@@ -167,7 +175,34 @@ redirect controller: "plan", method:"POST" ,action: "create",params:["convenio":
 
     }
 
+def duplicar={
 
+
+    def convenio=Convenio.get(params.id as Long)
+
+}
+
+
+    def asociarPlanAlConvenio={
+
+
+        def planconvenio=PlanConvenio.get(params.id as Long)
+planconvenio.activo=Boolean.TRUE
+
+        render(view: "planesDelConvenio", model: [convenio:planconvenio?.convenio])
+
+    }
+
+
+    def desasociarPlan={
+
+
+        def planconvenio=PlanConvenio.get(params.id as Long)
+        planconvenio.activo=Boolean.FALSE
+
+        render(view: "planesDelConvenio", model: [convenio:planconvenio?.convenio])
+
+    }
 
 
 

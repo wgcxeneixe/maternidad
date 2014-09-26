@@ -4,6 +4,7 @@ class PlanConvenio {
 
     Plan plan
     Convenio convenio
+    Boolean activo=true
 
     static hasMany = [valoresGalenoGasto:ValorGalenoGasto,valoresGalenoHonorario:ValorGalenoHonorario,valoresPracticas:ValorPractica]
 

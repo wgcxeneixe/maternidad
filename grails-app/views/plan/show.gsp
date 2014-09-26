@@ -11,7 +11,7 @@
 		<a href="#show-plan" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+			<!--	<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
 				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
@@ -68,28 +68,7 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${planInstance?.movimientosPlan}">
-				<li class="fieldcontain">
-					<span id="movimientosPlan-label" class="property-label"><g:message code="plan.movimientosPlan.label" default="Movimientos Plan" /></span>
-					
-						<g:each in="${planInstance.movimientosPlan}" var="m">
-						<span class="property-value" aria-labelledby="movimientosPlan-label"><g:link controller="movimientoPlan" action="show" id="${m.id}">${m?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${planInstance?.planConvenios}">
-				<li class="fieldcontain">
-					<span id="planConvenios-label" class="property-label"><g:message code="plan.planConvenios.label" default="Plan Convenios" /></span>
-					
-						<g:each in="${planInstance.planConvenios}" var="p">
-						<span class="property-value" aria-labelledby="planConvenios-label"><g:link controller="planConvenio" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
+
 			</ol>
 			<g:form url="[resource:planInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">

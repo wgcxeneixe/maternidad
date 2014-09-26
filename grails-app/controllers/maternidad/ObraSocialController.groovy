@@ -153,7 +153,7 @@ class ObraSocialController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'ObraSocial.label', default: 'ObraSocial'), obraSocialInstance.id])
                 redirect(action: "index")
             }
-            '*'{ respond obraSocialInstance, [status: OK] }
+            '*'{ respond obraSocialInstance, [status: OK],view:'index' }
         }
     }
 
@@ -186,7 +186,13 @@ class ObraSocialController {
         }
     }
 
+    def verPlanes={
 
+        def obraSocial=ObraSocial.get(params.id as Long)
+
+        render(view: "verPlanes", model: [os:obraSocial])
+
+    }
 
 
 }
