@@ -77,13 +77,105 @@
     <br/>
 
     <g:render  template="/valorGalenoHonorario/showValorGalenoHonorario" model="[planConvenio: planConvenio]" />
+<br/>
+${message(code: 'convenio.modulosdelplan')}
+    <table>
+        <thead>
+        <tr>
+
+            <g:sortableColumn property="nombre" title="${message(code: 'practica.nombre.label', default: 'Nombre')}" />
+
+            <g:sortableColumn property="codigo" title="${message(code: 'practica.codigo.label', default: 'Codigo')}" />
+
+            <g:sortableColumn property="observacion" title="${message(code: 'practica.observacion.label', default: 'Observacion')}" />
+
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <g:each in="${maternidad.ValorPractica.createCriteria().list {  planConvenio{eq('id',planConvenio?.id)}
+            practica{eq('modulo',true)}}}" status="i" var="valor">
+            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                <td>${valor?.practica?.nombre}</td>
+
+                <td>${valor?.practica?.codigo}</td>
+
+                <td>${valor?.practica?.observacion}</td>
+
+
+
+            </tr>
+        </g:each>
+        </tbody>
+    </table>
+    <div class="pagination">
+        <g:paginate total="${maternidad.ValorPractica.createCriteria().list {  planConvenio{eq('id',planConvenio?.id)}
+            practica{eq('modulo',true)}}.size() ?: 0}" />
+    </div>
+
+    ${message(code: 'convenio.cuentacorrientePlan')}
+    <table>
+        <tbody>
+
+        <tr id="filaoculta" class="prop">
+            <td valign="top" class="name">
+                <label for="plan">Plan</label>
+            </td>
+            <td valign="top" class="value ">
+                <g:select id="plan" name="plan.id" from="${maternidad.Plan.list()}" optionKey="id"  noSelection="['null':'Seleccione un Plan']"
+                          onchange="${remoteFunction(controller: 'movimientoPlan',
+                                  action: 'getmovimientosPlan',
+                                  params: '\'idPlan=\' + this.value',
+                                  update: 'divplan')}"
+                />
+            </td>
+        </tr>
+        <tr class="prop">
+            <td></td>
+            <td><div id="divplan">
+                <g:render  template="/movimientoPlan/movimientos"
+                           model="[movimientoStockInstanceList: movimientos, movimientoStockInstanceCount: movimientos?.size(), total: total]"    />
+            </div>
+            </td>
+        </tr>
+
+
+
+        </tbody>
+    </table>
+
 
     <g:form url="[resource:planConvenio?.plan, action:'delete']" method="DELETE">
         <fieldset class="buttons">
-            <g:link class="edit" action="edit" resource="${planInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+            <g:link class="edit" controller="convenio" action="editPlan" id="${planConvenio?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
             <g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
         </fieldset>
     </g:form>
+
 </div>
+
+<script>
+    $(function() {
+
+        $('#plan').change(function(e){
+
+            $("#plan").val('${planConvenio?.plan?.id}');
+            //$("#plan").prop("disabled", true);
+            $("#filaoculta").hide();
+        });
+
+        // And now fire change event when the DOM is ready
+        $('#plan').trigger('change');
+
+        // $("#obrasocial").attr('readonly',true).select2({allowClear: true});
+        $("#obrasocial").attr('readonly',true);
+
+    })
+
+</script>
+
+
 </body>
 </html>

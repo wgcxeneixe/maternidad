@@ -110,9 +110,9 @@ class ProfesionalController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'profesional.label', default: 'Profesional'), profesionalInstance.id])
-                redirect profesionalInstance
+                redirect action:'index'
             }
-            '*' { respond profesionalInstance, [status: CREATED] }
+            '*' { respond profesionalInstance, [status: CREATED],view:'index' }
         }
     }
 
@@ -157,9 +157,9 @@ class ProfesionalController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Profesional.label', default: 'Profesional'), profesionalInstance.id])
-                redirect profesionalInstance
+                redirect action:'index'
             }
-            '*' { respond profesionalInstance, [status: OK] }
+            '*' { respond profesionalInstance, [status: OK],view:'index' }
         }
     }
 

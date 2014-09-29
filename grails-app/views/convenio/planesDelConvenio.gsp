@@ -38,6 +38,8 @@ Convenio
             <g:sortableColumn property="activo" title="${message(code: 'plan.activo.label', default: 'Activo')}" />
 
             <th></th>
+            <th></th>
+            <th></th>
 <th></th>
         </tr>
         </thead>
@@ -57,7 +59,7 @@ Convenio
 
                 <td><g:link class="linkShow" controller="convenio" action="showPlan" id="${planConvenio?.id}">${message(code: 'default.button.show.label')}</g:link></td>
 
-                <td><g:link controller="valorGalenoGasto" action="asignarValorGalenoGasto" id="${planConvenio?.id}">Galenos de Gastos</g:link>
+             <!--   <td><g:link controller="valorGalenoGasto" action="asignarValorGalenoGasto" id="${planConvenio?.id}">Galenos de Gastos</g:link>
               |  <g:link controller="valorGalenoHonorario" action="asignarValorGalenoHonorario" id="${planConvenio?.id}">Galenos de Honorario</g:link>
                 </td>
 <td>
@@ -66,7 +68,7 @@ Convenio
 <td>
     <g:link controller="practica" action="createModulo" id="${planConvenio?.id}" >Crear Modulo</g:link>
 </td>
-
+-->
 
                 <td><g:link class="linkDesasociar" controller="convenio" action="desasociarPlan" id="${planConvenio?.id}">${message(code: 'convenio.desasociarPlan')}</g:link></td>
 

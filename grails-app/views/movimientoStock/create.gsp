@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'movimientoStock.label', default: 'MovimientoStock')}" />
+		<g:set var="entityName" value="${message(code: 'movimientoStock.label', default: 'Movimiento de Stock')}" />
         <script>
             $(function() {
 
@@ -47,6 +47,7 @@ $("#boton").click(function( event ) {
     event.preventDefault();
    if ( $("#divradio input[type='radio']:checked").val() == 'true')  {
     //es ingreso
+       $("#producto").prop("disabled", false);
        $("#formulario").submit();
    } else {
     // es egreso
@@ -57,6 +58,7 @@ $("#boton").click(function( event ) {
       if(!existeStock( cant , producto )) {
 
           if (confirm('${message(code: 'stock.nohaystock', default: 'No existe Stock suficiente. Desea Continuar?')}')) {
+              $("#producto").prop("disabled", false);
               $("#formulario").submit();
           }
 
@@ -64,11 +66,14 @@ $("#boton").click(function( event ) {
        else if (!existeCantidadMinima( cant , producto )){
 
           if (confirm('${message(code: 'stock.nohaycantidadminima', default: 'El producto quedara por debajo de la cantidad mínima. Desea Continuar?')}')) {
+              $("#producto").prop("disabled", false);
               $("#formulario").submit();
           }
 
       }
-       else {   $("#formulario").submit(); }
+       else {
+          $("#producto").prop("disabled", false);
+          $("#formulario").submit(); }
 
    }
 
@@ -138,7 +143,7 @@ $("#boton").click(function( event ) {
 		<a href="#create-movimientoStock" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+			<!--	<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
 				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
@@ -154,14 +159,36 @@ $("#boton").click(function( event ) {
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:movimientoStockInstance, action:'save']"  id="formulario" >
+			<g:form  url="[resource:movimientoStockInstance, action:'save']"  id="formulario" >
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" id="boton" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
-			</g:form>
-		</div>
+
+                <g:if test="${params.id}">
+
+                    <g:hiddenField name="parametro" value="true"/>
+
+                    <script>
+                        $(function() {
+
+
+
+                            $("#producto").prop("disabled", true);
+
+
+                        })
+                    </script>
+
+                </g:if>
+
+            </g:form>
+
+
+
+
+      </div>
 	</body>
 </html>

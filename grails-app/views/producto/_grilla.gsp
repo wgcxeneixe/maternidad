@@ -10,13 +10,18 @@
 
         <g:sortableColumn property="cantidadMinima" title="${message(code: 'producto.cantidadMinima.label', default: 'Cantidad Minima')}" params="${filters}" />
 
+        <th>${message(code: 'producto.columnaStock')}</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     <g:each in="${productoInstanceList}" status="i" var="productoInstance">
         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-            <td><g:link action="show" id="${productoInstance.id}">${fieldValue(bean: productoInstance, field: "nombre")}</g:link></td>
+            <td>${fieldValue(bean: productoInstance, field: "nombre")}</td>
 
             <td>${fieldValue(bean: productoInstance, field: "codigo")}</td>
 
@@ -24,7 +29,21 @@
 
             <td>${fieldValue(bean: productoInstance, field: "cantidadMinima")}</td>
 
+<td>${productoInstance?.stock()}</td>
+
+            <td><g:link class="linkEdit"  action="edit" id="${productoInstance?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+
+            <td><g:link class="linkShow"  action="show" id="${productoInstance?.id}">${message(code: 'default.button.show.label')}</g:link></td>
+
+<td><g:link class="linkCrearMovimiento" controller="movimientoStock"  action="create" id="${productoInstance?.id}">${message(code: 'producto.agregarMovimiento')}</g:link></td>
+
+
+            <td><g:link class="linkDetalleMovimiento" controller="movimientoStock"  action="stock" id="${productoInstance?.id}">${message(code: 'producto.detalleMovimientos')}</g:link></td>
+
         </tr>
+
+
+
     </g:each>
     </tbody>
 </table>

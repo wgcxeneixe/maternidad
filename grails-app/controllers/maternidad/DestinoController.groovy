@@ -83,9 +83,9 @@ class DestinoController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'destino.label', default: 'Destino'), destinoInstance.id])
-                redirect destinoInstance
+                redirect action: 'index'
             }
-            '*' { respond destinoInstance, [status: CREATED] }
+            '*' { respond destinoInstance, [status: CREATED],view: 'index' }
         }
     }
 
@@ -110,9 +110,9 @@ class DestinoController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Destino.label', default: 'Destino'), destinoInstance.id])
-                redirect destinoInstance
+                redirect action: 'index'
             }
-            '*' { respond destinoInstance, [status: OK] }
+            '*' { respond destinoInstance, [status: OK],view: 'index' }
         }
     }
 

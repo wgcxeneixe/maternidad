@@ -34,7 +34,8 @@
 					
 						<g:sortableColumn property="activo" title="${message(code: 'conceptoPorProfesional.activo.label', default: 'Activo')}" />
 					
-						<th><g:message code="conceptoPorProfesional.conceptoLiquidacion.label" default="Concepto Liquidacion" /></th>
+					<!--	<th><g:message code="conceptoPorProfesional.conceptoLiquidacion.label" default="Concepto Liquidacion" /></th>-->
+                        <th></th>
 					
 					</tr>
 				</thead>

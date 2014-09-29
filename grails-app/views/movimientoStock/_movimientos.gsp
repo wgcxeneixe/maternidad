@@ -1,6 +1,4 @@
-<div class="fieldcontain">
-Total=${total}
-</div>
+
 <table>
     <thead>
     <tr>
@@ -50,4 +48,8 @@ Total=${total}
 </table>
 <div class="pagination">
     <util:remotePaginate  total="${movimientoStockInstanceCount ?: 0}" update="divstock" action="getSaldoStock" pageSizes="[5: '5 por Página',10:'10 por Página',15:'15 por Página']" params="${[idProducto:idProducto]}"  />
+</div>
+
+<div class="fieldcontain">
+    ${message(code: 'stock.totalenstock')}=${total}
 </div>

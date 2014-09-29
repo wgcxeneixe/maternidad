@@ -7,14 +7,7 @@
     <script>
         $(function() {
 
-            $('#plan').change(function(e){
 
-                $("#plan").val('${planConvenio?.plan?.id}');
-
-            });
-
-            // And now fire change event when the DOM is ready
-            $('#plan').trigger('change');
 
             // $("#obrasocial").attr('readonly',true).select2({allowClear: true});
             $("#obrasocial").attr('readonly',true);
@@ -135,7 +128,7 @@
             <table>
                 <tbody>
 
-                <tr class="prop">
+                <tr id="filaoculta" class="prop">
                     <td valign="top" class="name">
                         <label for="plan">Plan</label>
                     </td>
@@ -170,7 +163,8 @@
             $('#plan').change(function(e){
 
                 $("#plan").val('${planConvenio?.plan?.id}');
-
+                $("#plan").prop("disabled", true);
+                $("#filaoculta").hide();
             });
 
             // And now fire change event when the DOM is ready
