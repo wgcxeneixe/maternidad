@@ -25,18 +25,18 @@
     </script>
 
     <g:set var="entityName" value="${message(code: 'practica.label', default: 'Practica')}" />
-    <title><g:message code="default.create.label" args="[entityName]" /></title>
+    <title><g:message code="default.edit.label" args="[entityName]" /></title>
 </head>
 <body>
 <a href="#create-practica" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <div class="nav" role="navigation">
     <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+      <!--  <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
         <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
     </ul>
 </div>
 <div id="create-practica" class="content scaffold-create" role="main">
-    <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+    <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
@@ -57,7 +57,11 @@
                     <g:message code="practica.obrasocial.label" default="Obrasocial" />
 
                 </label>
-                <g:select id="obrasocial" name="obrasocial.id" from="${maternidad.ObraSocial.list()}" optionKey="id" value="${planConvenioInstance?.plan?.obrasocial?.id}" class="many-to-one" noSelection="['null': '']"/>
+
+                <g:textField name="nombreOS" readonly="true" value="${practicaInstance?.obrasocial?.toString()}" />
+
+                <g:hiddenField name="obrasocial.id" value="${practicaInstance?.obrasocial?.id}"/>
+
 
             </div>
 
@@ -108,39 +112,44 @@
             </div>
 
 
+            <div class="nav" role="navigation">
+                <ul>
+
+                    <li><g:link class="create" controller="practicaModulo" action="create" id="${planConvenioInstance?.id}" params="[valorPractica:valorPracticaInstance?.id,modulo:practicaInstance?.id]" ><g:message code="convenio.asociarpracticamodulo" /></g:link></li>
+                </ul>
+            </div>
             <table>
                 <tr><td>Practica</td>
                     <td>Valor Gasto</td>
                     <td>Valor Anestesista</td>
                     <td>Valor Ayudante</td>
                     <td>Valor Especialista</td>
+                <td></td>
+                    <td></td>
                 </tr>
-                <g:each in="${practicaInstance.practicasModulos}" var="practicaM">
+                <g:each in="${practicaInstance?.practicasModulos}" var="practicaM">
                     <tr>
-                        <td><g:checkBox name="practicasDelModulo" checked="true" value="${practicaM?.id}"/></td>
+
                         <td>
-                        <g:select  name="practica${practicaM?.id}" from="${maternidad.Practica.findByNomenclada(Boolean.TRUE).list()}" optionKey="id" value="${practicaM?.practica?.id}"  class="many-to-one" />
+                       ${practicaM?.practica?.toString()}
                        </td>
-                        <td><g:textField name="valorGasto${practicaM?.id}" value="${practicaM?.valorGasto}"/>
+                        <td>${practicaM?.valorGasto}
                             </td>
-                        <td><g:textField name="valorAnestesista${practicaM?.id}" value="${practicaM?.valorAnestecista}"/>
+                        <td>${practicaM?.valorAnestecista}
                         </td>
-                        <td><g:textField name="valorAyudante${practicaM?.id}" value="${practicaM?.valorAyudante}"/>
+                        <td>${practicaM?.valorAyudante}
                         </td>
-                        <td><g:textField name="valorEspecialista${practicaM?.id}" value="${practicaM?.valorEspecialista}"/>
+                        <td>${practicaM?.valorEspecialista}
                         </td>
+                        <td><g:link class="linkEdit"  controller="practicaModulo" action="edit" id="${practicaM?.id}" params="[valorPractica: valorPracticaInstance?.id]" >${message(code: 'default.button.edit.label')}</g:link></td>
+
+                      <!--  <td><g:link class="linkShow" controller="practicaModulo" action="show" id="${practicaM?.id}">${message(code: 'default.button.show.label')}</g:link></td>-->
                     </tr>
                 </g:each>
             </table>
 
 
-            <input type="button" id="agregar" value="Agregar practica" />
 
-            <table id="myTable">
-                <tbody>
-                <g:render template="practicaModulo" model="[loopCount:loopCount]" />
-                </tbody>
-            </table>
 
 
             <g:hiddenField name="planConvenio" value="${planConvenioInstance?.id}"/>
@@ -148,9 +157,12 @@
             <g:hiddenField name="valorPractica" value="${valorPracticaInstance?.id}"/>
         </fieldset>
         <fieldset class="buttons">
-            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+            <g:submitButton name="create" class="save" value="${message(code: 'default.button.edit.label', default: 'Editar')}" />
         </fieldset>
     </g:form>
+
+
+
 </div>
 </body>
 </html>

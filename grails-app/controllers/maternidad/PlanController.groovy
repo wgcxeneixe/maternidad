@@ -135,4 +135,30 @@ class PlanController {
             '*' { render status: NOT_FOUND }
         }
     }
+
+    @Transactional
+    def updatePlan(Plan planInstance) {
+        if (planInstance == null) {
+            notFound()
+            return
+        }
+
+        if (planInstance.hasErrors()) {
+            respond planInstance.errors, view: '/convenio/editPlan'
+            return
+        }
+
+        planInstance.save flush: true
+
+      def planConvenio= PlanConvenio.get(params.planConvenio.id)
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Convenio.label', default: 'Plan'),planInstance.id])
+                redirect(controller:'convenio',  action: "editPlan",params: [id:planConvenio?.id])
+            }
+            '*' { respond planInstance, [status: OK],view:'/convenio/editPlan' }
+        }
+    }
+
 }

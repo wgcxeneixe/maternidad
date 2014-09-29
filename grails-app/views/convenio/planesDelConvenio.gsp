@@ -53,9 +53,9 @@ Convenio
 
                 <td><g:formatBoolean boolean="${planConvenio?.plan?.activo}" /></td>
 
-                <td><g:link class="linkEdit" controller="plan" action="edit" id="${planConvenio?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+                <td><g:link class="linkEdit" controller="convenio" action="editPlan" id="${planConvenio?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
 
-                <td><g:link class="linkShow" controller="plan" action="show" id="${planConvenio?.id}">${message(code: 'default.button.show.label')}</g:link></td>
+                <td><g:link class="linkShow" controller="convenio" action="showPlan" id="${planConvenio?.id}">${message(code: 'default.button.show.label')}</g:link></td>
 
                 <td><g:link controller="valorGalenoGasto" action="asignarValorGalenoGasto" id="${planConvenio?.id}">Galenos de Gastos</g:link>
               |  <g:link controller="valorGalenoHonorario" action="asignarValorGalenoHonorario" id="${planConvenio?.id}">Galenos de Honorario</g:link>
@@ -104,9 +104,9 @@ Convenio
 
                 <td><g:formatBoolean boolean="${planConvenio?.plan?.activo}" /></td>
 
-                <td><g:link class="linkEdit" controller="plan" action="edit" id="${planConvenio?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+                <td><g:link class="linkEdit" controller="convenio" action="editPlan" id="${planConvenio?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
 
-                <td><g:link class="linkShow" controller="plan" action="show" id="${planConvenio?.id}">${message(code: 'default.button.show.label')}</g:link></td>
+                <td><g:link class="linkShow" controller="convenio" action="showPlan" id="${planConvenio?.id}">${message(code: 'default.button.show.label')}</g:link></td>
 
                 <td><g:link class="linkAsociar" controller="convenio" action="asociarPlanAlConvenio" id="${planConvenio?.id}">${message(code: 'convenio.asociarPlan')}</g:link></td>
             </tr>

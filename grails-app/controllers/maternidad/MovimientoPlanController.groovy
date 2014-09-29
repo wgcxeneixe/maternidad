@@ -22,7 +22,10 @@ class MovimientoPlanController {
     }
 
     def create() {
-        respond new MovimientoPlan(params)
+        def planConvenio = PlanConvenio.get(params.id)
+       def movimientoPlan= new MovimientoPlan(params)
+        movimientoPlan.plan=planConvenio?.plan
+        respond movimientoPlan,model: [planConvenio:planConvenio]
     }
 
     @Transactional
@@ -39,10 +42,13 @@ class MovimientoPlanController {
 
         movimientoPlanInstance.save flush: true
 
+       def planConvenio= PlanConvenio.get(params?.planConvenio.id)
+
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'movimientoPlan.label', default: 'MovimientoPlan'), movimientoPlanInstance.id])
-                redirect movimientoPlanInstance
+                redirect(controller:"convenio",action: "editPlan",params: [id:planConvenio?.id])
             }
             '*' { respond movimientoPlanInstance, [status: CREATED] }
         }
