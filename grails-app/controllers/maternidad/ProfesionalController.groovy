@@ -118,7 +118,7 @@ class ProfesionalController {
 
     def edit(Profesional profesionalInstance) {
      //   respond profesionalInstance
-        render(view: "edit", model: [profesionalInstance: profesionalInstance,personaInstance:profesionalInstance.persona])
+        render(view: "edit", model: [profesionalInstance: profesionalInstance,personaInstance:profesionalInstance?.persona])
     }
 
     @Transactional

@@ -135,7 +135,7 @@
             <div class="nav" role="navigation">
                 <ul>
        
-                    <li><g:link class="create" controller="conceptoPorProfesional" action="create"><g:message code="profesional.nuevoconcepto"  /></g:link></li>
+                    <li><g:link class="create" controller="conceptoPorProfesional" action="create" id="${profesionalInstance?.id}"  ><g:message code="profesional.nuevoconcepto"  /></g:link></li>
                 </ul>
             </div>
             <table>
@@ -171,7 +171,7 @@
                         <td><g:formatBoolean boolean="${conceptoPorProfesionalInstance.activo}" /></td>
 
 
-                        <td><g:link class="linkEdit" action="edit" id="${conceptoPorProfesionalInstance?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+                        <td><g:link class="linkEdit" controller="conceptoPorProfesional" action="create" id="${conceptoPorProfesionalInstance?.profesional?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
                     </tr>
                 </g:each>
                 </tbody>
