@@ -363,4 +363,71 @@ planconvenio.activo=Boolean.TRUE
     }
 
 
+def asociarPractica= {
+
+def planConvenio=PlanConvenio.get(params.id)
+
+    render(view: "asociarPractica", model: [planConvenio:planConvenio])
+
+
+}
+
+   def saveAsociacionPractica = {
+
+   def planConvenio=PlanConvenio.get(params.planConvenio.id)
+   def practica=Practica.get(params.practica.id)
+
+def valorPractica= new ValorPractica()
+
+       valorPractica?.planConvenio=planConvenio
+       valorPractica?.practica=practica
+       valorPractica?.valorHonorario=params.valor as Double
+        valorPractica?.fechaActualizado= new Date()
+       valorPractica?.plan=planConvenio?.plan
+
+       valorPractica.save flush: true
+
+       request.withFormat {
+           form multipartForm {
+               flash.message = message(code: 'default.created.message', args: [message(code: 'Convenio.label', default: 'Practica'),valorPractica.id])
+               redirect(action: "editPlan",params: [id: planConvenio?.id])
+           }
+           '*' { respond valorPractica, [status: OK],view:'editPlan' }
+       }
+
+   }
+
+
+    def editAsociarPractica= {
+
+        def valor=ValorPractica.get(params.id)
+
+        render(view: "editAsociarPractica", model: [valorPractica:valor])
+
+
+    }
+
+    def updateAsociacionPractica={
+
+        def valorPractica=ValorPractica.get(params.valorPractica.id)
+        def practica=Practica.get(params.practica.id)
+
+
+        valorPractica?.practica=practica
+        valorPractica?.valorHonorario=params.valor as Double
+        valorPractica?.fechaActualizado= new Date()
+
+        valorPractica.save flush: true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'Convenio.label', default: 'Practica'),valorPractica.id])
+                redirect(action: "editPlan",params: [id: valorPractica?.planConvenio?.id])
+            }
+            '*' { respond valorPractica, [status: OK],view:'editPlan' }
+        }
+
+
+    }
+
 }

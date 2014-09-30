@@ -131,10 +131,11 @@
 				</fieldset>
 			</g:form>
 <br/>
+            ${message(code: 'profesional.listadeconceptos')}
             <div class="nav" role="navigation">
                 <ul>
        
-                    <li><g:link class="create" controller="conceptoPorProfesional" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+                    <li><g:link class="create" controller="conceptoPorProfesional" action="create"><g:message code="profesional.nuevoconcepto"  /></g:link></li>
                 </ul>
             </div>
             <table>

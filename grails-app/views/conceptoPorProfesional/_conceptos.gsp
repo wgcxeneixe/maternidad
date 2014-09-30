@@ -11,7 +11,7 @@
     </tr>
     </thead>
     <tbody>
-    <g:each in="${maternidad.ConceptoLiquidacion.list() }" status="i" var="conceptoLiquidacion">
+    <g:each in="${maternidad.ConceptoProfesional.list() }" status="i" var="conceptoLiquidacion">
         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
 

@@ -157,6 +157,18 @@
         </fieldset>
 
     </div>
+
+
+
+    <div class="nav" role="navigation">
+        <ul>
+
+            <li><g:link class="create" controller="convenio" action="asociarPractica" id="${planConvenio?.id}"><g:message code="convenio.asociarpractica"  /></g:link></li>
+        </ul>
+    </div>
+
+    <g:render  template="/convenio/verPracticas" model="[planConvenio: planConvenio]" />
+
     <script>
         $(function() {
 
