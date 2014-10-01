@@ -77,7 +77,21 @@ class MovimientoStockController {
     }
 
     def create() {
-        respond new MovimientoStock(params)
+
+       if (params.id){
+           def producto=Producto.get(params.id)
+
+           def movimiento = new MovimientoStock(params)
+
+           movimiento.producto=producto
+
+           respond movimiento
+       }else {
+
+           respond new MovimientoStock(params)
+
+       }
+
     }
 
     @Transactional
@@ -97,9 +111,13 @@ class MovimientoStockController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'movimientoStock.label', default: 'MovimientoStock'), movimientoStockInstance.id])
-                redirect movimientoStockInstance
+               if(params.parametro){forward(controller: 'producto',action: 'index')}else {
+                   redirect action: 'index'
+
+               }
+
             }
-            '*' { respond movimientoStockInstance, [status: CREATED] }
+            '*' { respond movimientoStockInstance, [status: CREATED],view: 'index' }
         }
     }
 

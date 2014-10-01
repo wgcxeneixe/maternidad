@@ -22,7 +22,17 @@ class PracticaModuloController {
     }
 
     def create() {
-        respond new PracticaModulo(params)
+
+        def planConvenio=PlanConvenio.findById(params.id)
+
+        def modulo=Practica.get(params.modulo)
+
+        def valorP= ValorPractica.findById(params.valorPractica)
+
+        def practicamodulo= new PracticaModulo(params)
+        practicamodulo.modulo=modulo
+
+        respond practicamodulo,model: [planConvenio:planConvenio,valorPractica:valorP]
     }
 
     @Transactional
@@ -39,17 +49,37 @@ class PracticaModuloController {
 
         practicaModuloInstance.save flush: true
 
+        def planConvenio=PlanConvenio.get(params.planConvenio.id)
+
+        def valorPractica= new ValorPractica()
+
+        valorPractica?.planConvenio=planConvenio
+        valorPractica?.plan=planConvenio?.plan
+        valorPractica?.fechaActualizado=new Date()
+        valorPractica?.practica=practicaModuloInstance?.practica
+        valorPractica?.valorAnestecista=practicaModuloInstance?.valorAnestecista
+        valorPractica?.valorAyudante=practicaModuloInstance?.valorAyudante
+        valorPractica?.valorEspecialista=practicaModuloInstance?.valorEspecialista
+        valorPractica?.valorGasto=practicaModuloInstance?.valorGasto
+
+        valorPractica.save flush: true
+
+        def valorPracticaModulo=ValorPractica.get(params.valorPractica.id)
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'practicaModulo.label', default: 'PracticaModulo'), practicaModuloInstance.id])
-                redirect practicaModuloInstance
+                redirect(controller:'practica',  action: "editModulo" , params: [id:valorPracticaModulo?.practica?.id,valorPractica: valorPracticaModulo?.id])
             }
             '*' { respond practicaModuloInstance, [status: CREATED] }
         }
     }
 
     def edit(PracticaModulo practicaModuloInstance) {
-        respond practicaModuloInstance
+
+        def valorP= ValorPractica.findById(params.valorPractica)
+
+        respond practicaModuloInstance,model: [planConvenio:valorP?.planConvenio,valorPractica:valorP]
     }
 
     @Transactional
@@ -66,10 +96,26 @@ class PracticaModuloController {
 
         practicaModuloInstance.save flush: true
 
+        def planConvenio=PlanConvenio.get(params.planConvenio.id)
+
+        def valorPractica = ValorPractica.findByPracticaAndPlanConvenio(practicaModuloInstance?.practica,planConvenio)
+
+        valorPractica?.fechaActualizado=new Date()
+        //valorPractica?.practica=practicaModuloInstance?.practica
+        valorPractica?.valorAnestecista=practicaModuloInstance?.valorAnestecista
+        valorPractica?.valorAyudante=practicaModuloInstance?.valorAyudante
+        valorPractica?.valorEspecialista=practicaModuloInstance?.valorEspecialista
+        valorPractica?.valorGasto=practicaModuloInstance?.valorGasto
+
+        valorPractica.save flush: true
+
+
+        def valorPracticaModulo=ValorPractica.get(params.valorPractica.id)
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'PracticaModulo.label', default: 'PracticaModulo'), practicaModuloInstance.id])
-                redirect practicaModuloInstance
+                redirect(controller:'practica',  action: "editModulo" , params: [id:valorPracticaModulo?.practica?.id,valorPractica: valorPracticaModulo?.id])
             }
             '*' { respond practicaModuloInstance, [status: OK] }
         }

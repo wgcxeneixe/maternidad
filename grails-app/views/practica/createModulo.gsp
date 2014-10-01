@@ -24,14 +24,14 @@ var loop=0;
 
     </script>
 
-    <g:set var="entityName" value="${message(code: 'practica.label', default: 'Practica')}" />
+    <g:set var="entityName" value="${message(code: 'practica.label', default: 'Módulo')}" />
     <title><g:message code="default.create.label" args="[entityName]" /></title>
 </head>
 <body>
 <a href="#create-practica" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <div class="nav" role="navigation">
     <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+       <!-- <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
         <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
     </ul>
 </div>
@@ -52,14 +52,8 @@ var loop=0;
 
 
 
-            <div class="fieldcontain ${hasErrors(bean: practicaInstance, field: 'obrasocial', 'error')} ">
-                <label for="obrasocial">
-                    <g:message code="practica.obrasocial.label" default="Obrasocial" />
+                <g:hiddenField name="obrasocial.id" value="${planConvenioInstance?.plan?.obrasocial?.id}"/>
 
-                </label>
-                <g:select id="obrasocial" name="obrasocial.id" from="${maternidad.ObraSocial.list()}" optionKey="id" value="${planConvenioInstance?.plan?.obrasocial?.id}" class="many-to-one" noSelection="['null': '']"/>
-
-            </div>
 
             <div class="fieldcontain ${hasErrors(bean: practicaInstance, field: 'nombre', 'error')} required">
                 <label for="nombre">
@@ -107,15 +101,6 @@ var loop=0;
 
             </div>
 
-
-
-            <input type="button" id="agregar" value="Agregar practica" />
-
-            <table id="myTable">
-                <tbody>
-                <g:render template="practicaModulo" model="[loopCount:loopCount]" />
-                </tbody>
-            </table>
 
 
 <g:hiddenField name="planConvenio" value="${planConvenioInstance?.id}"/>

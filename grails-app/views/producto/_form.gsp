@@ -37,7 +37,7 @@
 	<g:field name="cantidadMinima" type="number" value="${productoInstance.cantidadMinima}" required=""/>
 
 </div>
-
+<!--
 <div class="fieldcontain ${hasErrors(bean: productoInstance, field: 'movimientosStock', 'error')} ">
 	<label for="movimientosStock">
 		<g:message code="producto.movimientosStock.label" default="Movimientos Stock" />
@@ -55,4 +55,4 @@
 
 
 </div>
-
+-->

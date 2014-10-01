@@ -7,6 +7,9 @@ class Factura {
     Integer nrofactura
     Boolean pagoCompleto
     Integer periodo
+    Double totalFacturado
+    Double totalPagado
+
     SortedSet<DetalleFactura> detallesFactura
     SortedSet<PagoFactura> pagosFactura
 
@@ -21,5 +24,13 @@ class Factura {
 
     static constraints = {
 
+    }
+
+    public Double getTotalRetencion(){
+        Double total = 0
+        pagosFactura?.each(){
+           total += it?.retencion
+        }
+        return total
     }
 }

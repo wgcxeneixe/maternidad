@@ -38,6 +38,8 @@
 
 
 
+
+
             })
 
         </script>
@@ -64,7 +66,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:movimientoPlanInstance, action:'save']" >
+			<g:form  url="[resource:movimientoPlanInstance, action:'save']" >
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>

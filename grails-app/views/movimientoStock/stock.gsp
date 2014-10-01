@@ -7,7 +7,7 @@
     <script>
         $(function() {
 
-            $("#producto").select2({allowClear: true});
+         //   $("#producto").select2({allowClear: true});
 
 
 
@@ -21,12 +21,12 @@
 <a href="#create-movimientoStock" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <div class="nav" role="navigation">
     <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+      <!--  <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
         <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
     </ul>
 </div>
 <div id="create-movimientoStock" class="content scaffold-create" role="main">
-    <h1>Stock</h1>
+    <h1>${message(code: 'stock.listadomovimientos')}</h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
@@ -37,7 +37,7 @@
 
                 <tr class="prop">
                     <td valign="top" class="name">
-                        <label for="producto">Producto</label>
+                        <label for="producto">${message(code: 'stock.producto')}</label>
                     </td>
                     <td valign="top" class="value ">
                         <g:select id="producto" name="producto.id" from="${maternidad.Producto.list()}" optionKey="id" noSelection="['null':'Seleccione un Producto']"
@@ -73,6 +73,28 @@
             </table>
 
         </fieldset>
+
+
+
+    <g:if test="params.id">
+      <script>
+          $(function() {
+
+              $('#producto').change(function(e){
+
+                  $("#producto").val('${params.id}');
+                  $("#producto").prop("disabled", true);
+                  // $("#filaoculta").hide();
+              });
+
+              // And now fire change event when the DOM is ready
+              $('#producto').trigger('change');
+
+
+          })
+      </script>
+
+    </g:if>
 
 </div>
 </body>

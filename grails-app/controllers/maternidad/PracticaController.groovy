@@ -166,7 +166,7 @@ valorPracticaInstance.planConvenio=planConvenioInstance
 
         valorPracticaInstance.save flush: true
 
-        def listaPracticas = params.practicas as List
+      /*  def listaPracticas = params.practicas as List
 
         for( i in listaPracticas ) {
             def practicaModulo= new PracticaModulo()
@@ -178,11 +178,12 @@ valorPracticaInstance.planConvenio=planConvenioInstance
             practicaModulo.valorGasto=(params['valorGasto'+i])?params['valorGasto'+i] as Double:null
             practicaModulo.save()
         }
+*/
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'practica.label', default: 'Practica'), practicaInstance.id])
-                redirect practicaInstance
+                flash.message = message(code: 'default.created.message', args: [message(code: 'practica.label', default: 'Módulo'), practicaInstance.id])
+                redirect(controller:'convenio',  action: "editPlan" , params: [id:planConvenioInstance?.id])
             }
             '*' { respond practicaInstance, [status: CREATED] }
         }
@@ -203,7 +204,8 @@ def verModulos = {
 
 
 
-    def c = ValorPractica.createCriteria()
+    def c = ValorPractica.createCriteria().list {  planConvenio{eq('id',planConvenioAux.id)}
+        practica{eq('modulo',true)}}
     def valores = c.list {
         planConvenio{eq('id',planConvenioAux.id)}
         practica{eq('modulo',true)}
@@ -237,7 +239,11 @@ def valorPracticaInstance
         valorPracticaInstance= ValorPractica.findById(params.valorPractica)
         }
 
-        render(view: "editModulo", model: [practicaInstance: practicaInstance,planConvenioInstance:valorPracticaInstance.planConvenio,valorPracticaInstance:valorPracticaInstance,loopCount:loopCount])
+        render(view: "editModulo", model: [practicaInstance: practicaInstance,planConvenioInstance:valorPracticaInstance?.planConvenio,valorPracticaInstance:valorPracticaInstance,loopCount:loopCount])
+
+
+
+
     }
 
 
@@ -271,7 +277,7 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
 
         valorPracticaInstance.save flush: true
 
-
+/*
 
         def listaPracticasExistentes = params.practicasDelModulo as List
 
@@ -301,10 +307,12 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
             practicaModulo.save()
         }
 
+*/
+
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'practica.label', default: 'Practica'), practicaInstance.id])
-                redirect practicaInstance
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'practica.label', default: 'Módulo'), practicaInstance.id])
+                redirect(controller:'convenio',  action: "editPlan" , params: [id:valorPracticaInstance?.planConvenio?.id])
             }
             '*' { respond practicaInstance, [status: CREATED] }
         }

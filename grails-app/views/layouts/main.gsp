@@ -36,9 +36,6 @@
 
 
     <asset:javascript src="utilidades.js"/>
-    <asset:javascript src="select2.js"/>
-    <asset:javascript src="datepicker-es.js"/>
-    <asset:javascript src="superfish.js"/>
 
     <asset:stylesheet src="application.css"/>
 		<asset:javascript src="application.js"/>
@@ -72,7 +69,6 @@
     <g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
-    <asset:javascript src="bootstrap.js"/>
 
     </body>
 </html>

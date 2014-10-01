@@ -11,31 +11,31 @@
     </tr>
     </thead>
     <tbody>
-    <g:each in="${maternidad.ConceptoLiquidacion.list() }" status="i" var="conceptoLiquidacion">
+    <g:each in="${maternidad.ConceptoProfesional?.list() }" status="i" var="conceptoProfesional">
         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
 
-            <td> <g:checkBox name="conceptos"  value="${conceptoLiquidacion?.id}"  checked="${conceptoLiquidacion?.id in conceptos?.conceptoLiquidacion?.id}"   ></g:checkBox></td>
+            <td> <g:checkBox name="conceptos"  value="${conceptoProfesional?.id}"  checked="${conceptoProfesional?.id in conceptos?.conceptoProfesional?.id}"   ></g:checkBox></td>
 
-            <td> ${conceptoLiquidacion?.nombre} </td>
+            <td> ${conceptoProfesional?.nombre} </td>
 
             <td>
-                <g:textField name="${'valor'+conceptoLiquidacion?.id}"    value="${ conceptoLiquidacion?.id in conceptos?.conceptoLiquidacion?.id ? maternidad.ConceptoPorProfesional.findByConceptoLiquidacionAndProfesional(conceptoLiquidacion,profesional).montoFijo:'0'}" />  </td>
+                <g:textField name="${'valor'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional).montoFijo:'0'}" />  </td>
 
       <td>
-          <g:textField name="${'porcentaje'+conceptoLiquidacion?.id}"    value="${ conceptoLiquidacion?.id in conceptos?.conceptoLiquidacion?.id ? maternidad.ConceptoPorProfesional.findByConceptoLiquidacionAndProfesional(conceptoLiquidacion,profesional).porcentaje:'0'}" />
+          <g:textField name="${'porcentaje'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional).porcentaje:'0'}" />
       </td>
 
             <td>
-                <g:checkBox name="${'unicavez'+conceptoLiquidacion?.id}"    value="${ conceptoLiquidacion?.id in conceptos?.conceptoLiquidacion?.id ? maternidad.ConceptoPorProfesional.findByConceptoLiquidacionAndProfesional(conceptoLiquidacion,profesional).porUnicaVez:false}" />
+                <g:checkBox name="${'unicavez'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional).porUnicaVez:false}" />
             </td>
 
             <td>
-                <g:textField name="${'observacion'+conceptoLiquidacion?.id}"    value="${ conceptoLiquidacion?.id in conceptos?.conceptoLiquidacion?.id ? maternidad.ConceptoPorProfesional.findByConceptoLiquidacionAndProfesional(conceptoLiquidacion,profesional).observacion:''}" />
+                <g:textField name="${'observacion'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional).observacion:''}" />
             </td>
 
             <td>
-                <g:checkBox name="${'activo'+conceptoLiquidacion?.id}"    value="${ conceptoLiquidacion?.id in conceptos?.conceptoLiquidacion?.id ? maternidad.ConceptoPorProfesional.findByConceptoLiquidacionAndProfesional(conceptoLiquidacion,profesional).activo:false}" />
+                <g:checkBox name="${'activo'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional).activo:false}" />
             </td>
 
 

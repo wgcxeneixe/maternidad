@@ -23,6 +23,6 @@ class PracticaModulo {
     }
 
 
-    String toString() { "${practica?:practica.codigo+' - '+practica.nombre}" }
+    String toString() { "${practica?practica?.codigo+' - '+practica?.nombre:''}" }
 
 }

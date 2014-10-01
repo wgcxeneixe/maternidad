@@ -7,7 +7,7 @@
         <span class="required-indicator">*</span>
     </label>
     <g:select id="plan" name="plan.id" from="${maternidad.Plan.list()}" optionKey="id" required="" value="${movimientoPlanInstance?.plan?.id}" class="many-to-one"/>
-
+<g:hiddenField name="planConvenio.id" value="${planConvenio?.id}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: movimientoPlanInstance, field: 'conceptoPlan', 'error')} required">

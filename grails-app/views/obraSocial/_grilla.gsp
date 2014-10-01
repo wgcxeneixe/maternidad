@@ -17,7 +17,7 @@
         <th></th>
 
         <th></th>
-
+        <th></th>
         <th></th>
     </tr>
     </thead>
@@ -42,6 +42,8 @@
             <td><g:link class="linkShow" action="show" id="${obraSocialInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
 
             <td><g:link class="linkCuentaCorriente" action="" id="${obraSocialInstance.id}">${message(code: 'obraSocial.cuentaCorriente')}</g:link></td>
+
+            <td><g:link class="linkPlanes" controller="obraSocial" action="verPlanes" id="${obraSocialInstance.id}">${message(code: 'obraSocial.verPlanes')}</g:link></td>
 
         </tr>
     </g:each>
