@@ -14,23 +14,26 @@ class Factura {
     SortedSet<PagoFactura> pagosFactura
 
     static hasMany = [
-            detallesFactura        : DetalleFactura,
-            pagosFactura        : PagoFactura
-            ]
+            detallesFactura: DetalleFactura,
+            pagosFactura: PagoFactura
+    ]
 
     static belongsTo = [
-            plan : Plan
+            plan: Plan
     ]
 
     static constraints = {
 
     }
 
-    public Double getTotalRetencion(){
+    public Double getTotalRetencion() {
         Double total = 0
-        pagosFactura?.each(){
-           total += it?.retencion
+        pagosFactura?.each() {
+            total += it?.retencion
         }
         return total
     }
+
+    String toString() { "${nrofactura} (${fecha} - ${totalFacturado})" }
+
 }

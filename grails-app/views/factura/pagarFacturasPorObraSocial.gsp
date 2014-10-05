@@ -1,0 +1,58 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: christian
+  Date: 30/09/14
+  Time: 11:22 PM
+--%>
+
+<%@ page import="maternidad.Factura" %>
+<%@ page import="maternidad.ObraSocial" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="layout" content="main">
+    <g:set var="entityName" value="${message(code: 'pagoFactura.label', default: 'Pago Factura')}"/>
+    <title><g:message code="default.list.label" args="[entityName]"/></title>
+
+</head>
+
+<body>
+<div class="body">
+    <g:if test="${flash.error}">
+        <div class="errors">${flash.error}</div>
+    </g:if>
+    <g:if test="${flash.message}">
+        <div class="message">${flash.message}</div>
+    </g:if>
+    <g:form controller="factura">
+
+        <span class="label_input">
+            <label>Buscar Facturas de :</label>
+        </span>
+
+        <g:select name="obraSocial.id"
+                  class="select"
+                  noSelection="['': 'Seleccione Obra Social']"
+                  optionKey="id"
+                  value="${obraSocialSelected?.id}"
+                  from="${ObraSocial.list()}"
+                  onChange="${remoteFunction(action: 'selectFactura',
+                          params: '\'idObraSocial=\' + this.value',
+                          update: 'remotoDivListaFacturas')};"/>
+
+
+
+        <div class="list" id="remotoDivListaFacturas">
+            <g:render template="listaFacturas"
+                      model="['listaFacturasSinPagar': listaFacturasSinPagar, 'obrasocialNombre': obrasocialNombre]"/>
+        </div>
+
+        <div class="list" id="remotoDivListaPagos">
+            <g:render template="listaPagos"
+                      model="['listaPagos': listaPagos, 'factura': factura]"/>
+        </div>
+
+    </g:form>
+</div>
+</body>
+</html>
