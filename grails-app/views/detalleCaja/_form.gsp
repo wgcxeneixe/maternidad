@@ -1,13 +1,25 @@
 <%@ page import="maternidad.DetalleCaja" %>
 
-
+<div class="fieldcontain ${hasErrors(bean: detalleCajaInstance, field: 'caja', 'error')} required">
+    <label for="caja" >
+		<g:message code="detalleCaja.caja.label" default="Caja" />
+	</label>
+    <g:fieldValue bean="${detalleCajaInstance}" field="caja"/>
+</div>
 
 <div class="fieldcontain ${hasErrors(bean: detalleCajaInstance, field: 'fecha', 'error')} required">
 	<label for="fecha">
 		<g:message code="detalleCaja.fecha.label" default="Fecha" />
-		<span class="required-indicator">*</span>
+
 	</label>
-	<g:datePicker name="fecha" precision="minute"  value="${detalleCajaInstance?.fecha}"  />
+    <g:formatDate type="datetime"  style="LONG" timeStyle="SHORT"  precision="minute"  date="${detalleCajaInstance?.fecha}"  />
+
+</div>
+<div class="fieldcontain ${hasErrors(bean: detalleCajaInstance, field: 'usuario', 'error')} required">
+    <label for="usuario">
+        <g:message code="detalleCaja.usuario.label" default="Usuario" />
+    </label>
+    <g:fieldValue bean="${detalleCajaInstance}" field="usuario"/>
 
 </div>
 
@@ -56,23 +68,7 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: detalleCajaInstance, field: 'usuario', 'error')} required">
-	<label for="usuario">
-		<g:message code="detalleCaja.usuario.label" default="Usuario" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="usuario" name="usuario.id" from="${maternidad.Usuario.list()}" optionKey="id" required="" value="${detalleCajaInstance?.usuario?.id}" class="many-to-one"/>
 
-</div>
 
-<div class="fieldcontain ${hasErrors(bean: detalleCajaInstance, field: 'caja', 'error')} required">
-	<!--
-    <label for="caja" >
-		<g:message code="detalleCaja.caja.label" default="Caja" />
-		<span class="required-indicator">*</span>
-	</label>
-    -->
-	<g:select id="caja" hidden="hidden" name="caja.id" from="${maternidad.CajaDiaria.findAllByFechaCierreIsNull()}" optionKey="id" required="" value="${detalleCajaInstance?.caja?.id}" class="many-to-one"/>
 
-</div>
 

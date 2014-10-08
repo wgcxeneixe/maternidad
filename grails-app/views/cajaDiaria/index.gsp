@@ -12,7 +12,8 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="cajaDiaria.new.label" args="[entityName]" /></g:link></li>
+           	    <li><g:link class="create" action="create"><g:message code="cajaDiaria.new.label" args="[entityName]" /></g:link></li>
+
 			</ul>
 		</div>
 		<div id="list-cajaDiaria" class="content scaffold-list" role="main">
@@ -34,7 +35,11 @@
 					
 						<g:sortableColumn property="saldoFinal" title="${message(code: 'cajaDiaria.saldoFinal.label', default: 'Saldo Final')}" />
 
+                        <th></th>
 
+                        <th></th>
+
+                        <th></th>
 
 					</tr>
 				</thead>
@@ -55,7 +60,17 @@
 						<td>${fieldValue(bean: cajaDiariaInstance, field: "saldoInicial")}</td>
 					
 						<td>${fieldValue(bean: cajaDiariaInstance, field: "saldoFinal")}</td>
-					</tr>
+
+                        <!-- ACCIONES -->
+                       <td><g:link class="linkShow" action="show" id="${cajaDiariaInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
+
+                        <td><g:link class="linkEdit" action="edit" id="${cajaDiariaInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+
+                        <td> <!-- OPCIONES 3 -->
+                            <g:if test="${cajaDiariaInstance.fechaCierre == null}">
+                              <g:link class="linkEdit" action="edit" id="${cajaDiariaInstance.id}">${message(code: 'default.button.cerrarcaja.label', default: 'Cerrar Caja')}</g:link>
+                             </g:if>
+                        </td>
 				</g:each>
 				</tbody>
 			</table>

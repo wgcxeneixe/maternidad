@@ -1,15 +1,20 @@
 package maternidad
 
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 @Transactional(readOnly = true)
+
 class DetalleCajaController {
 
-    static scaffold = true
+    //static scaffold = true
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+    def springSecurityService
 
     def index(Integer max) {
         if (params.caja) {
@@ -35,13 +40,21 @@ class DetalleCajaController {
         }
         else{
             //Existe una caja abierta, paso los datos
-            params.setProperty('CajaDiariaAbierta',cajaDiariaAbiertaInstance)
-            respond new DetalleCaja(params)
+            def DetalleCajaInstance = new DetalleCaja()
+            DetalleCajaInstance.fecha = new Date()
+            DetalleCajaInstance.caja = cajaDiariaAbiertaInstance
+            DetalleCajaInstance.usuario = springSecurityService.currentUser
+            respond DetalleCajaInstance, model:[cajaDiariaAbiertaInstance: CajaDiaria]
         }
     }
 
     @Transactional
     def save(DetalleCaja detalleCajaInstance) {
+        def cajaDiariaAbiertaInstance =  CajaDiaria.findByFechaCierreIsNull()
+        detalleCajaInstance.fecha = new Date()
+        detalleCajaInstance.caja = cajaDiariaAbiertaInstance
+        detalleCajaInstance.usuario = springSecurityService.currentUser
+
         if (detalleCajaInstance == null) {
             notFound()
             return
@@ -57,9 +70,11 @@ class DetalleCajaController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'detalleCaja.label', default: 'DetalleCaja'), detalleCajaInstance.id])
-                redirect detalleCajaInstance
+                redirect cajaDiariaAbiertaInstance
             }
-            '*' { respond detalleCajaInstance, [status: CREATED] }
+            '*' {
+                respond cajaDiariaAbiertaInstance, [status: CREATED]
+                }
         }
     }
 

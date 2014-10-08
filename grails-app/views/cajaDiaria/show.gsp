@@ -13,6 +13,7 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="index"><g:message code="cajaDiaria.list.label" args="[entityName]" /></g:link></li>
+                <li><g:link class="list" action="create" controller="detalleCaja"><g:message code="detalleCaja.create.label" default="Nueva transacción" args="[entityName]" /></g:link></li>
 				<!--
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 				-->
@@ -42,7 +43,7 @@
 					
 						<span class="property-value" aria-labelledby="fechaCierre-label">
                             <g:formatDate type="datetime" readonly="readonly" style="LONG" timeStyle="SHORT" name="fechaApertura" precision="minute"  date="${cajaDiariaInstance?.fechaCierre}"  />
-                            </span>
+                        </span>
 					
 				</li>
 				</g:if>
