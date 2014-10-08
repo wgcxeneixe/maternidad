@@ -16,15 +16,15 @@
 
         <g:sortableColumn property="activo" title="${message(code: 'profesional.activo.label', default: 'Activo')}" params="${filters}" />
 
-        <th>Conceptos Del Profesional</th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     <g:each in="${profesionalInstanceList}" status="i" var="profesionalInstance">
         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-            <td><g:link action="show" id="${profesionalInstance.id}">${fieldValue(bean: profesionalInstance, field: "persona")}</g:link></td>
-
+            <td>${fieldValue(bean: profesionalInstance, field: "persona")}</td>
 
 
             <td>${fieldValue(bean: profesionalInstance, field: "matriculaProvincial")}</td>
@@ -37,7 +37,11 @@
 
             <td><g:formatBoolean boolean="${profesionalInstance.activo}" /></td>
 
-            <td><g:link controller="conceptoPorProfesional" action="create" id="${profesionalInstance?.id}" >Conceptos</g:link> </td>
+            <td><g:link class="linkEdit" action="edit" id="${profesionalInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+
+            <td><g:link class="linkShow" action="show" id="${profesionalInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
+
+     <!--       <td><g:link controller="conceptoPorProfesional" action="create" id="${profesionalInstance?.id}" >Conceptos</g:link> </td>  -->
 
         </tr>
     </g:each>

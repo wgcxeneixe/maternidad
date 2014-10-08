@@ -13,16 +13,17 @@
         <g:sortableColumn property="activo" title="${message(code: 'convenio.activo.label', default: 'Activo')}" params="${filters}" />
 
         <g:sortableColumn property="observacion" title="${message(code: 'convenio.observacion.label', default: 'Observacion')}" params="${filters}" />
-
-        <th>Planes</th>
-
+<th></th>
+        <th></th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     <g:each in="${convenioInstanceList}" status="i" var="convenioInstance">
         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-            <td><g:link action="show" id="${convenioInstance.id}">${fieldValue(bean: convenioInstance, field: "codigo")}</g:link></td>
+            <td>${fieldValue(bean: convenioInstance, field: "codigo")}</td>
 
             <td>${fieldValue(bean: convenioInstance, field: "obrasocial")}</td>
 
@@ -34,16 +35,21 @@
 
             <td>${fieldValue(bean: convenioInstance, field: "observacion")}</td>
 
+            <td><g:link class="linkEdit" action="edit" id="${convenioInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+
+            <td><g:link class="linkShow" action="show" id="${convenioInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
+
            <td>
 
-               <g:link action="agregarPlan" id="${convenioInstance.id}">Agregar Plan</g:link>
-
-               <g:if test="${convenioInstance.planConvenio}">
-                   <g:link action="verPlanes" id="${convenioInstance.id}">Ver Planes</g:link>
-               </g:if>
+                   <g:link action="verPlanes" id="${convenioInstance.id}">${message(code: 'convenio.planes')}</g:link>
 
            </td>
 
+            <td>
+
+                <g:link action="duplicar" id="${convenioInstance.id}">${message(code: 'convenio.duplicar')}</g:link>
+
+            </td>
 
         </tr>
     </g:each>

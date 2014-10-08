@@ -20,5 +20,5 @@ class Plan {
         activo(nullable: true,blank:true)
     }
 
-    String toString() { "${nombre + " - " + obrasocial.sigla}" }
+    String toString() { if (obrasocial) {"${nombre + " - " + obrasocial.sigla}"} else {''} }
 }

@@ -4,7 +4,7 @@ class MovimientoProfesional {
 
     Date fecha
     Profesional profesional
-    ConceptoProfesional conceptoProfesional
+    ConceptoMovimientoProfesional conceptoProfesional
     Boolean credito
     Double monto
     String observacion

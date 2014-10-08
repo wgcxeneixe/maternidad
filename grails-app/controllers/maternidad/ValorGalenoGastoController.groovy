@@ -75,7 +75,7 @@ class ValorGalenoGastoController {
 
 
 
-        redirect(controller:"convenio",action: "index")
+        redirect(controller:"convenio",action: "editPlan",params: [id:planConvenio?.id])
 
         return
 
@@ -148,7 +148,7 @@ class ValorGalenoGastoController {
 
    def planConvenio=  PlanConvenio.get(params.id as Long)
 
-        render(view: "valoresGalenoGasto", model: [planConvenio:planConvenio])
+        render(view: "_valoresGalenoGasto", model: [planConvenio:planConvenio])
 
 
     }

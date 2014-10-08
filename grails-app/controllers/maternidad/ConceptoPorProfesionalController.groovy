@@ -61,7 +61,7 @@ class ConceptoPorProfesionalController {
 
         if(profesional) {
 
-            for (conceptoL in ConceptoLiquidacion.list()) {
+            for (conceptoL in ConceptoProfesional.list()) {
 
 
                 def lista = params?.conceptos as List
@@ -69,7 +69,7 @@ class ConceptoPorProfesionalController {
                 if (lista?.contains(conceptoL.id as String)) {
                     def conceptoInstance = new ConceptoPorProfesional()
                     conceptoInstance.profesional = profesional
-                    conceptoInstance.conceptoLiquidacion = conceptoL
+                    conceptoInstance.conceptoProfesional = conceptoL
                     conceptoInstance.fecha = new Date()
                     conceptoInstance.montoFijo = params['valor' + conceptoL?.id] as Double
                     conceptoInstance.porcentaje = params['porcentaje' + conceptoL?.id] as Double
@@ -77,7 +77,7 @@ class ConceptoPorProfesionalController {
                     conceptoInstance.observacion = params['observacion' + conceptoL?.id] as String
                     conceptoInstance.activo = (params['activo' + conceptoL?.id] as Boolean)? true:false
 
-                    def conceptoInstanceAux = ConceptoPorProfesional.findByConceptoLiquidacionAndProfesional(conceptoL, profesional)
+                    def conceptoInstanceAux = ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoL, profesional)
 
                     if (conceptoInstanceAux == null) {
                         if (conceptoInstance.save(flush: true)) {
@@ -103,7 +103,7 @@ class ConceptoPorProfesionalController {
 
                 } else {
 
-                    def conceptoInstanceDel = ConceptoPorProfesional.findByConceptoLiquidacionAndProfesional(conceptoL, profesional)
+                    def conceptoInstanceDel = ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoL, profesional)
 
                     if (conceptoInstanceDel ) {
 
@@ -118,7 +118,7 @@ class ConceptoPorProfesionalController {
         }
 
        // flash.message = "${message(code: 'default.created.message', args: [message(code: 'documentacionTipoTramite.label', default: 'DocumentacionTipoTramite')])}"
-        redirect(action: "index", controller: "profesional")
+        redirect(action: "edit", controller: "profesional",params: [id: profesional?.id] )
 
 
 

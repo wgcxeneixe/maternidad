@@ -85,9 +85,9 @@ class ProductoController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'producto.label', default: 'Producto'), productoInstance.id])
-                redirect productoInstance
+                redirect action: 'index'
             }
-            '*' { respond productoInstance, [status: CREATED] }
+            '*' { respond productoInstance, [status: CREATED] ,view: 'index' }
         }
     }
 
@@ -112,9 +112,9 @@ class ProductoController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Producto.label', default: 'Producto'), productoInstance.id])
-                redirect productoInstance
+                redirect action:'index'
             }
-            '*' { respond productoInstance, [status: OK] }
+            '*' { respond productoInstance, [status: OK],view: 'index' }
         }
     }
 

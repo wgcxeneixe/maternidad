@@ -3,7 +3,7 @@ package maternidad
 class ConceptoPorProfesional {
 
     String observacion
-    ConceptoLiquidacion conceptoLiquidacion
+    ConceptoProfesional conceptoProfesional
     Profesional profesional
     Double montoFijo
     Double porcentaje

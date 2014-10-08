@@ -6,18 +6,11 @@
         <g:message code="plan.obrasocial.label" default="Obrasocial" />
         <span class="required-indicator">*</span>
     </label>
-    <g:select id="obrasocial" name="obrasocial.id" from="${maternidad.ObraSocial.list()}" optionKey="id" required="" value="${planInstance?.obrasocial?.id}" class="many-to-one"/>
 
-</div>
+    <g:textField name="nombreOS" readonly="true" value="${planInstance?.obrasocial?.encodeAsHTML()}" />
 
+    <g:hiddenField name="obrasocial.id" value="${planInstance?.obrasocial?.id}"/>
 
-<div class="fieldcontain ">
-    <label for="convenio">
-        <g:message code="plan.obrasocial.label" default="Convenio" />
-    </label>
-    <g:textField name="nombreConvenio" readonly="true" value="${convenio?.encodeAsHTML()}" />
-
-    <g:hiddenField name="convenio" value="${convenio?.id}"/>
 </div>
 
 
@@ -58,40 +51,3 @@
 	<g:checkBox name="activo" value="${planInstance?.activo}" />
 
 </div>
-
-<div class="fieldcontain ${hasErrors(bean: planInstance, field: 'movimientosPlan', 'error')} ">
-	<label for="movimientosPlan">
-		<g:message code="plan.movimientosPlan.label" default="Movimientos Plan" />
-		
-	</label>
-	
-<ul class="one-to-many">
-<g:each in="${planInstance?.movimientosPlan?}" var="m">
-    <li><g:link controller="movimientoPlan" action="show" id="${m.id}">${m?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="movimientoPlan" action="create" params="['plan.id': planInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'movimientoPlan.label', default: 'MovimientoPlan')])}</g:link>
-</li>
-</ul>
-
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: planInstance, field: 'planConvenios', 'error')} ">
-	<label for="planConvenios">
-		<g:message code="plan.planConvenios.label" default="Plan Convenios" />
-		
-	</label>
-	
-<ul class="one-to-many">
-<g:each in="${planInstance?.planConvenios?}" var="p">
-    <li><g:link controller="planConvenio" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="planConvenio" action="create" params="['plan.id': planInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'planConvenio.label', default: 'PlanConvenio')])}</g:link>
-</li>
-</ul>
-
-
-</div>
-

@@ -2,7 +2,7 @@ package maternidad
 
 class DetalleLiquidacion {
 
-    ConceptoLiquidacion concepto
+    ConceptoProfesional concepto
     Double monto
     Liquidacion liquidacion
     DetalleFactura detalleFactura

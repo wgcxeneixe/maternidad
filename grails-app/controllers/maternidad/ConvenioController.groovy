@@ -85,12 +85,20 @@ class ConvenioController {
 
         convenioInstance.save flush: true
 
+        for( plan in convenioInstance?.obrasocial?.planes ) {
+           PlanConvenio planConvenio=new PlanConvenio()
+            planConvenio.convenio=convenioInstance
+            planConvenio.activo=true
+            planConvenio.plan=plan
+            planConvenio.save flush: true
+        }
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'convenio.label', default: 'Convenio'), convenioInstance.id])
-                redirect convenioInstance
+                redirect(action: "index")
             }
-            '*' { respond convenioInstance, [status: CREATED] }
+            '*' { respond convenioInstance, [status: CREATED],view:'index' }
         }
     }
 
@@ -115,9 +123,9 @@ class ConvenioController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Convenio.label', default: 'Convenio'), convenioInstance.id])
-                redirect convenioInstance
+                redirect(action: "index")
             }
-            '*' { respond convenioInstance, [status: OK] }
+            '*' { respond convenioInstance, [status: OK],view:'index' }
         }
     }
 
@@ -167,8 +175,259 @@ redirect controller: "plan", method:"POST" ,action: "create",params:["convenio":
 
     }
 
+def duplicar={
+
+
+    def convenio=Convenio.get(params.id as Long)
+
+}
+
+
+    def asociarPlanAlConvenio={
+
+
+        def planconvenio=PlanConvenio.get(params.id as Long)
+planconvenio.activo=Boolean.TRUE
+
+        render(view: "planesDelConvenio", model: [convenio:planconvenio?.convenio])
+
+    }
+
+
+    def desasociarPlan={
+
+
+        def planconvenio=PlanConvenio.get(params.id as Long)
+        planconvenio.activo=Boolean.FALSE
+
+        render(view: "planesDelConvenio", model: [convenio:planconvenio?.convenio])
+
+    }
+
+   def showPlan = {
+
+       def planconvenio=PlanConvenio.get(params.id as Long)
+
+
+       render(view: "showPlan", model: [planConvenio:planconvenio])
+
+   }
+
+    def editPlan = {
+
+        def planconvenio=PlanConvenio.get(params.id as Long)
+
+
+        render(view: "editPlan", model: [planConvenio:planconvenio])
+
+    }
+
+
+    @Transactional
+    def updatePlan(Plan planInstance) {
+        if (planInstance == null) {
+            notFound()
+            return
+        }
+
+        if (planInstance.hasErrors()) {
+            respond planInstance.errors, view: 'editPlan'
+            return
+        }
+
+        planInstance.save flush: true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Convenio.label', default: 'Plan'),planInstance.id])
+                redirect(action: "editPlan")
+            }
+            '*' { respond planInstance, [status: OK],view:'editPlan' }
+        }
+    }
 
 
 
+    def saveValorGalenoGasto = {
+
+        def planConvenio= PlanConvenio.get(params.planConvenio as String)
+
+
+        def lista =  params?.gastos as List
+
+        for(gasto in TipoGasto.list()){
+
+
+            if ( lista?.contains(gasto?.id as String)  ){
+                def valorGalenoGasto = new ValorGalenoGasto()
+
+                valorGalenoGasto.planConvenio=planConvenio
+                valorGalenoGasto.tipoGasto=gasto
+                valorGalenoGasto.valor=params['valor'+gasto?.id] as Double
+
+
+                def valorGalenoGastoAux=ValorGalenoGasto.findByPlanConvenioAndTipoGasto(planConvenio,gasto)
+
+                if(valorGalenoGastoAux==null)
+                {
+                    if (valorGalenoGasto.save(flush: true)){}
+                }else {
+
+                    valorGalenoGastoAux.valor=params['valor'+gasto?.id] as Double
+
+
+                    if (valorGalenoGastoAux.save(flush: true)){}
+                }
+
+
+            } else {
+
+
+                def valorgaenogastoInstance= ValorGalenoGasto.findByPlanConvenioAndTipoGasto(planConvenio,gasto)
+
+                if(valorgaenogastoInstance!=null){
+                    valorgaenogastoInstance.delete()
+                }
+
+            }
+
+
+        }
+
+
+
+        redirect(controller:"convenio",action: "editPlan",params: [id:planConvenio?.id])
+
+        return
+
+
+
+    }
+
+
+
+    def saveValorGalenoHonorario = {
+
+        def planConvenio= PlanConvenio.get(params.planConvenio as String)
+
+
+        def lista =  params?.honorarios as List
+
+        for(honorario in TipoHonorario.list()){
+
+
+            if ( lista?.contains(honorario?.id as String)  ){
+                def valorGalenoHonorario = new ValorGalenoHonorario()
+
+                valorGalenoHonorario.planConvenio=planConvenio
+                valorGalenoHonorario.tipoHonorario=honorario
+                valorGalenoHonorario.valor=params['valor'+honorario?.id] as Double
+
+
+                def valorGalenoHonorarioAux=ValorGalenoHonorario.findByPlanConvenioAndTipoHonorario(planConvenio,honorario)
+
+                if(valorGalenoHonorarioAux==null)
+                {
+                    if (valorGalenoHonorario.save(flush: true)){}
+                }else {
+
+                    valorGalenoHonorarioAux.valor=params['valor'+honorario?.id] as Double
+
+
+                    if (valorGalenoHonorarioAux.save(flush: true)){}
+                }
+
+
+            } else {
+
+
+                def valorgaenohonorarioInstance= ValorGalenoHonorario.findByPlanConvenioAndTipoHonorario(planConvenio,honorario)
+
+                if(valorgaenohonorarioInstance!=null){
+                    valorgaenohonorarioInstance.delete()
+                }
+
+            }
+
+
+        }
+
+
+
+        redirect(controller:"convenio",action: "editPlan",params: [id:planConvenio?.id])
+
+        return
+
+
+
+    }
+
+
+def asociarPractica= {
+
+def planConvenio=PlanConvenio.get(params.id)
+
+    render(view: "asociarPractica", model: [planConvenio:planConvenio])
+
+
+}
+
+   def saveAsociacionPractica = {
+
+   def planConvenio=PlanConvenio.get(params.planConvenio.id)
+   def practica=Practica.get(params.practica.id)
+
+def valorPractica= new ValorPractica()
+
+       valorPractica?.planConvenio=planConvenio
+       valorPractica?.practica=practica
+       valorPractica?.valorHonorario=params.valor as Double
+        valorPractica?.fechaActualizado= new Date()
+       valorPractica?.plan=planConvenio?.plan
+
+       valorPractica.save flush: true
+
+       request.withFormat {
+           form multipartForm {
+               flash.message = message(code: 'default.created.message', args: [message(code: 'Convenio.label', default: 'Practica'),valorPractica.id])
+               redirect(action: "editPlan",params: [id: planConvenio?.id])
+           }
+           '*' { respond valorPractica, [status: OK],view:'editPlan' }
+       }
+
+   }
+
+
+    def editAsociarPractica= {
+
+        def valor=ValorPractica.get(params.id)
+
+        render(view: "editAsociarPractica", model: [valorPractica:valor])
+
+
+    }
+
+    def updateAsociacionPractica={
+
+        def valorPractica=ValorPractica.get(params.valorPractica.id)
+        def practica=Practica.get(params.practica.id)
+
+
+        valorPractica?.practica=practica
+        valorPractica?.valorHonorario=params.valor as Double
+        valorPractica?.fechaActualizado= new Date()
+
+        valorPractica.save flush: true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'Convenio.label', default: 'Practica'),valorPractica.id])
+                redirect(action: "editPlan",params: [id: valorPractica?.planConvenio?.id])
+            }
+            '*' { respond valorPractica, [status: OK],view:'editPlan' }
+        }
+
+
+    }
 
 }

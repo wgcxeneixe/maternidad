@@ -1,6 +1,34 @@
 <%@ page import="maternidad.PracticaModulo" %>
 
 
+<div class="fieldcontain ${hasErrors(bean: practicaModuloInstance, field: 'modulo', 'error')} required">
+    <label for="modulo">
+        <g:message code="practicaModulo.modulo.label" default="Modulo" />
+        <span class="required-indicator">*</span>
+    </label>
+
+    <g:textField name="nombreM" readonly="true" value="${practicaModuloInstance?.modulo?.toString()}" />
+
+    <g:hiddenField name="modulo.id" value="${practicaModuloInstance?.modulo?.id}"/>
+
+<g:hiddenField name="planConvenio.id" value="${planConvenio?.id}"/>
+
+
+    <g:hiddenField name="valorPractica.id" value="${valorPractica?.id}"/>
+
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: practicaModuloInstance, field: 'practica', 'error')} required">
+    <label for="practica">
+        <g:message code="practicaModulo.practica.label" default="Practica" />
+        <span class="required-indicator">*</span>
+    </label>
+    <g:select id="practica" name="practica.id" from="${maternidad.Practica.list()}" optionKey="id" required="" value="${practicaModuloInstance?.practica?.id}" class="many-to-one"/>
+
+</div>
+
+
 
 <div class="fieldcontain ${hasErrors(bean: practicaModuloInstance, field: 'valorGasto', 'error')} ">
 	<label for="valorGasto">
@@ -35,24 +63,6 @@
 		
 	</label>
 	<g:field name="valorEspecialista" value="${fieldValue(bean: practicaModuloInstance, field: 'valorEspecialista')}"/>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: practicaModuloInstance, field: 'practica', 'error')} required">
-	<label for="practica">
-		<g:message code="practicaModulo.practica.label" default="Practica" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="practica" name="practica.id" from="${maternidad.Practica.list()}" optionKey="id" required="" value="${practicaModuloInstance?.practica?.id}" class="many-to-one"/>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: practicaModuloInstance, field: 'modulo', 'error')} required">
-	<label for="modulo">
-		<g:message code="practicaModulo.modulo.label" default="Modulo" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="modulo" name="modulo.id" from="${maternidad.Practica.list()}" optionKey="id" required="" value="${practicaModuloInstance?.modulo?.id}" class="many-to-one"/>
 
 </div>
 

@@ -11,7 +11,7 @@
 		<a href="#show-producto" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+			<!--	<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
 				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
@@ -59,7 +59,7 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${productoInstance?.movimientosStock}">
+			<!--	<g:if test="${productoInstance?.movimientosStock}">
 				<li class="fieldcontain">
 					<span id="movimientosStock-label" class="property-label"><g:message code="producto.movimientosStock.label" default="Movimientos Stock" /></span>
 					
@@ -69,7 +69,7 @@
 					
 				</li>
 				</g:if>
-			
+			-->
 			</ol>
 			<g:form url="[resource:productoInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">

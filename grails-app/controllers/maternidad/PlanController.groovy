@@ -25,19 +25,23 @@ class PlanController {
 
         def plan= new Plan(params)
 
-        if(params.convenio){
+        if(params.id) {
 
-def convenio=Convenio.get(params.convenio as Long)
+//def convenio=Convenio.get(params.id as Long)
 
-         plan.obrasocial=convenio.obrasocial
+            def obraSocial = ObraSocial.get(params.id as Long)
 
-            respond plan,model:[convenio:convenio]
+            plan.obrasocial = obraSocial
 
-        }else {
+            // respond plan,model:[convenio:convenio]
+
+        }
+
+
 
          respond plan
 
-        }
+
 
 
 
@@ -57,25 +61,26 @@ def convenio=Convenio.get(params.convenio as Long)
 
         planInstance.save flush: true
 
-        def planConvenio= new PlanConvenio()
+       /* def planConvenio= new PlanConvenio()
 
         planConvenio.convenio=Convenio.get(params.convenio as Long)
         planConvenio.plan=planInstance
 
         planConvenio.save flush: true
-
+*/
 
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'plan.label', default: 'Plan'), planInstance.id])
-                redirect planInstance
+                redirect(controller: 'obraSocial',action: 'verPlanes',params: [id:planInstance?.obrasocial?.id])
             }
             '*' { respond planInstance, [status: CREATED] }
         }
     }
 
-    def edit(Plan planInstance) {
+    def edit(Plan  planInstance) {
+        //respond planInstance,model:[convenio:planConvenioInstance?.convenio]
         respond planInstance
     }
 
@@ -96,7 +101,7 @@ def convenio=Convenio.get(params.convenio as Long)
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Plan.label', default: 'Plan'), planInstance.id])
-                redirect planInstance
+                redirect(controller: 'obraSocial',action: 'verPlanes',params: [id:planInstance?.obrasocial?.id])
             }
             '*' { respond planInstance, [status: OK] }
         }
@@ -130,4 +135,30 @@ def convenio=Convenio.get(params.convenio as Long)
             '*' { render status: NOT_FOUND }
         }
     }
+
+    @Transactional
+    def updatePlan(Plan planInstance) {
+        if (planInstance == null) {
+            notFound()
+            return
+        }
+
+        if (planInstance.hasErrors()) {
+            respond planInstance.errors, view: '/convenio/editPlan'
+            return
+        }
+
+        planInstance.save flush: true
+
+      def planConvenio= PlanConvenio.get(params.planConvenio.id)
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Convenio.label', default: 'Plan'),planInstance.id])
+                redirect(controller:'convenio',  action: "editPlan",params: [id:planConvenio?.id])
+            }
+            '*' { respond planInstance, [status: OK],view:'/convenio/editPlan' }
+        }
+    }
+
 }

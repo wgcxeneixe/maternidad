@@ -29,6 +29,8 @@
 
 </div>
 
+
+<!--
 <div class="fieldcontain ${hasErrors(bean: destinoInstance, field: 'movimientosStock', 'error')} ">
 	<label for="movimientosStock">
 		<g:message code="destino.movimientosStock.label" default="Movimientos Stock" />
@@ -46,4 +48,4 @@
 
 
 </div>
-
+-->

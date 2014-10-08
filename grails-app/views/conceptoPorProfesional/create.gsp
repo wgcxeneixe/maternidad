@@ -29,6 +29,15 @@
                     });
 
 
+                $("#boton").click(function(){
+
+                    $("#profesional").prop("disabled", false);
+                    $("#formulario").submit();
+
+
+                });
+
+
             })
 
         </script>
@@ -39,7 +48,7 @@
 		<a href="#create-conceptoPorProfesional" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+			<!--	<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li> -->
 				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
@@ -55,7 +64,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
-			<g:form url="[resource:conceptoPorProfesionalInstance, action:'save']" >
+			<g:form id="formulario" url="[resource:conceptoPorProfesionalInstance, action:'save']" >
                 <fieldset class="form">
                     <table>
                         <tbody>
@@ -99,9 +108,34 @@
 
                 </fieldset>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<g:submitButton id="boton" name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
 			</g:form>
 		</div>
+
+
+
+    <g:if test="params.id">
+        <script>
+            $(function() {
+
+                $('#profesional').change(function(e){
+
+                    $("#profesional").val('${params.id}');
+                    $("#profesional").prop("disabled", true);
+                    // $("#filaoculta").hide();
+                });
+
+                // And now fire change event when the DOM is ready
+                $('#profesional').trigger('change');
+
+
+            })
+        </script>
+
+    </g:if>
+
+
+
 	</body>
 </html>
