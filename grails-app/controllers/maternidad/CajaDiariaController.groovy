@@ -1,10 +1,11 @@
 package maternidad
 
-
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 @Transactional(readOnly = true)
 class CajaDiariaController {
 
@@ -12,8 +13,12 @@ class CajaDiariaController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def springSecurityService
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
+        params.sort = 'fechaApertura'
+        params.order = 'desc'
         respond CajaDiaria.list(params), model:[cajaDiariaInstanceCount: CajaDiaria.count()]
     }
 
@@ -25,11 +30,13 @@ class CajaDiariaController {
         def cajaDiariaAbiertaInstance =  CajaDiaria.findByFechaCierreIsNull()
         if(cajaDiariaAbiertaInstance == null ){
             def cajaDiariaInstance = new CajaDiaria(params)
-            //cajaDiariaInstance.usuarioApertura = springSecurityService.currentUser
             /* Buscamos el saldo final de la ultima caja */
             def cajaDiariaUltimaInstance = CajaDiaria.listOrderByFechaCierre()
             if(cajaDiariaUltimaInstance.size() > 0 ){
-            cajaDiariaInstance.saldoInicial = cajaDiariaUltimaInstance.first().saldoFinal}
+            cajaDiariaInstance.saldoInicial = cajaDiariaUltimaInstance.last().saldoFinal}
+            //Asignamos la fecha, hora y usuario actual
+            cajaDiariaInstance.fechaApertura = new Date()
+            cajaDiariaInstance.usuarioApertura = springSecurityService.currentUser
             respond cajaDiariaInstance}
         else{
             redirect action: "edit", method: "POST", params: [id:cajaDiariaAbiertaInstance.id]
@@ -39,8 +46,13 @@ class CajaDiariaController {
 
     @Transactional
     def save(CajaDiaria cajaDiariaInstance) {
+        //Asignamos la fecha actual como fecha de apertura
+
+        cajaDiariaInstance.fechaApertura = new Date()
+        cajaDiariaInstance.usuarioApertura = springSecurityService.currentUser
+        //params?.usuarioApertura = springSecurityService.currentUser.id
         if (cajaDiariaInstance == null) {
-            notFound()
+            notFound()1
             return
         }
 
@@ -48,9 +60,9 @@ class CajaDiariaController {
             respond cajaDiariaInstance.errors, view:'create'
             return
         }
-
         /* Controlamos la ultima fecha y la fecha de apertura */
         /* Buscamos el saldo final de la ultima caja */
+        /*
         def cajaDiariaUltimaInstance = CajaDiaria.listOrderByFechaCierre()
         if(cajaDiariaUltimaInstance.size() > 0 ){
             def fecha = cajaDiariaUltimaInstance.last().fechaCierre
@@ -60,7 +72,7 @@ class CajaDiariaController {
                 return
             }
         }
-
+        */
         cajaDiariaInstance.save flush:true
 
         request.withFormat {
@@ -84,18 +96,30 @@ class CajaDiariaController {
                saldofinal = saldofinal - undetalle.monto
            }
         }
-        cajaDiariaInstance.saldoFinal = saldofinal
+        cajaDiariaInstance.saldoFinal = cajaDiariaInstance.saldoInicial + saldofinal
         def cajacerrada = new Boolean(false)
         if(cajaDiariaInstance.fechaCierre != null){
             cajacerrada = true
         }else{
             cajaDiariaInstance.fechaCierre = new Date()
         }
+        //Solo lo asignamos si no tiene usuario asignado
+        if(cajaDiariaInstance.usuarioCierre == null){
+            cajaDiariaInstance.usuarioCierre = springSecurityService.currentUser
+        }
         respond cajaDiariaInstance, model:[cajaDiariaInstanceCerrada: cajacerrada]
     }
 
     @Transactional
     def update(CajaDiaria cajaDiariaInstance) {
+        if(cajaDiariaInstance.usuarioCierre == null){
+            cajaDiariaInstance.usuarioCierre = springSecurityService.currentUser
+        }
+
+        if(cajaDiariaInstance.fechaCierre == null){
+            cajaDiariaInstance.fechaCierre = new Date()
+        }
+
         if (cajaDiariaInstance == null) {
             notFound()
             return
@@ -109,6 +133,7 @@ class CajaDiariaController {
         /* Controlamos la ultima fecha y la fecha de apertura */
         /* Buscamos el saldo final de la ultima caja */
         //CajaDiaria.listOrderByFechaCierre()
+        /*
         def cajaDiariaUltimaInstance = CajaDiaria.findAllByIdNotEqual(cajaDiariaInstance.id, [sort: "fechaCierre", order: "asc"])
         if(cajaDiariaUltimaInstance.size() > 0 ){
             def fecha = cajaDiariaUltimaInstance.last().fechaCierre
@@ -118,12 +143,12 @@ class CajaDiariaController {
                 return
             }
         }
-
+        */
         cajaDiariaInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'CajaDiaria.label', default: 'CajaDiaria'), cajaDiariaInstance.id])
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'CajaDiaria.label', default: 'Caja Diaria'), cajaDiariaInstance.id])
                 redirect cajaDiariaInstance
             }
             '*'{ respond cajaDiariaInstance, [status: OK] }

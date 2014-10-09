@@ -6,12 +6,6 @@
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
         <script>
             $(function() {
-                //idioma de los calendar
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
                 //Selector para planilla de internacion
                 $("#planillainternacion").select2({allowClear: true});
                 //Selector para Concepto
