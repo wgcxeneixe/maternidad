@@ -12,7 +12,7 @@
         <th>Total Pagado</th>
         <th>Saldo</th>
         <th>Fecha de Cobro</th>
-        <th>Pagar FACTURA</th>
+        <th>Pagos</th>
 
     </tr>
     </thead>
@@ -24,22 +24,43 @@
             <td>${item?.nrofactura} - ${item?.periodo}</td>
             <td>${item?.plan}</td>
             <td>${item?.totalFacturado}</td>
-
             <td>${item?.totalPagado}</td>
             <td>${item?.totalFacturado - item?.totalPagado}</td>
             <td>${item?.fecha?.format('dd/MM/yyyy')}</td>
-            <td><g:link action="verPagos" controller="factura" id="${item?.id}"
-                        name="Ver Pagos"
-                        onclick="${remoteFunction(action: 'verPagos',
-                                params: '\'idPago=\' + this.value',
-                                update: 'remotoDivListaPagos')};">Ver Pagos</g:link></td>
+            <td>
+
+                <g:set var="pagos" value="${item?.pagosFactura?.size()}"/>
+                <g:if test="${pagos > 0}">
+                    <g:form controller="factura">
+                        <g:hiddenField name="id" value="${item?.id}"/>
+                        <g:submitToRemote
+                                url="[controller: 'Factura', action: 'verPagos']"
+                                id="verPagos" class="btn-link"
+                                value="Ver Pagos" update="remotoDivListaPagos"/>
+                    </g:form>
+                </g:if>
+
+
+                <g:else>
+                    <g:form controller="PagoFactura">
+                        <g:hiddenField name="id" value="${item}"/>
+                        <g:actionSubmit controller="PagoFactura"
+                                        action="create"
+                                        value="Agregar Pago"
+                                        class="btn-link"/>
+                    </g:form>
+                </g:else>
+
+            </td>
         </tr>
     </g:each>
     </tbody>
 </table>
 
+<div class="list" id="remotoDivListaPagos">
+    <g:render template="listaPagos"
+              model="['listaPagos': listaPagos, 'factura': factura]"/>
 
-<div class="buttons">
-    <span class="button"><g:submitButton action="" name="volver atras"
-                                         value="Volver atras"/></span>
 </div>
+
+

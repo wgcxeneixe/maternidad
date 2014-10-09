@@ -16,7 +16,7 @@ class PagoFactura {
     SortedSet<RetencionPago> retencionPagos
 
     static hasMany = [
-            retencionPagos : RetencionPago
+            retencionPagos: RetencionPago
     ]
 
 
@@ -24,13 +24,26 @@ class PagoFactura {
         retencion(nullable: true)
     }
 
+    String toString() { "${fecha?.format('dd/MM/yyyy')} - ${monto}" }
+
+//    static pagosFacturaOrdenar(Factura factura) {
+    //       def pagos = []
+    //       if (factura) {
+//            pagos = PagoFactura.findAllByFactura(factura)
+//            pagos.sort {it.nrofactura }
+    //      }
+    //       pagos
+    //   }
+
 //    def beforeInsert = {
+    //      pagosFacturaOrdenar(factura)
 //        actualizarRetencion()
-//    }
+    // }
 //
-//    def beforeUpdate = {
+    //  def beforeUpdate = {
+    //     pagosFacturaOrdenar(factura)
 //        actualizarRetencion()
-//    }
+    // }
 //
 //    private void actualizarRetencion () {
 //        Double total = 0
@@ -39,4 +52,6 @@ class PagoFactura {
 //        }
 //        retencion = total
 //    }
+
+
 }

@@ -6,4 +6,6 @@ class TipoPago {
 
     static constraints = {
     }
+
+    String toString() { "${descripcion}" }
 }

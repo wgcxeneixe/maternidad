@@ -9,11 +9,12 @@
 <%@ page import="maternidad.ObraSocial" %>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'pagoFactura.label', default: 'Pago Factura')}"/>
     <title><g:message code="default.list.label" args="[entityName]"/></title>
-
+    <g:javascript library="jQuery"/>
 </head>
 
 <body>
@@ -24,7 +25,7 @@
     <g:if test="${flash.message}">
         <div class="message">${flash.message}</div>
     </g:if>
-    <g:form controller="factura">
+
 
         <span class="label_input">
             <label>Buscar Facturas de :</label>
@@ -40,19 +41,12 @@
                           params: '\'idObraSocial=\' + this.value',
                           update: 'remotoDivListaFacturas')};"/>
 
-
-
         <div class="list" id="remotoDivListaFacturas">
             <g:render template="listaFacturas"
                       model="['listaFacturasSinPagar': listaFacturasSinPagar, 'obrasocialNombre': obrasocialNombre]"/>
         </div>
 
-        <div class="list" id="remotoDivListaPagos">
-            <g:render template="listaPagos"
-                      model="['listaPagos': listaPagos, 'factura': factura]"/>
-        </div>
 
-    </g:form>
 </div>
 </body>
 </html>

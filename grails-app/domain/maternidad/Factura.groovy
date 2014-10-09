@@ -10,8 +10,8 @@ class Factura {
     Double totalFacturado
     Double totalPagado
 
-    SortedSet<DetalleFactura> detallesFactura
-    SortedSet<PagoFactura> pagosFactura
+    SortedSet detallesFactura
+    // SortedSet pagosFactura
 
     static hasMany = [
             detallesFactura: DetalleFactura,
@@ -23,6 +23,9 @@ class Factura {
     ]
 
     static constraints = {
+        fecha(nullable: false)
+        totalFacturado(nullable: false)
+        totalPagado(nullable: false, validator: pagoCompletoValidator)
 
     }
 
@@ -34,6 +37,25 @@ class Factura {
         return total
     }
 
-    String toString() { "${nrofactura} (${fecha} - ${totalFacturado})" }
+
+    public Double getTotalPagos(factura) {
+        Double totalMonto = 0
+        factura?.pagosFactura?.each() {
+            totalMonto += it?.monto
+        }
+        return total
+    }
+
+    static def pagoCompletoValidator = {
+        Factura obj ->
+            if (obj?.totalFacturado >= obj?.totalPagado) {
+                pagoCompleto = true
+            } else {
+                pagoCompleto = false
+            }
+
+    }
+
+    String toString() { "${nrofactura} (${fecha?.format('dd/MM/yyyy')} - ${totalFacturado})" }
 
 }

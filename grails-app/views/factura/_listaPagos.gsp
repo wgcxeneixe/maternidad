@@ -14,7 +14,6 @@
         <th>Fecha Pago</th>
     </tr>
     </thead>
-
     <tbody>
     <g:each in="${listaPagos}" status="i" var="it">
         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
@@ -32,6 +31,14 @@
 
 
 <div class="buttons">
-    <span class="button"><g:submitButton action="" name="volver atras"
-                                         value="Volver atras"/></span>
+    <span class="button">
+        <g:form controller="PagoFactura">
+            <g:hiddenField name="id" value="${listaPagos?.factura}"/>
+            <g:actionSubmit controller="PagoFactura"
+                            action="create"
+                            value="Agregar Pago"
+                            class="btn-link"/>
+        </g:form>
+    </span>
+
 </div>

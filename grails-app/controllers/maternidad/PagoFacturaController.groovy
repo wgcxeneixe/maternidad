@@ -23,6 +23,10 @@ class PagoFacturaController {
     }
 
     def create() {
+
+        println 'params'
+        println params.dump()
+
         respond new PagoFactura(params)
     }
 
@@ -37,6 +41,12 @@ class PagoFacturaController {
             respond pagoFacturaInstance.errors, view: 'create'
             return
         }
+
+        println 'params save'
+        println params.dump()
+
+        //LOGICA DE GUARDAR UN NUEVO PAGO Y REDUCIR EL MONTO DE LA FACTURA
+
 
         pagoFacturaInstance.save flush: true
 
