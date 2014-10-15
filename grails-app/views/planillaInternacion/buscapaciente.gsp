@@ -4,7 +4,7 @@
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'planillaInternacion.label', default: 'PlanillaInternacion')}"/>
-    <title><g:message code="planillaInternacion.edit.label" args="[entityName]"/></title>
+    <title><g:message code="planillaInternacion.buscapaciente.label" args="[entityName]"/></title>
     <script>
         $(function() {
 
@@ -29,13 +29,12 @@
     <ul>
         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
         <li><g:link class="list" action="index"><g:message code="planillaInternacion.list.label" args="[entityName]"/></g:link></li>
-        <li><g:link class="list" action="create" controller="nacimiento" id="${planillaInternacionInstance?.id}"><g:message code="nacimiento.edit.label" args="[entityName]"/></g:link></li>
 
     </ul>
 </div>
 
 <div id="edit-planillaInternacion" class="content scaffold-edit" role="main">
-    <h1><g:message code="planillaInternacion.edit.label" args="[entityName]"/></h1>
+    <h1><g:message code="planillaInternacion.buscarpaciente.label" args="[entityName]"/></h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
@@ -47,19 +46,17 @@
             </g:eachError>
         </ul>
     </g:hasErrors>
-    <g:form url="[resource: planillaInternacionInstance, action: 'update']" method="PUT">
-        <g:hiddenField name="version" value="${planillaInternacionInstance?.version}"/>
-        <fieldset class="form">
-            <g:render template="form"/>
-        </fieldset>
-        <g:if test="${planillaInternacionInstance?.nacimientos}">
-            <fieldset class="form">
-                <g:render template="nacimientos" />
-            </fieldset>
-        </g:if>
+    <g:form url="[resource: planillaInternacionInstance, action: 'derivarpaciente']" method="PUT">
+        <div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'paciente', 'error')} ">
+            <label for="paciente">
+                <g:message code="planillaInternacion.dnipaciente.label" default="D.N.I. Paciente"/>
+            </label>
+            <g:textField name="paciente"
+                         value="${planillaInternacionInstance?.nombreFamiliarResponsable}" required="required"/>
+        </div>
         <fieldset class="buttons">
-            <g:actionSubmit class="save" action="update"
-                            value="${message(code: 'default.button.update.label', default: 'Update')}"/>
+            <g:actionSubmit class="search" action="derivarpaciente"
+                            value="${message(code: 'planillainternacion.button.buscapaciente.label', default: 'Buscar')}"/>
         </fieldset>
     </g:form>
 </div>
