@@ -24,10 +24,28 @@ class Factura {
 
     static constraints = {
         fecha(nullable: false)
-        totalFacturado(nullable: false)
-        totalPagado(nullable: false, validator: pagoCompletoValidator)
+        plan(nullable: false)
+        nrofactura(nullable: false)
+        periodo(nullable: false)
+        totalFacturado(nullable: false, validator: pagoCompletoValidator)
+        totalPagado(nulleable: true, blank: true)
 
     }
+
+    def beforeInsert = {
+        //getTotalRetencion()
+        // totalPagado = new Double(getTotalPagos())
+    }
+
+    def beforeUpdate = {
+        // getTotalRetencion()
+        //totalPagado = new Double(getTotalPagos())
+    }
+
+    def beforeValidate() {
+        totalPagado = new Double(getTotalPagos())
+    }
+
 
     public Double getTotalRetencion() {
         Double total = 0
@@ -38,23 +56,32 @@ class Factura {
     }
 
 
-    public Double getTotalPagos(factura) {
-        Double totalMonto = 0
-        factura?.pagosFactura?.each() {
-            totalMonto += it?.monto
+    public Double getTotalPagos() {
+        Double totalPagado = 0
+        pagosFactura?.each() {
+            totalPagado += it?.monto
         }
-        return total
+        return totalPagado
     }
 
     static def pagoCompletoValidator = {
-        Factura obj ->
-            if (obj?.totalFacturado >= obj?.totalPagado) {
-                pagoCompleto = true
-            } else {
-                pagoCompleto = false
-            }
+        val, Factura obj ->
+            def resp = true
+            def totalPagos = obj?.getTotalPagos()
 
+            println 'totalPagos'
+            println totalPagos
+            println 'obj?.totalFacturado'
+            println obj?.totalFacturado
+
+            if (totalPagos >= obj?.totalFacturado) {
+                obj?.pagoCompleto = true
+            } else {
+                obj?.pagoCompleto = false
+            }
+            resp
     }
+
 
     String toString() { "${nrofactura} (${fecha?.format('dd/MM/yyyy')} - ${totalFacturado})" }
 
