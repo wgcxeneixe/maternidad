@@ -28,31 +28,34 @@
 					
 						<g:sortableColumn property="fecha" title="${message(code: 'movimientoBanco.fecha.label', default: 'Fecha')}" />
 					
-						<g:sortableColumn property="observacion" title="${message(code: 'movimientoBanco.observacion.label', default: 'Observacion')}" />
+
 					
 						<th><g:message code="movimientoBanco.cheque.label" default="Cheque" /></th>
 					
 						<g:sortableColumn property="numeroTransferencia" title="${message(code: 'movimientoBanco.numeroTransferencia.label', default: 'Numero Transferencia')}" />
 					
-						<g:sortableColumn property="cuentaTransferencia" title="${message(code: 'movimientoBanco.cuentaTransferencia.label', default: 'Cuenta Transferencia')}" />
-					
+<th></th>
+                        <th></th>
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${movimientoBancoInstanceList}" status="i" var="movimientoBancoInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${movimientoBancoInstance.id}">${fieldValue(bean: movimientoBancoInstance, field: "monto")}</g:link></td>
+						<td>${fieldValue(bean: movimientoBancoInstance, field: "monto")}</td>
 					
 						<td><g:formatDate date="${movimientoBancoInstance.fecha}" /></td>
 					
-						<td>${fieldValue(bean: movimientoBancoInstance, field: "observacion")}</td>
+
 					
 						<td>${fieldValue(bean: movimientoBancoInstance, field: "cheque")}</td>
 					
 						<td>${fieldValue(bean: movimientoBancoInstance, field: "numeroTransferencia")}</td>
-					
-						<td>${fieldValue(bean: movimientoBancoInstance, field: "cuentaTransferencia")}</td>
+
+                        <td><g:link class="linkEdit" action="edit" id="${movimientoBancoInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+
+                        <td><g:link class="linkShow" action="show" id="${movimientoBancoInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
+
 					
 					</tr>
 				</g:each>
