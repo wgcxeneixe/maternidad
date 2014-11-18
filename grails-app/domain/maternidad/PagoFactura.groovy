@@ -21,7 +21,8 @@ class PagoFactura {
 
 
     static constraints = {
-        retencion(nullable: true, validator: validadorRetencion)
+        retencion(nullable: true)
+        //retencion(nullable: true, validator: validadorRetencion)
         monto(nullable: false, validator: validadorMonto)
         factura(nullable: false)
         numeroComprobante(nullable: false)
@@ -55,6 +56,15 @@ class PagoFactura {
 
     static def validadorMonto = {
         PagoFactura val, Factura obj ->
+            println 'obj?.getTotalPagos()'
+            println obj?.getTotalPagos()
+            println 'obj?.getTotalRetencion()'
+            println obj?.getTotalRetencion()
+            println 'obj?.getTotalPagos() - obj?.getTotalRetencion()'
+            println obj?.getTotalPagos() - obj?.getTotalRetencion()
+            println 'val?.monto > totalPagos'
+            println val?.monto > totalPagos
+
             def resp = true
             def totalPagos = obj?.getTotalPagos() - obj?.getTotalRetencion()
             if (val?.monto > totalPagos) {
