@@ -23,7 +23,15 @@ class PagoFacturaController {
     }
 
     def create() {
-        respond new PagoFactura(params)
+
+        println 'params id'
+        println params.dump()
+
+
+        def pagoFactura = new PagoFactura(params)
+        pagoFactura?.factura = Factura?.findById(params?.id)
+        respond pagoFactura
+
     }
 
     @Transactional
@@ -37,28 +45,26 @@ class PagoFacturaController {
             respond pagoFacturaInstance.errors, view: 'create'
             return
         } else {
-            def facturaSeleccionada = Factura?.get(pagoFacturaInstance?.factura?.id)
+            def facturaSeleccionada = new Factura()
+            facturaSeleccionada = Factura?.get(pagoFacturaInstance?.factura?.id)
             def totalFacturaPagado = 0
 
-            if (facturaSeleccionada.getTotalPagos()){
-            totalFacturaPagado= facturaSeleccionada.getTotalPagos()
-
-            }else{
-                totalFacturaPagado =  0
+            if (facturaSeleccionada?.pagosFactura?.size() > 0) {
+                totalFacturaPagado = facturaSeleccionada.getTotalPagos()
+            } else {
+                totalFacturaPagado = 0
             }
-
             facturaSeleccionada?.totalPagado = totalFacturaPagado + pagoFacturaInstance?.monto
-            println 'montos'
-            println  totalFactura
-            println  facturaSeleccionada
 
             if (facturaSeleccionada?.totalPagado > facturaSeleccionada?.totalFacturado) {
                 flash.message = message(code: 'pagoFactura.pago.mayor.a.monto', args: [message(code: 'pagoFactura.pago.mayor.a.monto', default: 'PagoFactura'), pagoFacturaInstance.id])
                 redirect pagoFacturaInstance
             } else {
-                if (facturaSeleccionada?.totalPagado == facturaSeleccionada?.totalFacturado)  facturaSeleccionada?.pagoCompleto = true
+                if (facturaSeleccionada?.totalPagado == facturaSeleccionada?.totalFacturado) facturaSeleccionada?.pagoCompleto = true
+
                 facturaSeleccionada.save flush: true
                 pagoFacturaInstance.save flush: true
+
             }
         }
         request.withFormat {

@@ -34,12 +34,12 @@ class Factura {
 
     def beforeInsert = {
         //getTotalRetencion()
-        // totalPagado = new Double(getTotalPagos())
+        totalPagado = new Double(getTotalPagos())
     }
 
     def beforeUpdate = {
         // getTotalRetencion()
-        //totalPagado = new Double(getTotalPagos())
+        totalPagado = new Double(getTotalPagos())
     }
 
     def beforeValidate() {
