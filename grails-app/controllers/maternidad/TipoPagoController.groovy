@@ -6,18 +6,13 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-<<<<<<< HEAD
-
 
 
 @Transactional(readOnly = true)
 class TipoPagoController {
+
+
     static scaffold = true
-=======
-@Transactional(readOnly = true)
-class TipoPagoController {
-
->>>>>>> 2cba226065c50e75d4c3d8096e1cbdd4089e23de
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {

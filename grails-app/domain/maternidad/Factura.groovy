@@ -69,11 +69,6 @@ class Factura {
             def resp = true
             def totalPagos = obj?.getTotalPagos()
 
-            println 'totalPagos'
-            println totalPagos
-            println 'obj?.totalFacturado'
-            println obj?.totalFacturado
-
             if (totalPagos >= obj?.totalFacturado) {
                 obj?.pagoCompleto = true
             } else {
@@ -83,6 +78,6 @@ class Factura {
     }
 
 
-    String toString() { "${nrofactura} (${fecha?.format('dd/MM/yyyy')} - ${totalFacturado})" }
+    String toString() { "${nrofactura} (${fecha?.format('dd/MM/yyyy')} - ${totalFacturado} - ${totalPagado})" }
 
 }

@@ -1,9 +1,9 @@
 package maternidad
 
 import grails.plugin.springsecurity.annotation.Secured
+import grails.transaction.Transactional
 
 import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
 
 @Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
 @Transactional(readOnly = true)
@@ -23,10 +23,6 @@ class PagoFacturaController {
     }
 
     def create() {
-
-        println 'params'
-        println params.dump()
-
         respond new PagoFactura(params)
     }
 
@@ -40,16 +36,31 @@ class PagoFacturaController {
         if (pagoFacturaInstance.hasErrors()) {
             respond pagoFacturaInstance.errors, view: 'create'
             return
+        } else {
+            def facturaSeleccionada = Factura?.get(pagoFacturaInstance?.factura?.id)
+            def totalFacturaPagado = 0
+
+            if (facturaSeleccionada.getTotalPagos()){
+            totalFacturaPagado= facturaSeleccionada.getTotalPagos()
+
+            }else{
+                totalFacturaPagado =  0
+            }
+
+            facturaSeleccionada?.totalPagado = totalFacturaPagado + pagoFacturaInstance?.monto
+            println 'montos'
+            println  totalFactura
+            println  facturaSeleccionada
+
+            if (facturaSeleccionada?.totalPagado > facturaSeleccionada?.totalFacturado) {
+                flash.message = message(code: 'pagoFactura.pago.mayor.a.monto', args: [message(code: 'pagoFactura.pago.mayor.a.monto', default: 'PagoFactura'), pagoFacturaInstance.id])
+                redirect pagoFacturaInstance
+            } else {
+                if (facturaSeleccionada?.totalPagado == facturaSeleccionada?.totalFacturado)  facturaSeleccionada?.pagoCompleto = true
+                facturaSeleccionada.save flush: true
+                pagoFacturaInstance.save flush: true
+            }
         }
-
-        println 'params save'
-        println params.dump()
-
-        //LOGICA DE GUARDAR UN NUEVO PAGO Y REDUCIR EL MONTO DE LA FACTURA
-
-
-        pagoFacturaInstance.save flush: true
-
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'pagoFactura.label', default: 'PagoFactura'), pagoFacturaInstance.id])

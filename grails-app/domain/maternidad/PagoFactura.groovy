@@ -23,7 +23,7 @@ class PagoFactura {
     static constraints = {
         retencion(nullable: true)
         //retencion(nullable: true, validator: validadorRetencion)
-        monto(nullable: false, validator: validadorMonto)
+        monto(nullable: false)//, validator: validadorMonto)
         factura(nullable: false)
         numeroComprobante(nullable: false)
         tipoPago(nullable: false)
@@ -45,9 +45,9 @@ class PagoFactura {
 //    }
 
     static def validadorRetencion = {
-        PagoFactura val, Factura obj ->
+        val, Factura obj ->
             def resp = true
-            if (val?.retencion > obj?.totalFacturado) {
+            if (retencion > obj?.totalFacturado) {
                 resp = "pagoFactura.monto.invalido"
             }
             resp
@@ -55,20 +55,18 @@ class PagoFactura {
 
 
     static def validadorMonto = {
-        PagoFactura val, Factura obj ->
-            println 'obj?.getTotalPagos()'
-            println obj?.getTotalPagos()
-            println 'obj?.getTotalRetencion()'
-            println obj?.getTotalRetencion()
-            println 'obj?.getTotalPagos() - obj?.getTotalRetencion()'
-            println obj?.getTotalPagos() - obj?.getTotalRetencion()
-            println 'val?.monto > totalPagos'
-            println val?.monto > totalPagos
+        val, Factura obj ->
+
+            println 'val'
+            println val
+
 
             def resp = true
             def totalPagos = obj?.getTotalPagos() - obj?.getTotalRetencion()
-            if (val?.monto > totalPagos) {
+            if (val > totalPagos) {
                 resp = "pagoFactura.pago.mayor.a.monto"
+            } else {
+            obj?.totalPagado = obj?.totalPagado +  val
             }
             resp
     }
@@ -83,5 +81,5 @@ class PagoFactura {
 //    }
 
 
-    String toString() { "${fecha?.format('dd/MM/yyyy')} - ${monto}" }
+    String toString() { "${fecha?.format('dd/MM/yyyy')} ++ ${monto}" }
 }
