@@ -24,10 +24,6 @@ class PagoFacturaController {
 
     def create() {
 
-        println 'params id'
-        println params.dump()
-
-
         def pagoFactura = new PagoFactura(params)
         pagoFactura?.factura = Factura?.findById(params?.id)
         respond pagoFactura
@@ -47,32 +43,38 @@ class PagoFacturaController {
         } else {
             def facturaSeleccionada = new Factura()
             facturaSeleccionada = Factura?.get(pagoFacturaInstance?.factura?.id)
-            def totalFacturaPagado = 0
+            def totalFacturaPagado
+            def totalRetencionesPago
 
             if (facturaSeleccionada?.pagosFactura?.size() > 0) {
                 totalFacturaPagado = facturaSeleccionada.getTotalPagos()
             } else {
                 totalFacturaPagado = 0
             }
-            facturaSeleccionada?.totalPagado = totalFacturaPagado + pagoFacturaInstance?.monto
 
-            if (facturaSeleccionada?.totalPagado > facturaSeleccionada?.totalFacturado) {
-                flash.message = message(code: 'pagoFactura.pago.mayor.a.monto', args: [message(code: 'pagoFactura.pago.mayor.a.monto', default: 'PagoFactura'), pagoFacturaInstance.id])
-                redirect pagoFacturaInstance
+            if (totalRetencionesPago?.getTotalRetencion?.size() > 0) {
+                totalRetencionesPago = facturaSeleccionada.getTotalRetencion()
             } else {
-                if (facturaSeleccionada?.totalPagado == facturaSeleccionada?.totalFacturado) facturaSeleccionada?.pagoCompleto = true
+                totalRetencionesPago = 0
+            }
+
+            def totalAPagarConRetenciones = totalFacturaPagado - totalRetencionesPago
+            def totalDFacturadoSinRetenciones = facturaSeleccionada?.totalFacturado - totalAPagarConRetenciones
+            facturaSeleccionada?.totalPagado = totalAPagarConRetenciones + pagoFacturaInstance?.monto
+
+            facturaSeleccionada?.totalPagado = totalAPagarConRetenciones + pagoFacturaInstance?.monto
+
+            if (facturaSeleccionada?.totalPagado > totalDFacturadoSinRetenciones) {
+                flash.message = 'El monto es superior al total facturado'
+                render(view: 'index', controller: PagoFactura)
+            } else {
+                if (facturaSeleccionada?.totalPagado == totalDFacturadoSinRetenciones) facturaSeleccionada?.pagoCompleto = true
 
                 facturaSeleccionada.save flush: true
                 pagoFacturaInstance.save flush: true
-
+                flash.message = 'Pago a factura creado'
+                render(view: 'index', params: [pagoFacturaInstance: pagoFacturaInstance])
             }
-        }
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'pagoFactura.label', default: 'PagoFactura'), pagoFacturaInstance.id])
-                redirect pagoFacturaInstance
-            }
-            '*' { respond pagoFacturaInstance, [status: CREATED] }
         }
     }
 
