@@ -2,6 +2,7 @@ package maternidad
 
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
+import maternidad.Factura
 
 import static org.springframework.http.HttpStatus.*
 
@@ -12,6 +13,13 @@ class PagoFacturaController {
     static scaffold = true
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+
+    def beforeInterceptor = {
+
+    }
+
+
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -45,6 +53,7 @@ class PagoFacturaController {
             facturaSeleccionada = Factura?.get(pagoFacturaInstance?.factura?.id)
             def totalFacturaPagado
             def totalRetencionesPago
+            pagoFacturaInstance.save(flush: true)
 
             if (facturaSeleccionada?.pagosFactura?.size() > 0) {
                 totalFacturaPagado = facturaSeleccionada.getTotalPagos()
@@ -62,7 +71,11 @@ class PagoFacturaController {
             def totalDFacturadoSinRetenciones = facturaSeleccionada?.totalFacturado - totalAPagarConRetenciones
             facturaSeleccionada?.totalPagado = totalAPagarConRetenciones + pagoFacturaInstance?.monto
 
-            facturaSeleccionada?.totalPagado = totalAPagarConRetenciones + pagoFacturaInstance?.monto
+
+//            println  'facturaSeleccionada?.totalPagado'
+//            println  facturaSeleccionada?.totalPagado
+//            println  'otalDFacturadoSinRetenciones'
+//            println  totalDFacturadoSinRetenciones
 
             if (facturaSeleccionada?.totalPagado > totalDFacturadoSinRetenciones) {
                 flash.message = 'El monto es superior al total facturado'
@@ -70,9 +83,12 @@ class PagoFacturaController {
             } else {
                 if (facturaSeleccionada?.totalPagado == totalDFacturadoSinRetenciones) facturaSeleccionada?.pagoCompleto = true
 
-                facturaSeleccionada.save flush: true
-                pagoFacturaInstance.save flush: true
-                flash.message = 'Pago a factura creado'
+
+
+
+
+                facturaSeleccionada.save(flush: true)
+                flash.message = 'Se ha agregado un pago a su factura '
                 render(view: 'index', params: [pagoFacturaInstance: pagoFacturaInstance])
             }
         }

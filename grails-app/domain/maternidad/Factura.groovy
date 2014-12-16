@@ -47,7 +47,7 @@ class Factura {
     }
 
 
-    public Double getTotalRetencion() {
+    def Double getTotalRetencion() {
         Double total = 0
         pagosFactura?.each() {
             total += it?.retencion
@@ -56,7 +56,7 @@ class Factura {
     }
 
 
-    public Double getTotalPagos() {
+    def Double getTotalPagos() {
         Double totalPagado = 0
         pagosFactura?.each() {
             totalPagado += it?.monto
