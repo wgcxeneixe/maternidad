@@ -31,6 +31,8 @@
 
             <th></th>
 
+            <th></th>
+
         </tr>
         </thead>
         <tbody>
@@ -56,6 +58,7 @@
 
                 <td><g:link class="linkEdit" action="edit" id="${planillaInternacionInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
 
+                <td><g:link controller="detalleFactura"  action="cargaPracticas" id="${planillaInternacionInstance.id}">${message(code: 'facturacion.cargaPracticas')}</g:link></td>
 
 
             </tr>
