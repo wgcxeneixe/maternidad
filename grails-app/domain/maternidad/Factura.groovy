@@ -10,6 +10,8 @@ class Factura {
     Double totalFacturado
     Double totalPagado
 
+
+
     SortedSet<DetalleFactura> detallesFactura
     SortedSet<PagoFactura> pagosFactura
 

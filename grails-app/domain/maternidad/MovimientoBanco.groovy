@@ -17,7 +17,7 @@ class MovimientoBanco {
 
     static constraints = {
         monto(nullable: true,blank:true)
-        fecha(attributes:[precision:"day"])
+        fecha(attributes:[precision:"day"],nullable: false)
         observacion(size:0..5000, nullable:true, blank:true)
         cheque(nullable: true,blank:true)
         numeroTransferencia(nullable: true,blank:true)

@@ -16,7 +16,7 @@ class MovimientoProveedor {
     static constraints = {
         proveedor(nullable: false,blank:false)
         monto(nullable: true,blank:true)
-        fecha(attributes:[precision:"day"])
+        fecha(attributes:[precision:"day"],nullable: false)
         observacion(size:0..5000, nullable:true, blank:true)
         facturaProveedor(nullable:true,blank:true )
         tipoPago(nullable: false,blank:false)

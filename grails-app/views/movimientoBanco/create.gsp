@@ -39,6 +39,12 @@
                 }
 
 
+                if (seleccionado.toUpperCase()=='efectivo'.toUpperCase()){
+                    $("#divcuentatransferencia").hide();
+                    $("#divnrotransferencia").hide();
+                    $("#divcheque").hide();
+                }
+
                 $('#tipoPago').on('change', function() {
                    var seleccionado=$(this).find("option:selected").text();
 
@@ -52,6 +58,13 @@
                     if (seleccionado.toUpperCase()=='transferencia'.toUpperCase()){
                         $("#divcuentatransferencia").show();
                         $("#divnrotransferencia").show();
+                        $("#divcheque").hide();
+                    }
+
+
+                    if (seleccionado.toUpperCase()=='efectivo'.toUpperCase()){
+                        $("#divcuentatransferencia").hide();
+                        $("#divnrotransferencia").hide();
                         $("#divcheque").hide();
                     }
 
@@ -91,6 +104,23 @@
 				<fieldset class="buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
+                <g:if test="${params.id}">
+
+                    <g:hiddenField name="parametro" value="true"/>
+
+                    <script>
+                        $(function() {
+
+
+
+                           // $("#banco").prop("disabled", true);
+
+
+                        })
+                    </script>
+
+                </g:if>
+
 			</g:form>
 		</div>
 	</body>

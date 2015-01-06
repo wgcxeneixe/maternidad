@@ -8,11 +8,17 @@ class DetalleFactura {
     Factura factura
     Double valorGastos
     Double valorHonorarios
-    Double valorPractica
+    Double valorPractica //no se usa
     Double carreraMedica
     Double cantidad
     String observacion
     PlanillaInternacion planillaInternacion
+    Integer funcion
+    Boolean modulo
+    Boolean valorFijo=false
+   
+
+
 
     static belongsTo = [
             planillaInternacion: PlanillaInternacion,
@@ -23,5 +29,9 @@ class DetalleFactura {
     ]
 
     static constraints = {
+
+        profesional(nullable: false,blank:false)
+        plan(nullable: false,blank:false)
+        planillaInternacion(nullable: false,blank:false)
     }
 }

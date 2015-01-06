@@ -1,6 +1,25 @@
 <%@ page import="maternidad.Cheque" %>
 
 
+<div class="fieldcontain ${hasErrors(bean: chequeInstance, field: 'banco', 'error')} ">
+    <label for="banco">
+        <g:message code="cheque.banco.label" default="Banco" />
+
+    </label>
+    <g:select id="banco" name="banco.id" from="${maternidad.Banco.list()}" optionKey="id" value="${chequeInstance?.banco?.id}" class="many-to-one" noSelection="['null': '']"/>
+
+</div>
+
+
+<div class="fieldcontain ${hasErrors(bean: chequeInstance, field: 'numero', 'error')} required">
+    <label for="numero">
+        <g:message code="cheque.numero.label" default="Numero" />
+        <span class="required-indicator">*</span>
+    </label>
+    <g:field name="numero" type="number" value="${chequeInstance.numero}" required=""/>
+
+</div>
+
 
 <div class="fieldcontain ${hasErrors(bean: chequeInstance, field: 'monto', 'error')} ">
 	<label for="monto">
@@ -47,30 +66,12 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: chequeInstance, field: 'numero', 'error')} required">
-	<label for="numero">
-		<g:message code="cheque.numero.label" default="Numero" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:field name="numero" type="number" value="${chequeInstance.numero}" required=""/>
-
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: chequeInstance, field: 'activo', 'error')} ">
 	<label for="activo">
 		<g:message code="cheque.activo.label" default="Activo" />
 		
 	</label>
 	<g:checkBox name="activo" value="${chequeInstance?.activo}" />
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: chequeInstance, field: 'banco', 'error')} ">
-	<label for="banco">
-		<g:message code="cheque.banco.label" default="Banco" />
-		
-	</label>
-	<g:select id="banco" name="banco.id" from="${maternidad.Banco.list()}" optionKey="id" value="${chequeInstance?.banco?.id}" class="many-to-one" noSelection="['null': '']"/>
 
 </div>
 

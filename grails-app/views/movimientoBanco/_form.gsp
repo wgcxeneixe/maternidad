@@ -1,5 +1,15 @@
 <%@ page import="maternidad.MovimientoBanco" %>
 
+<div class="fieldcontain ${hasErrors(bean: movimientoBancoInstance, field: 'banco', 'error')} ">
+    <label for="banco">
+        <g:message code="movimientoBanco.banco.label" default="Banco" />
+
+    </label>
+    <g:select id="banco" name="banco.id" from="${maternidad.Banco.list()}" optionKey="id" value="${movimientoBancoInstance?.banco?.id}" class="many-to-one" noSelection="['null': '']"/>
+
+</div>
+
+
 
 <div class="fieldcontain ${hasErrors(bean: movimientoBancoInstance, field: 'tipoPago', 'error')} required">
     <label for="tipoPago">
@@ -88,14 +98,6 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: movimientoBancoInstance, field: 'banco', 'error')} ">
-	<label for="banco">
-		<g:message code="movimientoBanco.banco.label" default="Banco" />
-		
-	</label>
-	<g:select id="banco" name="banco.id" from="${maternidad.Banco.list()}" optionKey="id" value="${movimientoBancoInstance?.banco?.id}" class="many-to-one" noSelection="['null': '']"/>
-
-</div>
 
 
 <div class="fieldcontain ${hasErrors(bean: movimientoBancoInstance, field: 'observacion', 'error')} ">
