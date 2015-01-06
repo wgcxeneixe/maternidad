@@ -10,6 +10,7 @@ class Practica {
     Double multiplicadorHonorario
     Double multiplicadorGasto
     ObraSocial obrasocial
+    TipoHonorario tipoHonorario
 
     static mappedBy = [practicasModulos: 'modulo']
 

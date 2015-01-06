@@ -5,7 +5,57 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'movimientoBanco.label', default: 'MovimientoBanco')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
-	</head>
+
+        <script>
+            $(function() {
+
+                //idioma de los calendar
+                jQuery.datepicker.regional[ "es" ];
+                updateDatePicker();
+
+                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                    updateDatePicker();
+                });
+
+                $("#cheque").select2({allowClear: true});
+                $("#facturaProveedor").select2({allowClear: true});
+
+
+                $("#divcheque").hide();
+                $("#divcuentatransferencia").hide();
+                $("#divnrotransferencia").hide();
+
+                var seleccionado=$('#tipoPago').find("option:selected").text();
+
+                if (seleccionado.toUpperCase()=='cheque'.toUpperCase()){
+
+                    $("#divcheque").show();
+                    $("#divcuentatransferencia").hide();
+                    $("#divnrotransferencia").hide();
+                }
+
+                if (seleccionado.toUpperCase()=='transferencia'.toUpperCase()){
+                    $("#divcuentatransferencia").show();
+                    $("#divnrotransferencia").show();
+                    $("#divcheque").hide();
+                }
+
+
+                if (seleccionado.toUpperCase()=='efectivo'.toUpperCase()){
+                    $("#divcuentatransferencia").hide();
+                    $("#divnrotransferencia").hide();
+                    $("#divcheque").hide();
+                }
+
+
+                $('#tipoPago').prop("disabled",true);
+
+            })
+
+        </script>
+
+
+    </head>
 	<body>
 		<a href="#edit-movimientoBanco" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">

@@ -42,9 +42,9 @@ class BancoController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'banco.label', default: 'Banco'), bancoInstance.id])
-                redirect bancoInstance
+                redirect(action: "index")
             }
-            '*' { respond bancoInstance, [status: CREATED] }
+            '*' { respond bancoInstance, [status: CREATED],view: 'index' }
         }
     }
 
@@ -69,9 +69,9 @@ class BancoController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Banco.label', default: 'Banco'), bancoInstance.id])
-                redirect bancoInstance
+                redirect(action: "index")
             }
-            '*' { respond bancoInstance, [status: OK] }
+            '*' { respond bancoInstance, [status: OK],view: 'index' }
         }
     }
 

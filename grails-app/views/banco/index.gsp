@@ -27,18 +27,30 @@
 						<g:sortableColumn property="nombre" title="${message(code: 'banco.nombre.label', default: 'Nombre')}" />
 					
 						<g:sortableColumn property="activo" title="${message(code: 'banco.activo.label', default: 'Activo')}" />
-					
+
+                       <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${bancoInstanceList}" status="i" var="bancoInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${bancoInstance.id}">${fieldValue(bean: bancoInstance, field: "nombre")}</g:link></td>
+						<td>${fieldValue(bean: bancoInstance, field: "nombre")}</td>
 					
 						<td><g:formatBoolean boolean="${bancoInstance.activo}" /></td>
-					
-					</tr>
+
+                        <td><g:link class="linkEdit" action="edit" id="${bancoInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+
+                        <td><g:link class="linkShow" action="show" id="${bancoInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
+
+                        <td><g:link controller="movimientoBanco" action="create" id="${bancoInstance.id}">${message(code: 'banco.agregarMovimiento')}</g:link></td>
+
+                        <td><g:link controller="movimientoBanco" action="cuentaCorriente" id="${bancoInstance.id}">${message(code: 'banco.cuentacorriente')}</g:link></td>
+
+						</tr>
 				</g:each>
 				</tbody>
 			</table>

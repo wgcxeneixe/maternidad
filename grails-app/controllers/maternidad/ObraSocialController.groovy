@@ -195,4 +195,18 @@ class ObraSocialController {
     }
 
 
+
+
+    def conveniosDeOS= {
+
+        params.max = Math.min(params.max ?: 10, 100)
+
+        def os=ObraSocial.findById(params.id)
+        def convenios=  Convenio.findAllByObrasocial(os,params)
+
+        respond convenios, model:[obraSocialInstanceCount: convenios?.size()]
+    }
+
+
+
 }

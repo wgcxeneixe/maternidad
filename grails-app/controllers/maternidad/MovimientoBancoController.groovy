@@ -21,7 +21,21 @@ class MovimientoBancoController {
     }
 
     def create() {
-        respond new MovimientoBanco(params)
+
+        if (params.id){
+            def banco=Banco.get(params.id)
+
+            def movimiento = new MovimientoBanco(params)
+
+            movimiento.banco=banco
+
+            respond movimiento
+        }else {
+
+            respond new MovimientoBanco(params)
+
+        }
+
     }
 
     @Transactional
@@ -41,7 +55,10 @@ class MovimientoBancoController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'movimientoBanco.label', default: 'MovimientoBanco'), movimientoBancoInstance.id])
-                redirect movimientoBancoInstance
+                if(params.parametro){forward(controller: 'banco',action: 'index')}else {
+                    redirect action: 'index'
+
+                }
             }
             '*' { respond movimientoBancoInstance, [status: CREATED] }
         }
@@ -102,4 +119,49 @@ class MovimientoBancoController {
             '*' { render status: NOT_FOUND }
         }
     }
+
+
+    def cuentaCorriente={
+
+        def movimientos = MovimientoBanco.findAllById(0)
+
+
+
+        return [movimientoBancoInstanceList: movimientos, movimientoBancoInstanceCount: 0, total: 0]
+
+    }
+
+    def getCuenta = {
+
+        if(params.idBanco && params.idBanco!='null' ) {
+
+            params.max = Math.min(params.max ? params.int('max') : 10, 100)
+            def bancoInstance = Banco.read(params?.idBanco as String)
+            def movimientos = MovimientoBanco.findAllByBanco(bancoInstance, [sort: "fecha", order: "desc",max: params.max, offset: params.offset])
+
+            def ingreso = MovimientoBanco.executeQuery("select sum(monto) from MovimientoBanco mb " +
+                    "where mb.credito=true and  mb.banco = :banco",
+                    [banco: bancoInstance])
+
+            def egreso = MovimientoBanco.executeQuery("select sum(monto) from MovimientoBanco mb " +
+                    "where mb.credito=false and  mb.banco = :banco",
+                    [banco: bancoInstance])
+
+            def ing  = (ingreso[0])? ingreso[0]:0
+
+            def egr  = (egreso[0])? egreso[0]:0
+
+            def total = ing- egr
+
+
+            render(template: 'movimientos', model: [movimientoBancoInstanceList: movimientos, movimientoBancoInstanceCount: MovimientoBanco.findAllByBanco(bancoInstance).size(), total: total,idBanco:bancoInstance.id])
+        }
+        else {
+            def movimientos = MovimientoBanco.findAllById(0)
+
+            render(template: 'movimientos', model: [movimientoBancoInstanceList: movimientos, movimientoBancoInstanceCount: 0, total: 0])
+        }
+    }
+
+
 }

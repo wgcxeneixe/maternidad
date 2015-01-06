@@ -10,7 +10,6 @@
 
         <g:sortableColumn property="cuit" title="${message(code: 'obraSocial.cuit.label', default: 'Cuit')}" params="${filters}" />
 
-        <g:sortableColumn property="observacion" title="${message(code: 'obraSocial.observacion.label', default: 'Observacion')}" params="${filters}" />
 
         <g:sortableColumn property="activa" title="${message(code: 'obraSocial.activa.label', default: 'Activa')}" params="${filters}" />
 
@@ -33,15 +32,18 @@
 
             <td>${fieldValue(bean: obraSocialInstance, field: "cuit")}</td>
 
-            <td>${fieldValue(bean: obraSocialInstance, field: "observacion")}</td>
-
             <td><g:formatBoolean boolean="${obraSocialInstance.activa}" /></td>
 
             <td><g:link class="linkEdit" action="edit" id="${obraSocialInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
 
             <td><g:link class="linkShow" action="show" id="${obraSocialInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
-
+<!--
             <td><g:link class="linkCuentaCorriente" action="" id="${obraSocialInstance.id}">${message(code: 'obraSocial.cuentaCorriente')}</g:link></td>
+-->
+<td>
+            <g:link class="linkConvenios" action="conveniosDeOS" id="${obraSocialInstance.id}">${message(code: 'obraSocial.convenios')}</g:link>
+</td>
+
 
             <td><g:link class="linkPlanes" controller="obraSocial" action="verPlanes" id="${obraSocialInstance.id}">${message(code: 'obraSocial.verPlanes')}</g:link></td>
 

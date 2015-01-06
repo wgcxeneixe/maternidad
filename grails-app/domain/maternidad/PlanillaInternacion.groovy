@@ -21,7 +21,8 @@ class PlanillaInternacion {
     }
 
     static hasMany = [
-            nacimientos: Nacimiento
+            nacimientos: Nacimiento,
+            detalles:DetalleFactura
     ]
 
     String toString() { "Nº ${id}" }
