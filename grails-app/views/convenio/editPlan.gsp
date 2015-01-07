@@ -110,6 +110,13 @@
 
     <g:render  template="/valorGalenoHonorario/valoresGalenoHonorario" model="[planConvenio: planConvenio]" />
 
+    <div class="nav" role="navigation">
+        <ul>
+
+            <li><g:link class="create" controller="calculoValores" action="calcularValores" id="${planConvenio?.id}"><g:message code="convenio.calcularValores"  /></g:link></li>
+        </ul>
+    </div>
+
     <g:render  template="/practica/verModulos" model="[planConvenio: planConvenio]" />
 
     <div class="nav" role="navigation">

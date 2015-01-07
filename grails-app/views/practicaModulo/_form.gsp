@@ -24,7 +24,7 @@
         <g:message code="practicaModulo.practica.label" default="Practica" />
         <span class="required-indicator">*</span>
     </label>
-    <g:select id="practica" name="practica.id" from="${maternidad.Practica.list()}" optionKey="id" required="" value="${practicaModuloInstance?.practica?.id}" class="many-to-one"/>
+    <g:select id="practica" name="practica.id" from="${maternidad.Practica.findAllByNomenclada(Boolean.TRUE)}" optionKey="id" required="" value="${practicaModuloInstance?.practica?.id}" class="many-to-one"/>
 
 </div>
 

@@ -464,6 +464,7 @@ def valorPractica= new ValorPractica()
        valorPractica?.valorHonorario=params.valor as Double
         valorPractica?.fechaActualizado= new Date()
        valorPractica?.plan=planConvenio?.plan
+        valorPractica?.pisar=(params.pisar as Boolean)?params.pisar as Boolean:Boolean.FALSE
 
        valorPractica.save flush: true
 
@@ -496,6 +497,7 @@ def valorPractica= new ValorPractica()
         valorPractica?.practica=practica
         valorPractica?.valorHonorario=params.valor as Double
         valorPractica?.fechaActualizado= new Date()
+        valorPractica?.pisar=(params.pisar as Boolean)?params.pisar as Boolean:Boolean.FALSE
 
         valorPractica.save flush: true
 
@@ -510,4 +512,26 @@ def valorPractica= new ValorPractica()
 
     }
 
+
+    def asociarPlan={
+
+        def plan= Plan.get(params.id)
+        def convenio=Convenio.get(params.convenio)
+def planConvenio=new PlanConvenio()
+        planConvenio.convenio=convenio
+        planConvenio.plan=plan
+        planConvenio.activo=Boolean.TRUE
+
+        planConvenio.save(flush: true)
+
+        render(view: "planesDelConvenio", model: [convenio:convenio])
+
+    }
+
+
+
+
+
 }
+
+

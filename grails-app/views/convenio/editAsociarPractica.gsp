@@ -68,7 +68,14 @@
 
             </div>
 
+            <div class="fieldcontain required ">
+                <label for="pisar">
+                    <g:message code="convenio.actualizarautom" default="Actualizar Automaticamente" />
 
+                </label>
+                <g:checkBox  name="pisar" value="${valorPractica?.pisar}" />
+
+            </div>
 
         </fieldset>
         <fieldset class="buttons">

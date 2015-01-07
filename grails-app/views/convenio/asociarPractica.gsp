@@ -53,7 +53,7 @@
                     <g:message code="practicaModulo.practica.label" default="Practica" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select id="practica" name="practica.id" from="${maternidad.Practica.list()}" optionKey="id" required=""  class="many-to-one"/>
+                <g:select id="practica" name="practica.id" from="${maternidad.Practica.findAllByNomenclada(Boolean.TRUE)}" optionKey="id" required=""  class="many-to-one"/>
 
             </div>
 
@@ -69,6 +69,15 @@
             </div>
 
 
+
+            <div class="fieldcontain required ">
+                <label for="pisar">
+                    <g:message code="convenio.actualizarautom" default="Actualizar Automaticamente" />
+
+                </label>
+                <g:checkBox checked="true" name="pisar" />
+
+            </div>
 
         </fieldset>
         <fieldset class="buttons">

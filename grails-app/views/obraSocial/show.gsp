@@ -113,6 +113,101 @@
 			</ol>
 
 			-->
+<br/>
+<g:message code="obraSocial.convenios"/>
+                <div id="grid">
+
+                    <table >
+                        <thead>
+                        <tr>
+
+                            <g:sortableColumn property="codigo" title="${message(code: 'convenio.codigo.label', default: 'Codigo')}"  />
+
+                            <th><g:message code="convenio.obrasocial.label" default="Obrasocial"  /></th>
+
+                            <g:sortableColumn property="fechaInicio" title="${message(code: 'convenio.fechaInicio.label', default: 'Fecha Inicio')}" />
+
+                            <g:sortableColumn property="fechaFin" title="${message(code: 'convenio.fechaFin.label', default: 'Fecha Fin')}"  />
+
+                            <g:sortableColumn property="activo" title="${message(code: 'convenio.activo.label', default: 'Activo')}"  />
+
+                            <g:sortableColumn property="observacion" title="${message(code: 'convenio.observacion.label', default: 'Observacion')}"  />
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <g:each in="${obraSocialInstance?.convenios}" status="i" var="convenioInstance">
+                            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                                <td>${fieldValue(bean: convenioInstance, field: "codigo")}</td>
+
+                                <td>${fieldValue(bean: convenioInstance, field: "obrasocial")}</td>
+
+                                <td><g:formatDate date="${convenioInstance.fechaInicio}" /></td>
+
+                                <td><g:formatDate date="${convenioInstance.fechaFin}" /></td>
+
+                                <td><g:formatBoolean boolean="${convenioInstance.activo}" /></td>
+
+                                <td>${fieldValue(bean: convenioInstance, field: "observacion")}</td>
+
+
+                            </tr>
+                        </g:each>
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <g:paginate total="${obraSocialInstance?.convenios?.size() ?: 0}"  />
+                    </div>
+
+                </div>
+
+<br/>
+                <g:message code="convenio.planes"/>
+                <table>
+                    <thead>
+                    <tr>
+
+                        <g:sortableColumn property="nombre" title="${message(code: 'plan.nombre.label', default: 'Nombre')}" />
+
+                        <g:sortableColumn property="codigo" title="${message(code: 'plan.codigo.label', default: 'Codigo')}" />
+
+                        <g:sortableColumn property="observacion" title="${message(code: 'plan.observacion.label', default: 'Observacion')}" />
+
+                        <g:sortableColumn property="activo" title="${message(code: 'plan.activo.label', default: 'Activo')}" />
+
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <g:each in="${obraSocialInstance?.planes}" status="i" var="plan">
+                        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                            <td>${fieldValue(bean: plan, field: "nombre")}</td>
+
+                            <td>${fieldValue(bean: plan, field: "codigo")}</td>
+
+                            <td>${fieldValue(bean: plan, field: "observacion")}</td>
+
+                            <td><g:formatBoolean boolean="${plan?.activo}" /></td>
+
+                            <td><g:link class="linkEdit" controller="plan" action="edit" id="${plan?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+
+                            <td><g:link class="linkShow" controller="plan" action="show" id="${plan?.id}">${message(code: 'default.button.show.label')}</g:link></td>
+
+                        </tr>
+                    </g:each>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <g:paginate total="${obraSocialInstance?.planes?.size() ?: 0}" />
+                </div>
+
+
+
+
+
 			<g:form url="[resource:obraSocialInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${obraSocialInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>

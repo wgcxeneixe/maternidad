@@ -95,6 +95,7 @@ Convenio
         </tr>
         </thead>
         <tbody>
+
         <g:each in="${maternidad.PlanConvenio.findByActivoAndConvenio(Boolean.FALSE,convenio)}" status="i" var="planConvenio">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
@@ -113,13 +114,37 @@ Convenio
                 <td><g:link class="linkAsociar" controller="convenio" action="asociarPlanAlConvenio" id="${planConvenio?.id}">${message(code: 'convenio.asociarPlan')}</g:link></td>
             </tr>
         </g:each>
+
+
+        <g:each in="${maternidad.PlanConvenio.executeQuery(" select p from Plan p where p.obrasocial=:os  and p.id not in (select pc.plan.id from PlanConvenio pc where pc.convenio.obrasocial=:os and pc.convenio.activo=true)",[os:convenio.obrasocial])}" status="i" var="plan">
+            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                <td>${fieldValue(bean: plan, field: "nombre")}</td>
+
+                <td>${fieldValue(bean: plan, field: "codigo")}</td>
+
+                <td>${fieldValue(bean: plan, field: "observacion")}</td>
+
+                <td><g:formatBoolean boolean="${plan?.activo}" /></td>
+
+                <td><g:link class="linkEdit" controller="convenio" action="editPlan" id="${plan?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+
+                <td><g:link class="linkShow" controller="convenio" action="showPlan" id="${plan?.id}">${message(code: 'default.button.show.label')}</g:link></td>
+
+                <td><g:link class="linkAsociar" controller="convenio" action="asociarPlan" id="${plan?.id}" params="[convenio:convenio.id]">${message(code: 'convenio.asociarPlan')}</g:link></td>
+            </tr>
+        </g:each>
+
+
+
         </tbody>
     </table>
 
-
+<!--
     <div class="pagination">
         <g:paginate total="${planConvenio?.count() ?: 0}" />
     </div>
+    -->
 </div>
 </body>
 </html>

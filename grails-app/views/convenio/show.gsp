@@ -78,7 +78,142 @@
 				</g:if>
 			
 			</ol>
-			<g:form url="[resource:convenioInstance, action:'delete']" method="DELETE">
+
+
+            <br/>
+            ${message(code: 'convenio.planesasociados')}
+            <table>
+                <thead>
+                <tr>
+
+                    <g:sortableColumn property="nombre" title="${message(code: 'plan.nombre.label', default: 'Nombre')}" />
+
+                    <g:sortableColumn property="codigo" title="${message(code: 'plan.codigo.label', default: 'Codigo')}" />
+
+                    <g:sortableColumn property="observacion" title="${message(code: 'plan.observacion.label', default: 'Observacion')}" />
+
+                    <g:sortableColumn property="activo" title="${message(code: 'plan.activo.label', default: 'Activo')}" />
+
+                </tr>
+                </thead>
+                <tbody>
+                <g:each in="${maternidad.PlanConvenio.findAllByActivoAndConvenio(Boolean.TRUE,convenioInstance)}" status="i" var="planConvenio">
+                    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                        <td>${fieldValue(bean: planConvenio?.plan, field: "nombre")}</td>
+
+                        <td>${fieldValue(bean: planConvenio?.plan, field: "codigo")}</td>
+
+                        <td>${fieldValue(bean: planConvenio?.plan, field: "observacion")}</td>
+
+                        <td><g:formatBoolean boolean="${planConvenio?.plan?.activo}" /></td>
+
+
+                    </tr>
+                </g:each>
+                </tbody>
+            </table>
+            <br>
+            ${message(code: 'convenio.planesnoasociados')}
+            <table>
+                <thead>
+                <tr>
+
+                    <g:sortableColumn property="nombre" title="${message(code: 'plan.nombre.label', default: 'Nombre')}" />
+
+                    <g:sortableColumn property="codigo" title="${message(code: 'plan.codigo.label', default: 'Codigo')}" />
+
+                    <g:sortableColumn property="observacion" title="${message(code: 'plan.observacion.label', default: 'Observacion')}" />
+
+                    <g:sortableColumn property="activo" title="${message(code: 'plan.activo.label', default: 'Activo')}" />
+
+
+                </tr>
+                </thead>
+                <tbody>
+
+                <g:each in="${maternidad.PlanConvenio.findByActivoAndConvenio(Boolean.FALSE,convenioInstance)}" status="i" var="planConvenio">
+                    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                        <td>${fieldValue(bean: planConvenio?.plan, field: "nombre")}</td>
+
+                        <td>${fieldValue(bean: planConvenio?.plan, field: "codigo")}</td>
+
+                        <td>${fieldValue(bean: planConvenio?.plan, field: "observacion")}</td>
+
+                        <td><g:formatBoolean boolean="${planConvenio?.plan?.activo}" /></td>
+
+                    </tr>
+                </g:each>
+
+
+                <g:each in="${maternidad.PlanConvenio.executeQuery(" select p from Plan p where p.obrasocial=:os  and p.id not in (select pc.plan.id from PlanConvenio pc where pc.convenio.obrasocial=:os and pc.convenio.activo=true)",[os:convenioInstance?.obrasocial])}" status="i" var="plan">
+                    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                        <td>${fieldValue(bean: plan, field: "nombre")}</td>
+
+                        <td>${fieldValue(bean: plan, field: "codigo")}</td>
+
+                        <td>${fieldValue(bean: plan, field: "observacion")}</td>
+
+                        <td><g:formatBoolean boolean="${plan?.activo}" /></td>
+
+
+                    </tr>
+                </g:each>
+
+
+
+                </tbody>
+            </table>
+
+
+        <g:message code="convenio.conveniosAnteriores"/>
+
+        <table class="ajax">
+            <thead>
+            <tr>
+
+                <g:sortableColumn property="codigo" title="${message(code: 'convenio.codigo.label', default: 'Codigo')}"  />
+
+                <th><g:message code="convenio.obrasocial.label" default="Obrasocial"  /></th>
+
+                <g:sortableColumn property="fechaInicio" title="${message(code: 'convenio.fechaInicio.label', default: 'Fecha Inicio')}"  />
+
+                <g:sortableColumn property="fechaFin" title="${message(code: 'convenio.fechaFin.label', default: 'Fecha Fin')}"  />
+
+                <g:sortableColumn property="activo" title="${message(code: 'convenio.activo.label', default: 'Activo')}"  />
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <g:each in="${Convenio.withCriteria {eq("obrasocial",convenioInstance?.obrasocial)
+           lt("fechaInicio",convenioInstance?.fechaInicio)
+            }}" status="i" var="convenio">
+                <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                    <td>${fieldValue(bean: convenio, field: "codigo")}</td>
+
+                    <td>${fieldValue(bean: convenio, field: "obrasocial")}</td>
+
+                    <td><g:formatDate date="${convenio.fechaInicio}" /></td>
+
+                    <td><g:formatDate date="${convenio.fechaFin}" /></td>
+
+                    <td><g:formatBoolean boolean="${convenio.activo}" /></td>
+
+                </tr>
+            </g:each>
+            </tbody>
+        </table>
+        <div class="pagination">
+            <g:paginate total="${Convenio.withCriteria {eq("obrasocial",convenioInstance?.obrasocial)}?.size() ?: 0}"  />
+        </div>
+
+
+
+            <g:form url="[resource:convenioInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${convenioInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
