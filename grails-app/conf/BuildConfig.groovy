@@ -53,6 +53,8 @@ grails.project.dependency.resolution = {
         test "org.grails:grails-datastore-test-support:1.0-grails-2.4"
     }
 
+
+
     plugins {
         // plugins for the build system only
         build ":tomcat:7.0.55"
@@ -74,4 +76,6 @@ grails.project.dependency.resolution = {
         //compile ":coffee-asset-pipeline:1.8.0"
         //compile ":handlebars-asset-pipeline:1.3.0.3"
     }
+
+    //grails.server.port.http=8181
 }

@@ -13,7 +13,7 @@ class Liquidacion {
     SortedSet<DetalleLiquidacion> detallesLiquidacion
 
     static hasMany = [
-            detallesLiquidacion        : DetalleLiquidacion,
+            detallesLiquidacion: DetalleLiquidacion,
     ]
 
     static belongsTo = [
@@ -22,4 +22,7 @@ class Liquidacion {
 
     static constraints = {
     }
+
+    String toString() { "${profesional} - ${fecha?.format('dd/MM/yyyy')}" }
+
 }

@@ -5,9 +5,9 @@ package maternidad
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(TipoPagoController)
-@Mock(TipoPago)
-class TipoPagoControllerSpec extends Specification {
+@TestFor(LiquidacionController)
+@Mock(Liquidacion)
+class LiquidacionControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -21,8 +21,8 @@ class TipoPagoControllerSpec extends Specification {
         controller.index()
 
         then: "The model is correct"
-        !model.tipoPagoInstanceList
-        model.tipoPagoInstanceCount == 0
+        !model.liquidacionInstanceList
+        model.liquidacionInstanceCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -30,7 +30,7 @@ class TipoPagoControllerSpec extends Specification {
         controller.create()
 
         then: "The model is correctly created"
-        model.tipoPagoInstance != null
+        model.liquidacionInstance != null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -38,25 +38,25 @@ class TipoPagoControllerSpec extends Specification {
         when: "The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
-        def tipoPago = new TipoPago()
-        tipoPago.validate()
-        controller.save(tipoPago)
+        def liquidacion = new Liquidacion()
+        liquidacion.validate()
+        controller.save(liquidacion)
 
         then: "The create view is rendered again with the correct model"
-        model.tipoPagoInstance != null
+        model.liquidacionInstance != null
         view == 'create'
 
         when: "The save action is executed with a valid instance"
         response.reset()
         populateValidParams(params)
-        tipoPago = new TipoPago(params)
+        liquidacion = new Liquidacion(params)
 
-        controller.save(tipoPago)
+        controller.save(liquidacion)
 
         then: "A redirect is issued to the show action"
-        response.redirectedUrl == '/tipoPago/show/1'
+        response.redirectedUrl == '/liquidacion/show/1'
         controller.flash.message != null
-        TipoPago.count() == 1
+        Liquidacion.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -68,11 +68,11 @@ class TipoPagoControllerSpec extends Specification {
 
         when: "A domain instance is passed to the show action"
         populateValidParams(params)
-        def tipoPago = new TipoPago(params)
-        controller.show(tipoPago)
+        def liquidacion = new Liquidacion(params)
+        controller.show(liquidacion)
 
         then: "A model is populated containing the domain instance"
-        model.tipoPagoInstance == tipoPago
+        model.liquidacionInstance == liquidacion
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -84,11 +84,11 @@ class TipoPagoControllerSpec extends Specification {
 
         when: "A domain instance is passed to the edit action"
         populateValidParams(params)
-        def tipoPago = new TipoPago(params)
-        controller.edit(tipoPago)
+        def liquidacion = new Liquidacion(params)
+        controller.edit(liquidacion)
 
         then: "A model is populated containing the domain instance"
-        model.tipoPagoInstance == tipoPago
+        model.liquidacionInstance == liquidacion
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -98,28 +98,28 @@ class TipoPagoControllerSpec extends Specification {
         controller.update(null)
 
         then: "A 404 error is returned"
-        response.redirectedUrl == '/tipoPago/index'
+        response.redirectedUrl == '/liquidacion/index'
         flash.message != null
 
 
         when: "An invalid domain instance is passed to the update action"
         response.reset()
-        def tipoPago = new TipoPago()
-        tipoPago.validate()
-        controller.update(tipoPago)
+        def liquidacion = new Liquidacion()
+        liquidacion.validate()
+        controller.update(liquidacion)
 
         then: "The edit view is rendered again with the invalid instance"
         view == 'edit'
-        model.tipoPagoInstance == tipoPago
+        model.liquidacionInstance == liquidacion
 
         when: "A valid domain instance is passed to the update action"
         response.reset()
         populateValidParams(params)
-        tipoPago = new TipoPago(params).save(flush: true)
-        controller.update(tipoPago)
+        liquidacion = new Liquidacion(params).save(flush: true)
+        controller.update(liquidacion)
 
         then: "A redirect is issues to the show action"
-        response.redirectedUrl == "/tipoPago/show/$tipoPago.id"
+        response.redirectedUrl == "/liquidacion/show/$liquidacion.id"
         flash.message != null
     }
 
@@ -130,23 +130,23 @@ class TipoPagoControllerSpec extends Specification {
         controller.delete(null)
 
         then: "A 404 is returned"
-        response.redirectedUrl == '/tipoPago/index'
+        response.redirectedUrl == '/liquidacion/index'
         flash.message != null
 
         when: "A domain instance is created"
         response.reset()
         populateValidParams(params)
-        def tipoPago = new TipoPago(params).save(flush: true)
+        def liquidacion = new Liquidacion(params).save(flush: true)
 
         then: "It exists"
-        TipoPago.count() == 1
+        Liquidacion.count() == 1
 
         when: "The domain instance is passed to the delete action"
-        controller.delete(tipoPago)
+        controller.delete(liquidacion)
 
         then: "The instance is deleted"
-        TipoPago.count() == 0
-        response.redirectedUrl == '/tipoPago/index'
+        Liquidacion.count() == 0
+        response.redirectedUrl == '/liquidacion/index'
         flash.message != null
     }
 }
