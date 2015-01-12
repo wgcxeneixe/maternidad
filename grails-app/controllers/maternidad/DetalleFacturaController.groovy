@@ -1,5 +1,6 @@
 package maternidad
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
@@ -113,8 +114,14 @@ class DetalleFacturaController {
         planilla= PlanillaInternacion.get(params.id)
             detalle.planillaInternacion=planilla
             detalle.plan=planilla.plan
+def planConvenio=PlanConvenio.withCriteria {
+    eq("plan",planilla?.plan)
+    convenio{
+        eq("activo",Boolean.TRUE)
+    }
+}
 
-      valores= ValorPractica.findAllByPlanConvenio(PlanConvenio.findByActivoAndPlan(Boolean.TRUE,planilla.plan)).practica as List<Practica>
+      valores= ValorPractica.findAllByPlanConvenio(planConvenio)?.practica as List<Practica>
 
 
         }
@@ -149,5 +156,33 @@ class DetalleFacturaController {
             '*' { respond detalleFacturaInstance, [status: CREATED] }
         }
     }
+
+
+
+    def public obtenerValores() {
+
+        /*  10 - honorarios    si tiene valor honorario tomar valorhon sino valor especialista
+       20- ayudante
+       30-anestecista
+       60 - gasto
+       70 - gasto y honorarios llenar los dos campos
+       91 - libre carga valor honorario a mano  sacar el readonly y permitir cargar valor que se escribe en valor honorario */
+
+
+     def plan= Plan.get(params.plan)
+     def planConvenio= PlanConvenio.withCriteria {
+         convenio{eq("activo",true)}
+         eq("plan",plan)
+     }
+     def practica = Practica.get(params.practica)
+     def funcion= params.funcion
+
+//return plan as JSON
+        render(contentType: 'text/json') {[
+                'results': planConvenio?.id,
+                'status': "OK"
+        ]}
+    }
+
 
 }

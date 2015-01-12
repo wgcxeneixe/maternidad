@@ -464,7 +464,7 @@ def valorPractica= new ValorPractica()
        valorPractica?.valorHonorario=params.valor as Double
         valorPractica?.fechaActualizado= new Date()
        valorPractica?.plan=planConvenio?.plan
-        valorPractica?.pisar=(params.pisar as Boolean)?params.pisar as Boolean:Boolean.FALSE
+        //valorPractica?.pisar=(params.pisar as Boolean)?params.pisar as Boolean:Boolean.FALSE
 
        valorPractica.save flush: true
 
@@ -497,7 +497,7 @@ def valorPractica= new ValorPractica()
         valorPractica?.practica=practica
         valorPractica?.valorHonorario=params.valor as Double
         valorPractica?.fechaActualizado= new Date()
-        valorPractica?.pisar=(params.pisar as Boolean)?params.pisar as Boolean:Boolean.FALSE
+       // valorPractica?.pisar=(params.pisar as Boolean)?params.pisar as Boolean:Boolean.FALSE
 
         valorPractica.save flush: true
 
@@ -529,7 +529,13 @@ def planConvenio=new PlanConvenio()
     }
 
 
+  def  verRelacionPractica ={
 
+      def valorPractica= ValorPractica.get(params.id)
+
+      render (view: 'verRelacionPractica',model: [valorPractica: valorPractica])
+
+  }
 
 
 }

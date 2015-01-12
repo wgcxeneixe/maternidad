@@ -27,7 +27,7 @@
 
             <g:sortableColumn property="codigo" title="${message(code: 'practica.codigo.label', default: 'Codigo')}" />
 
-            <th></th>
+            <th><g:message code="convenio.valorHonorario"/></th>
 
             <th></th>
 
@@ -36,9 +36,14 @@
         </thead>
         <tbody>
         <g:each in="${maternidad.ValorPractica.createCriteria().list {
-            isNotNull("valorHonorario")
+
             planConvenio{eq('id',planConvenio?.id)}
-            practica{eq('nomenclada',Boolean.TRUE)}  }}" status="i" var="valor">
+            practica{eq('nomenclada',Boolean.TRUE)}
+
+
+
+
+        }}" status="i" var="valor">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
                 <td>${valor?.practica?.nombre}</td>
@@ -47,8 +52,16 @@
 
                 <td>${valor?.valorHonorario}</td>
 
-                <td><g:link class="linkEdit" controller="convenio" action="editAsociarPractica" id="${valor?.id}" >${message(code: 'default.button.edit.label')}</g:link></td>
+                <g:if test="${valor?.valorHonorario}">
 
+                    <td><g:link class="linkEdit" controller="convenio" action="editAsociarPractica" id="${valor?.id}" >${message(code: 'default.button.edit.label')}</g:link></td>
+
+                </g:if>
+<g:else>
+
+    <td><g:link class="linkEdit" controller="convenio" action="verRelacionPractica" id="${valor?.id}" >${message(code: 'default.button.show.label')}</g:link></td>
+
+</g:else>
 
 
             </tr>
@@ -56,8 +69,8 @@
         </tbody>
     </table>
     <div class="pagination">
-        <g:paginate total="${maternidad.ValorPractica.createCriteria().list {
-            isNotNull("valorHonorario")
+        <g:paginate params="[id:planConvenio?.id]" max="${Math.min(params.max?.toInteger() ?: 15, 50)}" offset="${params.offset}" total="${maternidad.ValorPractica.createCriteria().list {
+
             planConvenio{eq('id',planConvenio?.id)}
             practica{eq('nomenclada',Boolean.TRUE)}  }.size() ?: 0}" />
     </div>

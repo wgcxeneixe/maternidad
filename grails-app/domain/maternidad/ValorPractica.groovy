@@ -13,7 +13,7 @@ class ValorPractica {
     Plan plan
     PlanConvenio planConvenio
     Date fechaActualizado
-    Boolean pisar=true
+
 
     static belongsTo = [planConvenio:PlanConvenio]
 

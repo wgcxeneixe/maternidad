@@ -12,6 +12,38 @@
             $("#profesional").select2({allowClear: true});
             $("#practica").select2({allowClear: true});
 
+            $("#funcion").change(function(){
+              //  alert($(this).val());
+
+                $.ajax({
+                    url:"${g.createLink(controller:'detalleFactura',action:'obtenerValores')}",
+                    type:'POST',
+                    dataType: 'json',
+                    data: {
+                        plan: "${detalleFacturaInstance?.plan?.id}",
+                        practica:$("#practica").val(),
+                        funcion:$(this).val()
+                    },
+                    success: function(data) {
+                        alert(data.results)
+                    },
+                    error: function(request, status, error) {
+                        alert(error)
+                    },
+                    complete: function() {
+                    }
+                });
+
+                /*
+                $.post( "${createLink(controller: "detalleFactura",action:"obtenerValores")}", { plan: "${detalleFacturaInstance?.plan?.id}", time: "2pm" } )
+                        .done(function( data ) {
+                            alert( "Data Loaded: " + data );
+                        });
+*/
+            });
+
+
+
 
         })
 

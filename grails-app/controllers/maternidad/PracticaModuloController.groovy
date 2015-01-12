@@ -42,6 +42,8 @@ class PracticaModuloController {
             return
         }
 
+
+
         if (practicaModuloInstance.hasErrors()) {
             respond practicaModuloInstance.errors, view: 'create'
             return
@@ -49,6 +51,10 @@ class PracticaModuloController {
 
         practicaModuloInstance.save flush: true
 
+
+      def  valorPracticaModulo=ValorPractica.findById(params.valorPractica.id)
+
+        /*
         def planConvenio=PlanConvenio.get(params.planConvenio.id)
 
         def valorPractica= new ValorPractica()
@@ -65,11 +71,12 @@ class PracticaModuloController {
         valorPractica.save flush: true
 
         def valorPracticaModulo=ValorPractica.get(params.valorPractica.id)
+*/
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'practicaModulo.label', default: 'PracticaModulo'), practicaModuloInstance.id])
-                redirect(controller:'practica',  action: "editModulo" , params: [id:valorPracticaModulo?.practica?.id,valorPractica: valorPracticaModulo?.id])
+                redirect(controller:'practica',  action: "editModulo" , params: [id:practicaModuloInstance?.modulo?.id,valorPractica: valorPracticaModulo?.id])
             }
             '*' { respond practicaModuloInstance, [status: CREATED] }
         }
@@ -95,7 +102,7 @@ class PracticaModuloController {
         }
 
         practicaModuloInstance.save flush: true
-
+/*
         def planConvenio=PlanConvenio.get(params.planConvenio.id)
 
         def valorPractica = ValorPractica.findByPracticaAndPlanConvenio(practicaModuloInstance?.practica,planConvenio)
@@ -111,11 +118,14 @@ class PracticaModuloController {
 
 
         def valorPracticaModulo=ValorPractica.get(params.valorPractica.id)
+*/
+
+        def  valorPracticaModulo=ValorPractica.findById(params.valorPractica.id)
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'PracticaModulo.label', default: 'PracticaModulo'), practicaModuloInstance.id])
-                redirect(controller:'practica',  action: "editModulo" , params: [id:valorPracticaModulo?.practica?.id,valorPractica: valorPracticaModulo?.id])
+                redirect(controller:'practica',  action: "editModulo" , params: [id:practicaModuloInstance?.modulo?.id,valorPractica: valorPracticaModulo?.id])
             }
             '*' { respond practicaModuloInstance, [status: OK] }
         }
