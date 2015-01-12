@@ -16,11 +16,11 @@
     <!-- Agrego la librería JQuery y JQueryUI -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <!-- Si no la encuentra JQuery en la CDN carga la copia local -->
-    <script>window.jQuery || document.write('<script src="js/jquery-1.10.2/jquery.min.js">\x3C/script>')</script>
+    <script>window.jQuery || document.write('<script src="../js/jquery-1.10.2/jquery.min.js">\x3C/script>')</script>
 
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <!-- Si no la encuentra JQuery UI en la CDN carga la copia local -->
-    <script>(window.jQuery.ui === undefined) && document.write('<script src="js/jquery-ui-1.10.4/jquery-ui.min.js">\x3C/script>')</script>
+    <script>(window.jQuery.ui === undefined) && document.write('<script src="../js/jquery-ui-1.10.4/jquery-ui.min.js">\x3C/script>')</script>
 
 
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'select2.css')}"/>
