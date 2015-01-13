@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en" class="app"><!-- /ADD -->
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
@@ -16,11 +17,11 @@
     <!-- Agrego la librería JQuery y JQueryUI -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <!-- Si no la encuentra JQuery en la CDN carga la copia local -->
-    <script>window.jQuery || document.write('<script src="../js/jquery-1.10.2/jquery.min.js">\x3C/script>')</script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.10.2/jquery.min.js">\x3C/script>')</script>
 
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <!-- Si no la encuentra JQuery UI en la CDN carga la copia local -->
-    <script>(window.jQuery.ui === undefined) && document.write('<script src="../js/jquery-ui-1.10.4/jquery-ui.min.js">\x3C/script>')</script>
+    <script>(window.jQuery.ui === undefined) && document.write('<script src="js/jquery-ui-1.10.4/jquery-ui.min.js">\x3C/script>')</script>
 
 
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'select2.css')}"/>
@@ -29,10 +30,8 @@
 
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-custom.css')}"/>
 
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}"/>
 
 
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-responsive.css')}"/>
 
 
     <asset:javascript src="utilidades.js"/>
@@ -40,9 +39,499 @@
     <asset:stylesheet src="application.css"/>
 		<asset:javascript src="application.js"/>
 		<g:layoutHead/>
+
+
+    <!-- /ADD START -->
+    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+
+    <link rel="stylesheet" href="/maternidad/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/maternidad/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="/maternidad/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/maternidad/css/icon.css" type="text/css" />
+    <link rel="stylesheet" href="/maternidad/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="/maternidad/css/app.css" type="text/css" />
+    <link rel="stylesheet" href="/maternidad/js/calendar/bootstrap_calendar.css" type="text/css" />
+    <!--[if lt IE 9]>
+    <script src="/maternidad/js/ie/html5shiv.js"></script>
+    <script src="/maternidad/js/ie/respond.min.js"></script>
+    <script src="/maternidad/js/ie/excanvas.js"></script>
+    <![endif]-->
+    <!-- /ADD END -->
+
+
+    <link rel="stylesheet" href="/maternidad/css/styles.css" type="text/css" />
+
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>
+
+
+    <!-- /ADD START -->
+    <section class="vbox">
+
+    <section>
+    <section class="hbox stretch">
+    <!-- .aside -->
+    <aside class="bg-black aside-md hidden-print" id="nav">
+    <section class="vbox">
+    <section class="w-f scrollable">
+    <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
+    <div class="clearfix wrapper dk nav-user hidden-xs">
+        <div class="dropdown">
+            <span class="hidden-nav-xs clear">
+                <a href="index.html" class="navbar-brand">
+                <img src="/maternidad/css/maternidad.png" class="m-r-sm" alt="scale">
+                </a>
+            </span>
+            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                <li>
+                    <span class="arrow top hidden-nav-xs"></span>
+                    <a href="#">Configuracion</a>
+                </li>
+                <li>
+                    <a href="profile.html">Perfil</a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="badge bg-danger pull-right">3</span>
+                        Notificationes
+                    </a>
+                </li>
+                <li>
+                    <a href="docs.html">Ayuda</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="modal.lockme.html" data-toggle="ajaxModal" >Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- nav -->
+    <nav class="nav-primary hidden-xs">
+    <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Inicio</div>
+    <ul class="nav nav-main" data-ride="collapse">
+    <li>
+        <a href="index.html" class="auto">
+            <i class="i i-statistics icon">
+            </i>
+            <span class="font-bold">INICIO</span>
+        </a>
+    </li>
+    <li >
+        <a href="#" class="auto">
+            <span class="pull-right text-muted">
+                <i class="i i-circle-sm-o text"></i>
+                <i class="i i-circle-sm text-active"></i>
+            </span>
+            <b class="badge bg-danger pull-right">4</b>
+            <i class="i i-stack icon">
+            </i>
+            <span class="font-bold">GENERALES</span>
+        </a>
+        <ul class="nav dk">
+            <li >
+                <a href="${createLink(controller:'tipoDocumento',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Tipo Documento </span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'localidad',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Localidad</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'pais',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>País</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'provincia',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Provincia</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'tipoHonorario',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Tipo Honorarios</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'tipoGasto',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Tipo Gastos</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'componente',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Componente</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'componenteTipoHonorario',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Comp. con Tipo Honorario</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'conceptoProveedor',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Concepto Proveedor </span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'conceptoBanco',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Concepto Banco</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'condicionImpositiva',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Condición impositiva</span>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+    <li class="${controllerName == 'obraSocial' ? 'active' : ''}"> <!-- /Controller -->
+        <a href="#" class="auto">
+            <span class="pull-right text-muted">
+                <i class="i i-circle-sm-o text"></i>
+                <i class="i i-circle-sm text-active"></i>
+            </span>
+            <i class="i i-lab icon">
+            </i>
+            <span class="font-bold">OBRAS SOCIALES</span>
+        </a>
+        <ul class="nav dk">
+            <li  class="${(controllerName == 'obraSocial' && actionName == 'index') ? 'active' : ''}" > <!-- /ActionName -->
+                <a href="${createLink(controller:'obraSocial',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Listado</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'obraSocial',action: 'create')}" class="auto"> <!-- /CreateLink -->
+                    <b class="badge bg-info pull-right">369</b>
+                    <i class="i i-dot"></i>
+
+                    <span>Agregar Obra Social</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'plan',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Listado Planes</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'convenio',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <b class="badge bg-dark pull-right">8</b>
+                    <i class="i i-dot"></i>
+
+                    <span>Listado Convenios</span>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+    <li class="${controllerName == 'convenio' ? 'active' : ''}"> <!-- /Controller -->
+        <a href="#" class="auto">
+            <span class="pull-right text-muted">
+                <i class="i i-circle-sm-o text"></i>
+                <i class="i i-circle-sm text-active"></i>
+            </span>
+            <i class="i i-docs icon">
+            </i>
+            <span class="font-bold">CONVENIOS</span>
+        </a>
+        <ul class="nav dk">
+            <li >
+                <a href="${createLink(controller:'convenio',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Listado</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'convenio',action: 'create')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Agragar Convenio</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="${controllerName == 'proveedor' ? 'active' : ''}"> <!-- /Controller -->
+        <a href="#" class="auto">
+            <span class="pull-right text-muted">
+                <i class="i i-circle-sm-o text"></i>
+                <i class="i i-circle-sm text-active"></i>
+            </span>
+            <i class="i i-grid2 icon">
+            </i>
+            <span class="font-bold">PROVEEDORES</span>
+        </a>
+        <ul class="nav dk">
+            <li >
+                <a href="${createLink(controller:'proveedor',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <b class="badge bg-success lt pull-right">2</b>
+                    <i class="i i-dot"></i>
+
+                    <span>Listado</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'proveedor',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Cuenta Corriente</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+
+    <li class="${controllerName == 'movimientoStock' ? 'active' : ''}"> <!-- /Controller -->
+        <a href="#" class="auto">
+            <span class="pull-right text-muted">
+                <i class="i i-circle-sm-o text"></i>
+                <i class="i i-circle-sm text-active"></i>
+            </span>
+            <i class="i i-grid2 icon">
+            </i>
+            <span class="font-bold">STOCK</span>
+        </a>
+        <ul class="nav dk">
+            <li >
+                <a href="${createLink(controller:'producto',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <b class="badge bg-success lt pull-right">2</b>
+                    <i class="i i-dot"></i>
+
+                    <span>Listado de Productos</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'destino',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Listado de destinos</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'movimientoStock',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Movimientos Stock</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+
+    <li class="${controllerName == 'profesional' ? 'active' : ''}"> <!-- /Controller -->
+        <a href="#" class="auto">
+            <span class="pull-right text-muted">
+                <i class="i i-circle-sm-o text"></i>
+                <i class="i i-circle-sm text-active"></i>
+            </span>
+            <i class="i i-grid2 icon">
+            </i>
+            <span class="font-bold">PROFESIONALES</span>
+        </a>
+        <ul class="nav dk">
+            <li >
+                <a href="${createLink(controller:'profesional',action: 'active')}" class="auto"> <!-- /CreateLink -->
+                    <b class="badge bg-success lt pull-right">2</b>
+                    <i class="i i-dot"></i>
+
+                    <span>Listado de Profesionales</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+
+    <li class="${controllerName == 'banco' ? 'active' : ''}"> <!-- /Controller -->
+        <a href="#" class="auto">
+            <span class="pull-right text-muted">
+                <i class="i i-circle-sm-o text"></i>
+                <i class="i i-circle-sm text-active"></i>
+            </span>
+            <i class="i i-grid2 icon">
+            </i>
+            <span class="font-bold">BANCOS</span>
+        </a>
+        <ul class="nav dk">
+            <li >
+                <a href="${createLink(controller:'banco',action: 'active')}" class="auto"> <!-- /CreateLink -->
+                    <b class="badge bg-success lt pull-right">2</b>
+                    <i class="i i-dot"></i>
+
+                    <span>Listado de Bancos</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'movimientoBanco',action: 'cuentaCorriente')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Cuenta Corriente</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+
+
+    <li class="${controllerName == 'planillaInternacion' ? 'active' : ''}"> <!-- /Controller -->
+        <a href="#" class="auto">
+            <span class="pull-right text-muted">
+                <i class="i i-circle-sm-o text"></i>
+                <i class="i i-circle-sm text-active"></i>
+            </span>
+            <i class="i i-grid2 icon">
+            </i>
+            <span class="font-bold">PLANILLA INTERNACION</span>
+        </a>
+        <ul class="nav dk">
+            <li >
+                <a href="${createLink(controller:'planillaInternacion',action: 'active')}" class="auto"> <!-- /CreateLink -->
+                    <b class="badge bg-success lt pull-right">2</b>
+                    <i class="i i-dot"></i>
+
+                    <span>Listado de Planillas</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+
+    <li class="${controllerName == 'caja' ? 'active' : ''}"> <!-- /Controller -->
+        <a href="#" class="auto">
+            <span class="pull-right text-muted">
+                <i class="i i-circle-sm-o text"></i>
+                <i class="i i-circle-sm text-active"></i>
+            </span>
+            <i class="i i-grid2 icon">
+            </i>
+            <span class="font-bold">CAJAS</span>
+        </a>
+        <ul class="nav dk">
+            <li >
+                <a href="${createLink(controller:'cajaDiaria',action: 'active')}" class="auto"> <!-- /CreateLink -->
+                    <b class="badge bg-success lt pull-right">2</b>
+                    <i class="i i-dot"></i>
+
+                    <span>Caja Diaria</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'detalleCaja',action: 'active')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Listado de detalle de cajas</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+
+
+
+
+
+    </ul>
+    <div class="line dk hidden-nav-xs"></div>
+    <div class="text-muted text-xs hidden-nav-xs padder m-t-sm m-b-sm">Filtros</div>
+    <ul class="nav">
+        <li>
+            <a href="mail.html#work">
+                <i class="i i-circle-sm text-info-dk"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        <li>
+            <a href="mail.html#social">
+                <i class="i i-circle-sm text-success-dk"></i>
+                <span>Ultimas Facturas</span>
+            </a>
+        </li>
+        <li>
+            <a href="mail.html#projects">
+                <i class="i i-circle-sm text-danger-dk"></i>
+                <span>Otros</span>
+            </a>
+        </li>
+    </ul>
+    <div class="text-muted text-xs hidden-nav-xs padder m-t-sm m-b-sm">Usuarios</div>
+    <ul class="nav">
+        <li>
+            <a href="#">
+                <i class="i i-circle-sm-o text-success-lt"></i>
+                <span>XXXXXX</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="i i-circle-sm-o text-warning"></i>
+                <span>XXXXX</span>
+            </a>
+        </li>
+    </ul>
+    </nav>
+    <!-- / nav -->
+    </div>
+    </section>
+
+    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+        <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">
+            <i class="i i-logout"></i>
+        </a>
+        <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">
+            <i class="i i-circleleft text"></i>
+            <i class="i i-circleright text-active"></i>
+        </a>
+    </footer>
+    </section>
+    </aside>
+    <!-- /.aside -->
+
+    <!-- /ADD END -->
+
+
+
+
+    <!-- /ADD START -->
+    <section id="content">
+        <section class="hbox stretch">
+            <section>
+                <section class="vbox">
+                    <section class="scrollable padder">
+    <!-- /ADD END -->
+
+    <!--  <div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logos.png" alt="Grails"/></a></div> -->
 
 
 <g:link controller="logout" action="index" >Logout</g:link>
@@ -51,6 +540,7 @@
 
 
     </div> <!-- /container -->
+
 
 
     <script type="text/javascript">
@@ -69,6 +559,53 @@
     <g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
+
+
+
+
+    <!-- /ADD START -->
+                    </section>
+                    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!-- /ADD END -->
+
+
+    <!-- /ADD START -->
+     </section>
+    </section>
+    <!-- /ADD END -->
+
+
+
+    </section><!-- /ADD -->
+
+
+    <!-- /ADD START -->
+   <!-- <script src="/maternidad/js/jquery.min.js"></script> -->
+    <!-- Bootstrap -->
+    <script src="/maternidad/js/bootstrap.js"></script>
+    <!-- App -->
+    <script src="/maternidad/js/app.js"></script>
+    <script src="/maternidad/js/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/maternidad/js/charts/easypiechart/jquery.easy-pie-chart.js"></script>
+    <script src="/maternidad/js/charts/sparkline/jquery.sparkline.min.js"></script>
+    <script src="/maternidad/js/charts/flot/jquery.flot.min.js"></script>
+    <script src="/maternidad/js/charts/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="/maternidad/js/charts/flot/jquery.flot.spline.js"></script>
+    <script src="/maternidad/js/charts/flot/jquery.flot.pie.min.js"></script>
+    <script src="/maternidad/js/charts/flot/jquery.flot.resize.js"></script>
+    <script src="/maternidad/js/charts/flot/jquery.flot.grow.js"></script>
+    <script src="/maternidad/js/charts/flot/demo.js"></script>
+
+    <script src="/maternidad/js/calendar/bootstrap_calendar.js"></script>
+    <script src="/maternidad/js/calendar/demo.js"></script>
+
+    <script src="/maternidad/js/sortable/jquery.sortable.js"></script>
+    <script src="/maternidad/js/app.plugin.js"></script>
+    <!-- /ADD END -->
 
     </body>
 </html>

@@ -8,31 +8,52 @@
     <script>
         $(function() {
 
+           var valorHonorarios= $("#valorHonorarios");
+            var valorGastos= $("#valorGastos");
+
             $("#planillaInternacion").select2({allowClear: true});
             $("#profesional").select2({allowClear: true});
             $("#practica").select2({allowClear: true});
 
-            $("#funcion").change(function(){
-              //  alert($(this).val());
+            $("#funcion").change(function() {
+                //  alert($(this).val());
+                var funcion = $(this).val();
+                var practica = $("#practica").val();
+
+
+
+                if(practica!='null'){
 
                 $.ajax({
-                    url:"${g.createLink(controller:'detalleFactura',action:'obtenerValores')}",
-                    type:'POST',
+                    url: "${g.createLink(controller:'detalleFactura',action:'obtenerValores')}",
+                    type: 'POST',
                     dataType: 'json',
                     data: {
                         plan: "${detalleFacturaInstance?.plan?.id}",
-                        practica:$("#practica").val(),
-                        funcion:$(this).val()
+                        practica: practica,
+                        funcion: funcion
                     },
-                    success: function(data) {
-                        alert(data.results)
+                    success: function (data) {
+
+                        if (funcion == 10) {
+                            valorHonorarios.val(data.honorario);
+                            valorGastos.hide();
+                        }
+
+                        if (funcion == 20) {
+                            valorHonorarios.val(data.honorario);
+                            valorGastos.hide();
+                        }
+
                     },
-                    error: function(request, status, error) {
+                    error: function (request, status, error) {
                         alert(error)
                     },
-                    complete: function() {
+                    complete: function () {
                     }
                 });
+
+            }
 
                 /*
                 $.post( "${createLink(controller: "detalleFactura",action:"obtenerValores")}", { plan: "${detalleFacturaInstance?.plan?.id}", time: "2pm" } )

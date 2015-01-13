@@ -35,12 +35,10 @@
         </tr>
         </thead>
         <tbody>
-        <g:each in="${maternidad.ValorPractica.createCriteria().list {
+        <g:each in="${maternidad.ValorPractica.createCriteria().list(max:(params.max)?params.max:10, offset:params.offset) {
 
             planConvenio{eq('id',planConvenio?.id)}
             practica{eq('nomenclada',Boolean.TRUE)}
-
-
 
 
         }}" status="i" var="valor">
@@ -69,7 +67,7 @@
         </tbody>
     </table>
     <div class="pagination">
-        <g:paginate params="[id:planConvenio?.id]" max="${Math.min(params.max?.toInteger() ?: 15, 50)}" offset="${params.offset}" total="${maternidad.ValorPractica.createCriteria().list {
+        <g:paginate params="[id:planConvenio?.id]" max="${Math.min(params.max?.toInteger() ?: 10, 50)}" offset="${params.offset}" total="${maternidad.ValorPractica.createCriteria().list {
 
             planConvenio{eq('id',planConvenio?.id)}
             practica{eq('nomenclada',Boolean.TRUE)}  }.size() ?: 0}" />

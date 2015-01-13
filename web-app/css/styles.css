@@ -1,0 +1,96 @@
+/* NAVIGATION MENU */
+
+.nav {
+    background-color: transparent !important;
+    padding: 0 0;
+    -moz-box-shadow: 0 0 0px 0px #aaaaaa;
+    -webkit-box-shadow: 0 0 0px 0px #aaaaaa;
+    box-shadow: 0 0 0px 0px #aaaaaa;
+    zoom: 1;
+}
+
+.nav ul {
+    overflow: hidden;
+    padding-left: 0;
+    zoom: 1;
+}
+
+.nav li {
+    display: block;
+    float: none;
+    list-style-type: none;
+    margin-right: 0em;
+    padding: 0;
+}
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+
+.nav a {
+    color: #666666;
+    display: block;
+    padding: 0.25em 0.7em;
+    text-decoration: none;
+    -moz-border-radius: 0em;
+    -webkit-border-radius: 0em;
+    border-radius: 0em;
+}
+
+.nav a:active, .nav a:visited {
+    color: #666666;
+}
+
+.nav a:focus, .nav a:hover {
+    background-color: #999999;
+    color: #ffffff;
+    outline: none;
+    text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.8);
+}
+
+
+.footer {
+    background: transparent;
+    color: black;
+    clear: both;
+    font-size: 0.8em;
+    margin-top: 1.5em;
+    padding: 1em;
+    min-height: 1em;
+}
+
+.content h1 {
+    border-bottom: 1px solid #CCC;
+    margin: 0em 0em 0em;
+    padding: 10px 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #FFFFFF;
+    background-color: #1AAE88;
+
+}
+
+.active .i {
+    color: #E33244;
+}
+
+.fieldcontain label, .fieldcontain .property-label {
+    color: #666;
+    text-align: right;
+    width: 25%;
+    font-weight: 800;
+}
+
+.buttons {
+    background-color: #303641;
+    color: #FFFFFF;
+    overflow: hidden;
+    padding: 0.3em;
+    -moz-box-shadow: 0 0 3px 1px #AAA;
+    -webkit-box-shadow: 0 0 3px 1px #AAA;
+    box-shadow: 0 0 3px 1px #AAA;
+    margin: 0.1em 0 0 0;
+    border: none;
+}

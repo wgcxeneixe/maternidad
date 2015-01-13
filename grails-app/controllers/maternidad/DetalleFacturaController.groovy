@@ -168,6 +168,8 @@ def planConvenio=PlanConvenio.withCriteria {
        70 - gasto y honorarios llenar los dos campos
        91 - libre carga valor honorario a mano  sacar el readonly y permitir cargar valor que se escribe en valor honorario */
 
+     def honorario=0
+     def gasto=0
 
      def plan= Plan.get(params.plan)
      def planConvenio= PlanConvenio.withCriteria {
@@ -177,10 +179,43 @@ def planConvenio=PlanConvenio.withCriteria {
      def practica = Practica.get(params.practica)
      def funcion= params.funcion
 
+     def valorPractica= ValorPractica.findByPlanConvenioAndPractica(planConvenio,practica)
+
+if(funcion==10){
+
+  if(valorPractica?.valorHonorario){
+      honorario=valorPractica?.valorHonorario
+  }else {
+     honorario=valorPractica?.valorEspecialista
+  }
+}
+
+ if(funcion==20){
+  honorario=valorPractica?.valorAyudante
+ }
+
+        if(funcion==30){
+            honorario=valorPractica?.valorAnestecista
+        }
+
+        if(funcion==60){
+            gasto=valorPractica?.valorGasto
+        }
+
+        if(funcion==70){
+            gasto=valorPractica?.valorGasto
+
+            if(valorPractica?.valorHonorario){
+                honorario=valorPractica?.valorHonorario
+            }else {
+                honorario=valorPractica?.valorEspecialista
+            }
+        }
+
 //return plan as JSON
         render(contentType: 'text/json') {[
-                'results': planConvenio?.id,
-                'status': "OK"
+                'gasto': gasto,
+                'honorario': honorario
         ]}
     }
 
