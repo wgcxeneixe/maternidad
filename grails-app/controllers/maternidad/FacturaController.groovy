@@ -143,6 +143,15 @@ class FacturaController {
 
 def facturar={
    def facturaInstance = new Factura()
+
+  def maxNroFactura=  Factura.createCriteria().get {
+        projections {
+            max "nrofactura"
+        }
+    } as Long
+
+facturaInstance.nrofactura= (maxNroFactura)?maxNroFactura:0
+
 respond facturaInstance
 
 }
@@ -151,11 +160,41 @@ respond facturaInstance
     def facturarSeleccionado={
 
        def fecha=params.fecha
-       def nroFactura=params.nrofactura
-       def periodo=params.periodo
+       def nroFactura=params.nrofactura as Long
+       def periodo=params.periodo as Long
+
+//listado de id de planes a facturar
        def seleccionados=params.getProperty("facturar[]")  as List
 
-seleccionados
+
+// crear facturas por cada plan
+seleccionados.each {
+
+ def factura= new Factura()
+ factura.nrofactura=nroFactura
+ factura.fecha=fecha
+    factura.periodo=periodo
+    factura.plan=Plan.get(it)
+    def total= DetalleFactura.executeQuery("select sum(coalesce(df.valorHonorarios,0)* df.cantidad + coalesce(df.valorGastos,0)*df.cantidad ) as total from DetalleFactura df where df.factura is null and df.plan=:plan group by df.plan.id  ",[plan:factura?.plan])
+
+factura.totalFacturado=total.get(0)
+factura.save(flush: true)
+
+
+
+def detalles= DetalleFactura.findAllByFacturaIsNullAndPlan(factura?.plan)
+
+    detalles.each {
+        it.factura=factura
+        it.save(flush: true)
+    }
+
+   nroFactura++
+
+}
+
+     redirect(action:"index")
+
 
     }
 
