@@ -6,6 +6,8 @@ class RetencionPago {
     PagoFactura pagoFactura
     String observaciones
 
+    //concepto de retencion o concepto de pago???????????????????
+
     static belongsTo = [
             pagoFactura : PagoFactura
     ]
@@ -13,7 +15,9 @@ class RetencionPago {
     static constraints = {
     }
 
-
+    def Long porcentajeDelPago(){
+        return monto * 100 / pagoFactura.monto
+    }
 
 
 

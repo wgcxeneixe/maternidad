@@ -10,7 +10,7 @@ class ConceptoProfesional {
     Boolean credito
     Double montoFijo
     Double porcentaje
-    Boolean aplicaSobreBruto
+    Boolean aplicaSobreBruto // por ahora no se va a usar!!!!!!!!!!!!!!!!!!!
 
     static constraints = {
 

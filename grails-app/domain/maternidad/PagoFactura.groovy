@@ -27,7 +27,7 @@ class PagoFactura {
         factura(nullable: false)
         numeroComprobante(nullable: false)
         tipoPago(nullable: false)
-
+        porcentajeALiquidar(nullable: false, validator: validadorPorcentajeALiquidar)
     }
 
     def beforeInsert = {
@@ -45,21 +45,20 @@ class PagoFactura {
 //    }
 
     static def validadorRetencion = {
-        val, Factura obj ->
+        val, PagoFactura obj ->
             def resp = true
-            if (retencion > obj?.totalFacturado) {
-                resp = "pagoFactura.monto.invalido"
+            if (obj.porcentajeLiquidado + val > 100) {
+                resp = "pagoFactura.porcentajeALiquidar.invalido"
             }
             resp
     }
 
+    static def validadorPorcentajeALiquidar = {
+        val, Factura obj ->
+    }
 
     static def validadorMonto = {
         val, Factura obj ->
-
-            println 'val'
-            println val
-
 
             def resp = true
             def totalPagos = obj?.getTotalPagos() - obj?.getTotalRetencion()
@@ -80,6 +79,9 @@ class PagoFactura {
 //        pagos
 //    }
 
+    def montoALiquidar(){
+        return monto * porcentajeALiquidar / 100
+    }
 
     String toString() { "${fecha?.format('dd/MM/yyyy')} ++ ${monto}" }
 }
