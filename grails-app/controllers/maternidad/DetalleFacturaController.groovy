@@ -177,7 +177,7 @@ def planConvenio=PlanConvenio.withCriteria {
          eq("plan",plan)
      }
      def practica = Practica.get(params.practica)
-     def funcion= params.funcion
+     def funcion= params.funcion as Integer
 
      def valorPractica= ValorPractica.findByPlanConvenioAndPractica(planConvenio,practica)
 

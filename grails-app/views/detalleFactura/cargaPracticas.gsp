@@ -11,9 +11,55 @@
            var valorHonorarios= $("#valorHonorarios");
             var valorGastos= $("#valorGastos");
 
+            var divgasto= $("#divgasto");
+            var divhonorario= $("#divhonorario");
+
             $("#planillaInternacion").select2({allowClear: true});
             $("#profesional").select2({allowClear: true});
             $("#practica").select2({allowClear: true});
+
+            var funcion = $("#funcion").val();
+
+            valorHonorarios.prop('readonly', true);
+            valorGastos.prop('readonly', true);
+
+            if (funcion == 10) {
+                divhonorario.show();
+                divgasto.hide();
+            }
+
+            if (funcion == 20) {
+
+                divhonorario.show();
+                divgasto.hide();
+            }
+
+            if (funcion == 30) {
+
+                divhonorario.show();
+                divgasto.hide();
+            }
+
+
+            if (funcion == 60) {
+
+                divgasto.show();
+                divhonorario.hide();
+            }
+
+            if (funcion == 70) {
+                divgasto.show();
+                divhonorario.show();
+            }
+
+
+            if (funcion == 91) {
+                divgasto.show();
+                divhonorario.show();
+                valorHonorarios.prop('readonly', false);
+                valorGastos.prop('readonly', false);
+            }
+
 
             $("#funcion").change(function() {
                 //  alert($(this).val());
@@ -37,13 +83,45 @@
 
                         if (funcion == 10) {
                             valorHonorarios.val(data.honorario);
-                            valorGastos.hide();
+                            divhonorario.show();
+                            divgasto.hide();
                         }
 
                         if (funcion == 20) {
                             valorHonorarios.val(data.honorario);
-                            valorGastos.hide();
+                            divhonorario.show();
+                            divgasto.hide();
                         }
+
+                        if (funcion == 30) {
+                            valorHonorarios.val(data.honorario);
+                            divhonorario.show();
+                            divgasto.hide();
+                        }
+
+
+                        if (funcion == 60) {
+                            valorGastos.val(data.gasto);
+                            divgasto.show();
+                            divhonorario.hide();
+                        }
+
+                        if (funcion == 70) {
+                            valorGastos.val(data.gasto);
+                            valorHonorarios.val(data.honorario);
+                            divgasto.show();
+                            divhonorario.show();
+                        }
+
+                        if (funcion == 91) {
+                           // valorGastos.val(data.gasto);
+                           // valorHonorarios.val(data.honorario);
+                            divgasto.show();
+                            divhonorario.show();
+                            valorHonorarios.prop('readonly', false);
+                            valorGastos.prop('readonly', false);
+                        }
+
 
                     },
                     error: function (request, status, error) {
@@ -122,7 +200,7 @@
             </div>
 
 
-            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'practica', 'error')} ">
+            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'practica', 'error')} required">
                 <label for="practica">
                     <g:message code="detalleFactura.practica.label" default="Practica" />
 
@@ -147,7 +225,7 @@
 </div>
 
 
-            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'cantidad', 'error')} ">
+            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'cantidad', 'error')} required">
                 <label for="cantidad">
                     <g:message code="detalleFactura.cantidad.label" default="Cantidad" />
 
@@ -159,7 +237,7 @@
 
 
 
-            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'valorGastos', 'error')} ">
+            <div id="divgasto" class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'valorGastos', 'error')} ">
                 <label for="valorGastos">
                     <g:message code="detalleFactura.valorGastos.label" default="Valor Gastos" />
 
@@ -168,7 +246,7 @@
 
             </div>
 
-            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'valorHonorarios', 'error')} ">
+            <div id="divhonorario" class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'valorHonorarios', 'error')} ">
                 <label for="valorHonorarios">
                     <g:message code="detalleFactura.valorHonorarios.label" default="Valor Honorarios" />
 
@@ -217,26 +295,32 @@
 
             <g:sortableColumn property="cantidad" title="${message(code: 'detalleFactura.cantidad.label', default: 'Cantidad')}" />
 
-            <th><g:message code="detalleFactura.valorPractica.label" default="valor" /></th>
+            <th><g:message code="detalleFactura.valorPractica.label" default="Valor Honorario" /></th>
 
+            <th><g:message code="detalleFactura.valorPractica.label" default="valor Gasto" /></th>
 
+            <th><g:message code="detalleFactura.valorPractica.label" default="Total" /></th>
 
         </tr>
         </thead>
         <tbody>
         <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)}
-            isNull("factura")}}" status="i" var="detalleFacturaInstance">
+            isNull("factura")}}" status="i" var="detalleFactura">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                <td>${fieldValue(bean: detalleFacturaInstance, field: "profesional")}</td>
+                <td>${fieldValue(bean: detalleFactura, field: "profesional")}</td>
 
-                <td>${fieldValue(bean: detalleFacturaInstance, field: "practica")}</td>
+                <td>${fieldValue(bean: detalleFactura, field: "practica")}</td>
 
-                <td>${fieldValue(bean: detalleFacturaInstance, field: "cantidad")}</td>
+                <td>${fieldValue(bean: detalleFactura, field: "cantidad")}</td>
 
-                <td>${fieldValue(bean: detalleFacturaInstance, field: "valorPractica")}</td>
+                <td>${fieldValue(bean: detalleFactura, field: "valorHonorarios")}</td>
 
+                <td>${fieldValue(bean: detalleFactura, field: "valorGastos")}</td>
 
+                <td> ${ (detalleFactura?.valorHonorarios)? (detalleFactura.valorHonorarios.multiply( detalleFactura.cantidad as Character) ):0  +
+                        (detalleFactura?.valorGastos)? (detalleFactura.valorGastos.multiply( detalleFactura.cantidad as Character) ):0
+                } </td>
 
             </tr>
         </g:each>

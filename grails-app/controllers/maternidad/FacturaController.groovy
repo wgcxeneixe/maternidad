@@ -140,4 +140,25 @@ class FacturaController {
             '*' { render status: NOT_FOUND }
         }
     }
+
+def facturar={
+   def facturaInstance = new Factura()
+respond facturaInstance
+
+}
+
+
+    def facturarSeleccionado={
+
+       def fecha=params.fecha
+       def nroFactura=params.nrofactura
+       def periodo=params.periodo
+       def seleccionados=params.getProperty("facturar[]")  as List
+
+seleccionados
+
+    }
+
+
+
 }

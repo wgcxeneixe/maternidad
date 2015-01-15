@@ -321,4 +321,79 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
 
 
 
+
+    def nomenclador = {
+
+        /*  if (!springSecurityService.isLoggedIn()){
+              redirect(controller: 'login', action: "auth")
+          }
+  */
+        def query = {
+
+            eq("nomenclada",Boolean.TRUE)
+
+            if (params.codigo) {
+                ilike('codigo', '%' + params.codigo + '%')
+            }
+
+            if (params.nombre) {
+                ilike('nombre', '%' + params.nombre + '%')
+            }
+
+            if (params.sort){
+                order(params.sort,params.order)
+            }
+        }
+
+        def criteria = Practica.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def practicas = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [codigo:params.codigo,nombre:params.nombre]
+
+        def model = [practicaInstanceList: practicas, practicaInstanceTotal:practicas.totalCount, filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grilla", model: model)
+        }
+        else {
+            model
+        }
+    }
+
+
+    def editNomenclada(Practica practicaInstance) {
+        respond practicaInstance
+    }
+
+
+    @Transactional
+    def updateNomenclada(Practica practicaInstance) {
+        if (practicaInstance == null) {
+            notFound()
+            return
+        }
+
+        if (practicaInstance.hasErrors()) {
+            respond practicaInstance.errors, view: 'editNomenclada'
+            return
+        }
+
+        practicaInstance.save flush: true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Practica.label', default: 'Practica'), practicaInstance.id])
+                redirect controller: 'practica', action: "nomenclador"
+            }
+            '*' { respond practicaInstance, [status: OK] }
+        }
+    }
+
+
+    def showNomenclada(Practica practicaInstance) {
+        respond practicaInstance
+    }
+
+
 }
