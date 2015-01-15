@@ -144,7 +144,7 @@
 
 
     <fieldset class="buttons">
-        <g:actionSubmit class="save" action="facturarSeleccionado" value="${message(code: 'default.button.update.label', default: 'Facturar')}" />
+        <g:actionSubmit class="save" action="facturarSeleccionado" value="${message(code: 'facturacion.facturar', default: 'Facturar')}" />
     </fieldset>
 
 </g:form>

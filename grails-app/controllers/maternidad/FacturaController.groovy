@@ -150,7 +150,7 @@ def facturar={
         }
     } as Long
 
-facturaInstance.nrofactura= (maxNroFactura)?maxNroFactura:0
+facturaInstance.nrofactura= (maxNroFactura)?maxNroFactura+1:0
 
 respond facturaInstance
 
