@@ -42,3 +42,9 @@ application.properties
 *.iml
 /.idea/*.xml
 !.idea/codeStyleSettings.xml
+/maternidad_Wed_Jan_14_10-46-27_ART_2015.properties
+/maternidad_Wed_Jan_14_10-46-27_ART_2015.xml
+/maternidad.properties
+/maternidad.xml
+/module_maternidad-grailsplugins.xml
+/module_maternidad.xml
