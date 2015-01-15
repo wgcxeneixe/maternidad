@@ -32,17 +32,9 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${facturaInstance?.detallesFactura}">
-				<li class="fieldcontain">
-					<span id="detallesFactura-label" class="property-label"><g:message code="factura.detallesFactura.label" default="Detalles Factura" /></span>
-					
-						<g:each in="${facturaInstance.detallesFactura}" var="d">
-						<span class="property-value" aria-labelledby="detallesFactura-label"><g:link controller="detalleFactura" action="show" id="${d.id}">${d?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
+
+
+
 				<g:if test="${facturaInstance?.fecha}">
 				<li class="fieldcontain">
 					<span id="fecha-label" class="property-label"><g:message code="factura.fecha.label" default="Fecha" /></span>
@@ -116,8 +108,17 @@
 					
 				</li>
 				</g:if>
-			
+
+
+
+
 			</ol>
+
+
+            <table>
+            <tr></tr>
+            </table>
+
 			<g:form url="[resource:facturaInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${facturaInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>

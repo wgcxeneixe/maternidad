@@ -363,7 +363,7 @@
         </a>
         <ul class="nav dk">
             <li >
-                <a href="${createLink(controller:'profesional',action: 'active')}" class="auto"> <!-- /CreateLink -->
+                <a href="${createLink(controller:'profesional',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-success lt pull-right">2</b>
                     <i class="i i-dot"></i>
 
@@ -386,7 +386,7 @@
         </a>
         <ul class="nav dk">
             <li >
-                <a href="${createLink(controller:'banco',action: 'active')}" class="auto"> <!-- /CreateLink -->
+                <a href="${createLink(controller:'banco',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-success lt pull-right">2</b>
                     <i class="i i-dot"></i>
 
@@ -417,7 +417,7 @@
         </a>
         <ul class="nav dk">
             <li >
-                <a href="${createLink(controller:'planillaInternacion',action: 'active')}" class="auto"> <!-- /CreateLink -->
+                <a href="${createLink(controller:'planillaInternacion',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-success lt pull-right">2</b>
                     <i class="i i-dot"></i>
 
@@ -440,7 +440,7 @@
         </a>
         <ul class="nav dk">
             <li >
-                <a href="${createLink(controller:'cajaDiaria',action: 'active')}" class="auto"> <!-- /CreateLink -->
+                <a href="${createLink(controller:'cajaDiaria',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-success lt pull-right">2</b>
                     <i class="i i-dot"></i>
 
@@ -448,7 +448,7 @@
                 </a>
             </li>
             <li >
-                <a href="${createLink(controller:'detalleCaja',action: 'active')}" class="auto"> <!-- /CreateLink -->
+                <a href="${createLink(controller:'detalleCaja',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
                     <span>Listado de detalle de cajas</span>
@@ -533,8 +533,12 @@
 
     <!--  <div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logos.png" alt="Grails"/></a></div> -->
 
-
+<g:form action="index" controller="logout">
+<g:actionSubmit value="Logout" action="index"/>
+</g:form>
+ <!--
 <g:link controller="logout" action="index" >Logout</g:link>
+-->
     <div class="container">
 
 
