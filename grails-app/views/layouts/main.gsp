@@ -231,7 +231,7 @@
                     <span>Listado</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'obraSocial' && actionName == 'create') ? 'active' : ''}">
                 <a href="${createLink(controller:'obraSocial',action: 'create')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-info pull-right">369</b>
                     <i class="i i-dot"></i>
@@ -239,14 +239,14 @@
                     <span>Agregar Obra Social</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'plan' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'plan',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
                     <span>Listado Planes</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'convenio' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'convenio',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-dark pull-right">8</b>
                     <i class="i i-dot"></i>
@@ -268,18 +268,18 @@
             <span class="font-bold">CONVENIOS</span>
         </a>
         <ul class="nav dk">
-            <li >
+            <li class="${(controllerName == 'convenio' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'convenio',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
                     <span>Listado</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'convenio' && actionName == 'create') ? 'active' : ''}">
                 <a href="${createLink(controller:'convenio',action: 'create')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
-                    <span>Agragar Convenio</span>
+                    <span>Agregar Convenio</span>
                 </a>
             </li>
         </ul>
@@ -295,7 +295,7 @@
             <span class="font-bold">PROVEEDORES</span>
         </a>
         <ul class="nav dk">
-            <li >
+            <li class="${(controllerName == 'proveedor' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'proveedor',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-success lt pull-right">2</b>
                     <i class="i i-dot"></i>
@@ -314,7 +314,7 @@
     </li>
 
 
-    <li class="${controllerName == 'movimientoStock' ? 'active' : ''}"> <!-- /Controller -->
+    <li class="${(controllerName == 'movimientoStock' || controllerName == 'producto' || controllerName == 'destino'  ) ? 'active' : ''}"> <!-- /Controller -->
         <a href="#" class="auto">
             <span class="pull-right text-muted">
                 <i class="i i-circle-sm-o text"></i>
@@ -325,7 +325,7 @@
             <span class="font-bold">STOCK</span>
         </a>
         <ul class="nav dk">
-            <li >
+            <li class="${(controllerName == 'producto' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'producto',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-success lt pull-right">2</b>
                     <i class="i i-dot"></i>
@@ -333,14 +333,14 @@
                     <span>Listado de Productos</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'destino' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'destino',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
                     <span>Listado de destinos</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'movimientoStock' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'movimientoStock',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
@@ -362,7 +362,7 @@
             <span class="font-bold">PROFESIONALES</span>
         </a>
         <ul class="nav dk">
-            <li >
+            <li class="${(controllerName == 'profesional' && actionName == 'index') ? 'active' : ''}" >
                 <a href="${createLink(controller:'profesional',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-success lt pull-right">2</b>
                     <i class="i i-dot"></i>
@@ -385,7 +385,7 @@
             <span class="font-bold">BANCOS</span>
         </a>
         <ul class="nav dk">
-            <li >
+            <li class="${(controllerName == 'banco' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'banco',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-success lt pull-right">2</b>
                     <i class="i i-dot"></i>
@@ -393,7 +393,7 @@
                     <span>Listado de Bancos</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'movimientoBanco' && actionName == 'cuentaCorriente') ? 'active' : ''}">
                 <a href="${createLink(controller:'movimientoBanco',action: 'cuentaCorriente')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
@@ -416,7 +416,7 @@
             <span class="font-bold">PLANILLA INTERNACION</span>
         </a>
         <ul class="nav dk">
-            <li >
+            <li class="${(controllerName == 'planillaInternacion' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'planillaInternacion',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-success lt pull-right">2</b>
                     <i class="i i-dot"></i>
@@ -428,7 +428,7 @@
     </li>
 
 
-    <li class="${controllerName == 'caja' ? 'active' : ''}"> <!-- /Controller -->
+    <li class="${(controllerName == 'cajaDiaria' || controllerName == 'detalleCaja' ) ? 'active' : ''}"> <!-- /Controller -->
         <a href="#" class="auto">
             <span class="pull-right text-muted">
                 <i class="i i-circle-sm-o text"></i>
@@ -439,7 +439,7 @@
             <span class="font-bold">CAJAS</span>
         </a>
         <ul class="nav dk">
-            <li >
+            <li class="${(controllerName == 'cajaDiaria' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'cajaDiaria',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-success lt pull-right">2</b>
                     <i class="i i-dot"></i>
@@ -447,7 +447,7 @@
                     <span>Caja Diaria</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'detalleCaja' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'detalleCaja',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
@@ -456,6 +456,98 @@
             </li>
         </ul>
     </li>
+
+    <li class="${controllerName == 'practica' ? 'active' : ''}"> <!-- /Controller -->
+        <a href="#" class="auto">
+            <span class="pull-right text-muted">
+                <i class="i i-circle-sm-o text"></i>
+                <i class="i i-circle-sm text-active"></i>
+            </span>
+            <i class="i i-grid2 icon">
+            </i>
+            <span class="font-bold">NOMENCLADOR</span>
+        </a>
+        <ul class="nav dk">
+            <li class="${(controllerName == 'practica' && actionName == 'nomenclador') ? 'active' : ''}">
+                <a href="${createLink(controller:'practica',action: 'nomenclador')}" class="auto"> <!-- /CreateLink -->
+                    <b class="badge bg-success lt pull-right">2</b>
+                    <i class="i i-dot"></i>
+
+                    <span>Listado de Practicas</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+
+
+    <li class="${controllerName == 'factura' ? 'active' : ''}"> <!-- /Controller -->
+        <a href="#" class="auto">
+            <span class="pull-right text-muted">
+                <i class="i i-circle-sm-o text"></i>
+                <i class="i i-circle-sm text-active"></i>
+            </span>
+            <i class="i i-grid2 icon">
+            </i>
+            <span class="font-bold">FACTURACION</span>
+        </a>
+        <ul class="nav dk">
+            <li class="${(controllerName == 'factura' && actionName == 'index') ? 'active' : ''}">
+                <a href="${createLink(controller:'factura',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <b class="badge bg-success lt pull-right">2</b>
+                    <i class="i i-dot"></i>
+
+                    <span>Listado de Facturas</span>
+                </a>
+            </li>
+            <li class="${(controllerName == 'factura' && actionName == 'facturar') ? 'active' : ''}">
+                <a href="${createLink(controller:'factura',action: 'facturar')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Facturar</span>
+                </a>
+            </li>
+            <li class="${(controllerName == 'pagoFactura' && actionName == 'index') ? 'active' : ''}">
+                <a href="${createLink(controller:'pagoFactura',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Pago Facturas</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+
+
+    <li class="${controllerName == 'caja' ? 'active' : ''}"> <!-- /Controller -->
+        <a href="#" class="auto">
+            <span class="pull-right text-muted">
+                <i class="i i-circle-sm-o text"></i>
+                <i class="i i-circle-sm text-active"></i>
+            </span>
+            <i class="i i-grid2 icon">
+            </i>
+            <span class="font-bold">LIQUIDACION</span>
+        </a>
+        <ul class="nav dk">
+            <li >
+                <a href="${createLink(controller:'factura',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <b class="badge bg-success lt pull-right">2</b>
+                    <i class="i i-dot"></i>
+
+                    <span>Consultar Liquidaciones</span>
+                </a>
+            </li>
+            <li >
+                <a href="${createLink(controller:'detalleCaja',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                    <i class="i i-dot"></i>
+
+                    <span>Liquidar</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
 
 
 

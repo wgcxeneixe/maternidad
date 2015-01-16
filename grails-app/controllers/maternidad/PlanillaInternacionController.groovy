@@ -14,10 +14,61 @@ class PlanillaInternacionController {
 
     def springSecurityService
 
+    /*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond PlanillaInternacion.list(params), model:[planillaInternacionInstanceCount: PlanillaInternacion.count()]
     }
+*/
+
+    def index = {
+
+        /*  if (!springSecurityService.isLoggedIn()){
+              redirect(controller: 'login', action: "auth")
+          }
+  */
+        def query = {
+            if (params.dni) {
+                paciente{
+                    eq('nroDocumento', params.dni as Long)
+                }
+
+            }
+            if (params.nroplanilla) {
+               eq('id',  params.nroplanilla as Long)
+            }
+
+            if (params.nombre) {
+
+              or{
+                  paciente{ilike('nombre', '%' + params.nombre + '%')}
+                  paciente{ilike('apellido', '%' + params.nombre + '%')}
+              }
+
+
+            }
+
+            if (params.sort){
+                order(params.sort,params.order)
+            }
+        }
+
+        def criteria = PlanillaInternacion.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        def planillas = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [dni: params.dni,nroplanilla:params.nroplanilla,nombre:params.nombre]
+
+        def model = [planillaInternacionInstanceList: planillas, planillaInternacionInstanceCount:planillas.totalCount, filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "lista", model: model)
+        }
+        else {
+            model
+        }
+    }
+
 
     def show(PlanillaInternacion planillaInternacionInstance) {
         respond planillaInternacionInstance

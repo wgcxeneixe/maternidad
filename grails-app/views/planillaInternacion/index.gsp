@@ -13,11 +13,44 @@
 
 <div class="nav" role="navigation">
     <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+       <!-- <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
         <li><g:link class="create" action="buscapaciente"><g:message code="planillaInternacion.new.label"
                                                               args="[entityName]"/></g:link></li>
     </ul>
 </div>
-<g:render template="lista"/>
+
+
+
+
+
+<div class="filters">
+    <g:form action="index">
+
+        <table>
+            <tr>
+                <td> <p><label for="dni">DNI Paciente</label>
+                    <g:textField name="dni" value="${filters?.dni}" /></p></td>
+                <td>
+                    <p><label for="nombre">Nombre</label>
+                        <g:textField name="nombre" value="${filters?.nombre}" /></p></td>
+
+                <td>
+                    <p><label for="nroplanilla">Nº Planilla</label>
+                        <g:textField id="nroplanilla" name="nroplanilla" value="${filters?.nroplanilla}" /></p></td>
+
+                <td>
+                    <p><g:submitButton name="filter" value="Filtrar" /></p></td>
+            </tr>
+        </table>
+
+
+
+
+    </g:form>
+</div>
+
+
+
+<g:render template="lista" model="model"/>
 </body>
 </html>
