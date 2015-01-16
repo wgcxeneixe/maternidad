@@ -9,23 +9,23 @@
         <tr>
 
             <g:sortableColumn property="id"
-                              title="${message(code: 'planillaInternacion.id', default: 'Nº')}"/>
+                              title="${message(code: 'planillaInternacion.id', default: 'Nº')}" params="${filters}"/>
 
-            <th><g:message code="planillaInternacion.paciente.label" default="Paciente"/></th>
+            <th><g:message code="planillaInternacion.paciente.label" default="Paciente" params="${filters}"/></th>
 
-            <th><g:message code="planillaInternacion.plan.label" default="Plan"/></th>
+            <th><g:message code="planillaInternacion.plan.label" default="Plan" params="${filters}"/></th>
 
             <g:sortableColumn property="fechaInternacion"
-                              title="${message(code: 'planillaInternacion.fechaInternacion.label', default: 'Fecha Internacion')}"/>
+                              title="${message(code: 'planillaInternacion.fechaInternacion.label', default: 'Fecha Internacion')}" params="${filters}"/>
 
             <g:sortableColumn property="nombreFamiliarResponsable"
-                              title="${message(code: 'planillaInternacion.nombreFamiliarResponsable.label', default: 'Nombre Familiar Responsable')}"/>
+                              title="${message(code: 'planillaInternacion.nombreFamiliarResponsable.label', default: 'Nombre Familiar Responsable')}" params="${filters}"/>
 
             <g:sortableColumn property="telefonoFamiliarResponsable"
-                              title="${message(code: 'planillaInternacion.telefonoFamiliarResponsable.label', default: 'Telefono Familiar Responsable')}"/>
+                              title="${message(code: 'planillaInternacion.telefonoFamiliarResponsable.label', default: 'Telefono Familiar Responsable')}" params="${filters}"/>
 
             <g:sortableColumn property="fechaAlta"
-                              title="${message(code: 'planillaInternacion.fechaAlta.label', default: 'Fecha Alta')}"/>
+                              title="${message(code: 'planillaInternacion.fechaAlta.label', default: 'Fecha Alta')}" params="${filters}"/>
 
             <th></th>
 
@@ -67,6 +67,6 @@
     </table>
 
     <div class="pagination">
-        <g:paginate total="${planillaInternacionInstanceCount ?: 0}"/>
+        <g:paginate total="${planillaInternacionInstanceCount ?: 0}" params="${filters}"/>
     </div>
 </div>
