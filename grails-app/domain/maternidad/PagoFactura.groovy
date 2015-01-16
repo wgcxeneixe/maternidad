@@ -3,15 +3,15 @@ package maternidad
 class PagoFactura {
 
     Factura factura
-    Double monto
+    Double monto = 0
     Liquidacion liquidacion
     Date fecha
     TipoPago tipoPago
-    Double retencion
+    Double retencion = 0
     Integer numeroComprobante
     String aclaracionComprobante
-    Double porcentajeALiquidar
-    Double porcentajeLiquidado
+    Double porcentajeALiquidar  = 0
+    Double porcentajeLiquidado  = 0
 
     SortedSet<RetencionPago> retencionPagos
 

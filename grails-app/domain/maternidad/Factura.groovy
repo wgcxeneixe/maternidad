@@ -3,12 +3,12 @@ package maternidad
 class Factura {
     Date fecha
     Plan plan
-    Boolean anulada
+    Boolean anulada = false
     Integer nrofactura
-    Boolean pagoCompleto
+    Boolean pagoCompleto = false
     Integer periodo
-    Double totalFacturado
-    Double totalPagado
+    Double totalFacturado = 0
+    Double totalPagado = 0
 
 
 

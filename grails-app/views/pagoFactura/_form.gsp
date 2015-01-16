@@ -11,12 +11,11 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'aclaracionComprobante', 'error')} required">
+<div class="fieldcontain ">
     <label for="aclaracionComprobante">
         <g:message code="pagoFactura.aclaracionComprobante.label" default="Aclaracion Comprobante"/>
-        <span class="required-indicator">*</span>
     </label>
-    <g:textField name="aclaracionComprobante" required="" value="${pagoFacturaInstance?.aclaracionComprobante}"/>
+    <g:textField name="aclaracionComprobante" value="${pagoFacturaInstance?.aclaracionComprobante}"/>
 
 </div>
 
@@ -39,12 +38,11 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'liquidacion', 'error')} required">
+<div class="fieldcontain" hidden="hidden">
     <label for="liquidacion">
         <g:message code="pagoFactura.liquidacion.label" default="Liquidacion"/>
-        <span class="required-indicator">*</span>
     </label>
-    <g:select id="liquidacion" name="liquidacion.id" from="${maternidad.Liquidacion.list()}" optionKey="id" required=""
+    <g:select id="liquidacion" name="liquidacion.id" from="${maternidad.Liquidacion.list()}" optionKey="id"
               value="${pagoFacturaInstance?.liquidacion?.id}" class="many-to-one"/>
 
 </div>
@@ -77,13 +75,12 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'porcentajeLiquidado', 'error')} required">
+<div class="fieldcontain" hidden="hidden">
     <label for="porcentajeLiquidado">
         <g:message code="pagoFactura.porcentajeLiquidado.label" default="Porcentaje Liquidado"/>
-        <span class="required-indicator">*</span>
     </label>
     <g:field name="porcentajeLiquidado" value="${fieldValue(bean: pagoFacturaInstance, field: 'porcentajeLiquidado')}"
-             required=""/>
+            />
 
 </div>
 

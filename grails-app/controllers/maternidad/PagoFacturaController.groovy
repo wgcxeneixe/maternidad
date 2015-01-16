@@ -40,6 +40,7 @@ class PagoFacturaController {
 
     @Transactional
     def save(PagoFactura pagoFacturaInstance) {
+        println "entrooooo"
         if (pagoFacturaInstance == null) {
             notFound()
             return

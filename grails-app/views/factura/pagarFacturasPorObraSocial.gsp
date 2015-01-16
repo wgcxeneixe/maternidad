@@ -12,6 +12,8 @@
 
 <head>
     <meta name="layout" content="main">
+    <script src="//ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
+
     <g:set var="entityName" value="${message(code: 'pagoFactura.label', default: 'Pago Factura')}"/>
     <title><g:message code="default.list.label" args="[entityName]"/></title>
     <g:javascript library="jQuery"/>
