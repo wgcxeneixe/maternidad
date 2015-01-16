@@ -28,7 +28,7 @@ class DetalleLiquidacion {
         detalle = "Pago de práctica ${detalleFactura.practica.codigo} del plan ${detalleFactura.plan.codigo}, factura Nro ${detalleFactura.factura.nrofactura}"
     }
 
-    def agregarRetencionPagoFactura(RetencionPago retencion, Double montoLiquidado) {
+    def agregarRetencionPagoFactura(RetencionPago retencion) {
         this.retencionPago = retencion
         this.debito = true
         monto = retencionPago.monto * retencion.porcentajeDelPago() / 100
@@ -48,7 +48,7 @@ class DetalleLiquidacion {
 //                monto = this.liquidacion.montoBruto * cpp.porcentaje % 100
 //            }
         }
-        detalle = "Prorrateo del Pago de la factura Nro ${detalleFactura.factura.nrofactura} plan ${detalleFactura.plan.codigo}"
+        detalle = "Concepto: ${conceptoPorProfesional.conceptoProfesional.nombre}"
     }
 
     //antes de insertar se actualiza el cpp si era por unica vez se desactiva

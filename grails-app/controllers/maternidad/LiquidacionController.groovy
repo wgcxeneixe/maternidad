@@ -103,23 +103,24 @@ class LiquidacionController {
         }
     }
 
-    def confirmarLiquidacion = {
+    def configurarLiquidacion = {
         def listaPagos = PagoFactura.withCriteria {
             le('porcentajeLiquidado', new Double(100))
         }
         [listaPagos: listaPagos]
     }
 
-    def liquidarAction = {
+    def armarLiquidacion = {
+        println 'entro'
         def conceptos = params?.conceptos
         println conceptos
-        println conceptos?.id
-        def listaConceptos = ConceptoProfesional.findAllByIdInList([conceptos?.id])
+        println conceptos
+        def listaConceptos = ConceptoProfesional.findAllByIdInList([conceptos])
         println listaConceptos
 
         def listaPagos = PagoFactura.withCriteria {
-            le('porcentajeLiquidado', new Double(100))
-            gt('porcentajeALiquidar', 0)
+            le('porcentajeLiquidado', Double.valueOf(100))
+            gt('porcentajeALiquidar', Double.valueOf(0))
         }
 
         def mapaLiquidaciones = [:]
@@ -136,7 +137,14 @@ class LiquidacionController {
                 }
         }
 
+        mapaLiquidaciones.values()?.each {
+            liquidacion->
+                liquidacion.agregarConceptosProfesional(listaConceptos?.codigo)
+        }
+        render(template: "confirmarLiquidacion", model: [listaLiquidaciones: mapaLiquidaciones.values(), listaConceptoProfesional: listaConceptos, listaPagoFactura: listaPagos])
+    }
 
-
+    def liquidarAction = {
+        return null
     }
 }

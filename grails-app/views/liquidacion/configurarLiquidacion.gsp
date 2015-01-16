@@ -12,16 +12,28 @@
     <title>Liquidación</title>
     <link rel="stylesheet" type="text/css" href="../css/jquery.multiselect.css"/>
 
+    <script src="//ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../css/jquery-ui-themes-1.10.4/themes/ui-lightness/jquery-ui.css"/>
     <script type="text/javascript" src="../js/jquery-ui-1.10.4/jquery-ui.min.js"></script>
     <script type="text/javascript" src="../js/jquery.multiselect.js"></script>
     <script type="text/javascript" src="../js/jquery.multiselect.filter.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function () {
-            var periodo = jQuery("#periodo");
-
-            periodo.mask('00/0000');
+            jQuery("#liquidarBtn").click(function () {
+                var conceptos = jQuery("#conceptos").val();
+                alert(conceptos);
+                new Ajax.Updater('confirmarLiquidacionDiv',
+                        '${createLink(action:"armarLiquidacion", controller:"liquidacion" )}',
+                        {
+                            asynchronous: false, evalScripts: true,
+                            parameters: {
+                                conceptos: conceptos
+                            }
+                        });
+            });
         });
+
         $(function () {
             $("conceptos").multiselect({
                 selectedList: 4
@@ -34,17 +46,8 @@
 </head>
 
 <body>
-<g:form>
     <div class="list">
-        %{--<div>--}%
-        %{--<select id="example" name="example" multiple="multiple">--}%
-        %{--<option value="1">Option 1</option>--}%
-        %{--<option value="2">Option 2</option>--}%
-        %{--<option value="3">Option 3</option>--}%
-        %{--<option value="4">Option 4</option>--}%
-        %{--<option value="5">Option 5</option>--}%
-        %{--</select>--}%
-        %{--</div>--}%
+
         <div>
             <g:select id="conceptos" name="conceptos.id" from="${maternidad.ConceptoProfesional.list()}" optionKey="id"
                       noSelection="['null': 'Seleccione los Conceptos a Liquidar']"/>
@@ -77,9 +80,15 @@
         </table>
 
         <div>
-            <g:actionSubmit value="Liquidar" action="liquidarAction"/>
+            <g:submitButton name="algo" id="algo" value="Liquidar" action="armarLiquidacion"/>
         </div>
     </div>
-</g:form>
+    <input type="button"
+           id="liquidarBtn"
+           value="Armar Liquidaciones"/>
+
+    <div id="confirmarLiquidacionDiv">
+        <g:render template="confirmarLiquidacion"/>
+    </div>
 </body>
 </html>

@@ -15,7 +15,7 @@ class ConceptoPorProfesional {
     static constraints = {
 
         observacion(size: 0..5000, nullable: true, blank: true)
-        montoFijo(nullable: true, blank: true)
+        montoFijo(nullable: true, blank: true, validator: montoFijoValidator)
         porcentaje(nullable: true, blank: true)
         usuario(nullable: true, blank: true)
 

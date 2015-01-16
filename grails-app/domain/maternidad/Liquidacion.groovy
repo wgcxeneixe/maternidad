@@ -9,20 +9,16 @@ class Liquidacion {
     Integer numeroRecibo
     Integer nuemroLiquidacion
 
-    SortedSet<DetalleLiquidacion> detallesLiquidacion = []
+    SortedSet<DetalleLiquidacion> detallesLiquidacion
 
-    static hasMany = [
-            detallesLiquidacion: DetalleLiquidacion,
-    ]
+    static hasMany = [detallesLiquidacion: DetalleLiquidacion]
 
-    static belongsTo = [
-            profesional: Profesional
-    ]
+    static belongsTo = [profesional: Profesional]
 
     static constraints = {
     }
 
-    String toString() { "${profesional} - ${fecha?.format('dd/MM/yyyy')}" }
+    String toString(){ "${profesional} - ${fecha?.format('dd/MM/yyyy')}" }
 
     def agregarPagoFactura(PagoFactura pago) {
 
@@ -42,16 +38,16 @@ class Liquidacion {
             pago.retencionPagos.each {
                 ret ->
                     def detRet = new DetalleLiquidacion(liquidacion: this)
-                    detRet.agregarRetencionPagoFactura(ret, montoBruto)
+                    detRet.agregarRetencionPagoFactura(ret)
                     detallesLiquidacion.add(detRet)
                     montoNeto -= detRet.monto
             }
         }
     }
 
-    def agregarConceptosProfesional(listaCodigoConecptos) {
+    def agregarConceptosProfesional(listaCodigoConeptos) {
         def listaConceptos = profesional.listaConceptos?.findAll {
-            it.conceptoProfesional.codigo in listaCodigoConecptos
+            it.conceptoProfesional.codigo in listaCodigoConeptos
         }
         listaConceptos?.each {
             cpp ->

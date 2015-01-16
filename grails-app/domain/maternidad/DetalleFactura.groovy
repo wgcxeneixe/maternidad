@@ -35,7 +35,7 @@ class DetalleFactura {
         planillaInternacion(nullable: false,blank:false)
     }
 
-    def Double total = {
+    def  total = {
         return (valorGastos + valorHonorarios) * cantidad
     }
 }
