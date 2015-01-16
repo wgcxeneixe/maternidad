@@ -80,7 +80,7 @@
     <div class="clearfix wrapper dk nav-user hidden-xs">
         <div class="dropdown">
             <span class="hidden-nav-xs clear">
-                <a href="index.html" class="navbar-brand">
+                <a href="${createLink(controller:'home',action: 'index')}" class="navbar-brand">
                 <img src="/maternidad/css/maternidad.png" class="m-r-sm" alt="scale">
                 </a>
             </span>
@@ -115,7 +115,7 @@
     <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Inicio</div>
     <ul class="nav nav-main" data-ride="collapse">
     <li>
-        <a href="index.html" class="auto">
+        <a href="${createLink(controller:'home',action: 'index')}" class="auto">
             <i class="i i-statistics icon">
             </i>
             <span class="font-bold">INICIO</span>

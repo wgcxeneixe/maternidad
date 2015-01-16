@@ -12,8 +12,8 @@ class Factura {
 
 
 
-    SortedSet<DetalleFactura> detallesFactura
-    SortedSet<PagoFactura> pagosFactura
+    Set<DetalleFactura> detallesFactura
+    Set<PagoFactura> pagosFactura
 
     static hasMany = [
             detallesFactura        : DetalleFactura,

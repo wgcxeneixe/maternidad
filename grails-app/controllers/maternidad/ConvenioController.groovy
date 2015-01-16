@@ -457,7 +457,14 @@ def planConvenio=PlanConvenio.get(params.id)
    def planConvenio=PlanConvenio.get(params.planConvenio.id)
    def practica=Practica.get(params.practica.id)
 
-def valorPractica= new ValorPractica()
+  def valorPractica=ValorPractica.findByPlanConvenioAndPractica(planConvenio,practica)
+
+  if(!valorPractica){
+
+      valorPractica= new ValorPractica()
+
+  }
+
 
        valorPractica?.planConvenio=planConvenio
        valorPractica?.practica=practica
@@ -536,6 +543,103 @@ def planConvenio=new PlanConvenio()
       render (view: 'verRelacionPractica',model: [valorPractica: valorPractica])
 
   }
+
+
+
+
+    def verPracticasAsociadas = {
+
+
+        def planConvenio=PlanConvenio.get(params.planConvenio)
+
+        def query = {
+
+            eq("planConvenio",planConvenio )
+
+            isNotNull("valorHonorario")
+
+            practica{eq("nomenclada",Boolean.TRUE)}
+
+
+            if (params.codigo) {
+                practica{       ilike('codigo', '%' + params.codigo + '%')}
+
+            }
+
+            if (params.nombre) {
+                practica{  ilike('nombre', '%' + params.nombre + '%')}
+
+            }
+
+            if (params.sort){
+                order(params.sort,params.order)
+            }
+        }
+
+        def criteria = ValorPractica.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def valores = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [codigo:params.codigo,nombre:params.nombre,planConvenio: planConvenio?.id]
+
+        def model = [valores: valores, valoresTotal:valores.totalCount, filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grillaAsociadas", model: model)
+        }
+        else {
+            model
+        }
+    }
+
+
+    def verPracticasCalculadas = {
+
+
+        def planConvenio=PlanConvenio.get(params.planConvenio)
+
+        def query = {
+
+            eq("planConvenio",planConvenio )
+
+            isNull("valorHonorario")
+
+            practica{eq("nomenclada",Boolean.TRUE)}
+
+
+            if (params.codigo) {
+                practica{       ilike('codigo', '%' + params.codigo + '%')}
+
+            }
+
+            if (params.nombre) {
+                practica{  ilike('nombre', '%' + params.nombre + '%')}
+
+            }
+
+            if (params.sort){
+                order(params.sort,params.order)
+            }
+        }
+
+        def criteria = ValorPractica.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def valores = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [codigo:params.codigo,nombre:params.nombre,planConvenio: planConvenio?.id]
+
+        def model = [valores: valores, valoresTotal:valores.totalCount, filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grillaCalculadas", model: model)
+        }
+        else {
+            model
+        }
+    }
+
+
+
 
 
 }

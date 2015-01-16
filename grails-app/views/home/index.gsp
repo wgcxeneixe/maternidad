@@ -7,9 +7,11 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<head>
 
-    <title></title>
+<head>
+		<meta name="layout" content="main">
+
+<title>Inicio</title>
 </head>
 
 <div id="controller-list" role="navigation">

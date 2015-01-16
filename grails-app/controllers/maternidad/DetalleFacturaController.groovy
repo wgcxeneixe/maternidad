@@ -212,10 +212,12 @@ if(funcion==10){
             }
         }
 
+
+
 //return plan as JSON
         render(contentType: 'text/json') {[
-                'gasto': gasto,
-                'honorario': honorario
+                'gasto': Math.round(gasto* 100) / 100,
+                'honorario': Math.round(honorario * 100) / 100
         ]}
     }
 
