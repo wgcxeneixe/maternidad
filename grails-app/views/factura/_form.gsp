@@ -109,4 +109,3 @@
 	<g:field name="totalPagado" value="${fieldValue(bean: facturaInstance, field: 'totalPagado')}" required=""/>
 
 </div>
-
