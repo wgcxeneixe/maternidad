@@ -13,7 +13,7 @@ class Factura {
 
 
     SortedSet<DetalleFactura> detallesFactura
-    SortedSet<PagoFactura> pagosFactura
+    Set<PagoFactura> pagosFactura
 
     static hasMany = [
             detallesFactura        : DetalleFactura,
@@ -32,6 +32,14 @@ class Factura {
         Double total = 0
         pagosFactura?.each(){
            total += it?.retencion
+        }
+        return total
+    }
+
+    public Double getTotalPagado(){
+        Double total = 0
+        pagosFactura?.each(){
+            total += it?.monto
         }
         return total
     }

@@ -40,7 +40,6 @@ class PagoFacturaController {
 
     @Transactional
     def save(PagoFactura pagoFacturaInstance) {
-        println "entrooooo"
         if (pagoFacturaInstance == null) {
             notFound()
             return
@@ -57,7 +56,7 @@ class PagoFacturaController {
             pagoFacturaInstance.save(flush: true)
 
             if (facturaSeleccionada?.pagosFactura?.size() > 0) {
-                totalFacturaPagado = facturaSeleccionada.getTotalPagos()
+                totalFacturaPagado = facturaSeleccionada.getTotalPagado()
             } else {
                 totalFacturaPagado = 0
             }
@@ -87,6 +86,48 @@ class PagoFacturaController {
 
 
 
+
+                facturaSeleccionada.save(flush: true)
+                flash.message = 'Se ha agregado un pago a su factura '
+                render(view: 'index', params: [pagoFacturaInstance: pagoFacturaInstance])
+            }
+        }
+    }
+
+    def guardarPago = {
+        PagoFactura pagoFacturaInstance = new PagoFactura()
+        pagoFacturaInstance.properties = params
+        if (pagoFacturaInstance.hasErrors()) {
+            render(view: 'create', controller: PagoFactura, params:[pagoFacturaInstance:pagoFacturaInstance])
+
+        } else {
+            def facturaSeleccionada = new Factura()
+            facturaSeleccionada = Factura?.get(pagoFacturaInstance?.factura?.id)
+            def totalFacturaPagado
+            def totalRetencionesPago
+            pagoFacturaInstance.save(flush: true)
+
+            if (facturaSeleccionada?.pagosFactura?.size() > 0) {
+                totalFacturaPagado = facturaSeleccionada.getTotalPagos()
+            } else {
+                totalFacturaPagado = 0
+            }
+
+            if (totalRetencionesPago?.getTotalRetencion?.size() > 0) {
+                totalRetencionesPago = facturaSeleccionada.getTotalRetencion()
+            } else {
+                totalRetencionesPago = 0
+            }
+
+            def totalAPagarConRetenciones = totalFacturaPagado - totalRetencionesPago
+            def totalDFacturadoSinRetenciones = facturaSeleccionada?.totalFacturado - totalAPagarConRetenciones
+            facturaSeleccionada?.totalPagado = totalAPagarConRetenciones + pagoFacturaInstance?.monto
+
+            if (facturaSeleccionada?.totalPagado > totalDFacturadoSinRetenciones) {
+                flash.message = 'El monto es superior al total facturado'
+                render(view: 'create', controller: PagoFactura, params:[pagoFacturaInstance:pagoFacturaInstance])
+            } else {
+                if (facturaSeleccionada?.totalPagado == totalDFacturadoSinRetenciones) facturaSeleccionada?.pagoCompleto = true
 
                 facturaSeleccionada.save(flush: true)
                 flash.message = 'Se ha agregado un pago a su factura '

@@ -13,7 +13,7 @@ class PagoFactura {
     Double porcentajeALiquidar  = 0
     Double porcentajeLiquidado  = 0
 
-    SortedSet<RetencionPago> retencionPagos
+    Set<RetencionPago> retencionPagos
 
     static hasMany = [
             retencionPagos: RetencionPago
@@ -44,7 +44,7 @@ class PagoFactura {
 //        retencion = total
 //    }
 
-    static def validadorRetencion = {
+    static def validadorPorcentajeALiquidar = {
         val, PagoFactura obj ->
             def resp = true
             if (obj.porcentajeLiquidado + val > 100) {
@@ -53,9 +53,14 @@ class PagoFactura {
             resp
     }
 
-    static def validadorPorcentajeALiquidar = {
-        val, Factura obj ->
-    }
+//    static def validadorPorcentajeALiquidar = {
+//        val, Factura obj ->
+//            def resp = true
+//            if (obj.porcentajeLiquidado + val > 100) {
+//                resp = "pagoFactura.porcentajeALiquidar.invalido"
+//            }
+//            resp
+//    }
 
     static def validadorMonto = {
         val, Factura obj ->

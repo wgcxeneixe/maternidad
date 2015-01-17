@@ -2,7 +2,9 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'pagoFactura.label', default: 'PagoFactura')}" />
+        <script src="//ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
+
+        <g:set var="entityName" value="${message(code: 'pagoFactura.label', default: 'PagoFactura')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>

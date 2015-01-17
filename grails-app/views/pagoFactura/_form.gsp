@@ -52,7 +52,7 @@
         <g:message code="pagoFactura.monto.label" default="Monto"/>
         <span class="required-indicator">*</span>
     </label>
-    <g:field name="monto" value="${fieldValue(bean: pagoFacturaInstance, field: 'monto')}" required=""/>
+    <g:field name="monto" type="number" value="${fieldValue(bean: pagoFacturaInstance, field: 'monto')}" required=""/>
 
 </div>
 
