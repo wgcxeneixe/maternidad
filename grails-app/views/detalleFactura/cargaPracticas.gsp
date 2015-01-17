@@ -8,6 +8,9 @@
     <script>
         $(function() {
 
+
+
+
            var valorHonorarios= $("#valorHonorarios");
             var valorGastos= $("#valorGastos");
 
@@ -81,34 +84,46 @@
                     },
                     success: function (data) {
 
+                        var hon=data.honorario;
+
+                        //hon=("" + hon).replace(/./g, ',');
+
+                        hon=("" + hon).replace('.', ',');
+
+                        var gas=data.gasto;
+
+                 //       gas=("" + gas).replace(/./g, ',');
+                        gas=("" + gas).replace('.', ',');
+
                         if (funcion == 10) {
-                            valorHonorarios.val(data.honorario);
+                            valorHonorarios.val(hon);
                             divhonorario.show();
                             divgasto.hide();
                         }
 
                         if (funcion == 20) {
-                            valorHonorarios.val(data.honorario);
+                            //valorHonorarios.val(data.honorario);
+                            valorHonorarios.val(hon);
                             divhonorario.show();
                             divgasto.hide();
                         }
 
                         if (funcion == 30) {
-                            valorHonorarios.val(data.honorario);
+                            valorHonorarios.val(hon);
                             divhonorario.show();
                             divgasto.hide();
                         }
 
 
                         if (funcion == 60) {
-                            valorGastos.val(data.gasto);
+                            valorGastos.val(gas);
                             divgasto.show();
                             divhonorario.hide();
                         }
 
                         if (funcion == 70) {
-                            valorGastos.val(data.gasto);
-                            valorHonorarios.val(data.honorario);
+                            valorGastos.val(gas);
+                            valorHonorarios.val(hon);
                             divgasto.show();
                             divhonorario.show();
                         }
@@ -215,7 +230,8 @@
 
                 </label>
 <select name ="funcion" id="funcion">
-<option value="10">10</option>
+    <option value="0">Seleccione una Función</option>
+    <option value="10">10</option>
 <option value="20">20</option>
             <option value="30">30</option>
     <option value="60">60</option>
@@ -242,7 +258,7 @@
                     <g:message code="detalleFactura.valorGastos.label" default="Valor Gastos" />
 
                 </label>
-                <g:field name="valorGastos" value="${fieldValue(bean: detalleFacturaInstance, field: 'valorGastos')}"/>
+                <g:field name="valorGastos" value="${detalleFacturaInstance?.valorGastos}"/>
 
             </div>
 
@@ -251,7 +267,7 @@
                     <g:message code="detalleFactura.valorHonorarios.label" default="Valor Honorarios" />
 
                 </label>
-                <g:field name="valorHonorarios" value="${fieldValue(bean: detalleFacturaInstance, field: 'valorHonorarios')}"/>
+                <g:field name="valorHonorarios" value="${detalleFacturaInstance?.valorHonorarios?.toString()}"/>
 
             </div>
 
@@ -299,6 +315,8 @@
 
             <th><g:message code="detalleFactura.valorPractica.label" default="valor Gasto" /></th>
 
+            <th><g:message code="detalleFactura.valorPractica.label" default="Función" /></th>
+
             <th><g:message code="detalleFactura.valorPractica.label" default="Total" /></th>
 
         </tr>
@@ -318,9 +336,14 @@
 
                 <td>${fieldValue(bean: detalleFactura, field: "valorGastos")}</td>
 
-                <td> ${ (detalleFactura?.valorHonorarios)? (detalleFactura.valorHonorarios.multiply( detalleFactura.cantidad as Character) ):0  +
-                        (detalleFactura?.valorGastos)? (detalleFactura.valorGastos.multiply( detalleFactura.cantidad as Character) ):0
-                } </td>
+
+                <td>${detalleFactura?.funcion}</td>
+
+                <td>
+                    <g:formatNumber number="${ (detalleFactura?.valorHonorarios)? (detalleFactura.valorHonorarios.multiply( detalleFactura.cantidad as Character) ):0  +
+                            (detalleFactura?.valorGastos)? (detalleFactura.valorGastos.multiply( detalleFactura.cantidad as Character) ):0
+                    }" type="currency" currencyCode="ARS" />
+                     </td>
 
             </tr>
         </g:each>

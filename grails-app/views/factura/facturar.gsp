@@ -111,7 +111,10 @@
 
                 <td>${detalleFactura.getAt(2)}</td>
 
-                <td>${detalleFactura.getAt(3)}</td>
+                <td>
+                    ${detalleFactura.getAt(3)}
+
+                   </td>
 
                 <td><g:checkBox  name="facturar[]" value="${detalleFactura.getAt(0)}"/> </td>
 

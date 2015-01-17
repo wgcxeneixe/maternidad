@@ -65,7 +65,7 @@
 
                         <td><g:formatBoolean boolean="${facturaInstance?.anulada}"/></td>
 
-                        <td><g:link class="linkEdit" action="edit" id="${facturaInstance?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+                      <!--  <td><g:link class="linkEdit" action="edit" id="${facturaInstance?.id}">${message(code: 'default.button.edit.label')}</g:link></td> -->
 
                         <td><g:link class="linkShow" action="show" id="${facturaInstance?.id}">${message(code: 'default.button.show.label')}</g:link></td>
 					</tr>

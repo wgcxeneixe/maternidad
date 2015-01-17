@@ -174,9 +174,20 @@
         </ul>
     </div>
 
-    <g:render  template="/convenio/verPracticas" model="[planConvenio: planConvenio]" />
 
-    <script>
+
+
+  <g:link action="verPracticasAsociadas" params="[planConvenio:planConvenio?.id]">
+    <g:message code="convenio.verPracticasAsociadas" />
+  </g:link>
+
+</br>
+  <g:link action="verPracticasCalculadas" params="[planConvenio:planConvenio?.id]">
+      <g:message code="convenio.verPracticasCalculadas" />
+  </g:link>
+
+
+<script>
         $(function() {
 
             $('#plan').change(function(e){
