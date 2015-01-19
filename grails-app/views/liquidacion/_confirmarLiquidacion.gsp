@@ -100,7 +100,7 @@
     </table>
 
         <fieldset class="buttons">
-            <g:actionSubmit class="save" action="liquidarAction" value="Liquidar" onclick="return confirm('¿Está seguro de Liquidar?');" />
+            <g:actionSubmit class="save" action="liquidarAction" value="Liquidar" onclick="return confirm('En Desarrollo'); return false;" />
         </fieldset>
     </g:form>
 </g:if>
