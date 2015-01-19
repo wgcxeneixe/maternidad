@@ -166,6 +166,7 @@
     </div>
 
 
+    <h1><g:message code="convenio.practicas"  /></h1>
 
     <div class="nav" role="navigation">
         <ul>
@@ -175,17 +176,19 @@
     </div>
 
 
+<fieldset class="buttons">
 
-
-  <g:link action="verPracticasAsociadas" params="[planConvenio:planConvenio?.id]">
+  <g:link class="list" action="verPracticasAsociadas" params="[planConvenio:planConvenio?.id]">
     <g:message code="convenio.verPracticasAsociadas" />
   </g:link>
 
 </br>
-  <g:link action="verPracticasCalculadas" params="[planConvenio:planConvenio?.id]">
+  <g:link class="list" action="verPracticasCalculadas" params="[planConvenio:planConvenio?.id]">
       <g:message code="convenio.verPracticasCalculadas" />
   </g:link>
 
+
+</fieldset>
 
 <script>
         $(function() {

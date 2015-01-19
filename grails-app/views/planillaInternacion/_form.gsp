@@ -7,8 +7,13 @@
         <g:message code="planillaInternacion.paciente.label" default="Paciente"/>
 
     </label>
-    <g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="apellido"/>,
-    <g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="nombre"/>
+
+    <g:link controller="persona" action="edit" id="${planillaInternacionInstance?.paciente?.id}">
+        <g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="apellido"/>,
+        <g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="nombre"/>
+    </g:link>
+
+
     <g:hiddenField name="paciente" value="${planillaInternacionInstance?.paciente?.id}"></g:hiddenField>
     <!--
     <g:select id="paciente" name="paciente.id" from="${maternidad.Persona.list()}" optionKey="id"

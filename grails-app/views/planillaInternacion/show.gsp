@@ -13,7 +13,7 @@
 
 <div class="nav" role="navigation">
     <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+     <!--   <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li> -->
         <li><g:link class="list" action="index"><g:message code="planillaInternacion.list.label" args="[entityName]"/></g:link></li>
         <li><g:link class="list" action="create" controller="nacimiento" id="${planillaInternacionInstance?.id}"><g:message code="nacimiento.edit.label" args="[entityName]"/></g:link></li>
 
@@ -36,7 +36,156 @@
             </li>
         </g:if>
 
-        <g:if test="${planillaInternacionInstance?.plan}">
+        <!-- persona  -->
+
+    <g:if test="${planillaInternacionInstance?.paciente?.cuit}">
+        <li class="fieldcontain">
+            <span id="cuit-label" class="property-label"><g:message code="persona.cuit.label" default="Cuit" /></span>
+
+            <span class="property-value" aria-labelledby="cuit-label"><g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="cuit"/></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.apellido}">
+        <li class="fieldcontain">
+            <span id="apellido-label" class="property-label"><g:message code="persona.apellido.label" default="Apellido" /></span>
+
+            <span class="property-value" aria-labelledby="apellido-label"><g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="apellido"/></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.nombre}">
+        <li class="fieldcontain">
+            <span id="nombre-label" class="property-label"><g:message code="persona.nombre.label" default="Nombre" /></span>
+
+            <span class="property-value" aria-labelledby="nombre-label"><g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="nombre"/></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.razonSocial}">
+        <li class="fieldcontain">
+            <span id="razonSocial-label" class="property-label"><g:message code="persona.razonSocial.label" default="Razon Social" /></span>
+
+            <span class="property-value" aria-labelledby="razonSocial-label"><g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="razonSocial"/></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.tipoDocumento}">
+        <li class="fieldcontain">
+            <span id="tipoDocumento-label" class="property-label"><g:message code="persona.tipoDocumento.label" default="Tipo Documento" /></span>
+
+            <span class="property-value" aria-labelledby="tipoDocumento-label"><g:link controller="tipoDocumento" action="show" id="${planillaInternacionInstance?.paciente?.tipoDocumento?.id}">${planillaInternacionInstance?.paciente?.tipoDocumento?.encodeAsHTML()}</g:link></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.nroDocumento}">
+        <li class="fieldcontain">
+            <span id="nroDocumento-label" class="property-label"><g:message code="persona.nroDocumento.label" default="Nro Documento" /></span>
+
+            <span class="property-value" aria-labelledby="nroDocumento-label"><g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="nroDocumento"/></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.nacionalidad}">
+        <li class="fieldcontain">
+            <span id="nacionalidad-label" class="property-label"><g:message code="persona.nacionalidad.label" default="Nacionalidad" /></span>
+
+            <span class="property-value" aria-labelledby="nacionalidad-label"><g:link controller="pais" action="show" id="${planillaInternacionInstance?.paciente?.nacionalidad?.id}">${planillaInternacionInstance?.paciente?.nacionalidad?.encodeAsHTML()}</g:link></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.calle}">
+        <li class="fieldcontain">
+            <span id="calle-label" class="property-label"><g:message code="persona.calle.label" default="Calle" /></span>
+
+            <span class="property-value" aria-labelledby="calle-label"><g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="calle"/></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.piso}">
+        <li class="fieldcontain">
+            <span id="piso-label" class="property-label"><g:message code="persona.piso.label" default="Piso" /></span>
+
+            <span class="property-value" aria-labelledby="piso-label"><g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="piso"/></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.departamento}">
+        <li class="fieldcontain">
+            <span id="departamento-label" class="property-label"><g:message code="persona.departamento.label" default="Departamento" /></span>
+
+            <span class="property-value" aria-labelledby="departamento-label"><g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="departamento"/></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.codigoPostal}">
+        <li class="fieldcontain">
+            <span id="codigoPostal-label" class="property-label"><g:message code="persona.codigoPostal.label" default="Codigo Postal" /></span>
+
+            <span class="property-value" aria-labelledby="codigoPostal-label"><g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="codigoPostal"/></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.localidad}">
+        <li class="fieldcontain">
+            <span id="localidad-label" class="property-label"><g:message code="persona.localidad.label" default="Localidad" /></span>
+
+            <span class="property-value" aria-labelledby="localidad-label"><g:link controller="localidad" action="show" id="${planillaInternacionInstance?.paciente?.localidad?.id}">${planillaInternacionInstance?.paciente?.localidad?.encodeAsHTML()}</g:link></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.estadoCivil}">
+        <li class="fieldcontain">
+            <span id="estadoCivil-label" class="property-label"><g:message code="persona.estadoCivil.label" default="Estado Civil" /></span>
+
+            <span class="property-value" aria-labelledby="estadoCivil-label"><g:link controller="estadoCivil" action="show" id="${planillaInternacionInstance?.paciente?.estadoCivil?.id}">${planillaInternacionInstance?.paciente?.estadoCivil?.encodeAsHTML()}</g:link></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.numero}">
+        <li class="fieldcontain">
+            <span id="numero-label" class="property-label"><g:message code="persona.numero.label" default="Numero" /></span>
+
+            <span class="property-value" aria-labelledby="numero-label"><g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="numero"/></span>
+
+        </li>
+    </g:if>
+
+    <g:if test="${planillaInternacionInstance?.paciente?.personaFisica}">
+        <li class="fieldcontain">
+            <span id="personaFisica-label" class="property-label"><g:message code="persona.personaFisica.label" default="Persona Fisica" /></span>
+
+            <span class="property-value" aria-labelledby="personaFisica-label"><g:formatBoolean boolean="${planillaInternacionInstance?.paciente?.personaFisica}" /></span>
+
+        </li>
+    </g:if>
+
+
+
+
+
+    <!--- fin persona-->
+
+
+
+
+
+
+
+    <g:if test="${planillaInternacionInstance?.plan}">
             <li class="fieldcontain">
                 <span id="plan-label" class="property-label"><g:message code="planillaInternacion.plan.label"
                                                                         default="Plan"/></span>

@@ -37,7 +37,7 @@
                 <li class="fieldcontain">
                     <span id="cuit-label" class="property-label"><g:message code="persona.cuit.label" default="Cuit" /></span>
 
-                    <span class="property-value" aria-labelledby="cuit-label"><g:fieldValue bean="${profesionalInstance?.persona}" field="cuit"/></span>
+                    <span class="property-value" aria-labelledby="cuit-label">${profesionalInstance?.persona?.cuit?.toString()}</span>
 
                 </li>
             </g:if>
@@ -82,7 +82,7 @@
                 <li class="fieldcontain">
                     <span id="nroDocumento-label" class="property-label"><g:message code="persona.nroDocumento.label" default="Nro Documento" /></span>
 
-                    <span class="property-value" aria-labelledby="nroDocumento-label"><g:fieldValue bean="${profesionalInstance?.persona}" field="nroDocumento"/></span>
+                    <span class="property-value" aria-labelledby="nroDocumento-label">${profesionalInstance?.persona?.nroDocumento?.toString()}</span>
 
                 </li>
             </g:if>

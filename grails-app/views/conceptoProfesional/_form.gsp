@@ -2,15 +2,6 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: conceptoProfesionalInstance, field: 'observacion', 'error')} ">
-	<label for="observacion">
-		<g:message code="conceptoProfesional.observacion.label" default="Observacion" />
-		
-	</label>
-	<g:textArea name="observacion" cols="40" rows="5" maxlength="5000" value="${conceptoProfesionalInstance?.observacion}"/>
-
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: conceptoProfesionalInstance, field: 'nombre', 'error')} required">
 	<label for="nombre">
 		<g:message code="conceptoProfesional.nombre.label" default="Nombre" />
@@ -83,3 +74,12 @@
 
 </div>
 
+
+<div class="fieldcontain ${hasErrors(bean: conceptoProfesionalInstance, field: 'observacion', 'error')} ">
+    <label for="observacion">
+        <g:message code="conceptoProfesional.observacion.label" default="Observacion" />
+
+    </label>
+    <g:textArea name="observacion" cols="40" rows="5" maxlength="5000" value="${conceptoProfesionalInstance?.observacion}"/>
+
+</div>

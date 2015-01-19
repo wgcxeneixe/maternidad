@@ -6,13 +6,103 @@
 		<g:set var="entityName" value="${message(code: 'persona.label', default: 'Persona')}" />
 
         <script>
+
+        /*
+
             $(function() {
 
-                $("#personaFisica").attr("disabled",true);
+
+                if($("#personaFisica").is(':checked')) {
+
+                    $("#divnombre").addClass("required").show();
+                    $("#nombre").attr("required",true);
+                    $("#divapellido").addClass("required").show();
+                    $("#apellido").attr("required",true);
+                    $("#divTipoDocumento").show();
+                    $("#divnrodoc").addClass("required").show();
+
+                    $("#nroDocumento").attr("required",true);
+                    $("#divestadocivil").show();
+
+                    $("#divrazonsocial").removeClass("required").hide();
+                    $("#razonSocial").attr("required",false);
+                    $("#divcuit").hide();
+                    $("#cuit").attr("required",false);
+
+                } else {
+                    $("#divnombre").removeClass("required").hide();
+                    $("#nombre").attr("required",false);
+                    $("#divapellido").removeClass("required").hide();
+                    $("#apellido").attr("required",false);
+                    $("#divTipoDocumento").hide();
+                    $("#divnrodoc").removeClass("required").hide();
+                    $("#nroDocumento").attr("required",false);
+                    $("#divestadocivil").hide();
+
+                    $("#divrazonsocial").addClass("required").show();
+                    $("#razonSocial").attr("required",true);
+
+                    $("#cuit").attr("required",true);
+                    $("#divcuit").addClass("required").show();
+                }
+
+
+                $("#personaFisica").click(function() {
+                    if($("#personaFisica").is(':checked')) {
+
+                        $("#divnombre").addClass("required").show();
+                        $("#nombre").attr("required",true);
+                        $("#divapellido").addClass("required").show();
+                        $("#apellido").attr("required",true);
+                        $("#divTipoDocumento").show();
+                        $("#divnrodoc").addClass("required").show();
+                        $("#nroDocumento").attr("required",true);
+                        $("#divestadocivil").show();
+
+                        $("#divrazonsocial").hide();
+                        $("#razonSocial").attr("required",false);
+                        $("#divcuit").hide();
+                        $("#cuit").attr("required",false);
+
+                    } else {
+                        $("#divnombre").removeClass("required").hide();
+                        $("#nombre").attr("required",false);
+                        $("#divapellido").removeClass("required").hide();
+                        $("#apellido").attr("required",false);
+                        $("#divTipoDocumento").hide();
+                        $("#divnrodoc").removeClass("required").hide();
+                        $("#nroDocumento").attr("required",false);
+                        $("#divestadocivil").hide();
+
+                        $("#divrazonsocial").addClass("required").show();
+                        $("#razonSocial").attr("required",true);
+
+                        $("#cuit").attr("required",true);
+                        $("#divcuit").addClass("required").show();
+                    }
+                });
+
+
+                //idioma de los calendar
+                jQuery.datepicker.regional[ "es" ];
+                updateDatePicker();
+
+                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                    updateDatePicker();
+                });
+
+                $("#banco").select2({allowClear: true});
+                $("#persona").select2({allowClear: true});
+
+
+                //$("#personaFisica").attr("disabled",true);
 
             })
 
-        </script>
+
+*/
+
+    </script>
 
 					<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>

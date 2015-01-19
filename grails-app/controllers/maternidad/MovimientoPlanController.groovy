@@ -142,6 +142,9 @@ class MovimientoPlanController {
 
             def total = ing- egr
 
+            total= Math.round(total * 100) / 100
+
+
             render(template: 'movimientos', model: [movimientoPlanInstanceList: movimientos, movimientoPlanInstanceCount: MovimientoPlan.findAllByPlan(planInstance).size(), total: total,idPlan:planInstance?.id])
         }
         else {
