@@ -63,7 +63,9 @@
 
     <link rel="stylesheet" href="/maternidad/css/styles.css" type="text/css" />
 
-	</head>
+
+
+</head>
 	<body>
 
 
@@ -584,15 +586,18 @@
         <li>
             <a href="#">
                 <i class="i i-circle-sm-o text-success-lt"></i>
-                <span>XXXXXX</span>
+                <span>
+                    <g:link controller="usuario" action="show" id="${sec.loggedInUserInfo(field: 'id')}">${sec.loggedInUserInfo(field: 'username')}</g:link>
+
+                </span>
             </a>
         </li>
-        <li>
+       <!-- <li>
             <a href="#">
                 <i class="i i-circle-sm-o text-warning"></i>
                 <span>XXXXX</span>
             </a>
-        </li>
+        </li> -->
     </ul>
     </nav>
     <!-- / nav -->
