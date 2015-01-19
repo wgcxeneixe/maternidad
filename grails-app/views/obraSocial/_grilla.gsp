@@ -30,7 +30,7 @@
 
             <td>${fieldValue(bean: obraSocialInstance, field: "codigo")}</td>
 
-            <td>${fieldValue(bean: obraSocialInstance, field: "cuit")}</td>
+            <td>${obraSocialInstance?.cuit?.toString()}</td>
 
             <td><g:formatBoolean boolean="${obraSocialInstance.activa}" /></td>
 

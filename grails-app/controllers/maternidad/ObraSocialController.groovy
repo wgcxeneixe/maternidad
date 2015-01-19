@@ -208,5 +208,50 @@ class ObraSocialController {
     }
 
 
+    def listaConvenios = {
+
+        /*  if (!springSecurityService.isLoggedIn()){
+              redirect(controller: 'login', action: "auth")
+          }
+  */
+        def query = {
+            if (params.sigla) {
+                obrasocial{
+                    ilike('sigla', '%' + params.sigla + '%')
+                }
+
+            }
+            if (params.codigo) {
+                ilike('codigo', '%' + params.codigo + '%')
+            }
+
+            if (params.nombre) {
+                obrasocial{ilike('nombre', '%' + params.nombre + '%')}
+
+            }
+
+            if (params.sort){
+                order(params.sort,params.order)
+            }
+        }
+
+        def criteria = Convenio.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        def convenios = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [sigla: params.sigla,codigo:params.codigo,nombre:params.nombre]
+
+        def model = [convenioInstanceList: convenios, convenioInstanceCount:convenios.totalCount, filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grillaConvenios", model: model)
+        }
+        else {
+            model
+        }
+    }
+
+
+
 
 }

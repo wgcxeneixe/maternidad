@@ -10,8 +10,8 @@
 
         $(function() {
 
-            setupGridAjax();
-            setupFilterAjax();
+          //  setupGridAjax();
+          //  setupFilterAjax();
 
 
 

@@ -63,7 +63,9 @@
 
     <link rel="stylesheet" href="/maternidad/css/styles.css" type="text/css" />
 
-	</head>
+
+
+</head>
 	<body>
 
 
@@ -121,7 +123,9 @@
             <span class="font-bold">INICIO</span>
         </a>
     </li>
-    <li >
+    <li class="${(controllerName == 'tipoDocumento' || controllerName == 'localidad' || controllerName == 'pais'
+            || controllerName == 'provincia' || controllerName == 'tipoHonorario' || controllerName == 'tipoGasto' || controllerName == 'componente' || controllerName == 'componenteTipoHonorario'
+            || controllerName == 'conceptoProveedor') ? 'active' : ''}">
         <a href="#" class="auto">
             <span class="pull-right text-muted">
                 <i class="i i-circle-sm-o text"></i>
@@ -133,63 +137,63 @@
             <span class="font-bold">GENERALES</span>
         </a>
         <ul class="nav dk">
-            <li >
+            <li class="${(controllerName == 'tipoDocumento' && actionName == 'index') ? 'active' : ''}" >
                 <a href="${createLink(controller:'tipoDocumento',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
                     <span>Tipo Documento </span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'localidad' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'localidad',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
                     <span>Localidad</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'pais' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'pais',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
                     <span>País</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'provincia' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'provincia',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
                     <span>Provincia</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'tipoHonorario' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'tipoHonorario',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
                     <span>Tipo Honorarios</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'tipoGasto' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'tipoGasto',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
                     <span>Tipo Gastos</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'componente' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'componente',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
                     <span>Componente</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'componenteTipoHonorario' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'componenteTipoHonorario',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
                     <span>Comp. con Tipo Honorario</span>
                 </a>
             </li>
-            <li >
+            <li class="${(controllerName == 'conceptoProveedor' && actionName == 'index') ? 'active' : ''}">
                 <a href="${createLink(controller:'conceptoProveedor',action: 'index')}" class="auto"> <!-- /CreateLink -->
                     <i class="i i-dot"></i>
 
@@ -213,7 +217,7 @@
 
         </ul>
     </li>
-    <li class="${controllerName == 'obraSocial' ? 'active' : ''}"> <!-- /Controller -->
+    <li class="${(controllerName == 'obraSocial' || (controllerName == 'plan' && actionName=='index')) ? 'active' : ''}"> <!-- /Controller -->
         <a href="#" class="auto">
             <span class="pull-right text-muted">
                 <i class="i i-circle-sm-o text"></i>
@@ -246,8 +250,8 @@
                     <span>Listado Planes</span>
                 </a>
             </li>
-            <li class="${(controllerName == 'convenio' && actionName == 'index') ? 'active' : ''}">
-                <a href="${createLink(controller:'convenio',action: 'index')}" class="auto"> <!-- /CreateLink -->
+            <li class="${(controllerName == 'obraSocial' && actionName == 'listaConvenios') ? 'active' : ''}">
+                <a href="${createLink(controller:'obraSocial',action: 'listaConvenios')}" class="auto"> <!-- /CreateLink -->
                     <b class="badge bg-dark pull-right">8</b>
                     <i class="i i-dot"></i>
 
@@ -582,15 +586,18 @@
         <li>
             <a href="#">
                 <i class="i i-circle-sm-o text-success-lt"></i>
-                <span>XXXXXX</span>
+                <span>
+                    <g:link controller="usuario" action="show" id="${sec.loggedInUserInfo(field: 'id')}">${sec.loggedInUserInfo(field: 'username')}</g:link>
+
+                </span>
             </a>
         </li>
-        <li>
+       <!-- <li>
             <a href="#">
                 <i class="i i-circle-sm-o text-warning"></i>
                 <span>XXXXX</span>
             </a>
-        </li>
+        </li> -->
     </ul>
     </nav>
     <!-- / nav -->

@@ -1,7 +1,7 @@
 
 <%@ page import="maternidad.Factura" %>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'factura.label', default: 'Factura')}" />
@@ -119,12 +119,67 @@
             <tr></tr>
             </table>
 
+</br>
+<g:message code="facturacion.detalle"/>
+            <table>
+                <thead>
+                <tr>
+
+                    <th><g:message code="detalleFactura.profesional.label" default="Profesional" /></th>
+
+                    <th><g:message code="detalleFactura.plan.label" default="Plan" /></th>
+
+                    <th><g:message code="detalleFactura.planillaInternacion.label" default="Planilla Internacion" /></th>
+
+                    <g:sortableColumn property="cantidad" title="${message(code: 'detalleFactura.cantidad.label', default: 'Cantidad')}" />
+
+                    <th><g:message code="facturacion.practica" default="Práctica"/></th>
+
+
+                    <th><g:message code="facturacion.valorGasto" default="Valor Gasto"/></th>
+
+                    <th><g:message code="convenio.valorHonorario" default="Valor Honorario"/></th>
+
+
+                    <th><g:message code="facturacion.funcion" default="Función"/></th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <g:each in="${facturaInstance?.detallesFactura}" status="i" var="detalleFacturaInstance">
+                    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                        <td>${fieldValue(bean: detalleFacturaInstance, field: "profesional")}</td>
+
+                        <td>${fieldValue(bean: detalleFacturaInstance, field: "plan")}</td>
+
+                        <td>${fieldValue(bean: detalleFacturaInstance, field: "planillaInternacion")}</td>
+
+                        <td>${fieldValue(bean: detalleFacturaInstance, field: "cantidad")}</td>
+
+
+                        <td>${detalleFacturaInstance?.practica}</td>
+
+                        <td>${detalleFacturaInstance?.valorGastos}</td>
+
+                        <td>${detalleFacturaInstance?.valorHonorarios}</td>
+
+                        <td>${detalleFacturaInstance?.funcion}</td>
+
+                    </tr>
+                </g:each>
+                </tbody>
+            </table>
+
+<!--
 			<g:form url="[resource:facturaInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${facturaInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
+			-->
 		</div>
 	</body>
 </html>
