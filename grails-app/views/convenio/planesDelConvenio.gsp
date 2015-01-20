@@ -33,7 +33,7 @@ Convenio
 
             <g:sortableColumn property="codigo" title="${message(code: 'plan.codigo.label', default: 'Codigo')}" />
 
-            <g:sortableColumn property="observacion" title="${message(code: 'plan.observacion.label', default: 'Observacion')}" />
+            <th>${message(code: 'plan.observacion.label', default: 'Observacion')}</th>
 
             <g:sortableColumn property="activo" title="${message(code: 'plan.activo.label', default: 'Activo')}" />
 
@@ -51,7 +51,7 @@ Convenio
 
                 <td>${fieldValue(bean: planConvenio?.plan, field: "codigo")}</td>
 
-                <td>${fieldValue(bean: planConvenio?.plan, field: "observacion")}</td>
+                <td>${ (planConvenio?.plan?.observacion?.size()>=50)? planConvenio?.plan?.observacion?.substring(0,50) +' ...':planConvenio?.plan?.observacion}</td>
 
                 <td><g:formatBoolean boolean="${planConvenio?.plan?.activo}" /></td>
 
@@ -88,6 +88,10 @@ Convenio
 
             <g:sortableColumn property="observacion" title="${message(code: 'plan.observacion.label', default: 'Observacion')}" />
 
+
+            <th>${message(code: 'plan.observacion.label', default: 'Observacion')}</th>
+
+
             <g:sortableColumn property="activo" title="${message(code: 'plan.activo.label', default: 'Activo')}" />
 
             <th></th>
@@ -103,7 +107,7 @@ Convenio
 
                 <td>${fieldValue(bean: planConvenio?.plan, field: "codigo")}</td>
 
-                <td>${fieldValue(bean: planConvenio?.plan, field: "observacion")}</td>
+                <td>${ (planConvenio?.plan?.observacion?.size()>=50)? planConvenio?.plan?.observacion?.substring(0,50) +' ...':planConvenio?.plan?.observacion}</td>
 
                 <td><g:formatBoolean boolean="${planConvenio?.plan?.activo}" /></td>
 
@@ -123,7 +127,7 @@ Convenio
 
                 <td>${fieldValue(bean: plan, field: "codigo")}</td>
 
-                <td>${fieldValue(bean: plan, field: "observacion")}</td>
+                <td>${ (plan?.observacion?.size()>=50)? plan?.observacion?.substring(0,50) +' ...':plan?.observacion}</td>
 
                 <td><g:formatBoolean boolean="${plan?.activo}" /></td>
 

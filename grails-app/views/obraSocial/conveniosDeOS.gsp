@@ -53,13 +53,13 @@
 
                     <td>${fieldValue(bean: convenioInstance, field: "obrasocial")}</td>
 
-                    <td><g:formatDate date="${convenioInstance.fechaInicio}" /></td>
+                    <td><g:formatDate date="${convenioInstance.fechaInicio}" format="dd-MM-yyyy" /></td>
 
-                    <td><g:formatDate date="${convenioInstance.fechaFin}" /></td>
+                    <td><g:formatDate date="${convenioInstance.fechaFin}" format="dd-MM-yyyy" /></td>
 
                     <td><g:formatBoolean boolean="${convenioInstance.activo}" /></td>
 
-                    <td>${fieldValue(bean: convenioInstance, field: "observacion")}</td>
+                    <td>${ (convenioInstance?.observacion?.size()>=50)? convenioInstance?.observacion?.substring(0,50) +' ...':convenioInstance?.observacion}</td>
 
 
                 </tr>

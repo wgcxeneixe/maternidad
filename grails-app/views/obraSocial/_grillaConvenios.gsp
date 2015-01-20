@@ -27,27 +27,27 @@
 
             <td>${fieldValue(bean: convenioInstance, field: "obrasocial")}</td>
 
-            <td><g:formatDate date="${convenioInstance.fechaInicio}" /></td>
+            <td><g:formatDate date="${convenioInstance.fechaInicio}" format="dd-MM-yyyy" /></td>
 
-            <td><g:formatDate date="${convenioInstance.fechaFin}" /></td>
+            <td><g:formatDate date="${convenioInstance.fechaFin}" format="dd-MM-yyyy" /></td>
 
             <td><g:formatBoolean boolean="${convenioInstance.activo}" /></td>
 
-            <td>${fieldValue(bean: convenioInstance, field: "observacion")}</td>
+            <td>${ (convenioInstance?.observacion?.size()>=50)? convenioInstance?.observacion?.substring(0,50) +' ...':convenioInstance?.observacion}</td>
 
-            <td><g:link class="linkEdit" action="edit" id="${convenioInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+            <td><g:link class="linkEdit" controller="convenio" action="edit" id="${convenioInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
 
-            <td><g:link class="linkShow" action="show" id="${convenioInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
+            <td><g:link class="linkShow" controller="convenio" action="show" id="${convenioInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
 
             <td>
 
-                <g:link action="verPlanes" id="${convenioInstance.id}">${message(code: 'convenio.planes')}</g:link>
+                <g:link action="verPlanes" controller="convenio" id="${convenioInstance.id}">${message(code: 'convenio.planes')}</g:link>
 
             </td>
 
             <td>
 
-                <g:link action="duplicar" id="${convenioInstance.id}">${message(code: 'convenio.duplicar')}</g:link>
+                <g:link action="duplicar" controller="convenio" id="${convenioInstance.id}">${message(code: 'convenio.duplicar')}</g:link>
 
             </td>
 

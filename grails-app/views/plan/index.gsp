@@ -12,7 +12,7 @@
 		<div class="nav" role="navigation">
 			<ul>
 			<!--	<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+			<!--	<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>  -->
 			</ul>
 		</div>
 		<div id="list-plan" class="content scaffold-list" role="main">
@@ -44,7 +44,7 @@
 					
 						<td>${fieldValue(bean: planInstance, field: "codigo")}</td>
 					
-						<td>${fieldValue(bean: planInstance, field: "observacion")}</td>
+						<td>${ (planInstance?.observacion?.size()>=50)? planInstance?.observacion?.substring(0,50) +' ...':planInstance?.observacion}</td>
 					
 						<td>${fieldValue(bean: planInstance, field: "obrasocial")}</td>
 					

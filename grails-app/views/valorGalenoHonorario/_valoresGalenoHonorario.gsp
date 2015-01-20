@@ -42,7 +42,7 @@
                              </td>
 
                         <td>
-                            <g:textField name="${'valor'+honorario?.id}"    value="${ honorario?.id in planConvenio?.valoresGalenoHonorario?.tipoHonorario?.id ? maternidad.ValorGalenoHonorario.findByPlanConvenioAndTipoHonorario(planConvenio,honorario)?.valor:'0'}" />  </td>
+                            <g:field type="number" step="any" name="${'valor'+honorario?.id}"    value="${ honorario?.id in planConvenio?.valoresGalenoHonorario?.tipoHonorario?.id ? maternidad.ValorGalenoHonorario.findByPlanConvenioAndTipoHonorario(planConvenio,honorario)?.valor:'0'}" />  </td>
                     </tr>
                 </g:each>
                 </tbody>
@@ -54,7 +54,7 @@
 
         </fieldset>
         <fieldset class="buttons">
-            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+            <g:submitButton name="create" class="save" value="${message(code: 'default.button.update.label', default: 'Update')}" />
         </fieldset>
     </g:form>
 </div>

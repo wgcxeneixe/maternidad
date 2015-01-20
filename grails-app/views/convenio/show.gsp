@@ -45,7 +45,7 @@
 				<li class="fieldcontain">
 					<span id="fechaInicio-label" class="property-label"><g:message code="convenio.fechaInicio.label" default="Fecha Inicio" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaInicio-label"><g:formatDate date="${convenioInstance?.fechaInicio}" /></span>
+						<span class="property-value" aria-labelledby="fechaInicio-label"><g:formatDate date="${convenioInstance?.fechaInicio}" format="dd-MM-yyyy" /></span>
 					
 				</li>
 				</g:if>
@@ -54,7 +54,7 @@
 				<li class="fieldcontain">
 					<span id="fechaFin-label" class="property-label"><g:message code="convenio.fechaFin.label" default="Fecha Fin" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaFin-label"><g:formatDate date="${convenioInstance?.fechaFin}" /></span>
+						<span class="property-value" aria-labelledby="fechaFin-label"><g:formatDate date="${convenioInstance?.fechaFin}" format="dd-MM-yyyy" /></span>
 					
 				</li>
 				</g:if>
@@ -104,7 +104,7 @@
 
                         <td>${fieldValue(bean: planConvenio?.plan, field: "codigo")}</td>
 
-                        <td>${fieldValue(bean: planConvenio?.plan, field: "observacion")}</td>
+                        <td>${ (planConvenio?.plan?.observacion?.size()>=50)? planConvenio?.plan?.observacion?.substring(0,50) +' ...':planConvenio?.plan?.observacion}</td>
 
                         <td><g:formatBoolean boolean="${planConvenio?.plan?.activo}" /></td>
 
@@ -139,7 +139,7 @@
 
                         <td>${fieldValue(bean: planConvenio?.plan, field: "codigo")}</td>
 
-                        <td>${fieldValue(bean: planConvenio?.plan, field: "observacion")}</td>
+                        <td>${ (planConvenio?.observacion?.size()>=50)? planConvenio?.observacion?.substring(0,50) +' ...':planConvenio?.observacion}</td>
 
                         <td><g:formatBoolean boolean="${planConvenio?.plan?.activo}" /></td>
 
@@ -154,7 +154,7 @@
 
                         <td>${fieldValue(bean: plan, field: "codigo")}</td>
 
-                        <td>${fieldValue(bean: plan, field: "observacion")}</td>
+                        <td>${ (plan?.observacion?.size()>=50)? plan?.observacion?.substring(0,50) +' ...':plan?.observacion}</td>
 
                         <td><g:formatBoolean boolean="${plan?.activo}" /></td>
 
@@ -197,9 +197,9 @@
 
                     <td>${fieldValue(bean: convenio, field: "obrasocial")}</td>
 
-                    <td><g:formatDate date="${convenio.fechaInicio}" /></td>
+                    <td><g:formatDate date="${convenio.fechaInicio}" format="dd-MM-yyyy" /></td>
 
-                    <td><g:formatDate date="${convenio.fechaFin}" /></td>
+                    <td><g:formatDate date="${convenio.fechaFin}" format="dd-MM-yyyy" /></td>
 
                     <td><g:formatBoolean boolean="${convenio.activo}" /></td>
 
