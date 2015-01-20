@@ -47,7 +47,7 @@
 
                 <td>${fieldValue(bean: plan, field: "codigo")}</td>
 
-                <td>${fieldValue(bean: plan, field: "observacion")}</td>
+                <td>${ (plan?.observacion?.size()>=50)? plan?.observacion?.substring(0,50) +' ...':plan?.observacion}</td>
 
                 <td><g:formatBoolean boolean="${plan?.activo}" /></td>
 

@@ -88,7 +88,7 @@ var loop=0;
                     <g:message code="practica.observacion.label" default="Valor Honorario" />
 
                 </label>
-                <g:textField name="valorHonorarioModulo" id="valorHonorario"  value="${valorPracticaInstance?.valorHonorarioModulo}"/>
+                <g:field type="number" step="any" name="valorHonorarioModulo" id="valorHonorario"  value="${valorPracticaInstance?.valorHonorarioModulo}"/>
 
             </div>
 
@@ -97,7 +97,7 @@ var loop=0;
                     <g:message code="practica.observacion.label" default="Valor Gasto" />
 
                 </label>
-                <g:textField name="valorGastoModulo" id="valorGastoModulo"  value="${valorPracticaInstance?.valorGastoModulo}"/>
+                <g:field type="number" step="any" name="valorGastoModulo" id="valorGastoModulo"  value="${valorPracticaInstance?.valorGastoModulo}"/>
 
             </div>
 

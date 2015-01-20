@@ -54,7 +54,7 @@
 				<li class="fieldcontain">
 					<span id="cuit-label" class="property-label"><g:message code="obraSocial.cuit.label" default="Cuit" /></span>
 					
-						<span class="property-value" aria-labelledby="cuit-label"><g:fieldValue bean="${obraSocialInstance}" field="cuit"/></span>
+						<span class="property-value" aria-labelledby="cuit-label">${obraSocialInstance?.cuit?.toString()}</span>
 					
 				</li>
 				</g:if>
@@ -143,13 +143,13 @@
 
                                 <td>${fieldValue(bean: convenioInstance, field: "obrasocial")}</td>
 
-                                <td><g:formatDate date="${convenioInstance.fechaInicio}" /></td>
+                                <td><g:formatDate date="${convenioInstance.fechaInicio}" format="dd-MM-yyyy" /></td>
 
-                                <td><g:formatDate date="${convenioInstance.fechaFin}" /></td>
+                                <td><g:formatDate date="${convenioInstance.fechaFin}" format="dd-MM-yyyy" /></td>
 
                                 <td><g:formatBoolean boolean="${convenioInstance.activo}" /></td>
 
-                                <td>${fieldValue(bean: convenioInstance, field: "observacion")}</td>
+                                <td>${ (convenioInstance?.observacion?.size()>=50)? convenioInstance?.observacion?.substring(0,50) +' ...':convenioInstance?.observacion}</td>
 
 
                             </tr>
@@ -188,7 +188,7 @@
 
                             <td>${fieldValue(bean: plan, field: "codigo")}</td>
 
-                            <td>${fieldValue(bean: plan, field: "observacion")}</td>
+                            <td>${ (plan?.observacion?.size()>=50)? plan?.observacion?.substring(0,50) +' ...':plan?.observacion}</td>
 
                             <td><g:formatBoolean boolean="${plan?.activo}" /></td>
 

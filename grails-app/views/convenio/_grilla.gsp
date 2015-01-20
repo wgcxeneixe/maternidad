@@ -12,7 +12,7 @@
 
         <g:sortableColumn property="activo" title="${message(code: 'convenio.activo.label', default: 'Activo')}" params="${filters}" />
 
-        <g:sortableColumn property="observacion" title="${message(code: 'convenio.observacion.label', default: 'Observacion')}" params="${filters}" />
+     <!--   <g:sortableColumn property="observacion" title="${message(code: 'convenio.observacion.label', default: 'Observacion')}" params="${filters}" />-->
 <th></th>
         <th></th>
         <th></th>
@@ -27,13 +27,13 @@
 
             <td>${fieldValue(bean: convenioInstance, field: "obrasocial")}</td>
 
-            <td><g:formatDate date="${convenioInstance.fechaInicio}" /></td>
+            <td><g:formatDate date="${convenioInstance.fechaInicio}" format="dd-MM-yyyy" /></td>
 
-            <td><g:formatDate date="${convenioInstance.fechaFin}" /></td>
+            <td><g:formatDate date="${convenioInstance.fechaFin}" format="dd-MM-yyyy" /></td>
 
             <td><g:formatBoolean boolean="${convenioInstance.activo}" /></td>
 
-            <td>${fieldValue(bean: convenioInstance, field: "observacion")}</td>
+          <!--  <td>${fieldValue(bean: convenioInstance, field: "observacion")}</td> -->
 
             <td><g:link class="linkEdit" action="edit" id="${convenioInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
 

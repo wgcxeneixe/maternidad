@@ -39,7 +39,7 @@
                         <td> ${gasto?.sigla+" - "+gasto?.descripcion} </td>
 
                          <td>
-                            <g:textField name="${'valor'+gasto?.id}"    value="${ gasto?.id in planConvenio?.valoresGalenoGasto?.tipoGasto?.id ? maternidad.ValorGalenoGasto.findByPlanConvenioAndTipoGasto(planConvenio,gasto)?.valor:'0'}" />  </td>
+                            <g:field type="number" step="any" name="${'valor'+gasto?.id}"    value="${ gasto?.id in planConvenio?.valoresGalenoGasto?.tipoGasto?.id ? maternidad.ValorGalenoGasto.findByPlanConvenioAndTipoGasto(planConvenio,gasto)?.valor:'0'}" />  </td>
                     </tr>
                 </g:each>
                 </tbody>
@@ -50,7 +50,7 @@
 
         </fieldset>
         <fieldset class="buttons">
-            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+            <g:submitButton name="create" class="save" value="${message(code: 'default.button.update.label', default: 'Update')}" />
         </fieldset>
     </g:form>
 </div>

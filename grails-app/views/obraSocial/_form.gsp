@@ -34,7 +34,7 @@
 		<g:message code="obraSocial.cuit.label" default="Cuit" />
 		
 	</label>
-	<g:textField name="cuit"  value="${obraSocialInstance.cuit}"/>
+	<g:field type="number"  name="cuit"  value="${obraSocialInstance.cuit}"/>
 
 </div>
 

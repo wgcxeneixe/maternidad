@@ -43,7 +43,7 @@
 
                 <td>${valor?.practica?.codigo}</td>
 
-                <td>${valor?.practica?.observacion}</td>
+                <td> ${ (valor?.practica?.observacion?.size()>=50)? valor?.practica?.observacion?.substring(0,50) +' ...':valor?.practica?.observacion}</td>
 
                 <td><g:link class="linkEdit" controller="practica" action="editModulo" id="${valor?.practica?.id}" params="[valorPractica:valor?.id]">${message(code: 'default.button.edit.label')}</g:link></td>
 

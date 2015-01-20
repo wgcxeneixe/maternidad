@@ -217,7 +217,7 @@
 
         </ul>
     </li>
-    <li class="${(controllerName == 'obraSocial' || (controllerName == 'plan' && actionName=='index')) ? 'active' : ''}"> <!-- /Controller -->
+    <li class="${(controllerName == 'obraSocial' || controllerName == 'plan' ) ? 'active' : ''}"> <!-- /Controller -->
         <a href="#" class="auto">
             <span class="pull-right text-muted">
                 <i class="i i-circle-sm-o text"></i>

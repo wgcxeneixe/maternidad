@@ -53,7 +53,7 @@
 		<g:message code="convenio.observacion.label" default="Observacion" />
 		
 	</label>
-	<g:textField name="observacion" value="${convenioInstance?.observacion}"/>
+	<g:textArea name="observacion" value="${convenioInstance?.observacion}"/>
 
 </div>
 
