@@ -20,47 +20,44 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-			<thead>
-					<tr>
-					
-						<g:sortableColumn property="cuit" title="${message(code: 'proveedor.cuit.label', default: 'Cuit')}" />
-					
-						<g:sortableColumn property="nombre" title="${message(code: 'proveedor.nombre.label', default: 'Nombre')}" />
-					
-						<g:sortableColumn property="direccion" title="${message(code: 'proveedor.direccion.label', default: 'Direccion')}" />
-					
-						<g:sortableColumn property="telefono" title="${message(code: 'proveedor.telefono.label', default: 'Telefono')}" />
-					
-						<g:sortableColumn property="email" title="${message(code: 'proveedor.email.label', default: 'Email')}" />
-					
-						<th><g:message code="proveedor.localidad.label" default="Localidad" /></th>
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${proveedorInstanceList}" status="i" var="proveedorInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${proveedorInstance.id}">${fieldValue(bean: proveedorInstance, field: "cuit")}</g:link></td>
-					
-						<td>${fieldValue(bean: proveedorInstance, field: "nombre")}</td>
-					
-						<td>${fieldValue(bean: proveedorInstance, field: "direccion")}</td>
-					
-						<td>${fieldValue(bean: proveedorInstance, field: "telefono")}</td>
-					
-						<td>${fieldValue(bean: proveedorInstance, field: "email")}</td>
-					
-						<td>${fieldValue(bean: proveedorInstance, field: "localidad")}</td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${proveedorInstanceCount ?: 0}" />
-			</div>
-		</div>
+
+
+            <div class="filters">
+                <g:form action="index">
+
+                    <table>
+                        <tr>
+
+                            <td>
+                                <p><label for="nombre">Nombre</label>
+                                    <g:textField id="nombre" name="nombre" value="${filters?.nombre}" /></p></td>
+
+                            <td>
+                                <p><label for="cuit">Cuit</label>
+                                    <g:textField name="cuit" value="${filters?.cuit}" /></p></td>
+
+
+                            <td>
+                                <p><g:submitButton name="filter" value="Filtrar" /></p></td>
+                        </tr>
+                    </table>
+
+
+
+
+                </g:form>
+            </div>
+
+
+            <br />
+            <div id="grid">
+                <g:render template="grilla" model="model" />
+            </div>
+            <br />
+
+
+
+
+        </div>
 	</body>
 </html>

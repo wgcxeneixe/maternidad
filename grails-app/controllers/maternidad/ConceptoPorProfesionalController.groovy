@@ -71,8 +71,8 @@ class ConceptoPorProfesionalController {
                     conceptoInstance.profesional = profesional
                     conceptoInstance.conceptoProfesional = conceptoL
                     conceptoInstance.fecha = new Date()
-                    conceptoInstance.montoFijo = params['valor' + conceptoL?.id] as Double
-                    conceptoInstance.porcentaje = params['porcentaje' + conceptoL?.id] as Double
+                    conceptoInstance.montoFijo = (params['valor' + conceptoL?.id])? params['valor' + conceptoL?.id] as Double :0
+                    conceptoInstance.porcentaje = (params['porcentaje' + conceptoL?.id]) ? params['porcentaje' + conceptoL?.id]  as Double:0
                     conceptoInstance.porUnicaVez = (params['unicavez' + conceptoL?.id] as Boolean)? true:false
                     conceptoInstance.observacion = params['observacion' + conceptoL?.id] as String
                     conceptoInstance.activo = (params['activo' + conceptoL?.id] as Boolean)? true:false
@@ -86,8 +86,8 @@ class ConceptoPorProfesionalController {
                     }else {
 
                         conceptoInstanceAux.fecha = new Date()
-                        conceptoInstanceAux.montoFijo = params['valor' + conceptoL?.id] as Double
-                        conceptoInstanceAux.porcentaje = params['porcentaje' + conceptoL?.id] as Double
+                        conceptoInstanceAux.montoFijo = (params['valor' + conceptoL?.id]) ? params['valor' + conceptoL?.id] as Double :0
+                        conceptoInstanceAux.porcentaje = (params['porcentaje' + conceptoL?.id]) ? params['porcentaje' + conceptoL?.id] as Double:0
                         conceptoInstanceAux.porUnicaVez = (params['unicavez' + conceptoL?.id] as Boolean)? true:false
                         conceptoInstanceAux.observacion = params['observacion' + conceptoL?.id] as String
                         conceptoInstanceAux.activo = (params['activo' + conceptoL?.id] as Boolean)? true:false

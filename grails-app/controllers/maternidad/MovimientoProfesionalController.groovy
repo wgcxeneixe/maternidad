@@ -144,6 +144,8 @@ class MovimientoProfesionalController {
 
             def total = ing- egr
 
+            total= Math.round(total * 100) / 100
+
             render(template: 'movimientos', model: [movimientoProfesionalInstanceList: movimientos, movimientoProfesionalInstanceCount: MovimientoProfesional.findAllByProfesional(profesionalInstance).size(), total: total,idProfesional:profesionalInstance?.id])
         }
         else {

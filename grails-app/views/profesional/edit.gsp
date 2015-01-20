@@ -142,6 +142,8 @@
                 <thead>
                 <tr>
 
+                    <th><g:message code="profesional.concepto"/> </th>
+
                     <g:sortableColumn property="observacion" title="${message(code: 'conceptoPorProfesional.observacion.label', default: 'Observacion')}" />
 
                     <g:sortableColumn property="montoFijo" title="${message(code: 'conceptoPorProfesional.montoFijo.label', default: 'Monto Fijo')}" />
@@ -159,6 +161,8 @@
                 <tbody>
                 <g:each in="${profesionalInstance?.listaConceptos}" status="i" var="conceptoPorProfesionalInstance">
                     <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                        <td> ${conceptoPorProfesionalInstance?.conceptoProfesional?.nombre}   </td>
 
                         <td>${fieldValue(bean: conceptoPorProfesionalInstance, field: "observacion")}</td>
 

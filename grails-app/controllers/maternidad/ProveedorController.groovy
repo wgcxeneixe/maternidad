@@ -11,10 +11,63 @@ class ProveedorController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+
+    /*
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Proveedor.list(params), model: [proveedorInstanceCount: Proveedor.count()]
     }
+
+*/
+
+
+
+    def index = {
+
+        /*  if (!springSecurityService.isLoggedIn()){
+              redirect(controller: 'login', action: "auth")
+          }
+  */
+        def query = {
+
+            if (params.cuit) {
+
+                    eq('cuit',  params.cuit as Long)
+
+
+            }
+
+            if (params.nombre) {
+
+                    ilike('nombre', '%' + params.nombre + '%' )
+
+
+            }
+
+            if (params.sort){
+                order(params.sort,params.order)
+            }
+        }
+
+        def criteria = Proveedor.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def proveedores = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [cuit:params.cuit,nombre:params.nombre]
+
+        def model = [proveedorInstanceList: proveedores, proveedorInstanceCount:proveedores.totalCount, filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grilla", model: model)
+        }
+        else {
+            model
+        }
+    }
+
+
+
 
     def show(Proveedor proveedorInstance) {
         respond proveedorInstance
@@ -41,7 +94,7 @@ class ProveedorController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'proveedor.label', default: 'Proveedor'), proveedorInstance.id])
-                redirect proveedorInstance
+                redirect action:'index'
             }
             '*' { respond proveedorInstance, [status: CREATED] }
         }
@@ -68,7 +121,7 @@ class ProveedorController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Proveedor.label', default: 'Proveedor'), proveedorInstance.id])
-                redirect proveedorInstance
+                redirect action:'index'
             }
             '*' { respond proveedorInstance, [status: OK] }
         }

@@ -2,8 +2,7 @@
     <thead>
     <tr>
 
-        <g:sortableColumn property="fecha" title="${message(code: 'movimientoPlan.fecha.label', default: 'Fecha')}" />
-
+<th>${message(code: 'movimientoPlan.fecha.label', default: 'Fecha')}</th>
 
         <th><g:message code="movimientoPlan.conceptoPlan.label" default="Concepto Plan" /></th>
 

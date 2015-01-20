@@ -10,11 +10,15 @@
         <th>Ingreso</th>
 
         <th>Egreso</th>
-
+<!--
         <g:sortableColumn property="descripcion" title="${message(code: 'movimientoStock.descripcion.label', default: 'Descripcion')}" />
+-->
+        <th>${message(code: 'movimientoStock.descripcion.label', default: 'Descripcion')}</th>
 
+        <th> ${message(code: 'movimientoStock.fecha.label', default: 'Fecha')} </th>
+        <!--
         <g:sortableColumn property="fecha" title="${message(code: 'movimientoStock.fecha.label', default: 'Fecha')}" />
-
+-->
     </tr>
     </thead>
     <tbody>
