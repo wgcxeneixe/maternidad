@@ -23,6 +23,9 @@
     <!-- Si no la encuentra JQuery UI en la CDN carga la copia local -->
     <script>(window.jQuery.ui === undefined) && document.write('<script src="js/jquery-ui-1.10.4/jquery-ui.min.js">\x3C/script>')</script>
 
+    <!-- Agrego la librería Prototype -->
+    <script src="/maternidad/js/prototype/prototype.js"></script>
+
 
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'select2.css')}"/>
 
