@@ -1665,7 +1665,7 @@ INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (221,0,221,2,26);
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (222,0,222,2,225);
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (223,0,223,2,45);
-INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (225,0,225,2,806099975585938);
+INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (225,0,225,2,806.099);
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (226,0,226,2,366);
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (227,0,227,2,385);
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (228,0,228,2,268);
@@ -1700,7 +1700,7 @@ INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (258,0,258,2,26);
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (259,0,259,2,73);
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (260,0,260,2,7);
-INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (261,0,261,2,805000019073486);
+INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (261,0,261,2,8.05);
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (262,0,262,2,323);
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (263,0,263,2,271);
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (264,0,264,2,217);

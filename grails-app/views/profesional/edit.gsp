@@ -164,7 +164,7 @@
 
                         <td> ${conceptoPorProfesionalInstance?.conceptoProfesional?.nombre}   </td>
 
-                        <td>${fieldValue(bean: conceptoPorProfesionalInstance, field: "observacion")}</td>
+                        <td>${ (conceptoPorProfesionalInstance?.observacion?.size()>=40)? conceptoPorProfesionalInstance?.observacion?.substring(0,40) +' ...':conceptoPorProfesionalInstance?.observacion}</td>
 
                         <td>${fieldValue(bean: conceptoPorProfesionalInstance, field: "montoFijo")}</td>
 

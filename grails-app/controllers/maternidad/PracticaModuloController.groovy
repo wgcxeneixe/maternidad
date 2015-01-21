@@ -49,6 +49,12 @@ class PracticaModuloController {
             return
         }
 
+
+        practicaModuloInstance.valorAnestecista=(params?.valorAnestecista)? params?.valorAnestecista as Double:0
+        practicaModuloInstance.valorEspecialista=(params?.valorEspecialista)?params?.valorEspecialista as Double:0
+        practicaModuloInstance.valorAyudante=(params?.valorAyudante)?params?.valorAyudante as Double:0
+        practicaModuloInstance.valorGasto=(params?.valorGasto)?params?.valorGasto as Double:0
+
         practicaModuloInstance.save flush: true
 
 
@@ -101,6 +107,10 @@ class PracticaModuloController {
             return
         }
 
+       practicaModuloInstance.valorAnestecista=(params?.valorAnestecista)? params.valorAnestecista as Double:0
+       practicaModuloInstance.valorEspecialista=(params?.valorEspecialista)?params?.valorEspecialista as Double:0
+       practicaModuloInstance.valorAyudante=(params?.valorAyudante)?params?.valorAyudante as Double:0
+        practicaModuloInstance.valorGasto=(params?.valorGasto)?params?.valorGasto as Double:0
         practicaModuloInstance.save flush: true
 /*
         def planConvenio=PlanConvenio.get(params.planConvenio.id)

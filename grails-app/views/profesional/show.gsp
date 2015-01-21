@@ -185,7 +185,7 @@
 				<li class="fieldcontain">
 					<span id="fechaMatriculacion-label" class="property-label"><g:message code="profesional.fechaMatriculacion.label" default="Fecha Matriculacion" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaMatriculacion-label"><g:formatDate date="${profesionalInstance?.fechaMatriculacion}" /></span>
+						<span class="property-value" aria-labelledby="fechaMatriculacion-label"><g:formatDate date="${profesionalInstance?.fechaMatriculacion}" format="dd-MM-yyyy"/></span>
 					
 				</li>
 				</g:if>
@@ -217,6 +217,8 @@
                         <thead>
                         <tr>
 
+                            <th><g:message code="profesional.concepto"/> </th>
+
                             <g:sortableColumn property="observacion" title="${message(code: 'conceptoPorProfesional.observacion.label', default: 'Observacion')}" />
 
                             <g:sortableColumn property="montoFijo" title="${message(code: 'conceptoPorProfesional.montoFijo.label', default: 'Monto Fijo')}" />
@@ -228,14 +230,16 @@
                             <g:sortableColumn property="activo" title="${message(code: 'conceptoPorProfesional.activo.label', default: 'Activo')}" />
 
 
-                            <th></th>
+                          <!--  <th></th>  -->
                         </tr>
                         </thead>
                         <tbody>
                         <g:each in="${profesionalInstance?.listaConceptos}" status="i" var="conceptoPorProfesionalInstance">
                             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                                <td>${fieldValue(bean: conceptoPorProfesionalInstance, field: "observacion")}</td>
+                                <td> ${conceptoPorProfesionalInstance?.conceptoProfesional?.nombre}   </td>
+
+                                <td>${ (conceptoPorProfesionalInstance?.observacion?.size()>=40)? conceptoPorProfesionalInstance?.observacion?.substring(0,40) +' ...':conceptoPorProfesionalInstance?.observacion}</td>
 
                                 <td>${fieldValue(bean: conceptoPorProfesionalInstance, field: "montoFijo")}</td>
 
@@ -246,7 +250,7 @@
                                 <td><g:formatBoolean boolean="${conceptoPorProfesionalInstance.activo}" /></td>
 
 
-                                <td><g:link class="linkEdit" controller="conceptoPorProfesional" action="create" id="${conceptoPorProfesionalInstance?.profesional?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+                              <!--  <td><g:link class="linkEdit" controller="conceptoPorProfesional" action="create" id="${conceptoPorProfesionalInstance?.profesional?.id}">${message(code: 'default.button.edit.label')}</g:link></td> -->
                             </tr>
                         </g:each>
                         </tbody>

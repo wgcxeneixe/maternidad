@@ -18,7 +18,7 @@
 
             <td>${fieldValue(bean: destinoInstance, field: "codigo")}</td>
 
-            <td>${fieldValue(bean: destinoInstance, field: "descripcion")}</td>
+            <td>${ (destinoInstance?.descripcion?.size()>=40)? destinoInstance?.descripcion?.substring(0,40) +' ...':destinoInstance?.descripcion}</td>
 
             <td><g:link class="linkEdit" action="edit" id="${destinoInstance?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
         </tr>

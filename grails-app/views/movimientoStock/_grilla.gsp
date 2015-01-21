@@ -6,12 +6,18 @@
 
         <th><g:message code="movimientoStock.destino.label" default="Destino" params="${filters}" /></th>
 
+        <th>${message(code: 'movimientoStock.cantidad.label', default: 'Cantidad')} </th>
+
+        <th>${message(code: 'movimientoStock.ingreso.label', default: 'Ingreso')}  </th>
+
+        <th>${message(code: 'movimientoStock.descripcion.label', default: 'Descripcion')}  </th>
+        <!--
         <g:sortableColumn property="cantidad" title="${message(code: 'movimientoStock.cantidad.label', default: 'Cantidad')}" params="${filters}" />
 
         <g:sortableColumn property="ingreso" title="${message(code: 'movimientoStock.ingreso.label', default: 'Ingreso')}" params="${filters}" />
 
         <g:sortableColumn property="descripcion" title="${message(code: 'movimientoStock.descripcion.label', default: 'Descripcion')}" params="${filters}" />
-
+-->
 <th><g:message code="movimientoStock.fecha.label" default="Fecha" params="${filters}"/> </th>
     </tr>
     </thead>
@@ -27,9 +33,9 @@
 
             <td><g:formatBoolean boolean="${movimientoStockInstance.ingreso}" /></td>
 
-            <td>${fieldValue(bean: movimientoStockInstance, field: "descripcion")}</td>
+            <td>${ (movimientoStockInstance?.descripcion?.size()>=40)? movimientoStockInstance?.descripcion?.substring(0,40) +' ...':movimientoStockInstance?.descripcion}</td>
 
-            <td><g:formatDate date="${movimientoStockInstance.fecha}" /></td>
+            <td><g:formatDate date="${movimientoStockInstance.fecha}" format="dd-MM-yyyy" /></td>
 
         </tr>
     </g:each>

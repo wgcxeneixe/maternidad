@@ -53,7 +53,7 @@
 					
 						<td><g:formatBoolean boolean="${conceptoPorProfesionalInstance.activo}" /></td>
 					
-						<td>${fieldValue(bean: conceptoPorProfesionalInstance, field: "conceptoLiquidacion")}</td>
+						<td></td>
 					
 					</tr>
 				</g:each>

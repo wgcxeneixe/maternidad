@@ -51,10 +51,10 @@ class CalculoValoresController {
                 def practica=it
                 valorPractica = valoresPracticas.find { it?.practica == practica }
                 valorPractica.fechaActualizado = new Date()
-                valorPractica.valorGasto = valorGasto
-                valorPractica.valorAnestecista = valorHonorario.get(0)
-                valorPractica.valorAyudante = valorHonorario.get(1)
-                valorPractica.valorEspecialista = valorHonorario.get(2)
+                valorPractica.valorGasto =  Math.round(valorGasto * 100) / 100
+                valorPractica.valorAnestecista =  Math.round(valorHonorario.get(0) * 100) / 100
+                valorPractica.valorAyudante = Math.round(valorHonorario.get(1) * 100) / 100
+                valorPractica.valorEspecialista = Math.round(valorHonorario.get(2) * 100) / 100
                 valorPractica.save(flush: true)
 
             } else {
@@ -63,11 +63,11 @@ class CalculoValoresController {
                 valorPractica.fechaActualizado = new Date()
                 valorPractica.planConvenio = planConvenio
                 valorPractica.plan = planConvenio.plan
-                valorPractica.valorAnestecista = valorHonorario.get(0)
-                valorPractica.valorAyudante = valorHonorario.get(1)
-                valorPractica.valorEspecialista = valorHonorario.get(2)
+                valorPractica.valorAnestecista =  Math.round(valorHonorario.get(0) * 100) / 100
+                valorPractica.valorAyudante = Math.round(valorHonorario.get(1) * 100) / 100
+                valorPractica.valorEspecialista = Math.round(valorHonorario.get(2) * 100) / 100
                 // valorPractica.valorHonorario=valorPractica.valorAnestecista+valorPractica.valorAyudante+ valorPractica.valorEspecialista
-                valorPractica.valorGasto = valorGasto
+                valorPractica.valorGasto =  Math.round(valorGasto * 100) / 100
                 valorPractica.save(flush: true)
             }
 

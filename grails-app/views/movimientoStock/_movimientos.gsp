@@ -42,9 +42,9 @@
 
             </td>
 
-            <td>${fieldValue(bean: movimientoStockInstance, field: "descripcion")}</td>
+            <td>${ (movimientoStockInstance?.descripcion?.size()>=40)? movimientoStockInstance?.descripcion?.substring(0,40) +' ...':movimientoStockInstance?.descripcion}</td>
 
-            <td><g:formatDate date="${movimientoStockInstance.fecha}" /></td>
+            <td><g:formatDate date="${movimientoStockInstance.fecha}" format="dd-MM-yyyy" /></td>
 
         </tr>
     </g:each>

@@ -25,7 +25,7 @@
     <g:each in="${movimientoProfesionalInstanceList}" status="i" var="movimientoProfesionalInstance">
         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-            <td><g:formatDate date="${movimientoProfesionalInstance.fecha}" /></td>
+            <td><g:formatDate date="${movimientoProfesionalInstance.fecha}" format="dd-MM-yyyy" /></td>
 
 
             <td>${fieldValue(bean: movimientoProfesionalInstance, field: "conceptoProfesional")}</td>

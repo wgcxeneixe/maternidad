@@ -25,7 +25,7 @@
 
             <td>${fieldValue(bean: productoInstance, field: "codigo")}</td>
 
-            <td>${fieldValue(bean: productoInstance, field: "descripcion")}</td>
+            <td>${ (productoInstance?.descripcion?.size()>=40)? productoInstance?.descripcion?.substring(0,40) +' ...':productoInstance?.descripcion}</td>
 
             <td>${fieldValue(bean: productoInstance, field: "cantidadMinima")}</td>
 

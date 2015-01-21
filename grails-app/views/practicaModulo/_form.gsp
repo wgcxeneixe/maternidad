@@ -35,7 +35,7 @@
 		<g:message code="practicaModulo.valorGasto.label" default="Valor Gasto" />
 		
 	</label>
-    <g:field type="number" step="any" name="valorGasto" value="${fieldValue(bean: practicaModuloInstance, field: 'valorGasto')}"/>
+    <g:field type="number" step="any" name="valorGasto" value="${practicaModuloInstance?.valorGasto}"/>
 
 </div>
 
@@ -44,7 +44,7 @@
 		<g:message code="practicaModulo.valorAnestecista.label" default="Valor Anestecista" />
 		
 	</label>
-    <g:field type="number" step="any" name="valorAnestecista" value="${fieldValue(bean: practicaModuloInstance, field: 'valorAnestecista')}"/>
+    <g:field type="number" step="any" name="valorAnestecista" value="${practicaModuloInstance?.valorAnestecista}"/>
 
 </div>
 
@@ -53,7 +53,7 @@
 		<g:message code="practicaModulo.valorAyudante.label" default="Valor Ayudante" />
 		
 	</label>
-    <g:field type="number" step="any" name="valorAyudante" value="${fieldValue(bean: practicaModuloInstance, field: 'valorAyudante')}"/>
+    <g:field type="number" step="any" name="valorAyudante" value="${practicaModuloInstance?.valorAyudante}"/>
 
 </div>
 
@@ -62,7 +62,7 @@
 		<g:message code="practicaModulo.valorEspecialista.label" default="Valor Especialista" />
 		
 	</label>
-    <g:field type="number" step="any" name="valorEspecialista" value="${fieldValue(bean: practicaModuloInstance, field: 'valorEspecialista')}"/>
+    <g:field type="number" step="any" name="valorEspecialista" value="${practicaModuloInstance?.valorEspecialista}"/>
 
 </div>
 

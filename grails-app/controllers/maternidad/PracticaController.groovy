@@ -162,7 +162,8 @@ valorPracticaInstance.planConvenio=planConvenioInstance
         valorPracticaInstance.fechaActualizado=new Date()
         valorPracticaInstance.practica=practicaInstance
 
-
+        valorPracticaInstance.valorGastoModulo=(params?.valorGastoModulo)? params?.valorGastoModulo as Double : 0
+        valorPracticaInstance.valorHonorarioModulo=(params?.valorHonorarioModulo)? params?.valorHonorarioModulo as Double : 0
 
         valorPracticaInstance.save flush: true
 

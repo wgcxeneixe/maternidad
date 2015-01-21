@@ -64,7 +64,7 @@
                     <g:message code="practicaModulo.valorGasto.label" default="Valor" />
 
                 </label>
-                <g:textField name="valor" required="" value="${valorPractica?.valorHonorario}" />
+                <g:field type="number" step="any" name="valor" required="" value="${valorPractica?.valorHonorario}" />
 
             </div>
 
