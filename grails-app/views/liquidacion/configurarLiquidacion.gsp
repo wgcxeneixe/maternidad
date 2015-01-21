@@ -79,9 +79,9 @@
             </tbody>
         </table>
 
-        <div>
-            <g:submitButton name="algo" id="algo" value="Liquidar" action="armarLiquidacion"/>
-        </div>
+        %{--<div>--}%
+            %{--<g:submitButton name="algo" id="algo" value="Liquidar" action="armarLiquidacion"/>--}%
+        %{--</div>--}%
     </div>
     <input type="button"
            id="liquidarBtn"

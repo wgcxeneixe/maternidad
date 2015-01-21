@@ -52,7 +52,7 @@
         <g:message code="pagoFactura.monto.label" default="Monto"/>
         <span class="required-indicator">*</span>
     </label>
-    <g:field name="monto" value="${fieldValue(bean: pagoFacturaInstance, field: 'monto')}" required=""/>
+    <g:field name="monto" type="number" value="${fieldValue(bean: pagoFacturaInstance, field: 'monto')}" required=""/>
 
 </div>
 
@@ -84,23 +84,23 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'retencionPagos', 'error')} ">
-    <label for="retencionPagos">
-        <g:message code="pagoFactura.retencionPagos.label" default="Retencion Pagos"/>
+%{--<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'retencionPagos', 'error')} ">--}%
+    %{--<label for="retencionPagos">--}%
+        %{--<g:message code="pagoFactura.retencionPagos.label" default="Retencion Pagos"/>--}%
 
-    </label>
+    %{--</label>--}%
 
-    <ul class="one-to-many">
-        <g:each in="${pagoFacturaInstance?.retencionPagos ?}" var="r">
-            <li><g:link controller="retencionPago" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></li>
-        </g:each>
-        <li class="add">
-            <g:link controller="retencionPago" action="create"
-                    params="['pagoFactura.id': pagoFacturaInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'retencionPago.label', default: 'RetencionPago')])}</g:link>
-        </li>
-    </ul>
+    %{--<ul class="one-to-many">--}%
+        %{--<g:each in="${pagoFacturaInstance?.retencionPagos ?}" var="r">--}%
+            %{--<li><g:link controller="retencionPago" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></li>--}%
+        %{--</g:each>--}%
+        %{--<li class="add">--}%
+            %{--<g:link controller="retencionPago" action="create"--}%
+                    %{--params="['pagoFactura.id': pagoFacturaInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'retencionPago.label', default: 'RetencionPago')])}</g:link>--}%
+        %{--</li>--}%
+    %{--</ul>--}%
 
-</div>
+%{--</div>--}%
 
 <div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'tipoPago', 'error')} required">
     <label for="tipoPago">
