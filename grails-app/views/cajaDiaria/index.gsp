@@ -13,7 +13,7 @@
 			<ul>
 				<!--<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
            	    <li><g:link class="create" action="create"><g:message code="cajaDiaria.new.label" args="[entityName]" /></g:link></li>
-
+                <li><g:link class="create" controller="detalleCaja" action="create"><g:message code="detalleCaja.create.label"  /></g:link></li>
 			</ul>
 		</div>
 		<div id="list-cajaDiaria" class="content scaffold-list" role="main">
@@ -32,7 +32,9 @@
 						<g:sortableColumn property="fechaCierre" title="${message(code: 'cajaDiaria.fechaCierre.label', default: 'Fecha Cierre')}" />
 					
 						<g:sortableColumn property="saldoInicial" title="${message(code: 'cajaDiaria.saldoInicial.label', default: 'Saldo Inicial')}" />
-					
+
+                        <th> <g:message code="cajaDiaria.saldoParcial"/>  </th>
+
 						<g:sortableColumn property="saldoFinal" title="${message(code: 'cajaDiaria.saldoFinal.label', default: 'Saldo Final')}" />
 
                         <th></th>
@@ -58,7 +60,9 @@
                         </td>
 					
 						<td>${fieldValue(bean: cajaDiariaInstance, field: "saldoInicial")}</td>
-					
+
+                    <td> ${cajaDiariaInstance?.saldoParcial() } </td>
+
 						<td>${fieldValue(bean: cajaDiariaInstance, field: "saldoFinal")}</td>
 
                         <!-- ACCIONES -->

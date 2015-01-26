@@ -18,12 +18,12 @@
             <g:sortableColumn property="fechaInternacion"
                               title="${message(code: 'planillaInternacion.fechaInternacion.label', default: 'Fecha Internacion')}" params="${filters}"/>
 
-            <g:sortableColumn property="nombreFamiliarResponsable"
+       <!--     <g:sortableColumn property="nombreFamiliarResponsable"
                               title="${message(code: 'planillaInternacion.nombreFamiliarResponsable.label', default: 'Nombre Familiar Responsable')}" params="${filters}"/>
 
             <g:sortableColumn property="telefonoFamiliarResponsable"
                               title="${message(code: 'planillaInternacion.telefonoFamiliarResponsable.label', default: 'Telefono Familiar Responsable')}" params="${filters}"/>
-
+-->
             <g:sortableColumn property="fechaAlta"
                               title="${message(code: 'planillaInternacion.fechaAlta.label', default: 'Fecha Alta')}" params="${filters}"/>
 
@@ -47,16 +47,19 @@
 
                 <td><g:formatDate type="date" style="MEDIUM"  date="${planillaInternacionInstance.fechaInternacion}"/></td>
 
-                <td>${fieldValue(bean: planillaInternacionInstance, field: "nombreFamiliarResponsable")}</td>
+               <!-- <td>${fieldValue(bean: planillaInternacionInstance, field: "nombreFamiliarResponsable")}</td>
 
                 <td>${fieldValue(bean: planillaInternacionInstance, field: "telefonoFamiliarResponsable")}</td>
-
+-->
                 <td><g:formatDate type="date" style="MEDIUM"  date="${planillaInternacionInstance.fechaAlta}"/></td>
 
                 <!-- ACCIONES -->
-                <td><g:link class="linkShow" action="show" id="${planillaInternacionInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
 
                 <td><g:link class="linkEdit" action="edit" id="${planillaInternacionInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+
+
+                <td><g:link class="linkShow" action="show" id="${planillaInternacionInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
+
 
                 <td><g:link controller="detalleFactura"  action="cargaPracticas" id="${planillaInternacionInstance.id}">${message(code: 'facturacion.cargaPracticas')}</g:link></td>
 

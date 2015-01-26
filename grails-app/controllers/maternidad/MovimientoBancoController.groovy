@@ -50,14 +50,16 @@ class MovimientoBancoController {
             return
         }
 
+        movimientoBancoInstance.monto=(params?.monto)? params?.monto as Double:0
+        movimientoBancoInstance.fecha=(params.fecha)? params.fecha as Date : new Date()
         movimientoBancoInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'movimientoBanco.label', default: 'MovimientoBanco'), movimientoBancoInstance.id])
                 if(params.parametro){forward(controller: 'banco',action: 'index')}else {
-                    redirect action: 'index'
-
+                   // redirect action: 'index'
+                   redirect(action:'index')
                 }
             }
             '*' { respond movimientoBancoInstance, [status: CREATED] }

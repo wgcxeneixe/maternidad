@@ -12,6 +12,10 @@
             jQuery("#spinner").ajaxComplete(function (event, request, settings) {
                 updateDatePicker();
             });
+
+
+            $("#plan").select2({allowClear: true});
+
         })
     </script>
 </head>

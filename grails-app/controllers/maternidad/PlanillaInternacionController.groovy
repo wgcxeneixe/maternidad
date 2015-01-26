@@ -150,7 +150,8 @@ class PlanillaInternacionController {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'planillaInternacion.label', default: 'Planilla internación'), planillaInternacionInstance.id])
                 //redirect action:'index'
-                redirect planillaInternacionInstance
+                //redirect planillaInternacionInstance
+                redirect(action: "index")
             }
             '*' { respond planillaInternacionInstance, [status: CREATED],view:'index' }
         }
@@ -159,6 +160,7 @@ class PlanillaInternacionController {
 
     def edit(PlanillaInternacion planillaInternacionInstance) {
         respond planillaInternacionInstance
+
     }
 
     @Transactional
@@ -178,7 +180,8 @@ class PlanillaInternacionController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'PlanillaInternacion.label', default: 'PlanillaInternacion'), planillaInternacionInstance.id])
-                redirect planillaInternacionInstance
+                //redirect planillaInternacionInstance
+                redirect(action: "index")
             }
             '*'{ respond planillaInternacionInstance, [status: OK] }
         }
@@ -208,7 +211,7 @@ class PlanillaInternacionController {
     }
 
     def derivarpaciente={
-        if(params?.paciente == ""){
+        if(params?.paciente == "" || params?.paciente== null){
             redirect action: "buscapaciente", method: "GET"
             return
         }

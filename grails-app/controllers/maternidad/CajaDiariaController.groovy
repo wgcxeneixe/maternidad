@@ -73,12 +73,15 @@ class CajaDiariaController {
             }
         }
         */
+        cajaDiariaInstance.saldoInicial=(params.saldoInicial)? params.saldoInicial as Double:0
         cajaDiariaInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'cajaDiaria.created.message', args: [message(code: 'cajaDiaria.label', default: 'Caja diaria'), cajaDiariaInstance.id])
-                redirect cajaDiariaInstance
+               // redirect cajaDiariaInstance
+               redirect(action: 'index')
+
             }
             '*' { respond cajaDiariaInstance, [status: CREATED] }
         }
@@ -144,12 +147,20 @@ class CajaDiariaController {
             }
         }
         */
+
+        cajaDiariaInstance.saldoInicial=(params?.saldoInicial)? params?.saldoInicial as Double:0
+        cajaDiariaInstance.saldoFinal=(params?.saldoFinal)? params?.saldoFinal as Double:0
+
+
         cajaDiariaInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'CajaDiaria.label', default: 'Caja Diaria'), cajaDiariaInstance.id])
-                redirect cajaDiariaInstance
+              //  redirect cajaDiariaInstance
+
+                redirect(action:'index')
+
             }
             '*'{ respond cajaDiariaInstance, [status: OK] }
         }

@@ -116,7 +116,7 @@
 
                    </td>
 
-                <td><g:checkBox  name="facturar[]" value="${detalleFactura.getAt(0)}"/> </td>
+                <td><g:checkBox  name="facturar" value="${detalleFactura.getAt(0)}"/> </td>
 
 
             </tr>

@@ -1,6 +1,9 @@
 <%@ page import="maternidad.Persona" %>
 
 
+<g:hiddenField name="planilla" value="${planilla}"/>
+
+
 <div class="fieldcontain ${hasErrors(bean: personaInstance, field: 'personaFisica', 'error')} ">
     <label for="personaFisica">
         <g:message code="persona.personaFisica.label" default="Persona Fisica" />

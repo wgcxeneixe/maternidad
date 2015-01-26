@@ -8,7 +8,7 @@
 
     </label>
 
-    <g:link controller="persona" action="edit" id="${planillaInternacionInstance?.paciente?.id}">
+    <g:link controller="persona" action="edit" id="${planillaInternacionInstance?.paciente?.id}" params="[planilla:planillaInternacionInstance?.id]">
         <g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="apellido"/>,
         <g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="nombre"/>
     </g:link>

@@ -26,4 +26,8 @@ class FacturaProveedor {
         proveedor(nullable: false,blank:false)
 
     }
+
+
+    String toString() { "Nº ${numero}" +" - "+proveedor}
+
 }

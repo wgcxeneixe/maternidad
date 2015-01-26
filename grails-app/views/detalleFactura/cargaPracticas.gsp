@@ -3,12 +3,32 @@
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'detalleFactura.label', default: 'DetalleFactura')}" />
-    <title><g:message code="default.create.label" args="[entityName]" /></title>
+    <title><g:message code="planillainternacion.cargadepracticas"  /></title>
 
     <script>
         $(function() {
 
+/*
+$("#boton").click(function(e){
 
+    e.preventDefault();
+
+  var valorfuncion=  $("#funcion").val();
+
+    if (valorfuncion==0){
+
+        alert("seleccione una función");
+
+
+    }
+    else {
+
+        $("#formulario").submit();
+
+    }
+
+});
+*/
 
 
            var valorHonorarios= $("#valorHonorarios");
@@ -71,7 +91,7 @@
 
 
 
-                if(practica!='null'){
+                if( funcion!=''){
 
                 $.ajax({
                     url: "${g.createLink(controller:'detalleFactura',action:'obtenerValores')}",
@@ -88,12 +108,12 @@
 
                         //hon=("" + hon).replace(/./g, ',');
 
-                        hon=("" + hon).replace('.', ',');
+                    //    hon=("" + hon).replace('.', ',');
 
                         var gas=data.gasto;
 
                  //       gas=("" + gas).replace(/./g, ',');
-                        gas=("" + gas).replace('.', ',');
+                     //   gas=("" + gas).replace('.', ',');
 
                         if (funcion == 10) {
                             valorHonorarios.val(hon);
@@ -148,14 +168,114 @@
 
             }
 
-                /*
-                $.post( "${createLink(controller: "detalleFactura",action:"obtenerValores")}", { plan: "${detalleFacturaInstance?.plan?.id}", time: "2pm" } )
-                        .done(function( data ) {
-                            alert( "Data Loaded: " + data );
-                        });
-*/
+
             });
 
+
+
+            $("#practica").change(function() {
+                //  alert($(this).val());
+                var funcion = $("#funcion").val();
+                var practica =  $(this).val();
+
+
+
+                if(funcion!=''){
+
+                    $.ajax({
+                        url: "${g.createLink(controller:'detalleFactura',action:'obtenerValores')}",
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            plan: "${detalleFacturaInstance?.plan?.id}",
+                            practica: practica,
+                            funcion: funcion
+                        },
+                        success: function (data) {
+
+                            var hon=data.honorario;
+
+                            //hon=("" + hon).replace(/./g, ',');
+
+                            hon=("" + hon).replace('.', ',');
+
+                            var gas=data.gasto;
+
+                            //       gas=("" + gas).replace(/./g, ',');
+                            gas=("" + gas).replace('.', ',');
+
+                            if (funcion == 10) {
+                                valorHonorarios.val(hon);
+                                divhonorario.show();
+                                divgasto.hide();
+                            }
+
+                            if (funcion == 20) {
+                                //valorHonorarios.val(data.honorario);
+                                valorHonorarios.val(hon);
+                                divhonorario.show();
+                                divgasto.hide();
+                            }
+
+                            if (funcion == 30) {
+                                valorHonorarios.val(hon);
+                                divhonorario.show();
+                                divgasto.hide();
+                            }
+
+
+                            if (funcion == 60) {
+                                valorGastos.val(gas);
+                                divgasto.show();
+                                divhonorario.hide();
+                            }
+
+                            if (funcion == 70) {
+                                valorGastos.val(gas);
+                                valorHonorarios.val(hon);
+                                divgasto.show();
+                                divhonorario.show();
+                            }
+
+                            if (funcion == 91) {
+                                // valorGastos.val(data.gasto);
+                                // valorHonorarios.val(data.honorario);
+                                divgasto.show();
+                                divhonorario.show();
+                                valorHonorarios.prop('readonly', false);
+                                valorGastos.prop('readonly', false);
+                            }
+
+
+                        },
+                        error: function (request, status, error) {
+                            alert(error)
+                        },
+                        complete: function () {
+                        }
+                    });
+
+                }
+
+
+            });
+
+
+            $("#valorGastos,#valorHonorarios").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190,188]) !== -1 ||
+                    // Allow: Ctrl+A
+                        (e.keyCode == 65 && e.ctrlKey === true) ||
+                    // Allow: home, end, left, right
+                        (e.keyCode >= 35 && e.keyCode <= 39)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
 
 
 
@@ -168,12 +288,13 @@
 <a href="#create-detalleFactura" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 <div class="nav" role="navigation">
     <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+     <!--   <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>-->
+        <li><g:link class="create" controller="planillaInternacion" action="index" id="${detalleFacturaInstance?.planillaInternacion?.id}" ><g:message code="defaul.button.volver.label" /></g:link></li>
     </ul>
 </div>
 <div id="create-detalleFactura" class="content scaffold-create" role="main">
-    <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+    <h1><g:message code="planillainternacion.cargadepracticas"  /></h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
@@ -184,7 +305,7 @@
             </g:eachError>
         </ul>
     </g:hasErrors>
-    <g:form url="[resource:detalleFacturaInstance, action:'saveCarga']" >
+    <g:form id="formulario" url="[resource:detalleFacturaInstance, action:'saveCarga']" >
         <fieldset class="form">
 
             <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'planillaInternacion', 'error')} required">
@@ -220,7 +341,7 @@
                     <g:message code="detalleFactura.practica.label" default="Practica" />
 
                 </label>
-                <g:select id="practica" name="practica.id" from="${practicas}" optionKey="id"  value="${detalleFacturaInstance?.practica?.id}" class="many-to-one" noSelection="['null': '']"/>
+                <g:select required="" id="practica" name="practica.id" from="${practicas}" optionKey="id"  value="${detalleFacturaInstance?.practica?.id}" class="many-to-one" />
 
             </div>
 
@@ -229,8 +350,8 @@
                     <g:message code="detalleFactura.funcion.label" default="Funcion" />
 
                 </label>
-<select name ="funcion" id="funcion">
-    <option value="0">Seleccione una Función</option>
+<select required name ="funcion" id="funcion">
+    <option value="">Seleccione una Función</option>
     <option value="10">10</option>
 <option value="20">20</option>
             <option value="30">30</option>
@@ -246,7 +367,7 @@
                     <g:message code="detalleFactura.cantidad.label" default="Cantidad" />
 
                 </label>
-                <g:field name="cantidad" value="${fieldValue(bean: detalleFacturaInstance, field: 'cantidad')}"/>
+                <g:field type="number" id="cantidad" name="cantidad" required="" value="${fieldValue(bean: detalleFacturaInstance, field: 'cantidad')}"/>
 
             </div>
 
@@ -258,7 +379,7 @@
                     <g:message code="detalleFactura.valorGastos.label" default="Valor Gastos" />
 
                 </label>
-                <g:field name="valorGastos" value="${detalleFacturaInstance?.valorGastos}"/>
+                <g:field type="number" step="any" name="valorGastos" value="${detalleFacturaInstance?.valorGastos}"/>
 
             </div>
 
@@ -267,7 +388,7 @@
                     <g:message code="detalleFactura.valorHonorarios.label" default="Valor Honorarios" />
 
                 </label>
-                <g:field name="valorHonorarios" value="${detalleFacturaInstance?.valorHonorarios?.toString()}"/>
+                <g:field type="number" step="any" name="valorHonorarios" value="${detalleFacturaInstance?.valorHonorarios?.toString()}"/>
 
             </div>
 
@@ -296,7 +417,7 @@
 
         </fieldset>
         <fieldset class="buttons">
-            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+            <g:submitButton id="boton" name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
         </fieldset>
     </g:form>
 
@@ -309,7 +430,7 @@
 
             <th><g:message code="detalleFactura.practica.label" default="Practica" /></th>
 
-            <g:sortableColumn property="cantidad" title="${message(code: 'detalleFactura.cantidad.label', default: 'Cantidad')}" />
+            <th><g:message code="detalleFactura.cantidad.label" default="Cantidad" /></th>
 
             <th><g:message code="detalleFactura.valorPractica.label" default="Valor Honorario" /></th>
 
@@ -323,7 +444,9 @@
         </thead>
         <tbody>
         <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)}
-            isNull("factura")}}" status="i" var="detalleFactura">
+            isNull("factura")
+
+        }}" status="i" var="detalleFactura">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
                 <td>${fieldValue(bean: detalleFactura, field: "profesional")}</td>
@@ -340,8 +463,8 @@
                 <td>${detalleFactura?.funcion}</td>
 
                 <td>
-                    <g:formatNumber number="${ (detalleFactura?.valorHonorarios)? (detalleFactura.valorHonorarios.multiply( detalleFactura.cantidad as Character) ):0  +
-                            (detalleFactura?.valorGastos)? (detalleFactura.valorGastos.multiply( detalleFactura.cantidad as Character) ):0
+                    <g:formatNumber number="${ (detalleFactura?.valorHonorarios)? (detalleFactura?.valorHonorarios?.multiply( detalleFactura?.cantidad as Character) ):0  +
+                            (detalleFactura?.valorGastos)? (detalleFactura?.valorGastos?.multiply( detalleFactura?.cantidad as Character) ):0
                     }" type="currency" currencyCode="ARS" />
                      </td>
 
@@ -349,11 +472,11 @@
         </g:each>
         </tbody>
     </table>
-    <div class="pagination">
-        <g:paginate total="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)}
+<!--    <div class="pagination">
+        <g:paginate params="[id:params?.id]" total="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)}
             isNull("factura")}.size() ?: 0}" />
     </div>
-
+-->
 
 </div>
 </body>

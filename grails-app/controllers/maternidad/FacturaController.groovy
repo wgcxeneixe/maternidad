@@ -49,10 +49,57 @@ class FacturaController {
     }
 
 
+/*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Factura.list(params), model: [facturaInstanceCount: Factura.count()]
     }
+*/
+
+    def index = {
+
+        def query = {
+            if (params.fechaDesde && params.fechaHasta) {
+                between('fecha', params.fechaDesde as Date, params.fechaHasta as Date)
+              // between('fecha',Date.from, Date.parse("dd-MM-yyyy", params.fechaDesde))
+
+            }
+            if (params.nrofactura) {
+
+                eq('nrofactura', params.nrofactura.toInteger() )
+
+            }
+
+            if (params.plan) {
+
+                eq('plan.id', params.plan.toLong() )
+
+            }
+
+
+
+            if (params.sort){
+                order(params.sort,params.order)
+            }
+        }
+
+        def criteria = Factura.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        def facturas = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [fechaDesde: params.fechaDesde as Date,fechaHasta:params.fechaHasta as Date,plan:params.plan,nrofactura:params.nrofactura]
+
+        def model = [facturaInstanceList: facturas, facturaInstanceTotal:facturas?.size(), filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grilla", model: model)
+        }
+        else {
+            model
+        }
+    }
+
+
 
     def show(Factura facturaInstance) {
         respond facturaInstance
@@ -101,12 +148,15 @@ class FacturaController {
             return
         }
 
+        facturaInstance.totalFacturado=(params?.totalFacturado)? params?.totalFacturado as Double :0
+
+        facturaInstance.totalPagado=(params?.totalPagado)? params?.totalPagado as Double :0
         facturaInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Factura.label', default: 'Factura'), facturaInstance.id])
-                redirect facturaInstance
+              redirect(action:'index')
             }
             '*' { respond facturaInstance, [status: OK] }
         }
@@ -164,8 +214,12 @@ respond facturaInstance
        def periodo=params.periodo as Long
 
 //listado de id de planes a facturar
-       def seleccionados=params.getProperty("facturar[]")  as List
+       def seleccionados=params?.facturar
 
+
+        /*def l = []
+        seleccionados.each() { k, v -> l << k }
+*/
 
 // crear facturas por cada plan
 seleccionados.each {
@@ -177,7 +231,7 @@ seleccionados.each {
     factura.plan=Plan.get(it)
     def total= DetalleFactura.executeQuery("select sum(coalesce(df.valorHonorarios,0)* df.cantidad + coalesce(df.valorGastos,0)*df.cantidad ) as total from DetalleFactura df where df.factura is null and df.plan=:plan group by df.plan.id  ",[plan:factura?.plan])
 
-factura.totalFacturado=total.get(0)
+factura.totalFacturado=total?.get(0)
 factura.save(flush: true)
 
 

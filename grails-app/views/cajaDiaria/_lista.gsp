@@ -46,3 +46,13 @@
         <g:paginate total="${detalleCajaInstanceCount ?: 0}" />
     </div>
 </div>
+
+<div>
+<fieldset class="total">
+    <label for="saldo">
+        <g:message code="cajaDiaria.saldoParcial" default="Saldo Parcial" />
+
+    </label>
+    ${cajaDiariaInstance?.saldoParcial()}
+</fieldset>
+</div>

@@ -260,6 +260,77 @@
             <g:render template="nacimientos" />
         </fieldset>
     </g:if>
+
+<br>
+<h1><g:message code="planillainternacion.listadodepracticas"  /></h1>
+<table>
+    <thead>
+    <tr>
+
+        <th><g:message code="detalleFactura.profesional.label" default="Profesional" /></th>
+
+        <th><g:message code="detalleFactura.practica.label" default="Practica" /></th>
+
+        <th><g:message code="detalleFactura.cantidad.label" default="Cantidad" /></th>
+
+        <th><g:message code="detalleFactura.valorPractica.label" default="Valor Honorario" /></th>
+
+        <th><g:message code="detalleFactura.valorPractica.label" default="valor Gasto" /></th>
+
+        <th><g:message code="detalleFactura.valorPractica.label" default="Función" /></th>
+
+        <th><g:message code="detalleFactura.valorPractica.label" default="Total" /></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',planillaInternacionInstance?.id as Long)}
+        isNull("factura")
+
+    }}" status="i" var="detalleFactura">
+        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+            <td>${fieldValue(bean: detalleFactura, field: "profesional")}</td>
+
+            <td>${fieldValue(bean: detalleFactura, field: "practica")}</td>
+
+            <td>${fieldValue(bean: detalleFactura, field: "cantidad")}</td>
+
+            <td>${fieldValue(bean: detalleFactura, field: "valorHonorarios")}</td>
+
+            <td>${fieldValue(bean: detalleFactura, field: "valorGastos")}</td>
+
+
+            <td>${detalleFactura?.funcion}</td>
+
+            <td>
+
+
+                <g:formatNumber number="${ (detalleFactura?.valorHonorarios)? (detalleFactura?.valorHonorarios?.multiply( detalleFactura?.cantidad as Character) ):0  +
+                        (detalleFactura?.valorGastos)? (detalleFactura?.valorGastos?.multiply( detalleFactura?.cantidad as Character) ):0
+                }" type="currency" currencyCode="ARS" />
+            </td>
+
+        </tr>
+    </g:each>
+    </tbody>
+</table>
+<!--    <div class="pagination">
+        <g:paginate params="[id:params?.id]" total="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)}
+    isNull("factura")}.size() ?: 0}" />
+    </div>
+-->
+
+
+
+<!-- Listado de Transacciones de caja -->
+<g:if test="${planillaInternacionInstance?.detalles}">
+    <fieldset class="form">
+        <g:render template="listaDetallesCaja" />
+    </fieldset>
+</g:if>
+
+
     <g:form url="[resource: planillaInternacionInstance, action: 'delete']" method="DELETE">
         <fieldset class="buttons">
             <g:link class="edit" action="edit" resource="${planillaInternacionInstance}"><g:message

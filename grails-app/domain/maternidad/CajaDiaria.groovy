@@ -23,5 +23,34 @@ class CajaDiaria {
         detallesCaja: DetalleCaja
     ]
 
+
+    Double saldoParcial(){
+
+        def cajaInstance = this
+
+        def ingreso = DetalleCaja.executeQuery("select sum(monto) from DetalleCaja dc " +
+                "where dc.credito=true and  dc.caja = :caja",
+                [caja: cajaInstance])
+
+        def egreso = DetalleCaja.executeQuery("select sum(monto) from DetalleCaja dc " +
+                "where dc.credito=false and  dc.caja = :caja",
+                [caja: cajaInstance])
+
+        def ing  = (ingreso[0])? ingreso[0]:0
+
+        def egr  = (egreso[0])? egreso[0]:0
+
+        def total = ing- egr
+
+
+        return Math.round(total * 100) / 100
+
+
+    }
+
+
+
+
+
     String toString() { "Nº ${id}" }
 }

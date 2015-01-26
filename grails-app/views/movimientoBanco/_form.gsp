@@ -16,7 +16,7 @@
         <g:message code="movimientoBanco.tipoPago.label" default="Tipo Pago" />
         <span class="required-indicator">*</span>
     </label>
-    <g:select id="tipoPago" name="tipoPago.id" from="${maternidad.TipoPago.list()}" optionKey="id" required="" noSelection="['null':'Seleccione un tipo de Pago']" value="${movimientoBancoInstance?.tipoPago?.id}" class="many-to-one"/>
+    <g:select id="tipoPago" name="tipoPago.id" required="" from="${maternidad.TipoPago.list()}" optionKey="id" required="" noSelection="['':'Seleccione un tipo de Pago']" value="${movimientoBancoInstance?.tipoPago?.id}" class="many-to-one"/>
 
 </div>
 
@@ -25,7 +25,7 @@
 		<g:message code="movimientoBanco.monto.label" default="Monto" />
 		
 	</label>
-	<g:field name="monto" value="${fieldValue(bean: movimientoBancoInstance, field: 'monto')}"/>
+	<g:field type="number" step="any" required="" name="monto" value="${movimientoBancoInstance?.monto}"/>
 
 </div>
 
@@ -34,7 +34,7 @@
 		<g:message code="movimientoBanco.fecha.label" default="Fecha" />
 		
 	</label>
-	<g:datePicker name="fecha" precision="day"  value="${movimientoBancoInstance?.fecha}" default="none" noSelection="['': '']" />
+	<g:datePicker name="fecha" precision="day"  required="" value="${movimientoBancoInstance?.fecha}" default="none" noSelection="['': '']" />
 
 </div>
 

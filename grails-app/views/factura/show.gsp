@@ -11,9 +11,9 @@
 		<a href="#show-factura" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+			<!--	<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
 				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+			<!--	<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>  -->
 			</ul>
 		</div>
 		<div id="show-factura" class="content scaffold-show" role="main">
@@ -39,7 +39,7 @@
 				<li class="fieldcontain">
 					<span id="fecha-label" class="property-label"><g:message code="factura.fecha.label" default="Fecha" /></span>
 					
-						<span class="property-value" aria-labelledby="fecha-label"><g:formatDate date="${facturaInstance?.fecha}" /></span>
+						<span class="property-value" aria-labelledby="fecha-label"><g:formatDate date="${facturaInstance?.fecha}" format="dd-MM-yyyy" /></span>
 					
 				</li>
 				</g:if>
@@ -120,16 +120,14 @@
             </table>
 
 </br>
-<g:message code="facturacion.detalle"/>
+<h1><g:message code="facturacion.detalle"/></h1>
             <table>
                 <thead>
                 <tr>
 
                     <th><g:message code="detalleFactura.profesional.label" default="Profesional" /></th>
 
-                    <th><g:message code="detalleFactura.plan.label" default="Plan" /></th>
-
-                    <th><g:message code="detalleFactura.planillaInternacion.label" default="Planilla Internacion" /></th>
+                    <th><g:message code="detalleFactura.planillaInternacion.label" default="Planilla" /></th>
 
                     <g:sortableColumn property="cantidad" title="${message(code: 'detalleFactura.cantidad.label', default: 'Cantidad')}" />
 
@@ -143,6 +141,8 @@
 
                     <th><g:message code="facturacion.funcion" default="Función"/></th>
 
+                    <th><g:message code="detalleCaja.observaciones.label" default="Observaciones"/></th>
+
 
                 </tr>
                 </thead>
@@ -151,8 +151,6 @@
                     <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
                         <td>${fieldValue(bean: detalleFacturaInstance, field: "profesional")}</td>
-
-                        <td>${fieldValue(bean: detalleFacturaInstance, field: "plan")}</td>
 
                         <td>${fieldValue(bean: detalleFacturaInstance, field: "planillaInternacion")}</td>
 
@@ -167,19 +165,23 @@
 
                         <td>${detalleFacturaInstance?.funcion}</td>
 
+                        <td>
+                            ${ (detalleFacturaInstance?.observacion?.size()>=20)? detalleFacturaInstance?.observacion?.substring(0,20) +' ...':detalleFacturaInstance?.observacion}</td>
+
+
                     </tr>
                 </g:each>
                 </tbody>
             </table>
 
-<!--
+
 			<g:form url="[resource:facturaInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${facturaInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+				<!--	<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />  -->
 				</fieldset>
 			</g:form>
-			-->
+
 		</div>
 	</body>
 </html>

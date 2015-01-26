@@ -12,6 +12,9 @@
 
             <g:sortableColumn property="sexo" title="${message(code: 'nacimiento.sexo.label', default: 'Sexo')}" />
 
+<th></th>
+
+            <th></th>
 
         </tr>
         </thead>
@@ -27,6 +30,11 @@
                 <td>${fieldValue(bean: nacimientoInstance, field: "peso_bebe")}</td>
 
                 <td>${fieldValue(bean: nacimientoInstance, field: "sexo")}</td>
+
+                <td><g:link class="linkEdit" controller="nacimiento" action="edit" id="${nacimientoInstance?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+
+
+                <td><g:link class="linkShow" controller="nacimiento" action="show" id="${nacimientoInstance?.id}">${message(code: 'default.button.show.label')}</g:link></td>
 
            </tr>
         </g:each>

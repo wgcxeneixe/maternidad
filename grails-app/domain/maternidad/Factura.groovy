@@ -35,4 +35,10 @@ class Factura {
         }
         return total
     }
+
+
+
+    String toString() { "Nº ${nrofactura}" }
+
+
 }

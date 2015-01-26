@@ -65,6 +65,8 @@ class DetalleCajaController {
             return
         }
 
+        detalleCajaInstance.monto=(params?.monto)? params?.monto as Double :0
+
         detalleCajaInstance.save flush: true
 
         request.withFormat {

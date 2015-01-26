@@ -23,10 +23,10 @@
     </label>
     <!-- No se puede editar si la fecha de cierra ya esta establecida -->
     <g:if test="${cajaDiariaInstanceCerrada == false}">
-        <g:textField name="saldoInicial" value="${fieldValue(bean: cajaDiariaInstance, field: 'saldoInicial')}" required=""/>
+        <g:field type="number" step="any" name="saldoInicial" value="${cajaDiariaInstance?.saldoInicial}" required=""/>
     </g:if>
     <g:else>
-        $ <g:fieldValue bean="${cajaDiariaInstance}" field="saldoInicial"/>
+        $  <g:field type="number" readonly="" step="any" name="saldoInicial" value="${cajaDiariaInstance?.saldoInicial}" />
 
     </g:else>
 </div>
@@ -56,10 +56,10 @@
 	</label>
     <!-- No se puede editar si la fecha de cierra ya esta establecida -->
     <g:if test="${cajaDiariaInstanceCerrada == false}">
-        <g:textField name="saldoFinal"  value="${fieldValue(bean: cajaDiariaInstance, field: 'saldoFinal')}"/>
+        <g:field type="number" step="any" name="saldoFinal"  value="${cajaDiariaInstance?.saldoFinal}"/>
     </g:if>
     <g:else>
-        $ <g:fieldValue bean="${cajaDiariaInstance}" field="saldoFinal"/>
+        $ <g:field type="number" readonly="" step="any" name="saldoFinal"  value="${cajaDiariaInstance?.saldoFinal}"/>
     </g:else>
 </div>
 

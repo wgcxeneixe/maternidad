@@ -49,7 +49,16 @@ class PersonaController {
     }
 
     def edit(Persona personaInstance) {
+
+        if(params?.planilla){
+
+         render( view: 'edit',model: [personaInstance:personaInstance,planilla:params?.planilla])
+
+        }
+
         respond personaInstance
+
+
     }
 
     @Transactional
@@ -69,7 +78,17 @@ class PersonaController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Persona.label', default: 'Persona'), personaInstance.id])
-                redirect personaInstance
+
+
+                if(params?.planilla){
+                 redirect(controller: 'planillaInternacion',action: 'edit',params: [id:params?.planilla])
+                }
+                else {
+                    redirect(controller: 'persona',action: 'index')
+
+                }
+
+               // redirect personaInstance
             }
             '*' { respond personaInstance, [status: OK] }
         }

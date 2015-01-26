@@ -25,7 +25,7 @@
 		<g:message code="cajaDiaria.saldoInicial.label" default="Saldo Inicial" />
 		<span class="required-indicator">*</span>
 	</label>
-    <g:textField name="saldoInicial" value="${fieldValue(bean: cajaDiariaInstance, field: 'saldoInicial')}" required=""/>
+    <g:field type="number" step="any" name="saldoInicial" value="${cajaDiariaInstance?.saldoInicial}" required=""/>
  </div>
 
 <div class="fieldcontain ${hasErrors(bean: cajaDiariaInstance, field: 'observaciones', 'error')} ">

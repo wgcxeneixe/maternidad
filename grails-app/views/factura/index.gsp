@@ -6,14 +6,35 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'factura.label', default: 'Factura')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+
+
+        <script>
+            $(function() {
+
+                //idioma de los calendar
+                jQuery.datepicker.regional[ "es" ];
+                updateDatePicker();
+
+                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                    updateDatePicker();
+                });
+
+                $("#plan").select2({allowClear: true,width: 'resolve'});
+
+
+            })
+
+        </script>
+
+
 	</head>
 	<body>
 		<a href="#list-factura" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 			<!--	<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li> -->
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-                <li><g:link class="Factura" action="abrirPagarFactura"><g:message code="default.new.pagoFactura" default="Pagar Facturas Por Obra Social" args="pagarFacturasPorObraSocial" /></g:link></li>
+				<li><g:link class="create" action="facturar"><g:message code="facturacio.facturar"  /></g:link></li>
+                <li><g:link class="create" action="abrirPagarFactura"><g:message code="default.new.pagoFactura" default="Pagar Facturas Por Obra Social" args="pagarFacturasPorObraSocial" /></g:link></li>
             </ul>
 
         </div>
@@ -22,59 +43,45 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-			<thead>
-					<tr>
-					
 
-						<g:sortableColumn property="fecha" title="${message(code: 'factura.fecha.label', default: 'Fecha')}" />
-					
-						<g:sortableColumn property="nrofactura" title="${message(code: 'factura.nrofactura.label', default: 'Nrofactura')}" />
+            <div class="filters">
+                <g:form action="index">
+
+                    <table >
+                        <tr>
+                            <td> <p><label for="nrofactura">Nº Factura</label>
+                                <g:field type="number" only-num="" name="nrofactura" value="${filters?.nrofactura}" /></p></td>
+                            <td>
+                                <p><label for="plan">Plan</label>
+                                    <g:select id="plan" name="plan" from="${maternidad.Plan.list()}" optionKey="id"  value="" noSelection="['':'']"/>
+                                </p></td>
+                    </tr>
+
+                         <tr>
+                            <td> <p><label for="fechaDesde">Desde</label>
+                                <g:datePicker name="fechaDesde" precision="day"  value="${filters?.fechaDesde}" format="dd-MM-yyyy" /></p></td>
+                            <td> <p><label for="fechaHasta">Hasta</label>
+                                <g:datePicker name="fechaHasta" precision="day"  value="${filters?.fechaHasta}" format="dd-MM-yyyy" /></p></td>
 
 
-                        <g:sortableColumn property="totalFacturado" title="${message(code: 'factura.periodo.label', default: 'Total')}" />
-
-                        <g:sortableColumn property="pagoCompleto" title="${message(code: 'factura.pagoCompleto.label', default: 'Pago Completo')}" />
-
-						<g:sortableColumn property="periodo" title="${message(code: 'factura.periodo.label', default: 'Periodo')}" />
-					
-						<th><g:message code="factura.plan.label" default="Plan" /></th>
-
-                        <g:sortableColumn property="anulada" title="${message(code: 'factura.anulada.label', default: 'Anulada')}" />
+                            <td>
+                                <p><g:submitButton name="filter" value="Filtrar" /></p></td>
+                        </tr>
+                    </table>
 
 
-                        <th></th>
-                        <th></th>
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${facturaInstanceList}" status="i" var="facturaInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-						<td><g:formatDate format="dd-MM-yyyy" date="${facturaInstance.fecha}" /></td>
-					
-						<td>${fieldValue(bean: facturaInstance, field: "nrofactura")}</td>
 
-                        <td>${facturaInstance?.totalFacturado}</td>
+                </g:form>
+            </div>
 
-						<td><g:formatBoolean boolean="${facturaInstance.pagoCompleto}" /></td>
-					
-						<td>${fieldValue(bean: facturaInstance, field: "periodo")}</td>
-					
-						<td>${fieldValue(bean: facturaInstance, field: "plan")}</td>
+            <br />
+            <div id="grid">
+                <g:render template="grilla" model="model" />
+            </div>
+            <br />
 
-                        <td><g:formatBoolean boolean="${facturaInstance?.anulada}"/></td>
 
-                      <!--  <td><g:link class="linkEdit" action="edit" id="${facturaInstance?.id}">${message(code: 'default.button.edit.label')}</g:link></td> -->
-
-                        <td><g:link class="linkShow" action="show" id="${facturaInstance?.id}">${message(code: 'default.button.show.label')}</g:link></td>
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${facturaInstanceCount ?: 0}" />
-			</div>
 		</div>
 	</body>
 </html>

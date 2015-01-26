@@ -42,11 +42,20 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: detalleCajaInstance, field: 'credito', 'error')} ">
-	<label for="credito">
-		<g:message code="detalleCaja.credito.label" default="Credito" />
-		(Crédito)
-	</label>
-	<g:checkBox name="credito" value="${detalleCajaInstance?.credito}" />
+
+<!--	<g:checkBox name="credito" value="${detalleCajaInstance?.credito}" />
+-->
+
+    <label for="ingreso">
+        <g:message code="detalleCaja.tipo.label" default="Credito" />
+    </label>
+    <g:radio name="credito" value="true" checked="true" />
+    <label for="ingreso">
+        <g:message code="detalleCaja.tipo.credito.label" default="Debito" />
+    </label><g:radio name="credito" value="false" />
+
+
+
 
 </div>
 
@@ -55,7 +64,7 @@
 		<g:message code="detalleCaja.monto.label" default="Monto" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="monto" value="${fieldValue(bean: detalleCajaInstance, field: 'monto')}" required=""/>
+	<g:field type="number" step="any" name="monto" value="${fieldValue(bean: detalleCajaInstance, field: 'monto')}" required=""/>
 
 </div>
 

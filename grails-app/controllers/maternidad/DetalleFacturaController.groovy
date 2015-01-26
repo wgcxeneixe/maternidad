@@ -146,6 +146,9 @@ def planConvenio=PlanConvenio.withCriteria {
         detalleFacturaInstance.modulo=Boolean.TRUE
         }
 
+        detalleFacturaInstance.valorGastos=(params?.valorGastos)? params?.valorGastos as Double : 0
+        detalleFacturaInstance.valorHonorarios=(params?.valorHonorarios)? params?.valorHonorarios as Double : 0
+
         detalleFacturaInstance.save flush: true
 
         request.withFormat {

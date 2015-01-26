@@ -93,7 +93,8 @@ class NacimientoController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Nacimiento.label', default: 'Nacimiento'), nacimientoInstance.id])
-                redirect nacimientoInstance
+               // redirect nacimientoInstance
+                redirect(controller: 'planillaInternacion',action: 'edit',params: [id:nacimientoInstance?.planillainternacion?.id])
             }
             '*' { respond nacimientoInstance, [status: OK] }
         }
