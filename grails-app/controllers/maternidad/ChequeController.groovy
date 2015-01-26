@@ -11,10 +11,51 @@ class ChequeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+
+  /*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Cheque.list(params), model: [chequeInstanceCount: Cheque.count()]
     }
+*/
+
+    def index = {
+
+        def query = {
+            if (params.fechaDesde && params.fechaHasta) {
+                between('fechaEmision', params.fechaDesde as Date, params.fechaHasta as Date)
+
+            }
+            if (params.nrocheque) {
+
+                eq('numero', params.nrocheque.toInteger() )
+
+            }
+
+
+
+            if (params.sort){
+                order(params.sort,params.order)
+            }
+        }
+
+        def criteria = Cheque.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        def cheques = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [fechaDesde: params.fechaDesde as Date,fechaHasta:params.fechaHasta as Date,nrocheque:params.nrocheque]
+
+        def model = [chequeInstanceList: cheques, chequeInstanceTotal:cheques?.size(), filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grilla", model: model)
+        }
+        else {
+            model
+        }
+    }
+
+
 
     def show(Cheque chequeInstance) {
         respond chequeInstance
@@ -36,12 +77,14 @@ class ChequeController {
             return
         }
 
+        chequeInstance.monto=(params?.monto)? params?.monto as Double:0
         chequeInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'cheque.label', default: 'Cheque'), chequeInstance.id])
-                redirect chequeInstance
+               // redirect chequeInstance
+                redirect(action: 'index')
             }
             '*' { respond chequeInstance, [status: CREATED] }
         }
@@ -63,12 +106,15 @@ class ChequeController {
             return
         }
 
+        chequeInstance.monto=(params?.monto)? params?.monto as Double:0
         chequeInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Cheque.label', default: 'Cheque'), chequeInstance.id])
-                redirect chequeInstance
+               // redirect chequeInstance
+
+                redirect(action: 'index')
             }
             '*' { respond chequeInstance, [status: OK] }
         }

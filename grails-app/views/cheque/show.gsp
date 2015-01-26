@@ -11,7 +11,7 @@
 		<a href="#show-cheque" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+				<!--<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li> -->
 				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
@@ -36,7 +36,7 @@
 				<li class="fieldcontain">
 					<span id="fechaEmision-label" class="property-label"><g:message code="cheque.fechaEmision.label" default="Fecha Emision" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaEmision-label"><g:formatDate date="${chequeInstance?.fechaEmision}" /></span>
+						<span class="property-value" aria-labelledby="fechaEmision-label"><g:formatDate date="${chequeInstance?.fechaEmision}" format="dd-MM-yyyy" /></span>
 					
 				</li>
 				</g:if>
@@ -45,7 +45,7 @@
 				<li class="fieldcontain">
 					<span id="fechaVencimientoCobro-label" class="property-label"><g:message code="cheque.fechaVencimientoCobro.label" default="Fecha Vencimiento Cobro" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaVencimientoCobro-label"><g:formatDate date="${chequeInstance?.fechaVencimientoCobro}" /></span>
+						<span class="property-value" aria-labelledby="fechaVencimientoCobro-label"><g:formatDate date="${chequeInstance?.fechaVencimientoCobro}" format="dd-MM-yyyy" /></span>
 					
 				</li>
 				</g:if>
@@ -54,7 +54,7 @@
 				<li class="fieldcontain">
 					<span id="fechaRealCobro-label" class="property-label"><g:message code="cheque.fechaRealCobro.label" default="Fecha Real Cobro" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaRealCobro-label"><g:formatDate date="${chequeInstance?.fechaRealCobro}" /></span>
+						<span class="property-value" aria-labelledby="fechaRealCobro-label"><g:formatDate date="${chequeInstance?.fechaRealCobro}" format="dd-MM-yyyy" /></span>
 					
 				</li>
 				</g:if>

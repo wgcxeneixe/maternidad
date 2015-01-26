@@ -11,7 +11,7 @@
 		<a href="#show-facturaProveedor" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+			<!--	<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li> -->
 				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
@@ -36,7 +36,7 @@
 				<li class="fieldcontain">
 					<span id="fechaEmision-label" class="property-label"><g:message code="facturaProveedor.fechaEmision.label" default="Fecha Emision" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaEmision-label"><g:formatDate date="${facturaProveedorInstance?.fechaEmision}" /></span>
+						<span class="property-value" aria-labelledby="fechaEmision-label"><g:formatDate date="${facturaProveedorInstance?.fechaEmision}" format="dd-MM-yyyy" /></span>
 					
 				</li>
 				</g:if>
@@ -45,7 +45,7 @@
 				<li class="fieldcontain">
 					<span id="fechaVencimientoPago-label" class="property-label"><g:message code="facturaProveedor.fechaVencimientoPago.label" default="Fecha Vencimiento Pago" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaVencimientoPago-label"><g:formatDate date="${facturaProveedorInstance?.fechaVencimientoPago}" /></span>
+						<span class="property-value" aria-labelledby="fechaVencimientoPago-label"><g:formatDate date="${facturaProveedorInstance?.fechaVencimientoPago}" format="dd-MM-yyyy" /></span>
 					
 				</li>
 				</g:if>
@@ -54,7 +54,7 @@
 				<li class="fieldcontain">
 					<span id="fechaRealPago-label" class="property-label"><g:message code="facturaProveedor.fechaRealPago.label" default="Fecha Real Pago" /></span>
 					
-						<span class="property-value" aria-labelledby="fechaRealPago-label"><g:formatDate date="${facturaProveedorInstance?.fechaRealPago}" /></span>
+						<span class="property-value" aria-labelledby="fechaRealPago-label"><g:formatDate date="${facturaProveedorInstance?.fechaRealPago}" format="dd-MM-yyyy" /></span>
 					
 				</li>
 				</g:if>

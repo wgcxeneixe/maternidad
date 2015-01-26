@@ -15,7 +15,7 @@
         <g:message code="facturaProveedor.numero.label" default="Numero" />
         <span class="required-indicator">*</span>
     </label>
-    <g:textField name="numero" required="" value="${facturaProveedorInstance?.numero}"/>
+    <g:field type="number" name="numero" required="" value="${facturaProveedorInstance?.numero}"/>
 
 </div>
 
@@ -24,7 +24,7 @@
 		<g:message code="facturaProveedor.monto.label" default="Monto" />
 		
 	</label>
-	<g:field name="monto" value="${fieldValue(bean: facturaProveedorInstance, field: 'monto')}"/>
+	<g:field type="number" step="any" name="monto" value="${facturaProveedorInstance?.monto}"/>
 
 </div>
 

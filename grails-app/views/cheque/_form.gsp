@@ -26,7 +26,7 @@
 		<g:message code="cheque.monto.label" default="Monto" />
 		
 	</label>
-	<g:field name="monto" value="${fieldValue(bean: chequeInstance, field: 'monto')}"/>
+	<g:field type="number" step="any" name="monto" value="${chequeInstance?.monto}"/>
 
 </div>
 
