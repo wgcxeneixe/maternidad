@@ -108,7 +108,7 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="modal.lockme.html" data-toggle="ajaxModal" >Logout</a>
+                    <a href="modal.lockme.html" data-toggle="ajaxModal" >Salir</a>
                 </li>
             </ul>
         </div>
@@ -636,7 +636,7 @@
     <!--  <div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logos.png" alt="Grails"/></a></div> -->
 
 <g:form action="index" controller="logout">
-<g:actionSubmit value="Logout" action="index"/>
+<g:actionSubmit value="Salir" action="index"/>
 </g:form>
  <!--
 <g:link controller="logout" action="index" >Logout</g:link>
