@@ -13,7 +13,7 @@ select setval('sami.seq_tipo_documento', 1, true);
 INSERT INTO sami.estado_civil VALUES (1,0,'Solterazo');
 select setval('sami.seq_estado_civil', 1, true);
 
-INSERT INTO sami.persona VALUES (1,0,'Migueles','Piedras 13','3260',20666666666,'Villaguay',1,1,1,'Matute',66666666,13,true,0,'SINRAZON',1);
+INSERT INTO sami.persona VALUES (1,0,'Gigliotti','Picapiedras 9','3260',20666666666,'Baradero',1,1,1,'Puma',66666666,13,true,0,'SINRAZON',1);
 select setval('sami.seq_persona', 1, true);
 --insert into sami.usuario values (1,0,false,false,true,'',false,1,'Usuario1');
 --insert into sami.usuario values (2,0,false,false,true,'',false,1,'Usuario2');

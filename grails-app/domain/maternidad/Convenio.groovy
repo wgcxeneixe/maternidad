@@ -26,5 +26,5 @@ class Convenio {
 
     }
 
-    String toString() { "${obrasocial?.codigo+': '+fechaFin}" }
+    String toString() { "${codigo}" }
 }
