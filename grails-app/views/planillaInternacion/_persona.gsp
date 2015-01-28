@@ -25,7 +25,7 @@
         <g:message code="persona.tipoDocumento.label" default="Tipo Documento" />
         <span class="required-indicator">*</span>
     </label>
-    <g:select id="tipoDocumento" name="tipoDocumento.id"  from="${maternidad.TipoDocumento.list()}" optionKey="id" required="required" value="${personaInstance?.tipoDocumento?.id}" class="many-to-one"/>
+    <g:select id="tipoDocumento" name="tipoDocumento.id"  from="${maternidad.TipoDocumento.list()}" optionKey="id" required="required" value="${personaInstance?.tipoDocumento?.id}" class="many-to-one" />
 
 </div>
 

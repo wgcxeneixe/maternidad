@@ -89,6 +89,7 @@ class PlanillaInternacionController {
     def createconpaciente() {
         def persona = new Persona()
         persona.nroDocumento = params?.nrodocumento as long
+        persona.tipoDocumento= TipoDocumento.findByNombre("DNI")
         persona.personaFisica = true
 
         render(view: "createconpaciente", model: [planillaInternacionInstance: new PlanillaInternacion(),personaInstance:persona])
