@@ -4,6 +4,7 @@ import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import org.apache.commons.logging.*
 
 
 @Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -100,8 +101,14 @@ class ObraSocialController {
     }
 
     def show(ObraSocial obraSocialInstance) {
+        try{
         respond obraSocialInstance
-    }
+        }
+        catch (e){
+            flash.message = message(code: 'default.catch.message')
+            log.error(e.message)
+        }
+        }
 
     def create() {
         respond new ObraSocial(params)
@@ -109,6 +116,7 @@ class ObraSocialController {
 
     @Transactional
     def save(ObraSocial obraSocialInstance) {
+    try{
         if (obraSocialInstance == null) {
             notFound()
             return
@@ -129,37 +137,54 @@ class ObraSocialController {
             '*' { respond obraSocialInstance, [status: CREATED],view: 'index'  }
         }
     }
+    catch (e){
+        flash.message = message(code: 'default.catch.message')
+        log.error(e.message)
+    }
+    }
 
     def edit(ObraSocial obraSocialInstance) {
-        respond obraSocialInstance
-    }
+        try{
+           respond obraSocialInstance
+        }
+        catch (e){
+            flash.message = message(code: 'default.catch.message')
+            log.error(e.message)
+        }
+     }
 
     @Transactional
     def update(ObraSocial obraSocialInstance) {
-        if (obraSocialInstance == null) {
-            notFound()
-            return
-        }
-
-        if (obraSocialInstance.hasErrors()) {
-            respond obraSocialInstance.errors, view:'edit'
-            return
-        }
-
-        obraSocialInstance.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'ObraSocial.label', default: 'ObraSocial'), obraSocialInstance.id])
-                redirect(action: "index")
+        try {
+            if (obraSocialInstance == null) {
+                notFound()
+                return
             }
-            '*'{ respond obraSocialInstance, [status: OK],view:'index' }
+
+            if (obraSocialInstance.hasErrors()) {
+                respond obraSocialInstance.errors, view: 'edit'
+                return
+            }
+
+            obraSocialInstance.save flush: true
+
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.updated.message', args: [message(code: 'ObraSocial.label', default: 'ObraSocial'), obraSocialInstance.id])
+                    redirect(action: "index")
+                }
+                '*' { respond obraSocialInstance, [status: OK], view: 'index' }
+            }
+        }
+        catch (e){
+            flash.message = message(code: 'default.catch.message')
+            log.error(e.message)
         }
     }
 
     @Transactional
     def delete(ObraSocial obraSocialInstance) {
-
+    /*try{*/
         if (obraSocialInstance == null) {
             notFound()
             return
@@ -174,6 +199,14 @@ class ObraSocialController {
             }
             '*'{ render status: NO_CONTENT }
         }
+        /*}
+
+        catch (e){
+            log.error(e.message)
+            flash.message = message(code: 'default.catch.message')
+            redirect action:"index", method:"GET", controller:"home"
+        }
+        */
     }
 
     protected void notFound() {

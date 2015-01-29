@@ -7,11 +7,14 @@
 	</head>
 	<body>
 		<g:if env="development">
-			<g:renderException exception="${exception}" />
+            <li>Revisar el LOG del sistema.</li>
+            <g:logMsg level="error">ERROR desde Vista</g:logMsg>
+            <!--
+            -->
 		</g:if>
 		<g:else>
 			<ul class="errors">
-				<li>An error has occurred</li>
+				<li>Revisar el LOG del sistema.</li>
 			</ul>
 		</g:else>
 	</body>

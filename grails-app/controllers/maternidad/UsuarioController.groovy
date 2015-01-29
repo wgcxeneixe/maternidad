@@ -83,7 +83,7 @@ class UsuarioController {
             notFound()
             return
         }
-
+        try{
         usuarioInstance.delete flush: true
 
         request.withFormat {
@@ -92,6 +92,14 @@ class UsuarioController {
                 redirect action: "index", method: "GET"
             }
             '*' { render status: NO_CONTENT }
+        }
+        }
+        catch (e){
+            flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'usuario.label', default: 'Usuario'), params.id])}"
+            log.error(e.message)
+            log.error("USUARIO ERROR")
+            log.warn("USUARIO WARN")
+            redirect action: "show", method: "GET", id: usuarioInstance.id
         }
     }
 
