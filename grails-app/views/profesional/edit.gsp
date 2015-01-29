@@ -91,6 +91,8 @@
                 $("#banco").select2({allowClear: true});
                 $("#persona").select2({allowClear: true});
 
+                $("#localidad").select2({allowClear: true});
+
 
                 $("#personaFisica").attr("disabled",true);
 

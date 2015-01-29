@@ -14,11 +14,11 @@ class Localidad {
 	}
 
     static constraints = {
-        nombre(size:3..40,nullable: false,blank: false)
+        nombre(nullable: false,blank: false)
         abreviatura(size:3..10,nullable: true,blank: true)
         codigoPostal(nullable: true,blank: true)
     }
 
-	String toString() { "${nombre} (${provincia.nombre} - ${provincia.pais.codigo})" }
+	String toString() { "${nombre} (${provincia?.nombre} - ${provincia?.pais?.codigo})" }
 
 }

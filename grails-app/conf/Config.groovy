@@ -88,6 +88,7 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.logging.jul.usebridge = true
+
     }
     production {
         grails.logging.jul.usebridge = false
@@ -99,6 +100,12 @@ grails.gorm.default.constraints = {
     '*'(nullable: true)
 }
 
+/*
+def catalinaBase = System.properties.getProperty('catalina.base')
+if(!catalinaBase) catalinaBase = '.'   // just in case
+def logDirectory = "${catalinaBase}/logs"
+*/
+
 // log4j configuration
 log4j.main = {
     // Example of changing the log pattern for the default console appender:
@@ -107,17 +114,44 @@ log4j.main = {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
 
-    error  'org.codehaus.groovy.grails.web.servlet',        // controllers
-           'org.codehaus.groovy.grails.web.pages',          // GSP
-           'org.codehaus.groovy.grails.web.sitemesh',       // layouts
-           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-           'org.codehaus.groovy.grails.web.mapping',        // URL mapping
-           'org.codehaus.groovy.grails.commons',            // core / classloading
-           'org.codehaus.groovy.grails.plugins',            // plugins
-           'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           'net.sf.ehcache.hibernate'
+    appenders {
+        // Use if we want to prevent creation of a stacktrace.log file.
+        'null' name:'stacktrace'
+
+        // Use this if we want to modify the default appender called 'stdout'.
+        console name:'stdout', layout:pattern(conversionPattern: '%d{yyyy-MM-dd HH:mm} -%x- %-5p-%-10c:%m%n')
+
+        rollingFile  name:'infoLog', file:"logs/info.log", threshold: org.apache.log4j.Level.INFO, maxFileSize:1024
+        rollingFile  name:'warnLog', file:"logs/warn.log", threshold: org.apache.log4j.Level.WARN, maxFileSize:1024
+        rollingFile  name:'errorLog', file:"logs/error.log", threshold: org.apache.log4j.Level.ERROR, maxFileSize:1024
+        rollingFile  name:'custom', file:"logs/custom.log", maxFileSize:1024
+    }
+
+
+// This is for the built-in stuff and from the default Grails-1.2.1 config.
+    error 'org.codehaus.groovy.grails.web.servlet',  //  controllers
+            'org.codehaus.groovy.grails.web.pages', //  GSP
+            'org.codehaus.groovy.grails.web.sitemesh', //  layouts
+            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+            'org.codehaus.groovy.grails.web.mapping', // URL mapping
+            'org.codehaus.groovy.grails.commons', // core / classloading
+            'org.codehaus.groovy.grails.plugins', // plugins
+            'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
+            'org.springframework',
+            'org.hibernate',
+            'net.sf.ehcache.hibernate'
+    warn   'org.mortbay.log' // Jetty
+
+    debug 'grails.app' // Set the default log level for our app code.
+
+
+    root {
+        info 'infoLog','warnLog','errorLog','custom', 'stdout'
+        error()
+        additivity = true
+    }
+
+
 }
 grails.views.gsp.encoding="UTF-8"
 
@@ -129,7 +163,7 @@ grails.views.javascript.library="jquery"
 grails.plugin.springsecurity.password.algorithm = 'SHA-256'
 grails.plugin.springsecurity.password.hash.iterations = 1
 
-
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = "/"
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'maternidad.Usuario'
@@ -143,6 +177,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/js/**':                      ['permitAll'],
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],
-	'/**/favicon.ico':                ['permitAll']
+	'/**/favicon.ico':                ['permitAll'],
+    '/**/fonts/**':                     ['permitAll']
 ]
 

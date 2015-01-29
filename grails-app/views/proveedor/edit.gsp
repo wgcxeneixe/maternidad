@@ -5,6 +5,16 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'proveedor.label', default: 'Proveedor')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+
+        <script>
+            $(function() {
+
+
+                $("#localidad").select2({allowClear: true});
+
+            })
+        </script>
+
 	</head>
 	<body>
 		<a href="#edit-proveedor" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
