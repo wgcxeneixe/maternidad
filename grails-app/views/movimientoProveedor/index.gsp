@@ -37,6 +37,8 @@
 
                         <th></th>
                         <th></th>
+
+
 					</tr>
 				</thead>
 				<tbody>
@@ -58,7 +60,9 @@
 
                         <td><g:link class="linkShow" action="show" id="${movimientoProveedorInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
 
-					</tr>
+
+
+                    </tr>
 				</g:each>
 				</tbody>
 			</table>

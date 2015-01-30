@@ -11,12 +11,31 @@
 
 </div>
 
+
+
+<div class="fieldcontain ${hasErrors(bean: movimientoProveedorInstance, field: 'credito', 'error')} ">
+    <label for="credito">
+        <g:message code="movimientoProveedor.credito.label" default="Credito" />
+
+    </label>
+    <g:radio name="credito" value="true" checked="true" />
+
+    <label for="credito">
+        <g:message code="movimientoProveedor.credito.label" default="Débito" />
+
+    </label>
+    <g:radio name="credito" value="false" />
+
+
+</div>
+
+
 <div class="fieldcontain ${hasErrors(bean: movimientoProveedorInstance, field: 'monto', 'error')} ">
 	<label for="monto">
 		<g:message code="movimientoProveedor.monto.label" default="Monto" />
 		
 	</label>
-	<g:field name="monto" value="${fieldValue(bean: movimientoProveedorInstance, field: 'monto')}"/>
+	<g:field type="number" step="any" name="monto" value="${movimientoProveedorInstance?.monto}"/>
 
 </div>
 
@@ -26,15 +45,6 @@
 		
 	</label>
 	<g:datePicker name="fecha" precision="day"  value="${movimientoProveedorInstance?.fecha}" default="none" noSelection="['': '']" />
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: movimientoProveedorInstance, field: 'observacion', 'error')} ">
-	<label for="observacion">
-		<g:message code="movimientoProveedor.observacion.label" default="Observacion" />
-		
-	</label>
-	<g:textArea name="observacion" cols="40" rows="5" maxlength="5000" value="${movimientoProveedorInstance?.observacion}"/>
 
 </div>
 
@@ -74,19 +84,14 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: movimientoProveedorInstance, field: 'credito', 'error')} ">
-	<label for="credito">
-		<g:message code="movimientoProveedor.credito.label" default="Credito" />
-		
-	</label>
-    <g:radio name="credito" value="true" checked="true" />
 
-    <label for="credito">
-        <g:message code="movimientoProveedor.credito.label" default="Débito" />
+
+<div class="fieldcontain ${hasErrors(bean: movimientoProveedorInstance, field: 'observacion', 'error')} ">
+    <label for="observacion">
+        <g:message code="movimientoProveedor.observacion.label" default="Observacion" />
 
     </label>
- <g:radio name="credito" value="false" />
-
+    <g:textArea name="observacion" cols="40" rows="5" maxlength="5000" value="${movimientoProveedorInstance?.observacion}"/>
 
 </div>
 
