@@ -17,6 +17,7 @@
 
         <th></th>
         <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -39,7 +40,9 @@
 
             <td><g:link class="linkShow" action="show" id="${proveedorInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
 
+            <td><g:link class="linkCrearMovimiento" controller="movimientoProveedor"  action="create" id="${proveedorInstance?.id}">${message(code: 'producto.agregarMovimiento')}</g:link></td>
 
+            <td><g:link controller="movimientoProveedor" action="cuentaCorriente" id="${proveedorInstance.id}">${message(code: 'banco.cuentacorriente')}</g:link></td>
 
         </tr>
     </g:each>

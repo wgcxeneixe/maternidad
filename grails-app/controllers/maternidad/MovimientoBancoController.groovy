@@ -11,10 +11,64 @@ class MovimientoBancoController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+
+    /*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond MovimientoBanco.list(params), model: [movimientoBancoInstanceCount: MovimientoBanco.count()]
     }
+    */
+
+
+    def index (Integer max) {
+
+        /*  if (!springSecurityService.isLoggedIn()){
+              redirect(controller: 'login', action: "auth")
+          }
+  */
+        def query = {
+            if (params.fechaDesde && params.fechaHasta) {
+                between('fecha', params.fechaDesde, params.fechaHasta)
+            }
+            if (params.banco) {
+                banco{  eq('id',params.banco.toLong()) }
+            }
+
+            if (params.concepto) {
+                conceptoBanco{ eq('id',params.concepto.toLong())}
+
+            }
+
+
+            if (params.tipoPago) {
+                tipoPago{ eq('id',params.tipoPago.toLong())}
+
+            }
+
+
+            if (params.sort){
+                order(params.sort,params.order)
+            }
+        }
+
+        def criteria = MovimientoBanco.createCriteria()
+        // params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        params.max = Math.min(max ?: 10, 100)
+        def movimientos = criteria.list(query, max: params.max, offset: params.offset).unique()
+        def filters = [fechaDesde: params.fechaDesde,fechaHasta: params.fechaHasta,banco:params.banco,concepto:params.concepto,tipoPago:params.tipoPago]
+
+
+        def model = [movimientoBancoInstanceList: movimientos, movimientoBancoInstanceCount:movimientos.totalCount, filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grilla", model: model)
+        }
+        else {
+            model
+        }
+    }
+
 
     def show(MovimientoBanco movimientoBancoInstance) {
         respond movimientoBancoInstance

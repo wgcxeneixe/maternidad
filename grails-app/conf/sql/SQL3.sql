@@ -1157,3 +1157,10 @@ select setval('sami.seq_usuario', 2, true);
 INSERT INTO sami.usuario_rol (rol_id, usuario_id) VALUES (1, 1);
 INSERT INTO sami.usuario_rol (rol_id, usuario_id) VALUES (2, 2);
 --select setval('sami.seq_usuario_rol', 2, true);
+
+INSERT INTO sami.tipo_pago VALUES (1, 0, 'EFECTIVO', 'EFECTIVO');
+INSERT INTO sami.tipo_pago VALUES (2, 0, 'TRANSFERENCIA', 'TRANSFERENCIA');
+INSERT INTO sami.tipo_pago VALUES (3, 0, 'CHEQUE', 'CHEQUE');
+
+select setval('sami.seq_tipo_pago', 3, true);
+

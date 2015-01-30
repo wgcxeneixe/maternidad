@@ -74,9 +74,10 @@
 
 
 
-        <g:if test="params.id">
+        <g:if test="${params?.id}">
             <script>
                 $(function() {
+
 
                     $('#banco').change(function(e){
 
@@ -93,6 +94,17 @@
             </script>
 
         </g:if>
+    <g:else >
+        <script>
+            $(function() {
+
+                $("#banco").removeAttr("disabled");
+
+
+            })
+        </script>
+
+    </g:else>
 
 </div>
 </body>
