@@ -101,14 +101,8 @@ class ObraSocialController {
     }
 
     def show(ObraSocial obraSocialInstance) {
-        try{
-        respond obraSocialInstance
-        }
-        catch (e){
-            flash.message = message(code: 'default.catch.message')
-            log.error(e.message)
-        }
-        }
+              respond obraSocialInstance
+           }
 
     def create() {
         respond new ObraSocial(params)
@@ -116,7 +110,7 @@ class ObraSocialController {
 
     @Transactional
     def save(ObraSocial obraSocialInstance) {
-    try{
+
         if (obraSocialInstance == null) {
             notFound()
             return
@@ -136,26 +130,15 @@ class ObraSocialController {
             }
             '*' { respond obraSocialInstance, [status: CREATED],view: 'index'  }
         }
-    }
-    catch (e){
-        flash.message = message(code: 'default.catch.message')
-        log.error(e.message)
-    }
-    }
+      }
 
     def edit(ObraSocial obraSocialInstance) {
-        try{
-           respond obraSocialInstance
-        }
-        catch (e){
-            flash.message = message(code: 'default.catch.message')
-            log.error(e.message)
-        }
+                   respond obraSocialInstance
      }
 
     @Transactional
     def update(ObraSocial obraSocialInstance) {
-        try {
+
             if (obraSocialInstance == null) {
                 notFound()
                 return
@@ -175,16 +158,11 @@ class ObraSocialController {
                 }
                 '*' { respond obraSocialInstance, [status: OK], view: 'index' }
             }
-        }
-        catch (e){
-            flash.message = message(code: 'default.catch.message')
-            log.error(e.message)
-        }
     }
 
     @Transactional
     def delete(ObraSocial obraSocialInstance) {
-    /*try{*/
+
         if (obraSocialInstance == null) {
             notFound()
             return
@@ -199,14 +177,7 @@ class ObraSocialController {
             }
             '*'{ render status: NO_CONTENT }
         }
-        /*}
 
-        catch (e){
-            log.error(e.message)
-            flash.message = message(code: 'default.catch.message')
-            redirect action:"index", method:"GET", controller:"home"
-        }
-        */
     }
 
     protected void notFound() {

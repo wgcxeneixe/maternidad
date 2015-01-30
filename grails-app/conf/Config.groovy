@@ -146,7 +146,9 @@ log4j.main = {
 
 
     root {
-        info 'infoLog','warnLog','errorLog','custom', 'stdout'
+        //info 'infoLog','stdout'
+        error 'errorLog'
+        //warn 'warnLog'
         error()
         additivity = true
     }
