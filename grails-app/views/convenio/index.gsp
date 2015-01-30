@@ -40,15 +40,9 @@
                             <td>
                                 <p><g:submitButton name="filter" value="Filtrar" /></p></td>
                         </tr>
-                    </table>
-
-
-
-
-                </g:form>
+                    </table>          </g:form>
             </div>
 
-            <br />
             <div id="grid">
                 <g:render template="grilla" model="model" />
             </div>

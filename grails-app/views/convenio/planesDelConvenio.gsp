@@ -12,7 +12,7 @@
 <div class="nav" role="navigation">
     <ul>
      <!--   <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
-        <li><g:link class="create" controller="plan" id="${convenio.id}" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+            <li><g:link class="list" action="index"><g:message code="convenio.list.label" args="[entityName]" /></g:link></li>
     </ul>
 </div>
 <div id="list-planConvenio" class="content scaffold-list" role="main">
@@ -39,8 +39,8 @@ Convenio
 
             <th></th>
             <th></th>
+            <!--<th></th> PARA EL CASO DE LOS GALENOS DESCOMENTAR -->
             <th></th>
-<th></th>
         </tr>
         </thead>
         <tbody>
@@ -58,17 +58,6 @@ Convenio
                 <td><g:link class="linkEdit" controller="convenio" action="editPlan" id="${planConvenio?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
 
                 <td><g:link class="linkShow" controller="convenio" action="showPlan" id="${planConvenio?.id}">${message(code: 'default.button.show.label')}</g:link></td>
-
-             <!--   <td><g:link controller="valorGalenoGasto" action="asignarValorGalenoGasto" id="${planConvenio?.id}">Galenos de Gastos</g:link>
-              |  <g:link controller="valorGalenoHonorario" action="asignarValorGalenoHonorario" id="${planConvenio?.id}">Galenos de Honorario</g:link>
-                </td>
-<td>
-<g:link controller="practica" action="verModulos" id="${planConvenio?.id}" >Modulos</g:link>
-</td>
-<td>
-    <g:link controller="practica" action="createModulo" id="${planConvenio?.id}" >Crear Modulo</g:link>
-</td>
--->
 
                 <td><g:link class="linkDesasociar" controller="convenio" action="desasociarPlan" id="${planConvenio?.id}">${message(code: 'convenio.desasociarPlan')}</g:link></td>
 
@@ -88,12 +77,9 @@ Convenio
 
             <g:sortableColumn property="observacion" title="${message(code: 'plan.observacion.label', default: 'Observacion')}" />
 
-
-            <th>${message(code: 'plan.observacion.label', default: 'Observacion')}</th>
-
-
             <g:sortableColumn property="activo" title="${message(code: 'plan.activo.label', default: 'Activo')}" />
 
+            <th></th>
             <th></th>
             <th></th>
         </tr>
@@ -138,9 +124,6 @@ Convenio
                 <td><g:link class="linkAsociar" controller="convenio" action="asociarPlan" id="${plan?.id}" params="[convenio:convenio.id]">${message(code: 'convenio.asociarPlan')}</g:link></td>
             </tr>
         </g:each>
-
-
-
         </tbody>
     </table>
 
