@@ -4,18 +4,6 @@
 <head>
     <meta name="layout" content="main">
 
-    <script>
-        $(function() {
-
-
-
-            // $("#obrasocial").attr('readonly',true).select2({allowClear: true});
-            $("#obrasocial").attr('readonly',true);
-
-        })
-
-    </script>
-
     <g:set var="entityName" value="${message(code: 'plan.label', default: 'Plan')}" />
     <title><g:message code="default.edit.label" args="[entityName]" /></title>
 </head>
@@ -210,5 +198,18 @@
 
     </script>
 </div>
+
+<script>
+    $(function() {
+
+
+
+        // $("#obrasocial").attr('readonly',true).select2({allowClear: true});
+        jQuery("#obrasocial").attr('readonly',true);
+
+    })
+
+</script>
+
 </body>
 </html>

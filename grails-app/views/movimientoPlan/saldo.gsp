@@ -4,23 +4,6 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'movimientoPlan.label', default: 'MovimientoPlan')}" />
 
-    <script>
-        $(function() {
-
-            //idioma de los calendar
-            jQuery.datepicker.regional[ "es" ];
-            updateDatePicker();
-
-            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                updateDatePicker();
-            });
-
-
-            $("#plan").select2({allowClear: true});
-
-        })
-
-    </script>
 
     <title><g:message code="default.create.label" args="[entityName]" /></title>
 </head>
@@ -81,5 +64,24 @@
     </fieldset>
 
 </div>
+<script>
+    $(function() {
+
+        //idioma de los calendar
+        jQuery.datepicker.regional[ "es" ];
+        updateDatePicker();
+
+        jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+            updateDatePicker();
+        });
+
+
+        jQuery("#plan").select2({allowClear: true});
+
+    })
+
+</script>
+
+
 </body>
 </html>

@@ -80,15 +80,15 @@
       <script>
           $(function() {
 
-              $('#producto').change(function(e){
+              jQuery('#producto').change(function(e){
 
-                  $("#producto").val('${params.id}');
-                  $("#producto").prop("disabled", true);
+                  jQuery("#producto").val('${params.id}');
+                  jQuery("#producto").prop("disabled", true);
                   // $("#filaoculta").hide();
               });
 
               // And now fire change event when the DOM is ready
-              $('#producto').trigger('change');
+              jQuery('#producto').trigger('change');
 
 
           })

@@ -3,26 +3,7 @@
 <head>
     <meta name="layout" content="main">
 
-    <script>
 
-        var loop=0;
-
-        $(function() {
-
-            $("#agregar").on("click", function(e) {
-                loop=loop+1;
-                e.preventDefault();
-                $.get("/maternidad/practica/renderizar", { loop: loop }, function(html) {
-                    $("#myTable>tbody").append(html);
-                });
-            });
-
-            $("#obrasocial").select2({allowClear: true});
-
-
-        })
-
-    </script>
 
     <g:set var="entityName" value="${message(code: 'practica.label', default: 'Módulo')}" />
     <title><g:message code="default.edit.label" args="[entityName]" /></title>
@@ -164,5 +145,26 @@
 
 
 </div>
+<script>
+
+    var loop=0;
+
+    $(function() {
+
+        jQuery("#agregar").on("click", function(e) {
+            loop=loop+1;
+            e.preventDefault();
+            jQuery.get("/maternidad/practica/renderizar", { loop: loop }, function(html) {
+                jQuery("#myTable>tbody").append(html);
+            });
+        });
+
+        jQuery("#obrasocial").select2({allowClear: true});
+
+
+    })
+
+</script>
+
 </body>
 </html>

@@ -3,23 +3,7 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'convenio.label', default: 'Convenio')}" />
-        <script>
-            $(function() {
 
-                //idioma de los calendar
-                 jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-               $("#obrasocial").select2({allowClear: true});
-
-
-            })
-
-        </script>
         <title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
@@ -51,5 +35,24 @@
 				</fieldset>
 			</g:form>
 		</div>
-	</body>
+
+    <script>
+        $(function() {
+
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+            jQuery("#obrasocial").select2({allowClear: true});
+
+
+        })
+
+    </script>
+
+    </body>
 </html>

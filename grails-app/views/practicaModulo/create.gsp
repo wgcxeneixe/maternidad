@@ -3,16 +3,7 @@
 	<head>
 		<meta name="layout" content="main">
 
-        <script>
-            $(function() {
 
-
-                 $("#practica").attr('readonly',true).select2({allowClear: true});
-                //$("#obrasocial").attr('readonly',true);
-
-            })
-
-        </script>
 
         <g:set var="entityName" value="${message(code: 'practicaModulo.label', default: 'PracticaModulo')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
@@ -46,5 +37,17 @@
 				</fieldset>
 			</g:form>
 		</div>
+
+    <script>
+        $(function() {
+
+
+            jQuery("#practica").attr('readonly',true).select2({allowClear: true});
+            //$("#obrasocial").attr('readonly',true);
+
+        })
+
+    </script>
+
 	</body>
 </html>

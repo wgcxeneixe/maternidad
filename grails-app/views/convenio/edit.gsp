@@ -6,23 +6,6 @@
 		<g:set var="entityName" value="${message(code: 'convenio.label', default: 'Convenio')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 
-        <script>
-            $(function() {
-
-                //idioma de los calendar
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-               // $("#obrasocial").attr('readonly',true).select2({allowClear: true});
-                $("#obrasocial").attr('readonly',true);
-
-            })
-
-        </script>
 
 	</head>
 	<body>
@@ -56,5 +39,25 @@
 				</fieldset>
 			</g:form>
 		</div>
-	</body>
+
+    <script>
+        $(function() {
+
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+            // $("#obrasocial").attr('readonly',true).select2({allowClear: true});
+            jQuery("#obrasocial").attr('readonly',true);
+
+        })
+
+    </script>
+
+
+    </body>
 </html>

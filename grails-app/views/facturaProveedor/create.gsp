@@ -4,23 +4,6 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'facturaProveedor.label', default: 'FacturaProveedor')}" />
 
-        <script>
-            $(function() {
-
-                //idioma de los calendar
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-                  $("#proveedor").select2({allowClear: true});
-
-
-            })
-
-        </script>
 
         <title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
@@ -53,5 +36,24 @@
 				</fieldset>
 			</g:form>
 		</div>
-	</body>
+    <script>
+        $(function() {
+
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+            jQuery("#proveedor").select2({allowClear: true});
+
+
+        })
+
+    </script>
+
+
+    </body>
 </html>

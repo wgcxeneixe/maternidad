@@ -7,23 +7,6 @@
 		<g:set var="entityName" value="${message(code: 'movimientoBanco.label', default: 'MovimientoBanco')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 
-        <script>
-            jQuery(function() {
-
-
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-
-
-
-
-            })
-        </script>
 
 
 	</head>
@@ -93,5 +76,25 @@
 
 
         </div>
-	</body>
+
+    <script>
+        jQuery(function() {
+
+
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+
+
+
+
+        })
+    </script>
+
+
+    </body>
 </html>

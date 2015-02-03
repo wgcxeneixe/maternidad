@@ -4,14 +4,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'detalleCaja.label', default: 'DetalleCaja')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
-        <script>
-            $(function() {
-                //Selector para planilla de internacion
-                $("#planillainternacion").select2({allowClear: true});
-                //Selector para Concepto
-                $("#conceptocaja").select2({allowClear: true});
-            })
-        </script>
+
 	</head>
 	<body>
 		<a href="#create-detalleCaja" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -42,5 +35,14 @@
 				</fieldset>
 			</g:form>
 		</div>
+
+    <script>
+        $(function() {
+            //Selector para planilla de internacion
+            jQuery("#planillainternacion").select2({allowClear: true});
+            //Selector para Concepto
+            jQuery("#conceptocaja").select2({allowClear: true});
+        })
+    </script>
 	</body>
 </html>

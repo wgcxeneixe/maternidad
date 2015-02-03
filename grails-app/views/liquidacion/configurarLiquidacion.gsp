@@ -35,10 +35,10 @@
         });
 
         $(function () {
-            $("conceptos").multiselect({
+            jQuery("conceptos").multiselect({
                 selectedList: 4
             });
-            $("conceptos").multiselect().multiselectfilter();
+            jQuery("conceptos").multiselect().multiselectfilter();
 
         });
     </script>

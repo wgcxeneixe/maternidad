@@ -4,23 +4,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'cheque.label', default: 'Cheque')}" />
 
-        <script>
-            $(function() {
 
-                //idioma de los calendar
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-             //   $("#obrasocial").select2({allowClear: true});
-
-
-            })
-
-        </script>
 
         <title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
@@ -53,5 +37,24 @@
 				</fieldset>
 			</g:form>
 		</div>
+
+    <script>
+        $(function() {
+
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+            //   $("#obrasocial").select2({allowClear: true});
+
+
+        })
+
+    </script>
+
 	</body>
 </html>

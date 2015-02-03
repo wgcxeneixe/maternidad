@@ -3,7 +3,7 @@
 <g:each in="${loopCount}" var="idx">
     <script>
   var idx='${idx}';
-        $("#practica"+idx).select2({allowClear: true});
+        jQuery("#practica"+idx).select2({allowClear: true});
 
     </script>
     <tr>

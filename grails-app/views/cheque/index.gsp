@@ -9,22 +9,6 @@
 
 
 
-        <script>
-            $(function() {
-
-                //idioma de los calendar
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-
-            })
-
-        </script>
-
 
 
     </head>
@@ -78,5 +62,23 @@
 
 
         </div>
-	</body>
+
+    <script>
+        $(function() {
+
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+
+        })
+
+    </script>
+
+
+    </body>
 </html>

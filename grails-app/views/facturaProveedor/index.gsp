@@ -8,23 +8,6 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 
 
-        <script>
-            $(function() {
-
-                //idioma de los calendar
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-                $("#proveedor").select2({allowClear: true,width: 'resolve'});
-
-
-            })
-
-        </script>
 
 	</head>
 	<body>
@@ -82,5 +65,25 @@
 
 
         </div>
-	</body>
+
+    <script>
+        $(function() {
+
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+            jQuery("#proveedor").select2({allowClear: true,width: 'resolve'});
+
+
+        })
+
+    </script>
+
+
+    </body>
 </html>

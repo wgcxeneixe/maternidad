@@ -4,33 +4,7 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'factura.label', default: 'Factura')}" />
     <title><g:message code="default.create.label" args="[entityName]" /></title>
-    <script>
-        $(function() {
 
-
-            $("#seleccionar").change(function(){
-                var checkboxes = $(this).closest('form').find(':checkbox');
-                if($(this).is(':checked')) {
-                    checkboxes.prop('checked', true);
-                } else {
-                    checkboxes.prop('checked', false);
-                }
-            });
-
-            //idioma de los calendar
-           $.datepicker.regional[ "es" ];
-            updateDatePicker();
-
-            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                updateDatePicker();
-            });
-
-            // $("#obrasocial").attr('readonly',true).select2({allowClear: true});
-            $("#obrasocial").attr('readonly',true);
-
-        })
-
-    </script>
 </head>
 <body>
 <a href="#create-factura" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -154,5 +128,32 @@
 
 
 </div>
+<script>
+    jQuery(function() {
+
+
+        jQuery("#seleccionar").change(function(){
+            var checkboxes = jQuery(this).closest('form').find(':checkbox');
+            if(jQuery(this).is(':checked')) {
+                checkboxes.prop('checked', true);
+            } else {
+                checkboxes.prop('checked', false);
+            }
+        });
+
+        //idioma de los calendar
+        jQuery.datepicker.regional[ "es" ];
+        updateDatePicker();
+
+        jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+            updateDatePicker();
+        });
+
+        // jQuery("#obrasocial").attr('readonly',true).select2({allowClear: true});
+        jQuery("#obrasocial").attr('readonly',true);
+
+    })
+
+</script>
 </body>
 </html>

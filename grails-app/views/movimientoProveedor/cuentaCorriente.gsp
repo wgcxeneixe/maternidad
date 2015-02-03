@@ -79,15 +79,15 @@
             $(function() {
 
 
-                $('#proveedor').change(function(e){
+                jQuery('#proveedor').change(function(e){
 
-                    $("#proveedor").val('${params.id}');
-                    $("#proveedor").prop("disabled", true);
+                    jQuery("#proveedor").val('${params.id}');
+                    jQuery("#proveedor").prop("disabled", true);
                     // $("#filaoculta").hide();
                 });
 
                 // And now fire change event when the DOM is ready
-                $('#proveedor').trigger('change');
+                jQuery('#proveedor').trigger('change');
 
 
             })
@@ -98,7 +98,7 @@
         <script>
             $(function() {
 
-                $("#proveedor").removeAttr("disabled");
+                jQuery("#proveedor").removeAttr("disabled");
 
 
             })

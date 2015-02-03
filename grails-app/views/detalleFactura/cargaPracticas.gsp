@@ -5,283 +5,7 @@
     <g:set var="entityName" value="${message(code: 'detalleFactura.label', default: 'DetalleFactura')}" />
     <title><g:message code="planillainternacion.cargadepracticas"  /></title>
 
-    <script>
-        $(function() {
-
-/*
-$("#boton").click(function(e){
-
-    e.preventDefault();
-
-  var valorfuncion=  $("#funcion").val();
-
-    if (valorfuncion==0){
-
-        alert("seleccione una función");
-
-
-    }
-    else {
-
-        $("#formulario").submit();
-
-    }
-
-});
-*/
-
-
-           var valorHonorarios= $("#valorHonorarios");
-            var valorGastos= $("#valorGastos");
-
-            var divgasto= $("#divgasto");
-            var divhonorario= $("#divhonorario");
-
-            $("#planillaInternacion").select2({allowClear: true});
-            $("#profesional").select2({allowClear: true});
-            $("#practica").select2({allowClear: true});
-
-            var funcion = $("#funcion").val();
-
-            valorHonorarios.prop('readonly', true);
-            valorGastos.prop('readonly', true);
-
-            if (funcion == 10) {
-                divhonorario.show();
-                divgasto.hide();
-            }
-
-            if (funcion == 20) {
-
-                divhonorario.show();
-                divgasto.hide();
-            }
-
-            if (funcion == 30) {
-
-                divhonorario.show();
-                divgasto.hide();
-            }
-
-
-            if (funcion == 60) {
-
-                divgasto.show();
-                divhonorario.hide();
-            }
-
-            if (funcion == 70) {
-                divgasto.show();
-                divhonorario.show();
-            }
-
-
-            if (funcion == 91) {
-                divgasto.show();
-                divhonorario.show();
-                valorHonorarios.prop('readonly', false);
-                valorGastos.prop('readonly', false);
-            }
-
-
-            $("#funcion").change(function() {
-                //  alert($(this).val());
-                var funcion = $(this).val();
-                var practica = $("#practica").val();
-
-
-
-                if( funcion!=''){
-
-                $.ajax({
-                    url: "${g.createLink(controller:'detalleFactura',action:'obtenerValores')}",
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        plan: "${detalleFacturaInstance?.plan?.id}",
-                        practica: practica,
-                        funcion: funcion
-                    },
-                    success: function (data) {
-
-                        var hon=data.honorario;
-
-                        //hon=("" + hon).replace(/./g, ',');
-
-                    //    hon=("" + hon).replace('.', ',');
-
-                        var gas=data.gasto;
-
-                 //       gas=("" + gas).replace(/./g, ',');
-                     //   gas=("" + gas).replace('.', ',');
-
-                        if (funcion == 10) {
-                            valorHonorarios.val(hon);
-                            divhonorario.show();
-                            divgasto.hide();
-                        }
-
-                        if (funcion == 20) {
-                            //valorHonorarios.val(data.honorario);
-                            valorHonorarios.val(hon);
-                            divhonorario.show();
-                            divgasto.hide();
-                        }
-
-                        if (funcion == 30) {
-                            valorHonorarios.val(hon);
-                            divhonorario.show();
-                            divgasto.hide();
-                        }
-
-
-                        if (funcion == 60) {
-                            valorGastos.val(gas);
-                            divgasto.show();
-                            divhonorario.hide();
-                        }
-
-                        if (funcion == 70) {
-                            valorGastos.val(gas);
-                            valorHonorarios.val(hon);
-                            divgasto.show();
-                            divhonorario.show();
-                        }
-
-                        if (funcion == 91) {
-                           // valorGastos.val(data.gasto);
-                           // valorHonorarios.val(data.honorario);
-                            divgasto.show();
-                            divhonorario.show();
-                            valorHonorarios.prop('readonly', false);
-                            valorGastos.prop('readonly', false);
-                        }
-
-
-                    },
-                    error: function (request, status, error) {
-                        alert(error)
-                    },
-                    complete: function () {
-                    }
-                });
-
-            }
-
-
-            });
-
-
-
-            $("#practica").change(function() {
-                //  alert($(this).val());
-                var funcion = $("#funcion").val();
-                var practica =  $(this).val();
-
-
-
-                if(funcion!=''){
-
-                    $.ajax({
-                        url: "${g.createLink(controller:'detalleFactura',action:'obtenerValores')}",
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            plan: "${detalleFacturaInstance?.plan?.id}",
-                            practica: practica,
-                            funcion: funcion
-                        },
-                        success: function (data) {
-
-                            var hon=data.honorario;
-
-                            //hon=("" + hon).replace(/./g, ',');
-
-                            hon=("" + hon).replace('.', ',');
-
-                            var gas=data.gasto;
-
-                            //       gas=("" + gas).replace(/./g, ',');
-                            gas=("" + gas).replace('.', ',');
-
-                            if (funcion == 10) {
-                                valorHonorarios.val(hon);
-                                divhonorario.show();
-                                divgasto.hide();
-                            }
-
-                            if (funcion == 20) {
-                                //valorHonorarios.val(data.honorario);
-                                valorHonorarios.val(hon);
-                                divhonorario.show();
-                                divgasto.hide();
-                            }
-
-                            if (funcion == 30) {
-                                valorHonorarios.val(hon);
-                                divhonorario.show();
-                                divgasto.hide();
-                            }
-
-
-                            if (funcion == 60) {
-                                valorGastos.val(gas);
-                                divgasto.show();
-                                divhonorario.hide();
-                            }
-
-                            if (funcion == 70) {
-                                valorGastos.val(gas);
-                                valorHonorarios.val(hon);
-                                divgasto.show();
-                                divhonorario.show();
-                            }
-
-                            if (funcion == 91) {
-                                // valorGastos.val(data.gasto);
-                                // valorHonorarios.val(data.honorario);
-                                divgasto.show();
-                                divhonorario.show();
-                                valorHonorarios.prop('readonly', false);
-                                valorGastos.prop('readonly', false);
-                            }
-
-
-                        },
-                        error: function (request, status, error) {
-                            alert(error)
-                        },
-                        complete: function () {
-                        }
-                    });
-
-                }
-
-
-            });
-
-
-            $("#valorGastos,#valorHonorarios").keydown(function (e) {
-                // Allow: backspace, delete, tab, escape, enter and .
-                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190,188]) !== -1 ||
-                    // Allow: Ctrl+A
-                        (e.keyCode == 65 && e.ctrlKey === true) ||
-                    // Allow: home, end, left, right
-                        (e.keyCode >= 35 && e.keyCode <= 39)) {
-                    // let it happen, don't do anything
-                    return;
-                }
-                // Ensure that it is a number and stop the keypress
-                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                    e.preventDefault();
-                }
-            });
-
-
-
-        })
-
-    </script>
+ 
 
 </head>
 <body>
@@ -478,6 +202,287 @@ $("#boton").click(function(e){
     </div>
 -->
 
+    
+    
 </div>
+
+<script>
+    jQuery(function() {
+
+        /*
+         jQuery("#boton").click(function(e){
+
+         e.preventDefault();
+
+         var valorfuncion=  jQuery("#funcion").val();
+
+         if (valorfuncion==0){
+
+         alert("seleccione una función");
+
+
+         }
+         else {
+
+         jQuery("#formulario").submit();
+
+         }
+
+         });
+         */
+
+
+        var valorHonorarios= jQuery("#valorHonorarios");
+        var valorGastos= jQuery("#valorGastos");
+
+        var divgasto= jQuery("#divgasto");
+        var divhonorario= jQuery("#divhonorario");
+
+        jQuery("#planillaInternacion").select2({allowClear: true});
+        jQuery("#profesional").select2({allowClear: true});
+        jQuery("#practica").select2({allowClear: true});
+
+        var funcion = jQuery("#funcion").val();
+
+        valorHonorarios.prop('readonly', true);
+        valorGastos.prop('readonly', true);
+
+        if (funcion == 10) {
+            divhonorario.show();
+            divgasto.hide();
+        }
+
+        if (funcion == 20) {
+
+            divhonorario.show();
+            divgasto.hide();
+        }
+
+        if (funcion == 30) {
+
+            divhonorario.show();
+            divgasto.hide();
+        }
+
+
+        if (funcion == 60) {
+
+            divgasto.show();
+            divhonorario.hide();
+        }
+
+        if (funcion == 70) {
+            divgasto.show();
+            divhonorario.show();
+        }
+
+
+        if (funcion == 91) {
+            divgasto.show();
+            divhonorario.show();
+            valorHonorarios.prop('readonly', false);
+            valorGastos.prop('readonly', false);
+        }
+
+
+        jQuery("#funcion").change(function() {
+            //  alert(jQuery(this).val());
+            var funcion = jQuery(this).val();
+            var practica = jQuery("#practica").val();
+
+
+
+            if( funcion!=''){
+
+                jQuery.ajax({
+                    url: "${g.createLink(controller:'detalleFactura',action:'obtenerValores')}",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        plan: "${detalleFacturaInstance?.plan?.id}",
+                        practica: practica,
+                        funcion: funcion
+                    },
+                    success: function (data) {
+
+                        var hon=data.honorario;
+
+                        //hon=("" + hon).replace(/./g, ',');
+
+                        //    hon=("" + hon).replace('.', ',');
+
+                        var gas=data.gasto;
+
+                        //       gas=("" + gas).replace(/./g, ',');
+                        //   gas=("" + gas).replace('.', ',');
+
+                        if (funcion == 10) {
+                            valorHonorarios.val(hon);
+                            divhonorario.show();
+                            divgasto.hide();
+                        }
+
+                        if (funcion == 20) {
+                            //valorHonorarios.val(data.honorario);
+                            valorHonorarios.val(hon);
+                            divhonorario.show();
+                            divgasto.hide();
+                        }
+
+                        if (funcion == 30) {
+                            valorHonorarios.val(hon);
+                            divhonorario.show();
+                            divgasto.hide();
+                        }
+
+
+                        if (funcion == 60) {
+                            valorGastos.val(gas);
+                            divgasto.show();
+                            divhonorario.hide();
+                        }
+
+                        if (funcion == 70) {
+                            valorGastos.val(gas);
+                            valorHonorarios.val(hon);
+                            divgasto.show();
+                            divhonorario.show();
+                        }
+
+                        if (funcion == 91) {
+                            // valorGastos.val(data.gasto);
+                            // valorHonorarios.val(data.honorario);
+                            divgasto.show();
+                            divhonorario.show();
+                            valorHonorarios.prop('readonly', false);
+                            valorGastos.prop('readonly', false);
+                        }
+
+
+                    },
+                    error: function (request, status, error) {
+                        alert(error)
+                    },
+                    complete: function () {
+                    }
+                });
+
+            }
+
+
+        });
+
+
+
+        jQuery("#practica").change(function() {
+            //  alert(jQuery(this).val());
+            var funcion = jQuery("#funcion").val();
+            var practica =  jQuery(this).val();
+
+
+
+            if(funcion!=''){
+
+                jQuery.ajax({
+                    url: "${g.createLink(controller:'detalleFactura',action:'obtenerValores')}",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        plan: "${detalleFacturaInstance?.plan?.id}",
+                        practica: practica,
+                        funcion: funcion
+                    },
+                    success: function (data) {
+
+                        var hon=data.honorario;
+
+                        //hon=("" + hon).replace(/./g, ',');
+
+                        hon=("" + hon).replace('.', ',');
+
+                        var gas=data.gasto;
+
+                        //       gas=("" + gas).replace(/./g, ',');
+                        gas=("" + gas).replace('.', ',');
+
+                        if (funcion == 10) {
+                            valorHonorarios.val(hon);
+                            divhonorario.show();
+                            divgasto.hide();
+                        }
+
+                        if (funcion == 20) {
+                            //valorHonorarios.val(data.honorario);
+                            valorHonorarios.val(hon);
+                            divhonorario.show();
+                            divgasto.hide();
+                        }
+
+                        if (funcion == 30) {
+                            valorHonorarios.val(hon);
+                            divhonorario.show();
+                            divgasto.hide();
+                        }
+
+
+                        if (funcion == 60) {
+                            valorGastos.val(gas);
+                            divgasto.show();
+                            divhonorario.hide();
+                        }
+
+                        if (funcion == 70) {
+                            valorGastos.val(gas);
+                            valorHonorarios.val(hon);
+                            divgasto.show();
+                            divhonorario.show();
+                        }
+
+                        if (funcion == 91) {
+                            // valorGastos.val(data.gasto);
+                            // valorHonorarios.val(data.honorario);
+                            divgasto.show();
+                            divhonorario.show();
+                            valorHonorarios.prop('readonly', false);
+                            valorGastos.prop('readonly', false);
+                        }
+
+
+                    },
+                    error: function (request, status, error) {
+                        alert(error)
+                    },
+                    complete: function () {
+                    }
+                });
+
+            }
+
+
+        });
+
+
+        jQuery("#valorGastos,#valorHonorarios").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190,188]) !== -1 ||
+                // Allow: Ctrl+A
+                    (e.keyCode == 65 && e.ctrlKey === true) ||
+                // Allow: home, end, left, right
+                    (e.keyCode >= 35 && e.keyCode <= 39)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+
+
+    })
+
+</script>
+
 </body>
 </html>

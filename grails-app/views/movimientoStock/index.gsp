@@ -6,23 +6,6 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'movimientoStock.label', default: 'MovimientoStock')}" />
 
-        <script>
-            jQuery(function() {
-
-
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-
-
-
-
-            })
-        </script>
 
 			<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
@@ -89,5 +72,25 @@
 
 
         </div>
-	</body>
+
+    <script>
+        jQuery(function() {
+
+
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+
+
+
+
+        })
+    </script>
+
+
+    </body>
 </html>

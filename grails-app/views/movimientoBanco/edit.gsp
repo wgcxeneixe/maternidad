@@ -6,53 +6,6 @@
 		<g:set var="entityName" value="${message(code: 'movimientoBanco.label', default: 'MovimientoBanco')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 
-        <script>
-            $(function() {
-
-                //idioma de los calendar
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-                $("#cheque").select2({allowClear: true});
-                $("#facturaProveedor").select2({allowClear: true});
-
-
-                $("#divcheque").hide();
-                $("#divcuentatransferencia").hide();
-                $("#divnrotransferencia").hide();
-
-                var seleccionado=$('#tipoPago').find("option:selected").text();
-
-                if (seleccionado.toUpperCase()=='cheque'.toUpperCase()){
-
-                    $("#divcheque").show();
-                    $("#divcuentatransferencia").hide();
-                    $("#divnrotransferencia").hide();
-                }
-
-                if (seleccionado.toUpperCase()=='transferencia'.toUpperCase()){
-                    $("#divcuentatransferencia").show();
-                    $("#divnrotransferencia").show();
-                    $("#divcheque").hide();
-                }
-
-
-                if (seleccionado.toUpperCase()=='efectivo'.toUpperCase()){
-                    $("#divcuentatransferencia").hide();
-                    $("#divnrotransferencia").hide();
-                    $("#divcheque").hide();
-                }
-
-
-                $('#tipoPago').prop("disabled",true);
-
-            })
-
-        </script>
 
 
     </head>
@@ -87,5 +40,55 @@
 				</fieldset>
 			</g:form>
 		</div>
-	</body>
+
+    <script>
+        jQuery(function() {
+
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+            jQuery("#cheque").select2({allowClear: true});
+            jQuery("#facturaProveedor").select2({allowClear: true});
+
+
+            jQuery("#divcheque").hide();
+            jQuery("#divcuentatransferencia").hide();
+            jQuery("#divnrotransferencia").hide();
+
+            var seleccionado=jQuery('#tipoPago').find("option:selected").text();
+
+            if (seleccionado.toUpperCase()=='cheque'.toUpperCase()){
+
+                jQuery("#divcheque").show();
+                jQuery("#divcuentatransferencia").hide();
+                jQuery("#divnrotransferencia").hide();
+            }
+
+            if (seleccionado.toUpperCase()=='transferencia'.toUpperCase()){
+                jQuery("#divcuentatransferencia").show();
+                jQuery("#divnrotransferencia").show();
+                jQuery("#divcheque").hide();
+            }
+
+
+            if (seleccionado.toUpperCase()=='efectivo'.toUpperCase()){
+                jQuery("#divcuentatransferencia").hide();
+                jQuery("#divnrotransferencia").hide();
+                jQuery("#divcheque").hide();
+            }
+
+
+            jQuery('#tipoPago').prop("disabled",true);
+
+        })
+
+    </script>
+
+
+    </body>
 </html>

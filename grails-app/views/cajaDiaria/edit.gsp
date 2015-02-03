@@ -2,20 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-        <script>
-            $(function() {
 
-                //idioma de los calendar
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-            })
-
-        </script>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'cajaDiaria.label', default: 'CajaDiaria')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
@@ -50,5 +37,21 @@
 				</fieldset>
 			</g:form>
 		</div>
+
+    <script>
+        $(function() {
+
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+        })
+
+    </script>
+
 	</body>
 </html>

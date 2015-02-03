@@ -7,22 +7,6 @@
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 
 
-        <script>
-            $(function() {
-
-$("#boton").click(function(e){
-    e.preventDefault();
-
-$("#formulario").find(':input').removeAttr( "disabled" );
-    $("#formulario").submit();
-});
-
-
-                $("#plan").attr('readonly',true);
-
-            })
-
-        </script>
 
 	</head>
 	<body>
@@ -56,5 +40,24 @@ $("#formulario").find(':input').removeAttr( "disabled" );
 				</fieldset>
 			</g:form>
 		</div>
+
+
+    <script>
+        $(function() {
+
+            jQuery("#boton").click(function(e){
+                e.preventDefault();
+
+                jQuery("#formulario").find(':input').removeAttr( "disabled" );
+                jQuery("#formulario").submit();
+            });
+
+
+            jQuery("#plan").attr('readonly',true);
+
+        })
+
+    </script>
+
 	</body>
 </html>

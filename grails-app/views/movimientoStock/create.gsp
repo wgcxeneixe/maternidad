@@ -3,139 +3,6 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'movimientoStock.label', default: 'Movimiento de Stock')}" />
-        <script>
-            $(function() {
-
-                //idioma de los calendar
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-                $("#producto").select2({allowClear: true});
-
-
-                $("#destino").select2({allowClear: true});
-
-                var selected = $("#divradio input[type='radio']:checked");
-
-               if ( selected.val()=='true'){
-
-                $("#divdestino").hide();
-               }
-
-                $("#divradio input[type='radio']").change(function(){
-
-                    var selected = $("#divradio input[type='radio']:checked");
-
-                    if ( selected.val()=='false'){
-
-                        $("#divdestino").show();
-                    }
-                    else{
-                        $("#divdestino").hide();
-                    }
-                });
-
-
-
-
-
-$("#boton").click(function( event ) {
-    event.preventDefault();
-   if ( $("#divradio input[type='radio']:checked").val() == 'true')  {
-    //es ingreso
-       $("#producto").prop("disabled", false);
-       $("#formulario").submit();
-   } else {
-    // es egreso
-     var cant=  $("#cantidad").val();
-     var producto=  $("#producto").val();
-
-
-      if(!existeStock( cant , producto )) {
-
-          if (confirm('${message(code: 'stock.nohaystock', default: 'No existe Stock suficiente. Desea Continuar?')}')) {
-              $("#producto").prop("disabled", false);
-              $("#formulario").submit();
-          }
-
-      }
-       else if (!existeCantidadMinima( cant , producto )){
-
-          if (confirm('${message(code: 'stock.nohaycantidadminima', default: 'El producto quedara por debajo de la cantidad mínima. Desea Continuar?')}')) {
-              $("#producto").prop("disabled", false);
-              $("#formulario").submit();
-          }
-
-      }
-       else {
-          $("#producto").prop("disabled", false);
-          $("#formulario").submit(); }
-
-   }
-
-});
-
-
-            });
-
-
-            function existeStock(cantidad,producto){
-                var resultado=false;
-                var url = "${createLink(controller:'movimientoStock', action:'chequearCantidad')}";
-
-                jQuery.ajax({
-                    url:url,
-                    dataType: 'json',
-                    type:'POST',
-                    async:false,
-                    data: {
-                        cantidad: cantidad,producto:producto
-                    },
-                    success: function(data) {
-                        resultado=data.resultado;
-                    },
-                    error: function(request, status, error) {
-                    },
-                    complete: function() {
-                        //alert(data);
-                    }
-                });
-
-                return resultado;
-            }
-
-
-            function existeCantidadMinima(cantidad,producto){
-                var resultado=false;
-                var url = "${createLink(controller:'movimientoStock', action:'chequearMinimo')}";
-
-                jQuery.ajax({
-                    url:url,
-                    dataType: 'json',
-                    type:'POST',
-                    async:false,
-                    data: {
-                        cantidad: cantidad,producto:producto
-                    },
-                    success: function(data) {
-                        resultado=data.resultado;
-                    },
-                    error: function(request, status, error) {
-                    },
-                    complete: function() {
-                        //alert(data);
-                    }
-                });
-
-                return resultado;
-            }
-
-
-        </script>
 
 				<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
@@ -172,11 +39,11 @@ $("#boton").click(function( event ) {
                     <g:hiddenField name="parametro" value="true"/>
 
                     <script>
-                        $(function() {
+                        jQuery(function() {
 
 
 
-                            $("#producto").prop("disabled", true);
+                            jQuery("#producto").prop("disabled", true);
 
 
                         })
@@ -190,5 +57,143 @@ $("#boton").click(function( event ) {
 
 
       </div>
-	</body>
+
+
+    <script>
+        jQuery(function() {
+
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+            jQuery("#producto").select2({allowClear: true});
+
+
+            jQuery("#destino").select2({allowClear: true});
+
+            var selected = jQuery("#divradio input[type='radio']:checked");
+
+            if ( selected.val()=='true'){
+
+                jQuery("#divdestino").hide();
+            }
+
+            jQuery("#divradio input[type='radio']").change(function(){
+
+                var selected = jQuery("#divradio input[type='radio']:checked");
+
+                if ( selected.val()=='false'){
+
+                    jQuery("#divdestino").show();
+                }
+                else{
+                    jQuery("#divdestino").hide();
+                }
+            });
+
+
+
+
+
+            jQuery("#boton").click(function( event ) {
+                event.preventDefault();
+                if ( jQuery("#divradio input[type='radio']:checked").val() == 'true')  {
+                    //es ingreso
+                    jQuery("#producto").prop("disabled", false);
+                    jQuery("#formulario").submit();
+                } else {
+                    // es egreso
+                    var cant=  jQuery("#cantidad").val();
+                    var producto=  jQuery("#producto").val();
+
+
+                    if(!existeStock( cant , producto )) {
+
+                        if (confirm('${message(code: 'stock.nohaystock', default: 'No existe Stock suficiente. Desea Continuar?')}')) {
+                            jQuery("#producto").prop("disabled", false);
+                            jQuery("#formulario").submit();
+                        }
+
+                    }
+                    else if (!existeCantidadMinima( cant , producto )){
+
+                        if (confirm('${message(code: 'stock.nohaycantidadminima', default: 'El producto quedara por debajo de la cantidad mínima. Desea Continuar?')}')) {
+                            jQuery("#producto").prop("disabled", false);
+                            jQuery("#formulario").submit();
+                        }
+
+                    }
+                    else {
+                        jQuery("#producto").prop("disabled", false);
+                        jQuery("#formulario").submit(); }
+
+                }
+
+            });
+
+
+        });
+
+
+        function existeStock(cantidad,producto){
+            var resultado=false;
+            var url = "${createLink(controller:'movimientoStock', action:'chequearCantidad')}";
+
+            jQuery.ajax({
+                url:url,
+                dataType: 'json',
+                type:'POST',
+                async:false,
+                data: {
+                    cantidad: cantidad,producto:producto
+                },
+                success: function(data) {
+                    resultado=data.resultado;
+                },
+                error: function(request, status, error) {
+                },
+                complete: function() {
+                    //alert(data);
+                }
+            });
+
+            return resultado;
+        }
+
+
+        function existeCantidadMinima(cantidad,producto){
+            var resultado=false;
+            var url = "${createLink(controller:'movimientoStock', action:'chequearMinimo')}";
+
+            jQuery.ajax({
+                url:url,
+                dataType: 'json',
+                type:'POST',
+                async:false,
+                data: {
+                    cantidad: cantidad,producto:producto
+                },
+                success: function(data) {
+                    resultado=data.resultado;
+                },
+                error: function(request, status, error) {
+                },
+                complete: function() {
+                    //alert(data);
+                }
+            });
+
+            return resultado;
+        }
+
+
+    </script>
+
+
+
+    </body>
 </html>

@@ -3,9 +3,9 @@
     https://github.com/xero/bootstrap_calendar
     released open source under the Apache License
 */
-$.fn.calendar = function(options) {
+jQuery.fn.calendar = function(options) {
     
-    var args = $.extend({}, $.fn.calendar.defaults, options);
+    var args = jQuery.extend({}, jQuery.fn.calendar.defaults, options);
     
     this.each(function(){
         

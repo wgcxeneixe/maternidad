@@ -5,20 +5,7 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'planillaInternacion.label', default: 'PlanillaInternacion')}"/>
     <title><g:message code="planillaInternacion.buscapaciente.label" args="[entityName]"/></title>
-    <script>
-        $(function() {
 
-            //idioma de los calendar
-            jQuery.datepicker.regional[ "es" ];
-            updateDatePicker();
-
-            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                updateDatePicker();
-            });
-
-        })
-
-    </script>
 </head>
 
 <body>
@@ -60,5 +47,20 @@
         </fieldset>
     </g:form>
 </div>
+<script>
+    $(function() {
+
+        //idioma de los calendar
+        jQuery.datepicker.regional[ "es" ];
+        updateDatePicker();
+
+        jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+            updateDatePicker();
+        });
+
+    })
+
+</script>
+
 </body>
 </html>

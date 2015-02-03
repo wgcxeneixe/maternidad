@@ -6,14 +6,7 @@
 		<g:set var="entityName" value="${message(code: 'proveedor.label', default: 'Proveedor')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 
-        <script>
-            $(function() {
 
-
-                $("#localidad").select2({allowClear: true});
-
-            })
-        </script>
 
 	</head>
 	<body>
@@ -47,5 +40,15 @@
 				</fieldset>
 			</g:form>
 		</div>
+
+    <script>
+        $(function() {
+
+
+            jQuery("#localidad").select2({allowClear: true});
+
+        })
+    </script>
+
 	</body>
 </html>

@@ -4,17 +4,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'nacimiento.label', default: 'Nacimiento')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
-        <script>
-            $(function() {
-                //idioma de los calendar
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
 
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-            })
-        </script>
 	</head>
 	<body>
 		<a href="#create-nacimiento" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -45,5 +35,17 @@
 				</fieldset>
 			</g:form>
 		</div>
+    <script>
+        $(function() {
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+        })
+    </script>
+
 	</body>
 </html>

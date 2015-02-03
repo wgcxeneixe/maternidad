@@ -4,63 +4,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'movimientoProveedor.label', default: 'MovimientoProveedor')}" />
 
-        <script>
-            $(function() {
 
-                //idioma de los calendar
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-          //        $("#cheque").select2({allowClear: true});
-                $("#facturaProveedor").select2({allowClear: true});
-
-/*
-                $("#divcheque").hide();
-                $("#divcuentatransferencia").hide();
-                $("#divnrotransferencia").hide();
-
-                var seleccionado=$('#tipoPago').find("option:selected").text();
-
-                if (seleccionado.toUpperCase()=='cheque'.toUpperCase()){
-
-                    $("#divcheque").show();
-                    $("#divcuentatransferencia").hide();
-                    $("#divnrotransferencia").hide();
-                }
-
-                if (seleccionado.toUpperCase()=='transferencia'.toUpperCase()){
-                    $("#divcuentatransferencia").show();
-                    $("#divnrotransferencia").show();
-                    $("#divcheque").hide();
-                }
-
-
-                $('#tipoPago').on('change', function() {
-                    var seleccionado=$(this).find("option:selected").text();
-
-                    if (seleccionado.toUpperCase()=='cheque'.toUpperCase()){
-
-                        $("#divcheque").show();
-                        $("#divcuentatransferencia").hide();
-                        $("#divnrotransferencia").hide();
-                    }
-
-                    if (seleccionado.toUpperCase()=='transferencia'.toUpperCase()){
-                        $("#divcuentatransferencia").show();
-                        $("#divnrotransferencia").show();
-                        $("#divcheque").hide();
-                    }
-
-                });
-  */
-
-            })
-
-        </script>
 
         <title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
@@ -93,5 +37,64 @@
 				</fieldset>
 			</g:form>
 		</div>
+
+    <script>
+        $(function() {
+
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+            //        $("#cheque").select2({allowClear: true});
+            jQuery("#facturaProveedor").select2({allowClear: true});
+
+            /*
+             $("#divcheque").hide();
+             $("#divcuentatransferencia").hide();
+             $("#divnrotransferencia").hide();
+
+             var seleccionado=$('#tipoPago').find("option:selected").text();
+
+             if (seleccionado.toUpperCase()=='cheque'.toUpperCase()){
+
+             $("#divcheque").show();
+             $("#divcuentatransferencia").hide();
+             $("#divnrotransferencia").hide();
+             }
+
+             if (seleccionado.toUpperCase()=='transferencia'.toUpperCase()){
+             $("#divcuentatransferencia").show();
+             $("#divnrotransferencia").show();
+             $("#divcheque").hide();
+             }
+
+
+             $('#tipoPago').on('change', function() {
+             var seleccionado=$(this).find("option:selected").text();
+
+             if (seleccionado.toUpperCase()=='cheque'.toUpperCase()){
+
+             $("#divcheque").show();
+             $("#divcuentatransferencia").hide();
+             $("#divnrotransferencia").hide();
+             }
+
+             if (seleccionado.toUpperCase()=='transferencia'.toUpperCase()){
+             $("#divcuentatransferencia").show();
+             $("#divnrotransferencia").show();
+             $("#divcheque").hide();
+             }
+
+             });
+             */
+
+        })
+
+    </script>
+
 	</body>
 </html>

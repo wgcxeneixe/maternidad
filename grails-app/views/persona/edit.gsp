@@ -5,104 +5,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'persona.label', default: 'Persona')}" />
 
-        <script>
 
-
-
-            $(function() {
-
-
-                if($("#personaFisica").is(':checked')) {
-
-                    $("#divnombre").addClass("required").show();
-                    $("#nombre").attr("required",true);
-                    $("#divapellido").addClass("required").show();
-                    $("#apellido").attr("required",true);
-                    $("#divTipoDocumento").show();
-                    $("#divnrodoc").addClass("required").show();
-
-                    $("#nroDocumento").attr("required",true);
-                    $("#divestadocivil").show();
-
-                    $("#divrazonsocial").removeClass("required").hide();
-                    $("#razonSocial").attr("required",false);
-                    $("#divcuit").hide();
-                    $("#cuit").attr("required",false);
-
-                } else {
-                    $("#divnombre").removeClass("required").hide();
-                    $("#nombre").attr("required",false);
-                    $("#divapellido").removeClass("required").hide();
-                    $("#apellido").attr("required",false);
-                    $("#divTipoDocumento").hide();
-                    $("#divnrodoc").removeClass("required").hide();
-                    $("#nroDocumento").attr("required",false);
-                    $("#divestadocivil").hide();
-
-                    $("#divrazonsocial").addClass("required").show();
-                    $("#razonSocial").attr("required",true);
-
-                    $("#cuit").attr("required",true);
-                    $("#divcuit").addClass("required").show();
-                }
-
-
-                $("#personaFisica").click(function() {
-                    if($("#personaFisica").is(':checked')) {
-
-                        $("#divnombre").addClass("required").show();
-                        $("#nombre").attr("required",true);
-                        $("#divapellido").addClass("required").show();
-                        $("#apellido").attr("required",true);
-                        $("#divTipoDocumento").show();
-                        $("#divnrodoc").addClass("required").show();
-                        $("#nroDocumento").attr("required",true);
-                        $("#divestadocivil").show();
-
-                        $("#divrazonsocial").hide();
-                        $("#razonSocial").attr("required",false);
-                        $("#divcuit").hide();
-                        $("#cuit").attr("required",false);
-
-                    } else {
-                        $("#divnombre").removeClass("required").hide();
-                        $("#nombre").attr("required",false);
-                        $("#divapellido").removeClass("required").hide();
-                        $("#apellido").attr("required",false);
-                        $("#divTipoDocumento").hide();
-                        $("#divnrodoc").removeClass("required").hide();
-                        $("#nroDocumento").attr("required",false);
-                        $("#divestadocivil").hide();
-
-                        $("#divrazonsocial").addClass("required").show();
-                        $("#razonSocial").attr("required",true);
-
-                        $("#cuit").attr("required",true);
-                        $("#divcuit").addClass("required").show();
-                    }
-                });
-
-
-                //idioma de los calendar
-                jQuery.datepicker.regional[ "es" ];
-                updateDatePicker();
-
-                jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                    updateDatePicker();
-                });
-
-                $("#banco").select2({allowClear: true});
-                $("#persona").select2({allowClear: true});
-
-
-                //$("#personaFisica").attr("disabled",true);
-
-            })
-
-
-
-
-    </script>
 
 					<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
@@ -137,5 +40,105 @@
 				</fieldset>
 			</g:form>
 		</div>
+
+    <script>
+
+
+
+        jQuery(function() {
+
+
+            if(jQuery("#personaFisica").is(':checked')) {
+
+                jQuery("#divnombre").addClass("required").show();
+                jQuery("#nombre").attr("required",true);
+                jQuery("#divapellido").addClass("required").show();
+                jQuery("#apellido").attr("required",true);
+                jQuery("#divTipoDocumento").show();
+                jQuery("#divnrodoc").addClass("required").show();
+
+                jQuery("#nroDocumento").attr("required",true);
+                jQuery("#divestadocivil").show();
+
+                jQuery("#divrazonsocial").removeClass("required").hide();
+                jQuery("#razonSocial").attr("required",false);
+                jQuery("#divcuit").hide();
+                jQuery("#cuit").attr("required",false);
+
+            } else {
+                jQuery("#divnombre").removeClass("required").hide();
+                jQuery("#nombre").attr("required",false);
+                jQuery("#divapellido").removeClass("required").hide();
+                jQuery("#apellido").attr("required",false);
+                jQuery("#divTipoDocumento").hide();
+                jQuery("#divnrodoc").removeClass("required").hide();
+                jQuery("#nroDocumento").attr("required",false);
+                jQuery("#divestadocivil").hide();
+
+                jQuery("#divrazonsocial").addClass("required").show();
+                jQuery("#razonSocial").attr("required",true);
+
+                jQuery("#cuit").attr("required",true);
+                jQuery("#divcuit").addClass("required").show();
+            }
+
+
+            jQuery("#personaFisica").click(function() {
+                if(jQuery("#personaFisica").is(':checked')) {
+
+                    jQuery("#divnombre").addClass("required").show();
+                    jQuery("#nombre").attr("required",true);
+                    jQuery("#divapellido").addClass("required").show();
+                    jQuery("#apellido").attr("required",true);
+                    jQuery("#divTipoDocumento").show();
+                    jQuery("#divnrodoc").addClass("required").show();
+                    jQuery("#nroDocumento").attr("required",true);
+                    jQuery("#divestadocivil").show();
+
+                    jQuery("#divrazonsocial").hide();
+                    jQuery("#razonSocial").attr("required",false);
+                    jQuery("#divcuit").hide();
+                    jQuery("#cuit").attr("required",false);
+
+                } else {
+                    jQuery("#divnombre").removeClass("required").hide();
+                    jQuery("#nombre").attr("required",false);
+                    jQuery("#divapellido").removeClass("required").hide();
+                    jQuery("#apellido").attr("required",false);
+                    jQuery("#divTipoDocumento").hide();
+                    jQuery("#divnrodoc").removeClass("required").hide();
+                    jQuery("#nroDocumento").attr("required",false);
+                    jQuery("#divestadocivil").hide();
+
+                    jQuery("#divrazonsocial").addClass("required").show();
+                    jQuery("#razonSocial").attr("required",true);
+
+                    jQuery("#cuit").attr("required",true);
+                    jQuery("#divcuit").addClass("required").show();
+                }
+            });
+
+
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+
+            jQuery("#banco").select2({allowClear: true});
+            jQuery("#persona").select2({allowClear: true});
+
+
+            //jQuery("#personaFisica").attr("disabled",true);
+
+        })
+
+
+
+
+    </script>
+
 	</body>
 </html>

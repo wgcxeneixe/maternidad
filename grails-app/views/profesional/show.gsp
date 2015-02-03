@@ -310,15 +310,15 @@
         <script>
             $(function() {
 
-                $('#profesional').change(function(e){
+                jQuery('#profesional').change(function(e){
 
-                    $("#profesional").val('${profesionalInstance?.id}');
-                    $("#profesional").prop("disabled", true);
-                    $("#filaoculta").hide();
+                    jQuery("#profesional").val('${profesionalInstance?.id}');
+                    jQuery("#profesional").prop("disabled", true);
+                    jQuery("#filaoculta").hide();
                 });
 
                 // And now fire change event when the DOM is ready
-                $('#profesional').trigger('change');
+                jQuery('#profesional').trigger('change');
 
                 // $("#obrasocial").attr('readonly',true).select2({allowClear: true});
                 // $("#obrasocial").attr('readonly',true);
