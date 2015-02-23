@@ -26,7 +26,13 @@
     <link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
     <link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
 
+    <!--    <link rel="stylesheet" href="/maternidad/css/application.css" type="text/css" />
 
+    <script src="/maternidad/js/application.js"></script>  -->
+
+
+    <asset:stylesheet src="application.css"/>
+    <asset:javascript src="application.js"/>
 
     <g:layoutHead/>
 
@@ -396,37 +402,44 @@
 
 
 
-        <li class="${(controllerName == 'tipoHonorario' && actionName == 'index') ? 'active' : ''}">
-            <a href="${createLink(controller:'tipoHonorario',action: 'index')}" class="auto"> <!-- /CreateLink -->
-                <i class="i i-dot"></i>
-                <span>Tipo Honorarios</span>
-            </a>
-        </li>
-        <li class="${(controllerName == 'tipoGasto' && actionName == 'index') ? 'active' : ''}">
-            <a href="${createLink(controller:'tipoGasto',action: 'index')}" class="auto"> <!-- /CreateLink -->
-                <i class="i i-arrow-right5"></i>
-                <span>Tipo Gastos</span>
-            </a>
-        </li>
-        <li class="${(controllerName == 'componente' && actionName == 'index') ? 'active' : ''}">
-            <a href="${createLink(controller:'componente',action: 'index')}" class="auto"> <!-- /CreateLink -->
-                <i class="i i-arrow-right5"></i>
-
-                <span>Componente</span>
-            </a>
-        </li>
-        <li class="${(controllerName == 'componenteTipoHonorario' && actionName == 'index') ? 'active' : ''}">
-            <a href="${createLink(controller:'componenteTipoHonorario',action: 'index')}" class="auto"> <!-- /CreateLink -->
-                <i class="i i-arrow-right5"></i>
-                <span>Comp. con Tipo Honorario</span>
-            </a>
-        </li>
         <li >
-            <a href="${createLink(controller:'condicionImpositiva',action: 'index')}" class="auto"> <!-- /CreateLink -->
-                <i class="i i-arrow-right5"></i>
-                <span>Condición impositiva</span>
+            <a href="#" class="auto">
+                <i class="i i-plus"></i>
+                <span>NOMENCLADOR</span>
             </a>
+            <ul class="nav dker">
+
+                <li class="${(controllerName == 'tipoHonorario' && actionName == 'index') ? 'active' : ''}">
+                    <a href="${createLink(controller:'tipoHonorario',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                        <i class="i i-dots"></i>
+                        <span>Tipo Honorarios</span>
+                    </a>
+                </li>
+                <li class="${(controllerName == 'tipoGasto' && actionName == 'index') ? 'active' : ''}">
+                    <a href="${createLink(controller:'tipoGasto',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                        <i class="i i-dots"></i>
+                        <span>Tipo Gastos</span>
+                    </a>
+                </li>
+                <li class="${(controllerName == 'componente' && actionName == 'index') ? 'active' : ''}">
+                    <a href="${createLink(controller:'componente',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                        <i class="i i-dots"></i>
+
+                        <span>Componente</span>
+                    </a>
+                </li>
+                <li class="${(controllerName == 'componenteTipoHonorario' && actionName == 'index') ? 'active' : ''}">
+                    <a href="${createLink(controller:'componenteTipoHonorario',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                        <i class="i i-dots"></i>
+                        <span>Comp. con Tipo Honorario</span>
+                    </a>
+                </li>
+
+
+            </ul>
         </li>
+
+
 
         <li >
             <a href="#" class="auto">
@@ -485,7 +498,7 @@
         <li >
             <a href="#" class="auto">
                 <i class="i i-plus"></i>
-                <span>NOMENCLADOR</span>
+                <span>DATOS PERSONALES</span>
             </a>
             <ul class="nav dker">
 
@@ -511,6 +524,12 @@
                     <a href="${createLink(controller:'provincia',action: 'index')}" class="auto"> <!-- /CreateLink -->
                         <i class="i i-dots"></i>
                         <span>Provincia</span>
+                    </a>
+                </li>
+                <li >
+                    <a href="${createLink(controller:'condicionImpositiva',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                        <i class="i i-arrow-right5"></i>
+                        <span>Condición impositiva</span>
                     </a>
                 </li>
 
@@ -690,6 +709,7 @@
 
 <script src="/maternidad/js/sortable/jquery.sortable.js"></script>
 <script src="/maternidad/js/app.plugin.js"></script>
+
 <!-- /ADD END -->
 
 </body>
