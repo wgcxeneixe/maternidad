@@ -375,13 +375,13 @@
     </a>
     <ul class="nav dk">
         <li >
-            <a href="${createLink(controller:'factura',action: 'index')}" class="auto"> <!-- /CreateLink -->
+            <a href="${createLink(controller:'liquidacion',action: 'index')}" class="auto"> <!-- /CreateLink -->
                 <i class="i i-dot"></i>
                 <span>Consultar Liquidaciones</span>
             </a>
         </li>
         <li >
-            <a href="${createLink(controller:'detalleCaja',action: 'index')}" class="auto"> <!-- /CreateLink -->
+            <a href="${createLink(controller:'liquidacion',action: 'configurarLiquidacion')}" class="auto"> <!-- /CreateLink -->
                 <i class="i i-dot"></i>
                 <span>Liquidar</span>
             </a>
