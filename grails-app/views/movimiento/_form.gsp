@@ -2,12 +2,21 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: movimientoInstance, field: 'monto', 'error')} required">
-	<label for="monto">
-		<g:message code="movimiento.monto.label" default="Monto" />
+<div class="fieldcontain ${hasErrors(bean: movimientoInstance, field: 'debe', 'error')} required">
+	<label for="debe">
+		<g:message code="movimiento.debe.label" default="Debe" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="monto" value="${fieldValue(bean: movimientoInstance, field: 'monto')}" required=""/>
+	<g:field name="debe" value="${fieldValue(bean: movimientoInstance, field: 'debe')}" required=""/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: movimientoInstance, field: 'haber', 'error')} required">
+	<label for="haber">
+		<g:message code="movimiento.haber.label" default="Haber" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:field name="haber" value="${fieldValue(bean: movimientoInstance, field: 'haber')}" required=""/>
 
 </div>
 
@@ -17,15 +26,6 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="asiento" name="asiento.id" from="${contabilidad.Asiento.list()}" optionKey="id" required="" value="${movimientoInstance?.asiento?.id}" class="many-to-one"/>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: movimientoInstance, field: 'columnaDebe', 'error')} ">
-	<label for="columnaDebe">
-		<g:message code="movimiento.columnaDebe.label" default="Columna Debe" />
-		
-	</label>
-	<g:checkBox name="columnaDebe" value="${movimientoInstance?.columnaDebe}" />
 
 </div>
 

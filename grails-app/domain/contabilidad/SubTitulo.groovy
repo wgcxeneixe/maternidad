@@ -15,4 +15,6 @@ class SubTitulo {
         descripcion(nullable: false, blank:false)
         codigo(nullable: false, blank:false)
     }
+
+    String toString(){"${codigo} ${descripcion}"}
 }

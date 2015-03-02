@@ -8,4 +8,6 @@ class Ejercicio {
     static constraints = {
         numero(nullable: false, blank:false)
     }
+
+    String toString(){"${numero} cirre: ${fechaCierre?.format('dd/MM/yyyy')}"}
 }

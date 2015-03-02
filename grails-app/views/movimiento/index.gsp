@@ -23,37 +23,37 @@
 			<table>
 			<thead>
 					<tr>
+
+                        <th><g:message code="movimiento.asiento.label" default="Asiento" /></th>
+
+                        <g:sortableColumn property="fecha" title="${message(code: 'movimiento.fecha.label', default: 'Fecha')}" />
+
+                        <th><g:message code="movimiento.cuenta.label" default="Cuenta" /></th>
+
+                        <g:sortableColumn property="descripcion" title="${message(code: 'movimiento.descripcion.label', default: 'Descripcion')}" />
+
+                        <g:sortableColumn property="debe" title="${message(code: 'movimiento.debe.label', default: 'Debe')}" />
 					
-						<g:sortableColumn property="monto" title="${message(code: 'movimiento.monto.label', default: 'Monto')}" />
-					
-						<th><g:message code="movimiento.asiento.label" default="Asiento" /></th>
-					
-						<g:sortableColumn property="columnaDebe" title="${message(code: 'movimiento.columnaDebe.label', default: 'Columna Debe')}" />
-					
-						<th><g:message code="movimiento.cuenta.label" default="Cuenta" /></th>
-					
-						<g:sortableColumn property="fecha" title="${message(code: 'movimiento.fecha.label', default: 'Fecha')}" />
-					
-						<g:sortableColumn property="descripcion" title="${message(code: 'movimiento.descripcion.label', default: 'Descripcion')}" />
-					
+						<g:sortableColumn property="haber" title="${message(code: 'movimiento.haber.label', default: 'Haber')}" />
+
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${movimientoInstanceList}" status="i" var="movimientoInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${movimientoInstance.id}">${fieldValue(bean: movimientoInstance, field: "monto")}</g:link></td>
-					
-						<td>${fieldValue(bean: movimientoInstance, field: "asiento")}</td>
-					
-						<td><g:formatBoolean boolean="${movimientoInstance.columnaDebe}" /></td>
-					
-						<td>${fieldValue(bean: movimientoInstance, field: "cuenta")}</td>
-					
-						<td><g:formatDate date="${movimientoInstance.fecha}" /></td>
-					
-						<td>${fieldValue(bean: movimientoInstance, field: "descripcion")}</td>
-					
+
+                        <td>${fieldValue(bean: movimientoInstance, field: "asiento")}</td>
+
+                        <td><g:formatDate date="${movimientoInstance.fecha}" /></td>
+
+                        <td>${fieldValue(bean: movimientoInstance, field: "cuenta")}</td>
+
+                        <td>${fieldValue(bean: movimientoInstance, field: "descripcion")}</td>
+
+                        <td>${fieldValue(bean: movimientoInstance, field: "debe")}</td>
+
+                        <td>${fieldValue(bean: movimientoInstance, field: "haber")}</td>
+
 					</tr>
 				</g:each>
 				</tbody>

@@ -23,11 +23,20 @@
 			</g:if>
 			<ol class="property-list movimiento">
 			
-				<g:if test="${movimientoInstance?.monto}">
+				<g:if test="${movimientoInstance?.debe}">
 				<li class="fieldcontain">
-					<span id="monto-label" class="property-label"><g:message code="movimiento.monto.label" default="Monto" /></span>
+					<span id="debe-label" class="property-label"><g:message code="movimiento.debe.label" default="Debe" /></span>
 					
-						<span class="property-value" aria-labelledby="monto-label"><g:fieldValue bean="${movimientoInstance}" field="monto"/></span>
+						<span class="property-value" aria-labelledby="debe-label"><g:fieldValue bean="${movimientoInstance}" field="debe"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${movimientoInstance?.haber}">
+				<li class="fieldcontain">
+					<span id="haber-label" class="property-label"><g:message code="movimiento.haber.label" default="Haber" /></span>
+					
+						<span class="property-value" aria-labelledby="haber-label"><g:fieldValue bean="${movimientoInstance}" field="haber"/></span>
 					
 				</li>
 				</g:if>
@@ -37,15 +46,6 @@
 					<span id="asiento-label" class="property-label"><g:message code="movimiento.asiento.label" default="Asiento" /></span>
 					
 						<span class="property-value" aria-labelledby="asiento-label"><g:link controller="asiento" action="show" id="${movimientoInstance?.asiento?.id}">${movimientoInstance?.asiento?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${movimientoInstance?.columnaDebe}">
-				<li class="fieldcontain">
-					<span id="columnaDebe-label" class="property-label"><g:message code="movimiento.columnaDebe.label" default="Columna Debe" /></span>
-					
-						<span class="property-value" aria-labelledby="columnaDebe-label"><g:formatBoolean boolean="${movimientoInstance?.columnaDebe}" /></span>
 					
 				</li>
 				</g:if>

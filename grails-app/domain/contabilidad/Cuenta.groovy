@@ -8,7 +8,7 @@ class Cuenta {
     String codigo
 
     static belongsTo = [
-            subtitulo: SubTitulo
+            rubro: Rubro
     ]
 
     static constraints = {
@@ -17,4 +17,6 @@ class Cuenta {
         rubro(nullable: false)
         codigo(nullable: false, blank:false)
     }
+
+    String toString(){"${codigo} ${descripcion}"}
 }
