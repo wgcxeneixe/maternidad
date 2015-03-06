@@ -460,12 +460,7 @@
                         <span>Concepto Proveedor</span>
                     </a>
                 </li>
-                <li class="${(controllerName == 'conceptoPorProfesional' && actionName == 'index') ? 'active' : ''}" >
-                    <a href="${createLink(controller:'conceptoPorProfesional',action: 'index')}" class="auto"> <!-- /CreateLink -->
-                        <i class="i i-dots"></i>
-                        <span>Concepto por Profesional</span>
-                    </a>
-                </li>
+
                 <li class="${(controllerName == 'conceptoProfesional' && actionName == 'index') ? 'active' : ''}" >
                     <a href="${createLink(controller:'conceptoProfesional',action: 'index')}" class="auto"> <!-- /CreateLink -->
                         <i class="i i-dots"></i>
