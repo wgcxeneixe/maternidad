@@ -16,16 +16,41 @@ class DetalleCajaController {
 
     def springSecurityService
 
-    def index(Integer max) {
-        if (params.caja) {
-            eq('caja', params.caja )
+
+
+    def index={
+
+        def query = {
+            if (params.caja) {
+                eq('caja.id', params.caja?.toLong() )
+            }
+            if (params.fechaDesde && params.fechaHasta) {
+                between('fecha', params.fechaDesde as Date, params.fechaHasta as Date)
+                // between('fecha',Date.from, Date.parse("dd-MM-yyyy", params.fechaDesde))
+
+            }
+
+            if (params.sort){
+                order(params.sort,params.order)
+            }
         }
-        if (params.id) {
-            eqId(1)
+
+
+        def criteria = DetalleCaja.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        def detalles = criteria.list(query, max: params.max, offset: params.offset)
+
+        def filters = [caja: params.caja,fechaDesde:params.fechaDesde,fechaHasta:params.fechaHasta]
+
+        def model = [detalleCajaInstanceList: detalles, detalleCajaInstanceCount:detalles.totalCount, filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grilla", model: model)
         }
-        params.max = Math.min(max ?: 10, 100)
-        def filters = [caja: params.caja,id:params.id]
-        respond DetalleCaja.list(params), model: [detalleCajaInstanceCount: DetalleCaja.count()], filters: filters
+        else {
+            model
+        }
     }
 
     def show(DetalleCaja detalleCajaInstance) {

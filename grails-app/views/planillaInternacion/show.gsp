@@ -334,7 +334,7 @@
     <g:form url="[resource: planillaInternacionInstance, action: 'delete']" method="DELETE">
         <fieldset class="buttons">
             <g:link class="edit" action="edit" resource="${planillaInternacionInstance}"><g:message
-                    code="default.button.edit.label" default="Edit"/></g:link>
+                    code="default.button.editar.label" default="Edit"/></g:link>
             <!--
             <g:actionSubmit class="delete" action="delete"
                             value="${message(code: 'default.button.delete.label', default: 'Delete')}"
