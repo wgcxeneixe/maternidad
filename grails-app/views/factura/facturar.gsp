@@ -86,7 +86,7 @@
                 <td>${detalleFactura.getAt(2)}</td>
 
                 <td>
-                    ${detalleFactura.getAt(3)}
+                    ${ Math.round(detalleFactura.getAt(3)  * 100) / 100}
 
                    </td>
 

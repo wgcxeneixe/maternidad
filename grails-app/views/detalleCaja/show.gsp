@@ -112,7 +112,7 @@
 			</ol>
 			<g:form url="[resource:detalleCajaInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
-					<g:link class="edit" action="edit" resource="${detalleCajaInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:link class="edit" action="edit" resource="${detalleCajaInstance}"><g:message code="default.button.editar.label" default="Edit" /></g:link>
 				</fieldset>
 			</g:form>
 		</div>

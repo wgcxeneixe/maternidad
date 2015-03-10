@@ -6,6 +6,48 @@
 
     <g:set var="entityName" value="${message(code: 'plan.label', default: 'Plan')}" />
     <title><g:message code="default.edit.label" args="[entityName]" /></title>
+
+<style type='text/css' >
+    #spinner {
+        position: absolute;
+        top: 45%;
+        left: 45%;
+        width: 64px;
+        height: 64px;
+        padding:30px 15px 0px;
+        border: 3px solid #ababab;
+        box-shadow:1px 1px 10px #ababab;
+        border-radius:20px;
+        background-color: white;
+        z-index: 1002;
+        text-align:center;
+        overflow: auto;
+    }
+    </style>
+
+
+    <script>
+
+        jQuery(document).ready(function () {
+
+            var showSpinner = function() {
+                jQuery("#spinner").fadeIn('fast');
+            };
+
+            // Global handlers for AJAX events
+            jQuery(document)
+                    .on("ajaxSend", showSpinner)
+                    .on("ajaxStop", function() {
+                        jQuery("#spinner").fadeOut('fast');
+                    })
+                    .on("ajaxError", function(event, jqxhr, settings, exception) {
+                        jQuery("#spinner").hide();
+                    });
+        });
+
+
+    </script>
+
 </head>
 <body>
 <a href="#edit-plan" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -101,10 +143,13 @@
     <div class="nav" role="navigation">
         <ul>
 
-            <li><g:link class="create" controller="calculoValores" action="calcularValores" id="${planConvenio?.id}"><g:message code="convenio.calcularValores"  /></g:link></li>
+            <li><a class="create" href="#" id="linkCalculo" > <g:message code="convenio.calcularValores"  /> </a>  </li>
         </ul>
     </div>
 
+    <div id="spinner" style="display:none;">
+        <g:img uri="${resource(dir: 'img', file: 'spinner.gif')}" alt="Cargando..."/>
+    </div>
     <g:render  template="/practica/verModulos" model="[planConvenio: planConvenio]" />
 
     <div class="nav" role="navigation">
@@ -181,18 +226,18 @@
 <script>
         $(function() {
 
-            $('#plan').change(function(e){
+            jQuery('#plan').change(function(e){
 
-                $("#plan").val('${planConvenio?.plan?.id}');
-                $("#plan").prop("disabled", true);
-                $("#filaoculta").hide();
+                jQuery("#plan").val('${planConvenio?.plan?.id}');
+                jQuery("#plan").prop("disabled", true);
+                jQuery("#filaoculta").hide();
             });
 
             // And now fire change event when the DOM is ready
-            $('#plan').trigger('change');
+            jQuery('#plan').trigger('change');
 
             // $("#obrasocial").attr('readonly',true).select2({allowClear: true});
-            $("#obrasocial").attr('readonly',true);
+            jQuery("#obrasocial").attr('readonly',true);
 
         })
 
@@ -200,9 +245,53 @@
 </div>
 
 <script>
-    $(function() {
+    jQuery(function() {
+
+jQuery("#linkCalculo").click(function(e) {
+
+    e.preventDefault();
+
+    jQuery("#spinner").show();
+   var url= "${createLink(controller: "calculoValores",action:"calcularValores")}";
+
+    jQuery.ajax({
+        url:url,
+        dataType: 'json',
+        type:'POST',
+        async:false,
+        data: {
+            id:"${planConvenio?.id}"
+        },
+        success: function(data) {
+            resultado=data.resultado;
+
+            if(resultado   ){
+                jQuery("#spinner").fadeOut('fast');
+            alert("Ha finalizado el proceso correctamente");
 
 
+
+            }
+
+            else {
+                jQuery("#spinner").fadeOut('fast');
+                alert('No se ha podido realizar el proceso');
+
+            }
+
+
+
+
+        },
+        error: function(request, status, error) {
+        },
+        complete: function() {
+            //alert(data);
+        }
+    });
+
+
+});
 
         // $("#obrasocial").attr('readonly',true).select2({allowClear: true});
         jQuery("#obrasocial").attr('readonly',true);
@@ -210,6 +299,11 @@
     })
 
 </script>
+
+
+
+
+
 
 </body>
 </html>
