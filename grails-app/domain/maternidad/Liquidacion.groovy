@@ -9,7 +9,7 @@ class Liquidacion {
     Integer numeroRecibo
     Integer nuemroLiquidacion
 
-    SortedSet<DetalleLiquidacion> detallesLiquidacion
+    Set<DetalleLiquidacion> detallesLiquidacion
 
     static hasMany = [detallesLiquidacion: DetalleLiquidacion]
 
@@ -21,7 +21,7 @@ class Liquidacion {
     String toString(){ "${profesional} - ${fecha?.format('dd/MM/yyyy')}" }
 
     def agregarPagoFactura(PagoFactura pago) {
-
+        if(!detallesLiquidacion)detallesLiquidacion=[]
         pago.factura.detallesFactura.each {
             detalle ->
                 if (detalle.profesional == profesional) {
@@ -46,6 +46,7 @@ class Liquidacion {
     }
 
     def agregarConceptosProfesional(listaCodigoConeptos) {
+        if(!detallesLiquidacion)detallesLiquidacion=[]
         def listaConceptos = profesional.listaConceptos?.findAll {
             it.conceptoProfesional.codigo in listaCodigoConeptos
         }

@@ -111,35 +111,38 @@ class LiquidacionController {
     }
 
     def armarLiquidacion = {
-        println 'entro'
         def conceptos = params?.conceptos
-        println conceptos
-        println conceptos
+        def listaPagos = []
         def listaConceptos = ConceptoProfesional.findAllByIdInList([conceptos])
-        println listaConceptos
-
-        def listaPagos = PagoFactura.withCriteria {
-            le('porcentajeLiquidado', Double.valueOf(100))
-            gt('porcentajeALiquidar', Double.valueOf(0))
-        }
-
         def mapaLiquidaciones = [:]
-        Profesional.findAllByActivo(true)?.each { profesional ->
-            mapaLiquidaciones.put(profesional, new Liquidacion(profesional: profesional))
-        }
+        try {
+            listaPagos = PagoFactura.withCriteria {
+                le('porcentajeLiquidado', Double.valueOf(100))
+                gt('porcentajeALiquidar', Double.valueOf(0))
+            }
 
-        listaPagos.each {
-            pago ->
-                mapaLiquidaciones.values()?.each {
-                    liq ->
-                        liq.agregarPagoFactura(pago)
 
-                }
-        }
+            Profesional.findAllByActivo(true)?.each { profesional ->
+                mapaLiquidaciones.put(profesional, new Liquidacion(profesional: profesional))
+            }
 
-        mapaLiquidaciones.values()?.each {
-            liquidacion->
-                liquidacion.agregarConceptosProfesional(listaConceptos?.codigo)
+            listaPagos.each {
+                pago ->
+                    mapaLiquidaciones.values()?.each {
+                        liq ->
+                            liq.agregarPagoFactura(pago)
+
+                    }
+            }
+
+            mapaLiquidaciones.values()?.each {
+                liquidacion ->
+                    liquidacion.agregarConceptosProfesional(listaConceptos?.codigo)
+            }
+
+        } catch (e) {
+            flash.errors="Ocurrió un error al consultar la liquidación"
+            redirect(action: "configurarLiquidacion", controller: Liquidacion)
         }
         render(template: "confirmarLiquidacion", model: [listaLiquidaciones: mapaLiquidaciones.values(), listaConceptoProfesional: listaConceptos, listaPagoFactura: listaPagos])
     }

@@ -6,11 +6,11 @@ class DetalleFactura {
     Practica practica
     Plan plan
     Factura factura
-    Double valorGastos
-    Double valorHonorarios
+    Double valorGastos = 0
+    Double valorHonorarios = 0
     Double valorPractica //no se usa
     Double carreraMedica
-    Double cantidad
+    Double cantidad = 0
     String observacion
     PlanillaInternacion planillaInternacion
     Integer funcion
@@ -35,7 +35,8 @@ class DetalleFactura {
         planillaInternacion(nullable: false,blank:false)
     }
 
-    def  total = {
-        return (valorGastos + valorHonorarios) * cantidad
+    def  Double total() {
+        Double tot = valorGastos?:0 + valorHonorarios?:0
+        return tot * cantidad
     }
 }

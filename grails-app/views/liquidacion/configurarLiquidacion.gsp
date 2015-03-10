@@ -22,7 +22,6 @@
         jQuery(document).ready(function () {
             jQuery("#liquidarBtn").click(function () {
                 var conceptos = jQuery("#conceptos").val();
-                alert(conceptos);
                 new Ajax.Updater('confirmarLiquidacionDiv',
                         '${createLink(action:"armarLiquidacion", controller:"liquidacion" )}',
                         {
@@ -46,49 +45,51 @@
 </head>
 
 <body>
-    <div class="list">
+<div class="list">
 
-        <div>
-            <g:select id="conceptos" name="conceptos.id" from="${maternidad.ConceptoProfesional.list()}" optionKey="id"
-                      noSelection="['null': 'Seleccione los Conceptos a Liquidar']"/>
-        </div>
-
-        <table>
-            <thead>
-            <tr>
-                <th>Plan</th>
-                <th>Nro Factura</th>
-                <th>Fecha Pago</th>
-                <th>Monto Pago</th>
-                <th>% liquidado</th>
-                <th>% a liquidar</th>
-                <th>Total a liquidar</th>
-            </tr>
-            </thead>
-            <tbody>
-            <g:each in="${listaPagos}" status="i" var="pago">
-                <tr>
-                    <td>${pago.factura.plan.codigo}</td>
-                    <td>${pago.factura.nrofactura}</td>
-                    <td>${pago.fecha.format('dd/MM/yyyy')}</td>
-                    <td>${pago.monto}</td>
-                    <td>${pago.porcentajeLiquidado}</td>
-                    <td>${pago.montoALiquidar()}</td>
-                </tr>
-            </g:each>
-            </tbody>
-        </table>
-
-        %{--<div>--}%
-            %{--<g:submitButton name="algo" id="algo" value="Liquidar" action="armarLiquidacion"/>--}%
-        %{--</div>--}%
+    <div>
+        <g:select id="conceptos" name="conceptos.id" from="${maternidad.ConceptoProfesional.list()}" optionKey="id"
+                  noSelection="['null': 'Seleccione los Conceptos a Liquidar']"/>
     </div>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Plan</th>
+            <th>Nro Factura</th>
+            <th>Fecha Pago</th>
+            <th>Monto Pago</th>
+            <th>% liquidado</th>
+            <th>% a liquidar</th>
+            <th>Total a liquidar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <g:each in="${listaPagos}" status="i" var="pago">
+            <tr>
+                <td>${pago.factura.plan.codigo}</td>
+                <td>${pago.factura.nrofactura}</td>
+                <td>${pago.fecha.format('dd/MM/yyyy')}</td>
+                <td>${pago.monto}</td>
+                <td>${pago.porcentajeLiquidado}</td>
+                <td>${pago.montoALiquidar()}</td>
+            </tr>
+        </g:each>
+        </tbody>
+    </table>
+
+    %{--<div>--}%
+    %{--<g:submitButton name="algo" id="algo" value="Liquidar" action="armarLiquidacion"/>--}%
+    %{--</div>--}%
     <input type="button"
            id="liquidarBtn"
            value="Armar Liquidaciones"/>
+    <fieldset>
+        <div id="confirmarLiquidacionDiv">
+            %{--<g:render template="confirmarLiquidacion"/>--}%
+        </div>
+    </fieldset>
+</div>
 
-    <div id="confirmarLiquidacionDiv">
-        <g:render template="confirmarLiquidacion"/>
-    </div>
 </body>
 </html>

@@ -24,7 +24,7 @@ class DetalleLiquidacion {
         this.detalleFactura = detalleFactura
         this.pagoFactura = pago
         this.porcentajePagoFacturaLiquidado = pagoFactura.porcentajeALiquidar
-        monto = detalleFactura.total * porcentajePagoFacturaLiquidado / 100
+        monto = detalleFactura.total() * porcentajePagoFacturaLiquidado / 100
         detalle = "Pago de práctica ${detalleFactura.practica.codigo} del plan ${detalleFactura.plan.codigo}, factura Nro ${detalleFactura.factura.nrofactura}"
     }
 
