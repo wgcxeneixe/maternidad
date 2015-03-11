@@ -1,6 +1,6 @@
 <div>
     <g:if test="${listaLiquidaciones}">
-        <g:form >
+        <g:form>
             <br/>
             <br/>
 
@@ -83,9 +83,9 @@
                 </g:each>
                 </tbody>
             </table>
-            </g:form>
+        %{--</g:form>--}%
         %{--<g:form url="[resource:liquidacionInstance, action:'liquidarAction']" params="${['listaLiquidaciones': listaLiquidaciones]}">--}%
-        <g:form action="liquidarAction" params="[listaLiquidaciones]">
+        %{--<g:form action="liquidarAction" params="[listaLiquidaciones]">--}%
             <br/>
             <br/>
 
@@ -105,7 +105,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <g:each in="${listaLiquidaciones}" status="i" var="liquidacionInstance" >
+                <g:each in="${listaLiquidaciones}" status="i" var="liquidacionInstance">
                     <tr>
 
                         <td>${fieldValue(bean: liquidacionInstance, field: "profesional")}</td>
@@ -121,8 +121,8 @@
 
             <fieldset class="buttons">
                 %{--<g:submitButton name="liquidar" class="save" value="Liquidar"--}%
-                                %{--onclick="return confirm('Esperando formato de Liaquidacion');"/>--}%
-                <g:submitButton name="liquidar" value="Liquidar" />
+                %{--onclick="return confirm('Esperando formato de Liaquidacion');"/>--}%
+                <g:actionSubmit name="liquidar" value="Liquidar" action="liquidarAction" controller="liquidacion" params="[listaConceptoProfesional:listaConceptoProfesional?.id, listaPagoFactura:listaPagoFactura?.id]"/>
             </fieldset>
         </g:form>
     </g:if>

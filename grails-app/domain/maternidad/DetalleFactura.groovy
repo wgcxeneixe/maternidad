@@ -39,4 +39,6 @@ class DetalleFactura {
         Double tot = valorGastos?:0 + valorHonorarios?:0
         return tot * cantidad
     }
+
+    String toString() { "Plan: "+factura.plan.codigo + ", Práctica: " + practica.codigo + ", Función: " + funcion.toString() + ". Total: " + total().toString()}
 }

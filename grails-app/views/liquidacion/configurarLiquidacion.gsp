@@ -48,8 +48,8 @@
 <div class="list">
 
     <div>
-        <g:select id="conceptos" name="conceptos.id" from="${maternidad.ConceptoProfesional.list()}" optionKey="id"
-                  noSelection="['null': 'Seleccione los Conceptos a Liquidar']"/>
+        <g:select id="conceptos" name="conceptos.id" from="${maternidad.ConceptoProfesional.list()}" optionKey="id" optionValue="nombre"
+                   multiple="true"/>
     </div>
 
     <table>

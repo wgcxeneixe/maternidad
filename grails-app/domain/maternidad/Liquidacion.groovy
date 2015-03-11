@@ -5,7 +5,7 @@ class Liquidacion {
     Profesional profesional
     Double montoBruto = 0
     Double montoNeto = 0
-    Date fecha
+    Date fecha = new Date()
     Integer numeroRecibo
     Integer nuemroLiquidacion
 

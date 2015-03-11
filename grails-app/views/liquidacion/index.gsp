@@ -32,9 +32,7 @@
 						<g:sortableColumn property="nuemroLiquidacion" title="${message(code: 'liquidacion.nuemroLiquidacion.label', default: 'Nuemro Liquidacion')}" />
 					
 						<g:sortableColumn property="numeroRecibo" title="${message(code: 'liquidacion.numeroRecibo.label', default: 'Numero Recibo')}" />
-					
-						<g:sortableColumn property="periodo" title="${message(code: 'liquidacion.periodo.label', default: 'Periodo')}" />
-					
+
 					</tr>
 				</thead>
 				<tbody>
@@ -50,9 +48,7 @@
 						<td>${fieldValue(bean: liquidacionInstance, field: "nuemroLiquidacion")}</td>
 					
 						<td>${fieldValue(bean: liquidacionInstance, field: "numeroRecibo")}</td>
-					
-						<td>${fieldValue(bean: liquidacionInstance, field: "periodo")}</td>
-					
+
 					</tr>
 				</g:each>
 				</tbody>

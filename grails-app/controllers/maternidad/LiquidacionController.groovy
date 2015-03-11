@@ -111,70 +111,82 @@ class LiquidacionController {
     }
 
     def armarLiquidacion = {
-        def conceptos = params?.conceptos
+
+        def conceptos = params?.getList('conceptos')
         def listaPagos = []
-        def listaConceptos = ConceptoProfesional.findAllByIdInList([conceptos])
-        def mapaLiquidaciones = [:]
+        def listaConceptos = ConceptoProfesional.findAllByIdInList(conceptos)
+        def listaLiquidaciones = []
         try {
             listaPagos = PagoFactura.withCriteria {
                 le('porcentajeLiquidado', Double.valueOf(100))
                 gt('porcentajeALiquidar', Double.valueOf(0))
             }
 
-
-            Profesional.findAllByActivo(true)?.each { profesional ->
-                mapaLiquidaciones.put(profesional, new Liquidacion(profesional: profesional))
-            }
-
-            listaPagos.each {
-                pago ->
-                    mapaLiquidaciones.values()?.each {
-                        liq ->
-                            liq.agregarPagoFactura(pago)
-
-                    }
-            }
-
-            mapaLiquidaciones.values()?.each {
-                liquidacion ->
-                    liquidacion.agregarConceptosProfesional(listaConceptos?.codigo)
-            }
+            listaLiquidaciones = armarLiquidaciones(listaPagos, listaConceptos)
 
         } catch (e) {
             flash.errors = "Ocurrió un error al consultar la liquidación"
             redirect(action: "configurarLiquidacion", controller: Liquidacion)
         }
-        render(template: "confirmarLiquidacion", model: [listaLiquidaciones: mapaLiquidaciones.values(), listaConceptoProfesional: listaConceptos, listaPagoFactura: listaPagos])
+        render(template: "confirmarLiquidacion", model: [listaLiquidaciones: listaLiquidaciones, listaConceptoProfesional: listaConceptos, listaPagoFactura: listaPagos])
     }
 
-    def liquidarAction = {
-        println "entro al liquidar"
-        println   params
-        println params?.dump()
-        return null
+    private Collection<Liquidacion> armarLiquidaciones(List<PagoFactura> listaPagos, List<ConceptoPorProfesional> listaConceptos) {
+        def mapaLiquidaciones = [:]
+
+        Profesional.findAllByActivo(true)?.each { profesional ->
+            mapaLiquidaciones.put(profesional, new Liquidacion(profesional: profesional))
+        }
+
+        listaPagos.each {
+            pago ->
+                mapaLiquidaciones.values()?.each {
+                    liq ->
+                        liq.agregarPagoFactura(pago)
+
+                }
+        }
+
+        mapaLiquidaciones.values()?.each {
+            Liquidacion liquidacion ->
+                liquidacion.agregarConceptosProfesional(listaConceptos?.codigo)
+        }
+        return mapaLiquidaciones.values()
+
     }
+
+//    def liquidarAction = {
+//        println "entro al liquidar"
+//        println params
+//        println params?.dump()
+//        return null
+//    }
 
     @Transactional
-    def liquidarAction(Collection<Liquidacion> listaLiquidaciones) {
-        println "entro al liquidar"
-        println   listaLiquidaciones
-        println params
-        if (!listaLiquidaciones) {
-            notFound()
-            return
-        }
-        listaLiquidaciones?.each {
-            if (it.hasErrors()) {
-                respond it.errors, view: 'configurarLiquidacion'
-                return
+    def liquidarAction() {
+
+        def conceptos = params?.getList('listaConceptoProfesional')
+        def listaPagos = []
+        def listaConceptos = ConceptoProfesional.findAllByIdInList(conceptos)
+        def listaLiquidaciones = []
+        try {
+            listaPagos = PagoFactura.withCriteria {
+                le('porcentajeLiquidado', Double.valueOf(100))
+                gt('porcentajeALiquidar', Double.valueOf(0))
             }
+
+            listaLiquidaciones = armarLiquidaciones(listaPagos, listaConceptos)
+            listaLiquidaciones?.each {
+                it.save(flush: true)
+            }
+
+        } catch (e) {
+            flash.errors = "Ocurrió un error al consultar la liquidación"
+            redirect(action: "configurarLiquidacion", controller: "liquidacion")
         }
 
-        listaLiquidaciones?.each { facturaInstance ->
-            facturaInstance.save flush: true
-        }
         flash.message = "Se generó la liquidación correctamente"
-        redirect(action: "configurarLiquidacion", controller: Liquidacion)
+        redirect(controller: "liquidacion")
     }
 
 }
