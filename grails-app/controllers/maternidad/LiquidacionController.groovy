@@ -141,13 +141,40 @@ class LiquidacionController {
             }
 
         } catch (e) {
-            flash.errors="Ocurrió un error al consultar la liquidación"
+            flash.errors = "Ocurrió un error al consultar la liquidación"
             redirect(action: "configurarLiquidacion", controller: Liquidacion)
         }
         render(template: "confirmarLiquidacion", model: [listaLiquidaciones: mapaLiquidaciones.values(), listaConceptoProfesional: listaConceptos, listaPagoFactura: listaPagos])
     }
 
     def liquidarAction = {
+        println "entro al liquidar"
+        println   params
+        println params?.dump()
         return null
     }
+
+    @Transactional
+    def liquidarAction(Collection<Liquidacion> listaLiquidaciones) {
+        println "entro al liquidar"
+        println   listaLiquidaciones
+        println params
+        if (!listaLiquidaciones) {
+            notFound()
+            return
+        }
+        listaLiquidaciones?.each {
+            if (it.hasErrors()) {
+                respond it.errors, view: 'configurarLiquidacion'
+                return
+            }
+        }
+
+        listaLiquidaciones?.each { facturaInstance ->
+            facturaInstance.save flush: true
+        }
+        flash.message = "Se generó la liquidación correctamente"
+        redirect(action: "configurarLiquidacion", controller: Liquidacion)
+    }
+
 }

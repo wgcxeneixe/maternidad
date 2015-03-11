@@ -1,107 +1,129 @@
-
 <div>
-<g:if test="${listaLiquidaciones}">
-    <g:form>
-    <table>
-        <thead>
-        <tr>
+    <g:if test="${listaLiquidaciones}">
+        <g:form >
+            <br/>
+            <br/>
 
-            <g:sortableColumn property="nombre" title="Nombre" />
+            <div>
+                <label>Conceptos a Liquidar</label>
+            </div>
+            <table>
+                <thead>
+                <tr>
 
-            <g:sortableColumn property="codigo" title="Codigo" />
+                    <g:sortableColumn property="nombre" title="Nombre"/>
 
-            <g:sortableColumn property="observacion" title="Observacion" />
+                    <g:sortableColumn property="codigo" title="Codigo"/>
 
-            <g:sortableColumn property="esMensual" title="Es Mensual" />
+                    <g:sortableColumn property="observacion" title="Observacion"/>
 
-            <g:sortableColumn property="credito" title="Es Credito" />
+                    <g:sortableColumn property="esMensual" title="Es Mensual"/>
 
-        </tr>
-        </thead>
-        <tbody>
-        <g:each in="${listaConceptoProfesional}" status="i" var="conceptoProfesionalInstance">
-            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                    <g:sortableColumn property="credito" title="Es Credito"/>
 
-                <td>${fieldValue(bean: conceptoProfesionalInstance, field: "nombre")}</td>
+                </tr>
+                </thead>
+                <tbody>
+                <g:each in="${listaConceptoProfesional}" status="i" var="conceptoProfesionalInstance">
+                    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                <td>${fieldValue(bean: conceptoProfesionalInstance, field: "codigo")}</td>
+                        <td>${fieldValue(bean: conceptoProfesionalInstance, field: "nombre")}</td>
 
-                <td>${fieldValue(bean: conceptoProfesionalInstance, field: "observacion")}</td>
+                        <td>${fieldValue(bean: conceptoProfesionalInstance, field: "codigo")}</td>
 
-                <td><g:formatBoolean boolean="${conceptoProfesionalInstance.esMensual}" /></td>
+                        <td>${fieldValue(bean: conceptoProfesionalInstance, field: "observacion")}</td>
 
-                <td><g:formatBoolean boolean="${conceptoProfesionalInstance.credito}" /></td>
+                        <td><g:formatBoolean boolean="${conceptoProfesionalInstance.esMensual}"/></td>
 
-            </tr>
-        </g:each>
-        </tbody>
-    </table>
+                        <td><g:formatBoolean boolean="${conceptoProfesionalInstance.credito}"/></td>
 
-    <table>
-        <thead>
-        <tr>
+                    </tr>
+                </g:each>
+                </tbody>
+            </table>
 
-            <g:sortableColumn property="fecha" title="Fecha" />
+            <br/>
+            <br/>
 
-            <th>Factura</th>
+            <div>
+                <label>Pagos a Liquidar</label>
+            </div>
+            <table>
+                <thead>
+                <tr>
 
-            <g:sortableColumn property="retencion" title="Retencion" />
+                    <g:sortableColumn property="fecha" title="Fecha"/>
 
-            <g:sortableColumn property="aclaracionComprobante" title="Aclaracion Comprobante" />
+                    <th>Factura</th>
 
-            <g:sortableColumn property="monto" title="Monto" />
+                    <g:sortableColumn property="retencion" title="Retencion"/>
 
-        </tr>
-        </thead>
-        <tbody>
-        <g:each in="${listaPagoFactura}" status="i" var="pagoFacturaInstance">
-            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                    <g:sortableColumn property="aclaracionComprobante" title="Aclaracion Comprobante"/>
 
-                <td><g:formatDate date="${pagoFacturaInstance.fecha}" /></td>
+                    <g:sortableColumn property="monto" title="Monto"/>
 
-                <td>${fieldValue(bean: pagoFacturaInstance, field: "factura")}</td>
+                </tr>
+                </thead>
+                <tbody>
+                <g:each in="${listaPagoFactura}" status="i" var="pagoFacturaInstance">
+                    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                <td><g:link action="show" id="${pagoFacturaInstance.id}">${fieldValue(bean: pagoFacturaInstance, field: "retencion")}</g:link></td>
+                        <td><g:formatDate date="${pagoFacturaInstance.fecha}"/></td>
 
-                <td>${fieldValue(bean: pagoFacturaInstance, field: "aclaracionComprobante")}</td>
+                        <td>${fieldValue(bean: pagoFacturaInstance, field: "factura")}</td>
 
-                <td>${fieldValue(bean: pagoFacturaInstance, field: "monto")}</td>
+                        <td><g:link action="show"
+                                    id="${pagoFacturaInstance.id}">${fieldValue(bean: pagoFacturaInstance, field: "retencion")}</g:link></td>
 
-            </tr>
-        </g:each>
-        </tbody>
-    </table>
+                        <td>${fieldValue(bean: pagoFacturaInstance, field: "aclaracionComprobante")}</td>
 
-    <table>
-        <thead>
-        <tr>
+                        <td>${fieldValue(bean: pagoFacturaInstance, field: "monto")}</td>
 
-            <g:sortableColumn property="profesional" title="Profesional" />
+                    </tr>
+                </g:each>
+                </tbody>
+            </table>
+            </g:form>
+        %{--<g:form url="[resource:liquidacionInstance, action:'liquidarAction']" params="${['listaLiquidaciones': listaLiquidaciones]}">--}%
+        <g:form action="liquidarAction" params="[listaLiquidaciones]">
+            <br/>
+            <br/>
 
-            <g:sortableColumn property="montoBruto" title="Monto Bruto" />
+            <div>
+                <label>Liquidaciones</label>
+            </div>
+            <table>
+                <thead>
+                <tr>
 
-            <g:sortableColumn property="montoNeto" title="Monto Neto" />
+                    <g:sortableColumn property="profesional" title="Profesional"/>
 
-        </tr>
-        </thead>
-        <tbody>
-        <g:each in="${listaLiquidaciones}" status="i" var="liquidacionInstance">
-            <tr>
+                    <g:sortableColumn property="montoBruto" title="Monto Bruto"/>
 
-                <td>${fieldValue(bean: liquidacionInstance, field: "profesional")}</td>
+                    <g:sortableColumn property="montoNeto" title="Monto Neto"/>
 
-                <td>${fieldValue(bean: liquidacionInstance, field: "montoBruto")}</td>
+                </tr>
+                </thead>
+                <tbody>
+                <g:each in="${listaLiquidaciones}" status="i" var="liquidacionInstance" >
+                    <tr>
 
-                <td>${fieldValue(bean: liquidacionInstance, field: "montoNeto")}</td>
+                        <td>${fieldValue(bean: liquidacionInstance, field: "profesional")}</td>
 
-            </tr>
-        </g:each>
-        </tbody>
-    </table>
+                        <td>${fieldValue(bean: liquidacionInstance, field: "montoBruto")}</td>
 
-        <fieldset class="buttons">
-            <g:actionSubmit class="save" action="liquidarAction" value="Liquidar" onclick="return confirm('En Desarrollo'); return false;" />
-        </fieldset>
-    </g:form>
-</g:if>
+                        <td>${fieldValue(bean: liquidacionInstance, field: "montoNeto")}</td>
+
+                    </tr>
+                </g:each>
+                </tbody>
+            </table>
+
+            <fieldset class="buttons">
+                %{--<g:submitButton name="liquidar" class="save" value="Liquidar"--}%
+                                %{--onclick="return confirm('Esperando formato de Liaquidacion');"/>--}%
+                <g:submitButton name="liquidar" value="Liquidar" />
+            </fieldset>
+        </g:form>
+    </g:if>
 </div>
