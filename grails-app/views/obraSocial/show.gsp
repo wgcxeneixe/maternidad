@@ -58,6 +58,15 @@
 					
 				</li>
 				</g:if>
+
+            <g:if test="${obraSocialInstance?.enteReceptor}">
+                <li class="fieldcontain">
+                    <span id="ente-label" class="property-label"><g:message code="obraSocial.nombre.label" default="Ente Receptor" /></span>
+
+                    <span class="property-value" aria-labelledby="ente-label"><g:fieldValue bean="${obraSocialInstance}" field="enteReceptor"/></span>
+
+                </li>
+            </g:if>
 			
 				<g:if test="${obraSocialInstance?.observacion}">
 				<li class="fieldcontain">

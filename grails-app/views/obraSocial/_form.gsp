@@ -43,7 +43,7 @@
     <label for="enteReceptor">
         <g:message code="obrasocial.enteReceptor.label" default="Ente Receptor" />
     </label>
-    <g:select id="enteReceptor" name="enteReceptor.id" from="${maternidad.EnteReceptor.list()}" optionKey="id" value="${obraSocialInstance?.enteReceptor}"  noSelection="['null': '']"/>
+    <g:select id="enteReceptor" name="enteReceptor.id" from="${maternidad.EnteReceptor.list()}" optionKey="id" value="${obraSocialInstance?.enteReceptor?.id}"  noSelection="['null': '']"/>
 
 </div>
 
