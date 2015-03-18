@@ -7,6 +7,7 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 grails.project.war.file = "target/${appName}.war"
 
+
 grails.project.fork = [
     // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
     //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
@@ -20,6 +21,7 @@ grails.project.fork = [
     // configure settings for the Console UI JVM
     console: [maxMemory: 768, minMemory: 64, debug: false, maxPerm: 256]
 ]
+
 
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
@@ -67,7 +69,7 @@ grails.project.dependency.resolution = {
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.5.5" // or ":hibernate:3.6.10.17"
         runtime ":database-migration:1.4.0"
-        runtime ":jquery:1.11.1"
+      //  runtime ":jquery:1.11.1"
 
         compile ":spring-security-core:2.0-RC4"
         // Uncomment these to enable additional asset-pipeline capabilities
@@ -76,6 +78,7 @@ grails.project.dependency.resolution = {
         //compile ":coffee-asset-pipeline:1.8.0"
         //compile ":handlebars-asset-pipeline:1.3.0.3"
         compile ":remote-pagination:0.4.8"
+        compile ":jasper:1.11.0"
     }
 
     //grails.server.port.http=8181
