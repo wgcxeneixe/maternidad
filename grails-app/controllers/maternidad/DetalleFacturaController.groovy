@@ -130,6 +130,23 @@ def planConvenio=PlanConvenio.withCriteria {
     }
 
 
+    def cargaMedicamentos() {
+
+        def planilla
+
+        def detalle = new DetalleFactura(params)
+        if(params.id){
+            planilla= PlanillaInternacion.get(params.id)
+            detalle.planillaInternacion=planilla
+            detalle.plan=planilla.plan
+
+
+        }
+
+        return [detalleFacturaInstance:detalle]
+    }
+
+
     @Transactional
     def saveCarga(DetalleFactura detalleFacturaInstance) {
         if (detalleFacturaInstance == null) {
@@ -138,7 +155,7 @@ def planConvenio=PlanConvenio.withCriteria {
         }
 
         if (detalleFacturaInstance.hasErrors()) {
-            respond detalleFacturaInstance.errors, view: 'create'
+            respond detalleFacturaInstance.errors, view: 'cargaPracticas'
             return
         }
 
@@ -148,13 +165,40 @@ def planConvenio=PlanConvenio.withCriteria {
 
         detalleFacturaInstance.valorGastos=(params?.valorGastos)? params?.valorGastos as Double : 0
         detalleFacturaInstance.valorHonorarios=(params?.valorHonorarios)? params?.valorHonorarios as Double : 0
-
+        detalleFacturaInstance.cantidad=(params?.cantidad)? params?.cantidad as Double : 0
         detalleFacturaInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'detalleFactura.label', default: 'DetalleFactura'), detalleFacturaInstance.id])
                 redirect(  action: "cargaPracticas" , params: [id:detalleFacturaInstance?.planillaInternacion?.id])
+            }
+            '*' { respond detalleFacturaInstance, [status: CREATED] }
+        }
+    }
+
+
+    @Transactional
+    def saveCargaMedicamento(DetalleFactura detalleFacturaInstance) {
+        if (detalleFacturaInstance == null) {
+            notFound()
+            return
+        }
+
+        if (detalleFacturaInstance.hasErrors()) {
+            respond detalleFacturaInstance.errors, view: 'cargaMedicamentos'
+            return
+        }
+
+        detalleFacturaInstance.cantidad=(params?.cantidad)? params?.cantidad as Double : 0
+        detalleFacturaInstance.valorMedicamento=(params?.valorMedicamento)? params?.valorMedicamento as Double : 0
+
+        detalleFacturaInstance.save flush: true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'detalleFactura.label', default: 'DetalleFactura'), detalleFacturaInstance.id])
+                redirect(  action: "cargaMedicamentos" , params: [id:detalleFacturaInstance?.planillaInternacion?.id])
             }
             '*' { respond detalleFacturaInstance, [status: CREATED] }
         }
@@ -221,6 +265,19 @@ if(funcion==10){
         render(contentType: 'text/json') {[
                 'gasto': Math.round(gasto* 100) / 100,
                 'honorario': Math.round(honorario * 100) / 100
+        ]}
+    }
+
+
+
+    def public obtenerValorMedicamento() {
+
+
+        def medicamento = Medicamento.get(params.medicamento)
+       // def funcion= params.funcion as Integer
+
+        render(contentType: 'text/json') {[
+                'valor': Math.round(medicamento?.valor* 100) / 100
         ]}
     }
 

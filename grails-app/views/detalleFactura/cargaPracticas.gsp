@@ -137,6 +137,15 @@
             </div>
 -->
 
+            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'fecha', 'error')} required">
+                <label for="fecha">
+                    <g:message code="convenio.fecha.label" default="Fecha" />
+                    <span class="required-indicator">*</span>
+                </label>
+                <g:datePicker name="fecha" precision="minute"  value="${detalleFacturaInstance?.fecha}"  />
+
+            </div>
+
 
 
         </fieldset>
@@ -162,6 +171,8 @@
 
             <th><g:message code="detalleFactura.valorPractica.label" default="Función" /></th>
 
+            <th><g:message code="detalleFactura.valorPractica.label" default="Fecha" /></th>
+
             <th><g:message code="detalleFactura.valorPractica.label" default="Total" /></th>
 
         </tr>
@@ -169,7 +180,7 @@
         <tbody>
         <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)}
             isNull("factura")
-
+            isNull("medicamento")
         }}" status="i" var="detalleFactura">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
@@ -185,6 +196,10 @@
 
 
                 <td>${detalleFactura?.funcion}</td>
+
+
+                <td>${detalleFactura?.fecha}</td>
+
 
                 <td>
                     <g:formatNumber number="${ (detalleFactura?.valorHonorarios)? (detalleFactura?.valorHonorarios?.multiply( detalleFactura?.cantidad as Character) ):0  +
@@ -205,6 +220,10 @@
 <script>
     jQuery(function() {
 
+
+        //idioma de los calendar
+        jQuery.datepicker.regional[ "es" ];
+        updateDatePicker();
         /*
          jQuery("#boton").click(function(e){
 
