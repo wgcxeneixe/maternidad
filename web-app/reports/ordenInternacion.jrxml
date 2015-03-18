@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordenInternacion" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="obraSocial" class="java.lang.String"/>
+	<field name="numeroAfiliado" class="java.lang.String"/>
+	<field name="nombreYApellido" class="java.lang.String"/>
+	<field name="diagnostico" class="java.lang.String"/>
+	<field name="tratamiento" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="181" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="43" width="531" height="121"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[
+EMBARAZO NORMAL - DE ALTO RIESGO - ATENCION PERSONALIZADA DURANTE EL PARTO
+PREPARACION PSICOPROFILACTICA - MONITOREO FETAL - ECOGRAFIA
+GUARDIA DE OBSTETRICIA Y GINECOLOGIA PERMANENTE
+
+
+
+CAP. GENERAL URQUIZA 174
+TELEFONO 0442-22257]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="0" width="531" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="14" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[NUEVA MATERNIDAD CONCEPCION S.R.L.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="320">
+			<staticText>
+				<reportElement x="16" y="6" width="149" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[OBRA SOCIAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="36" width="149" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Nº AFILIADO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="67" width="149" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE Y APELLIDO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="97" width="531" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="10" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[SE SOLICITA AUTORIZACION DE INTERNACION PARA SU ATENCION]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="183" y="6" width="362" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{obraSocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="36" width="362" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numeroAfiliado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="67" width="362" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreYApellido}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="133" width="149" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DIAGNOSTICO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="14" y="153" width="531" height="67"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{diagnostico}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="220" width="149" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TRATAMIENTO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="14" y="240" width="531" height="67"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tratamiento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="122" splitType="Stretch">
+			<textField>
+				<reportElement x="16" y="64" width="88" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="396" y="64" width="149" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[FIRMA]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

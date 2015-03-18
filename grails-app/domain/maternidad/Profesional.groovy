@@ -10,6 +10,7 @@ class Profesional {
     String cbu
     Banco banco
     //SortedSet<ConceptoPorProfesional> listaConceptos
+    Integer codigoCirculo
 
     static belongsTo = [
             persona : Persona,
@@ -34,7 +35,7 @@ class Profesional {
     fechaMatriculacion(nullable: true , blank:true)
     cbu(nullable: true , blank:true)
     banco(nullable: true , blank:true)
-
+    codigoCirculo(nullable: true,blank:true)
     }
 
     String toString() { if(persona){"${persona.razonSocial?:persona.apellido+', '+persona.nombre}"} else {""} }

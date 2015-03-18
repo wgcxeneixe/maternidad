@@ -91,7 +91,7 @@
                     <g:message code="detalleFactura.cantidad.label" default="Cantidad" />
 
                 </label>
-                <g:field type="number" id="cantidad" name="cantidad" required="" value="${fieldValue(bean: detalleFacturaInstance, field: 'cantidad')}"/>
+                <g:field type="number" step="any" id="cantidad" name="cantidad" required="" value="${fieldValue(bean: detalleFacturaInstance, field: 'cantidad')}"/>
 
             </div>
 
@@ -196,11 +196,7 @@
         </g:each>
         </tbody>
     </table>
-<!--    <div class="pagination">
-        <g:paginate params="[id:params?.id]" total="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)}
-            isNull("factura")}.size() ?: 0}" />
-    </div>
--->
+
 
     
     

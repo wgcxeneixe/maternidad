@@ -1,6 +1,8 @@
 package maternidad
 
 import grails.plugin.springsecurity.annotation.Secured
+import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
+import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -13,7 +15,7 @@ class PlanillaInternacionController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def springSecurityService
-
+    def jasperService
     /*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -238,4 +240,53 @@ class PlanillaInternacionController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+
+
+    // ***************************
+    // Imprimir orden Internacion
+    // ***************************
+    def imprimirOrden = {
+        def planillaInstance = PlanillaInternacion.get(params.id)
+        if(!planillaInstance){
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
+            redirect(action: "index")
+        }else{
+
+            def data = OrdenInternacion.generar(planillaInstance)
+
+            generarPDF('ordenInternacion.jasper', "Orden", [data], 'orden-' + planillaInstance?.id)
+
+            redirect(action: "show", id: planillaInstance.id)
+
+        }
+    }
+
+
+    // ***************************
+    // Generar PDF para impresion
+    // ***************************
+    def private generarPDF(reporte, titulo, data, nombre){
+        //Seteamos los directorios de los subreportes y las imagenes
+        def params = [:]
+
+        params.SUBREPORT_DIR = servletContext.getRealPath('/reports') + "/"
+        // Definimos el reporte
+        def reportDef = new JasperReportDef(name: reporte,
+                fileFormat: JasperExportFormat.PDF_FORMAT,
+                reportData: data,
+                parameters: params
+        )
+
+        // Establecemos un nombre de archivo único...
+        response.setHeader("Content-disposition", "attachment; filename=\"${nombre}.pdf\"");
+        // Establecemos el tipo de archivo a PDF...
+        response.contentType = "application/pdf"
+        // Enviamos el contenido del PDF
+        response.outputStream << jasperService.generateReport(reportDef).toByteArray()
+
+    }
+
+
+
 }

@@ -10,7 +10,7 @@ select setval('sami.seq_localidad', 1, true);
 INSERT INTO sami.tipo_documento VALUES (1,0,'DNI',true,'DNI','Doc. Nac. Identidad','Registro Civil','Doc. Nac. Identidad',1,1);
 select setval('sami.seq_tipo_documento', 1, true);
 
-INSERT INTO sami.estado_civil VALUES (1,0,'Solterazo');
+INSERT INTO sami.estado_civil VALUES (1,0,'Soltero');
 select setval('sami.seq_estado_civil', 1, true);
 
 INSERT INTO sami.persona VALUES (1,0,'Gigliotti','Picapiedras 9','3260',20666666666,'Baradero',1,1,1,'Puma',66666666,13,true,0,'SINRAZON',1);

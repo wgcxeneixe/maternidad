@@ -33,6 +33,8 @@
 
             <th></th>
 
+            <th></th>
+
         </tr>
         </thead>
         <tbody>
@@ -62,6 +64,10 @@
 
 
                 <td><g:link controller="detalleFactura"  action="cargaPracticas" id="${planillaInternacionInstance.id}">${message(code: 'facturacion.cargaPracticas')}</g:link></td>
+
+
+                <td><g:link controller="planillaInternacion"  action="imprimirOrden" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirOrden')}</g:link></td>
+
 
 
             </tr>

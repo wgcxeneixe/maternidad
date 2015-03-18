@@ -37,7 +37,7 @@
         <g:message code="planillaInternacion.fechaInternacion.label" default="Fecha Internacion"/>
         <span class="required-indicator">*</span>
     </label>
-    <g:datePicker name="fechaInternacion" precision="day" value="${planillaInternacionInstance?.fechaInternacion}"/>
+    <g:datePicker name="fechaInternacion" precision="minute" value="${planillaInternacionInstance?.fechaInternacion}"/>
 
 </div>
 
@@ -67,11 +67,50 @@
         <g:message code="planillaInternacion.fechaAlta.label" default="Fecha Alta"/>
 
     </label>
-    <g:datePicker name="fechaAlta" precision="day" value="${planillaInternacionInstance?.fechaAlta}"/>
+    <g:datePicker name="fechaAlta" precision="minute" value="${planillaInternacionInstance?.fechaAlta}"/>
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'observaciones', 'error')} required">
+
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'numeroIngreso', 'error')} ">
+    <label for="numeroIngreso">
+        <g:message code="planillaInternacion.numeroIngreso.label" default="Número Ingreso"/>
+
+    </label>
+    <g:field type="number" name="numeroIngreso" cols="40" rows="5" maxlength="5000" value="${planillaInternacionInstance?.numeroIngreso}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'numeroAfiliado', 'error')} ">
+    <label for="numeroAfiliado">
+        <g:message code="planillaInternacion.numeroAfiliado.label" default="Número Afiliado"/>
+
+    </label>
+    <g:field type="number" name="numeroAfiliado" cols="40" rows="5" maxlength="5000" value="${planillaInternacionInstance?.numeroAfiliado}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'diagnostico', 'error')} ">
+    <label for="diagnostico">
+        <g:message code="planillaInternacion.diagnostico.label" default="Diagnóstico"/>
+
+    </label>
+    <g:textArea name="diagnostico" cols="40" rows="5" maxlength="5000" value="${planillaInternacionInstance?.diagnostico}"/>
+
+</div>
+
+
+
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'tratamiento', 'error')} ">
+    <label for="tratamiento">
+        <g:message code="planillaInternacion.tratamiento.label" default="Tratamiento"/>
+
+    </label>
+    <g:textArea name="tratamiento" cols="40" rows="5" maxlength="5000" value="${planillaInternacionInstance?.tratamiento}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'observaciones', 'error')} ">
     <label for="observaciones">
         <g:message code="planillaInternacion.observaciones.label" default="Observaciones"/>
 

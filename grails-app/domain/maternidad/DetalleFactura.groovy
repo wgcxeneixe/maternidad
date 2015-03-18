@@ -40,5 +40,5 @@ class DetalleFactura {
         return tot * cantidad
     }
 
-    String toString() { "Plan: "+factura.plan.codigo + ", Práctica: " + practica.codigo + ", Función: " + funcion.toString() + ". Total: " + total().toString()}
+    String toString() { "Plan: "+factura?.plan?.codigo + ", Práctica: " + practica?.codigo + ", Función: " + funcion?.toString() + ". Total: " + total().toString()}
 }
