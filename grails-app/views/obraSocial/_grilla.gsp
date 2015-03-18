@@ -10,6 +10,7 @@
 
         <g:sortableColumn property="cuit" title="${message(code: 'obraSocial.cuit.label', default: 'Cuit')}" params="${filters}" />
 
+        <g:sortableColumn property="enteReceptor" title="${message(code: 'obraSocial.enteReceptor.label', default: 'Ente Receptor')}" params="${filters}" />
 
         <g:sortableColumn property="activa" title="${message(code: 'obraSocial.activa.label', default: 'Activa')}" params="${filters}" />
 
@@ -31,6 +32,8 @@
             <td>${fieldValue(bean: obraSocialInstance, field: "codigo")}</td>
 
             <td>${obraSocialInstance?.cuit?.toString()}</td>
+
+            <td>${fieldValue(bean: obraSocialInstance, field: "enteReceptor")}</td>
 
             <td><g:formatBoolean boolean="${obraSocialInstance.activa}" /></td>
 

@@ -38,6 +38,15 @@
 
 </div>
 
+
+<div class="fieldcontain ${hasErrors(bean: obraSocialInstance, field: 'enteReceptor', 'error')} ">
+    <label for="enteReceptor">
+        <g:message code="obrasocial.enteReceptor.label" default="Ente Receptor" />
+    </label>
+    <g:select id="enteReceptor" name="enteReceptor.id" from="${maternidad.EnteReceptor.list()}" optionKey="id" value="${obraSocialInstance?.enteReceptor}"  noSelection="['null': '']"/>
+
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: obraSocialInstance, field: 'observacion', 'error')} ">
 	<label for="observacion">
 		<g:message code="obraSocial.observacion.label" default="Observacion" />

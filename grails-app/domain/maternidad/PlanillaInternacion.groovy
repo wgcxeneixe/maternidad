@@ -13,6 +13,8 @@ class PlanillaInternacion {
     String diagnostico
     String tratamiento
     Long numeroAfiliado
+    Set movimientos
+
 
     static constraints = {
         paciente(nullable: true,blank:true)
@@ -31,7 +33,8 @@ class PlanillaInternacion {
     static hasMany = [
             nacimientos: Nacimiento,
             detalles:DetalleFactura,
-            detallesCaja:DetalleCaja
+            detallesCaja:DetalleCaja,
+            movimientos:MovimientoPlanilla
     ]
 
     String toString() { "Nº ${id}"+ " - "+ paciente }

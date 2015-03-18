@@ -8,6 +8,8 @@ class ObraSocial {
     Long cuit
     String observacion
     Boolean activa=true
+    EnteReceptor enteReceptor
+
 
     static hasMany = [planes:Plan,convenios:Convenio,practicas:Practica]
 
@@ -18,6 +20,7 @@ class ObraSocial {
         cuit(nullable:true, unique:true, blank:true, validator: { it.toString() ==~ /^(20|23|27|30|33)[0-9]{9}$/ })
         observacion(size:0..5000, nullable:true, blank:true)
         activa(nullable:true, blank:true)
+        enteReceptor(nullable:true, blank:true)
 
     }
 
