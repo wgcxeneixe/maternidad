@@ -16,8 +16,9 @@ class DetalleFactura {
     Integer funcion
     Boolean modulo
     Boolean valorFijo=false
-   
-
+    Medicamento medicamento
+    Date fecha
+    Double valorMedicamento
 
 
     static belongsTo = [
@@ -29,10 +30,11 @@ class DetalleFactura {
     ]
 
     static constraints = {
-
-        profesional(nullable: false,blank:false)
+        practica(nullable: true,blank:true)
+        profesional(nullable: true,blank:true)
         plan(nullable: false,blank:false)
         planillaInternacion(nullable: false,blank:false)
+        medicamento(nullable: true,blank:true)
     }
 
     def  Double total() {
