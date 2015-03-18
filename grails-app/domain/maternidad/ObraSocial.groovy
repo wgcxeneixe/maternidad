@@ -8,6 +8,8 @@ class ObraSocial {
     Long cuit
     String observacion
     Boolean activa=true
+    EnteReceptor enteReceptor
+
 
     static hasMany = [planes:Plan,convenios:Convenio,practicas:Practica]
 
