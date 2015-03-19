@@ -61,7 +61,9 @@
     </g:form>
 </div>
 
-<g:form id="formFacturar" controller="planillaInternacion" action="facturarSeleccionadas">
+<g:form name="formFacturar"  controller="planillaInternacion" action="facturarSeleccionadas">
+
+    <g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByNombre("EN PROCESO")?.id?.toString()}">
     <div class="">
         <label for="periodo">
             <g:message code="factura.periodo.label" default="Seleccionar Todas" />
@@ -70,10 +72,17 @@
         <g:checkBox id="seleccionar" name="seleccionar"/>
 
     </div>
-
+</g:if>
 <g:render template="lista" model="model"/>
 
 </g:form>
+
+<g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByNombre("A FACTURAR")?.id?.toString()}">
+
+    <g:link action="facturar" params="${[planilla:planillaInternacionInstanceList?.id]}">Facturar</g:link>
+
+</g:if>
+
 
 <script>
     jQuery(function() {
@@ -101,7 +110,9 @@
 
         jQuery( "#facturar" ).click(function(e) {
            // e.preventDefault();
-            jQuery("#formFacturar").submit();
+            //jQuery("#formFacturar").submit();
+            jQuery('form[name="formFacturar"]').submit();
+
         });
 
     });

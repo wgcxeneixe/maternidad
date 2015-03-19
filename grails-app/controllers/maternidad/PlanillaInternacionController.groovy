@@ -326,9 +326,100 @@ class PlanillaInternacionController {
 
     def facturarSeleccionadas={
 
-        def seleccionados=params?.facturar
+        def seleccionados=params?.list("facturar")
+
+        seleccionados.each {
+sel ->
+           def planilla=PlanillaInternacion.findById(sel as Integer)
+           def estado=EstadoPlanilla.findByCodigo("AFA")
+
+           planilla.estadoPlanilla=estado
+           planilla.save(flush: true)
+
+
+            def usuario = springSecurityService.currentUser
+            def movimiento= new  MovimientoPlanilla()
+            movimiento.estadoPlanilla=estado
+            movimiento.fecha=new Date()
+            movimiento.planillaInternacion=planilla
+            movimiento.usuario=usuario as Usuario
+            movimiento.save(flush:true)
+
+        }
+
+
+        redirect(action: "index")
 
     }
 
+
+
+    def facturar={
+
+      def planillas=  params.list("planilla")
+
+      planillas.each {
+
+          sel ->
+              def planilla=PlanillaInternacion.findById(sel as Integer)
+              def estadoFacturada=EstadoPlanilla.findByCodigo("FAC")
+              def estadoAprobacion=EstadoPlanilla.findByCodigo("PEN")
+
+              // si no tiene ente -> factura
+              if(!planilla.plan.obrasocial.enteReceptor){
+            //facturar
+
+                  planilla.estadoPlanilla=estadoFacturada
+                  planilla.save(flush: true)
+
+                  def usuario = springSecurityService.currentUser
+                  def movimiento= new  MovimientoPlanilla()
+                  movimiento.estadoPlanilla=estadoFacturada
+                  movimiento.fecha=new Date()
+                  movimiento.planillaInternacion=planilla
+                  movimiento.usuario=usuario as Usuario
+                  movimiento.save(flush:true)
+
+
+
+              }
+                  //sino si tiene ente y pide aprobacion -> marca con aprobacion
+            else if (planilla.plan.obrasocial.enteReceptor.pidePreAprobacion){
+
+                  planilla.estadoPlanilla=estadoAprobacion
+                  planilla.save(flush: true)
+
+                  def usuario = springSecurityService.currentUser
+                  def movimiento= new  MovimientoPlanilla()
+                  movimiento.estadoPlanilla=estadoAprobacion
+                  movimiento.fecha=new Date()
+                  movimiento.planillaInternacion=planilla
+                  movimiento.usuario=usuario as Usuario
+                  movimiento.save(flush:true)
+
+              }
+                else if(!planilla.plan.obrasocial.enteReceptor.pidePreAprobacion){
+
+
+                  planilla.estadoPlanilla=estadoFacturada
+                  planilla.save(flush: true)
+
+                  def usuario = springSecurityService.currentUser
+                  def movimiento= new  MovimientoPlanilla()
+                  movimiento.estadoPlanilla=estadoFacturada
+                  movimiento.fecha=new Date()
+                  movimiento.planillaInternacion=planilla
+                  movimiento.usuario=usuario as Usuario
+                  movimiento.save(flush:true)
+
+
+
+              }
+
+
+
+      }
+
+    }
 
 }
