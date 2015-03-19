@@ -54,27 +54,58 @@ class DetalleFacturaController {
         respond detalleFacturaInstance
     }
 
+//    @Transactional
+//    def update(DetalleFactura detalleFacturaInstance) {
+//        if (detalleFacturaInstance == null) {
+//            notFound()
+//            return
+//        }
+//
+//        if (detalleFacturaInstance.hasErrors()) {
+//            respond detalleFacturaInstance.errors, view: 'edit'
+//            return
+//        }
+//
+//        detalleFacturaInstance.save flush: true
+//
+//        request.withFormat {
+//            form multipartForm {
+//                flash.message = message(code: 'default.updated.message', args: [message(code: 'DetalleFactura.label', default: 'DetalleFactura'), detalleFacturaInstance.id])
+//                redirect detalleFacturaInstance
+//            }
+//            '*' { respond detalleFacturaInstance, [status: OK] }
+//        }
+//    }
+
     @Transactional
-    def update(DetalleFactura detalleFacturaInstance) {
-        if (detalleFacturaInstance == null) {
-            notFound()
-            return
+    def update() {
+        def detalleFacturaInstance
+        println params?.dump()
+        if (params.id) {
+            detalleFacturaInstance = DetalleFactura.read(params.long('id'))
         }
-
-        if (detalleFacturaInstance.hasErrors()) {
-            respond detalleFacturaInstance.errors, view: 'edit'
-            return
-        }
-
-        detalleFacturaInstance.save flush: true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'DetalleFactura.label', default: 'DetalleFactura'), detalleFacturaInstance.id])
-                redirect detalleFacturaInstance
+        if (detalleFacturaInstance) {
+            detalleFacturaInstance.valorHonorarios = params.double('valorHonorarios')
+            detalleFacturaInstance.valorGastos = params.double('valorGastos')
+            detalleFacturaInstance.cantidad = params.double('cantidad')
+            if (params?.valorMedicamento) {
+                detalleFacturaInstance.valorMedicamento = params.double('valorMedicamento')
             }
-            '*' { respond detalleFacturaInstance, [status: OK] }
+
+            if (detalleFacturaInstance.hasErrors()) {
+                respond detalleFacturaInstance.errors, view: 'edit'
+                return
+            }
+
+            if (detalleFacturaInstance.save(flush: true)) {
+
+                redirect(controller: 'factura', action: 'show', params: [id: detalleFacturaInstance?.factura?.id])
+            } else {
+                respond detalleFacturaInstance.errors, view: 'edit'
+                return
+            }
         }
+
     }
 
     @Transactional
@@ -112,23 +143,23 @@ class DetalleFacturaController {
         def planilla
         def valores
         def detalle = new DetalleFactura(params)
-        if(params.id){
-        planilla= PlanillaInternacion.get(params.id)
-            detalle.planillaInternacion=planilla
-            detalle.plan=planilla.plan
-def planConvenio=PlanConvenio.withCriteria {
-    eq("plan",planilla?.plan)
-    convenio{
-        eq("activo",Boolean.TRUE)
-    }
-}
+        if (params.id) {
+            planilla = PlanillaInternacion.get(params.id)
+            detalle.planillaInternacion = planilla
+            detalle.plan = planilla.plan
+            def planConvenio = PlanConvenio.withCriteria {
+                eq("plan", planilla?.plan)
+                convenio {
+                    eq("activo", Boolean.TRUE)
+                }
+            }
 
-      valores= ValorPractica.findAllByPlanConvenio(planConvenio)?.practica as List<Practica>
+            valores = ValorPractica.findAllByPlanConvenio(planConvenio)?.practica as List<Practica>
 
 
         }
 
-        return [detalleFacturaInstance:detalle,practicas:valores]
+        return [detalleFacturaInstance: detalle, practicas: valores]
     }
 
 
@@ -137,15 +168,15 @@ def planConvenio=PlanConvenio.withCriteria {
         def planilla
 
         def detalle = new DetalleFactura(params)
-        if(params.id){
-            planilla= PlanillaInternacion.get(params.id)
-            detalle.planillaInternacion=planilla
-            detalle.plan=planilla.plan
+        if (params.id) {
+            planilla = PlanillaInternacion.get(params.id)
+            detalle.planillaInternacion = planilla
+            detalle.plan = planilla.plan
 
 
         }
 
-        return [detalleFacturaInstance:detalle]
+        return [detalleFacturaInstance: detalle]
     }
 
 
@@ -161,28 +192,28 @@ def planConvenio=PlanConvenio.withCriteria {
             return
         }
 
-        if(detalleFacturaInstance.practica.modulo){
-        detalleFacturaInstance.modulo=Boolean.TRUE
+        if (detalleFacturaInstance.practica.modulo) {
+            detalleFacturaInstance.modulo = Boolean.TRUE
         }
 
-        detalleFacturaInstance.valorGastos=(params?.valorGastos)? params?.valorGastos as Double : 0
-        detalleFacturaInstance.valorHonorarios=(params?.valorHonorarios)? params?.valorHonorarios as Double : 0
-        detalleFacturaInstance.cantidad=(params?.cantidad)? params?.cantidad as Double : 0
+        detalleFacturaInstance.valorGastos = (params?.valorGastos) ? params?.valorGastos as Double : 0
+        detalleFacturaInstance.valorHonorarios = (params?.valorHonorarios) ? params?.valorHonorarios as Double : 0
+        detalleFacturaInstance.cantidad = (params?.cantidad) ? params?.cantidad as Double : 0
 
         detalleFacturaInstance.save flush: true
 
 
-        if(detalleFacturaInstance.planillaInternacion.estadoPlanilla==EstadoPlanilla.findByNombre("INICIADA")){
-            detalleFacturaInstance.planillaInternacion.estadoPlanilla=EstadoPlanilla.findByNombre("EN PROCESO")
-            detalleFacturaInstance.planillaInternacion.save(flush:true)
+        if (detalleFacturaInstance.planillaInternacion.estadoPlanilla == EstadoPlanilla.findByNombre("INICIADA")) {
+            detalleFacturaInstance.planillaInternacion.estadoPlanilla = EstadoPlanilla.findByNombre("EN PROCESO")
+            detalleFacturaInstance.planillaInternacion.save(flush: true)
 
             def usuario = springSecurityService.currentUser
-            def movimiento= new  MovimientoPlanilla()
-            movimiento.estadoPlanilla=detalleFacturaInstance.planillaInternacion.estadoPlanilla
-            movimiento.fecha=new Date()
-            movimiento.planillaInternacion=detalleFacturaInstance.planillaInternacion
-            movimiento.usuario=usuario as Usuario
-            movimiento.save(flush:true)
+            def movimiento = new MovimientoPlanilla()
+            movimiento.estadoPlanilla = detalleFacturaInstance.planillaInternacion.estadoPlanilla
+            movimiento.fecha = new Date()
+            movimiento.planillaInternacion = detalleFacturaInstance.planillaInternacion
+            movimiento.usuario = usuario as Usuario
+            movimiento.save(flush: true)
         }
 
 
@@ -190,7 +221,7 @@ def planConvenio=PlanConvenio.withCriteria {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'detalleFactura.label', default: 'DetalleFactura'), detalleFacturaInstance.id])
-                redirect(  action: "cargaPracticas" , params: [id:detalleFacturaInstance?.planillaInternacion?.id])
+                redirect(action: "cargaPracticas", params: [id: detalleFacturaInstance?.planillaInternacion?.id])
             }
             '*' { respond detalleFacturaInstance, [status: CREATED] }
         }
@@ -209,33 +240,32 @@ def planConvenio=PlanConvenio.withCriteria {
             return
         }
 
-        detalleFacturaInstance.cantidad=(params?.cantidad)? params?.cantidad as Double : 0
-        detalleFacturaInstance.valorMedicamento=(params?.valorMedicamento)? params?.valorMedicamento as Double : 0
+        detalleFacturaInstance.cantidad = (params?.cantidad) ? params?.cantidad as Double : 0
+        detalleFacturaInstance.valorMedicamento = (params?.valorMedicamento) ? params?.valorMedicamento as Double : 0
 
         detalleFacturaInstance.save flush: true
 
-        if(detalleFacturaInstance.planillaInternacion.estadoPlanilla==EstadoPlanilla.findByNombre("INICIADA")){
-            detalleFacturaInstance.planillaInternacion.estadoPlanilla=EstadoPlanilla.findByNombre("EN PROCESO")
-            detalleFacturaInstance.planillaInternacion.save(flush:true)
+        if (detalleFacturaInstance.planillaInternacion.estadoPlanilla == EstadoPlanilla.findByNombre("INICIADA")) {
+            detalleFacturaInstance.planillaInternacion.estadoPlanilla = EstadoPlanilla.findByNombre("EN PROCESO")
+            detalleFacturaInstance.planillaInternacion.save(flush: true)
 
             def usuario = springSecurityService.currentUser
-            def movimiento= new  MovimientoPlanilla()
-            movimiento.estadoPlanilla=detalleFacturaInstance.planillaInternacion.estadoPlanilla
-            movimiento.fecha=new Date()
-            movimiento.planillaInternacion=detalleFacturaInstance.planillaInternacion
-            movimiento.usuario=usuario as Usuario
-            movimiento.save(flush:true)
+            def movimiento = new MovimientoPlanilla()
+            movimiento.estadoPlanilla = detalleFacturaInstance.planillaInternacion.estadoPlanilla
+            movimiento.fecha = new Date()
+            movimiento.planillaInternacion = detalleFacturaInstance.planillaInternacion
+            movimiento.usuario = usuario as Usuario
+            movimiento.save(flush: true)
         }
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'detalleFactura.label', default: 'DetalleFactura'), detalleFacturaInstance.id])
-                redirect(  action: "cargaMedicamentos" , params: [id:detalleFacturaInstance?.planillaInternacion?.id])
+                redirect(action: "cargaMedicamentos", params: [id: detalleFacturaInstance?.planillaInternacion?.id])
             }
             '*' { respond detalleFacturaInstance, [status: CREATED] }
         }
     }
-
 
 
     def public obtenerValores() {
@@ -247,70 +277,71 @@ def planConvenio=PlanConvenio.withCriteria {
        70 - gasto y honorarios llenar los dos campos
        91 - libre carga valor honorario a mano  sacar el readonly y permitir cargar valor que se escribe en valor honorario */
 
-     def honorario=0
-     def gasto=0
+        def honorario = 0
+        def gasto = 0
 
-     def plan= Plan.get(params.plan)
-     def planConvenio= PlanConvenio.withCriteria {
-         convenio{eq("activo",true)}
-         eq("plan",plan)
-     }
-     def practica = Practica.get(params.practica)
-     def funcion= params.funcion as Integer
-
-     def valorPractica= ValorPractica.findByPlanConvenioAndPractica(planConvenio,practica)
-
-if(funcion==10){
-
-  if(valorPractica?.valorHonorario){
-      honorario=valorPractica?.valorHonorario
-  }else {
-     honorario=valorPractica?.valorEspecialista
-  }
-}
-
- if(funcion==20){
-  honorario=valorPractica?.valorAyudante
- }
-
-        if(funcion==30){
-            honorario=valorPractica?.valorAnestecista
+        def plan = Plan.get(params.plan)
+        def planConvenio = PlanConvenio.withCriteria {
+            convenio { eq("activo", true) }
+            eq("plan", plan)
         }
+        def practica = Practica.get(params.practica)
+        def funcion = params.funcion as Integer
 
-        if(funcion==60){
-            gasto=valorPractica?.valorGasto
-        }
+        def valorPractica = ValorPractica.findByPlanConvenioAndPractica(planConvenio, practica)
 
-        if(funcion==70){
-            gasto=valorPractica?.valorGasto
+        if (funcion == 10) {
 
-            if(valorPractica?.valorHonorario){
-                honorario=valorPractica?.valorHonorario
-            }else {
-                honorario=valorPractica?.valorEspecialista
+            if (valorPractica?.valorHonorario) {
+                honorario = valorPractica?.valorHonorario
+            } else {
+                honorario = valorPractica?.valorEspecialista
             }
         }
 
+        if (funcion == 20) {
+            honorario = valorPractica?.valorAyudante
+        }
 
+        if (funcion == 30) {
+            honorario = valorPractica?.valorAnestecista
+        }
+
+        if (funcion == 60) {
+            gasto = valorPractica?.valorGasto
+        }
+
+        if (funcion == 70) {
+            gasto = valorPractica?.valorGasto
+
+            if (valorPractica?.valorHonorario) {
+                honorario = valorPractica?.valorHonorario
+            } else {
+                honorario = valorPractica?.valorEspecialista
+            }
+        }
 
 //return plan as JSON
-        render(contentType: 'text/json') {[
-                'gasto': Math.round(gasto* 100) / 100,
-                'honorario': Math.round(honorario * 100) / 100
-        ]}
+        render(contentType: 'text/json') {
+            [
+                    'gasto': Math.round(gasto * 100) / 100,
+                    'honorario': Math.round(honorario * 100) / 100
+            ]
+        }
     }
-
 
 
     def public obtenerValorMedicamento() {
 
 
         def medicamento = Medicamento.get(params.medicamento)
-       // def funcion= params.funcion as Integer
+        // def funcion= params.funcion as Integer
 
-        render(contentType: 'text/json') {[
-                'valor': Math.round(medicamento?.valor* 100) / 100
-        ]}
+        render(contentType: 'text/json') {
+            [
+                    'valor': Math.round(medicamento?.valor * 100) / 100
+            ]
+        }
     }
 
 

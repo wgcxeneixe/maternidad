@@ -133,17 +133,19 @@
 
                     <th><g:message code="facturacion.practica" default="Práctica"/></th>
 
-
                     <th><g:message code="facturacion.valorGasto" default="Valor Gasto"/></th>
 
                     <th><g:message code="convenio.valorHonorario" default="Valor Honorario"/></th>
 
-
                     <th><g:message code="facturacion.funcion" default="Función"/></th>
+
+                    <th><g:message code="facturacion.medicamento" default="Medicamento"/></th>
+
+                    <th><g:message code="facturacion.valorMedicamento" default="Valor Med."/></th>
 
                     <th><g:message code="detalleCaja.observaciones.label" default="Observaciones"/></th>
 
-
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -165,10 +167,19 @@
 
                         <td>${detalleFacturaInstance?.funcion}</td>
 
+                        <td>${detalleFacturaInstance?.medicamento}</td>
+
+                        <td>${detalleFacturaInstance?.valorMedicamento}</td>
+
                         <td>
                             ${ (detalleFacturaInstance?.observacion?.size()>=20)? detalleFacturaInstance?.observacion?.substring(0,20) +' ...':detalleFacturaInstance?.observacion}</td>
 
-
+                        <td>
+                            <g:if test="${detalleFacturaInstance?.planillaInternacion?.estadoPlanilla?.codigo == 'PEN'}">
+                                <g:link controller="detalleFactura" action="edit"
+                                            params="${[id:detalleFacturaInstance?.id]}">Editar</g:link>
+                            </g:if>
+                        </td>
                     </tr>
                 </g:each>
                 </tbody>
