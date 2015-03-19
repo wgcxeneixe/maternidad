@@ -37,6 +37,18 @@ class Factura {
     }
 
 
+    public List<PlanillaInternacion> listaPlanillasInternacion(){
+        return detallesFactura?.planillaInternacion?.unique()?.asList()
+    }
+
+    public Boolean facturaPendienteConfirmacion(){
+        def lista = listaPlanillasInternacion()
+        def res = false
+        lista.each {
+            if(it?.estadoPlanilla.codigo=="PEN") res = true
+        }
+        return res
+    }
 
     String toString() { "Nº ${nrofactura}" }
 

@@ -9,7 +9,7 @@ import static org.springframework.http.HttpStatus.*
 class FacturaController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
     static scaffold = true
-
+    def springSecurityService
 
     def selectFactura = {
 
@@ -48,7 +48,6 @@ class FacturaController {
 
     }
 
-
 /*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -61,44 +60,42 @@ class FacturaController {
         def query = {
             if (params.fechaDesde && params.fechaHasta) {
                 between('fecha', params.fechaDesde as Date, params.fechaHasta as Date)
-              // between('fecha',Date.from, Date.parse("dd-MM-yyyy", params.fechaDesde))
+                // between('fecha',Date.from, Date.parse("dd-MM-yyyy", params.fechaDesde))
 
             }
             if (params.nrofactura) {
 
-                eq('nrofactura', params.nrofactura.toInteger() )
+                eq('nrofactura', params.nrofactura.toInteger())
 
             }
 
             if (params.plan) {
 
-                eq('plan.id', params.plan.toLong() )
+                eq('plan.id', params.plan.toLong())
 
             }
 
 
 
-            if (params.sort){
-                order(params.sort,params.order)
+            if (params.sort) {
+                order(params.sort, params.order)
             }
         }
 
         def criteria = Factura.createCriteria()
         params.max = Math.min(params.max ? params.int('max') : 20, 100)
         def facturas = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [fechaDesde: params.fechaDesde as Date,fechaHasta:params.fechaHasta as Date,plan:params.plan,nrofactura:params.nrofactura]
+        def filters = [fechaDesde: params.fechaDesde as Date, fechaHasta: params.fechaHasta as Date, plan: params.plan, nrofactura: params.nrofactura]
 
-        def model = [facturaInstanceList: facturas, facturaInstanceTotal:facturas?.size(), filters: filters]
+        def model = [facturaInstanceList: facturas, facturaInstanceTotal: facturas?.size(), filters: filters]
 
         if (request.xhr) {
             // ajax request
             render(template: "grilla", model: model)
-        }
-        else {
+        } else {
             model
         }
     }
-
 
 
     def show(Factura facturaInstance) {
@@ -148,15 +145,15 @@ class FacturaController {
             return
         }
 
-        facturaInstance.totalFacturado=(params?.totalFacturado)? params?.totalFacturado as Double :0
+        facturaInstance.totalFacturado = (params?.totalFacturado) ? params?.totalFacturado as Double : 0
 
-        facturaInstance.totalPagado=(params?.totalPagado)? params?.totalPagado as Double :0
+        facturaInstance.totalPagado = (params?.totalPagado) ? params?.totalPagado as Double : 0
         facturaInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Factura.label', default: 'Factura'), facturaInstance.id])
-              redirect(action:'index')
+                redirect(action: 'index')
             }
             '*' { respond facturaInstance, [status: OK] }
         }
@@ -191,67 +188,109 @@ class FacturaController {
         }
     }
 
-def facturar={
-   def facturaInstance = new Factura()
+    def facturar = {
+        def facturaInstance = new Factura()
 
-  def maxNroFactura=  Factura.createCriteria().get {
-        projections {
-            max "nrofactura"
-        }
-    } as Long
+        def maxNroFactura = Factura.createCriteria().get {
+            projections {
+                max "nrofactura"
+            }
+        } as Long
 
-facturaInstance.nrofactura= (maxNroFactura)?maxNroFactura+1:0
+        facturaInstance.nrofactura = (maxNroFactura) ? maxNroFactura + 1 : 0
 
-respond facturaInstance
+        respond facturaInstance
 
-}
+    }
 
 
-    def facturarSeleccionado={
+    def facturarSeleccionado = {
 
-       def fecha=params.fecha
-       def nroFactura=params.nrofactura as Long
-       def periodo=params.periodo as Long
+        def fecha = params.fecha
+        def nroFactura = params.nrofactura as Long
+        def periodo = params.periodo as Long
 
 //listado de id de planes a facturar
-       def seleccionados=params?.facturar
-
+        def seleccionados = params?.facturar
 
         /*def l = []
         seleccionados.each() { k, v -> l << k }
 */
 
 // crear facturas por cada plan
-seleccionados.each {
+        seleccionados.each {
 
- def factura= new Factura()
- factura.nrofactura=nroFactura
- factura.fecha=fecha
-    factura.periodo=periodo
-    factura.plan=Plan.get(it)
-    def total= DetalleFactura.executeQuery("select sum(coalesce(df.valorHonorarios,0)* df.cantidad + coalesce(df.valorGastos,0)*df.cantidad ) as total from DetalleFactura df where df.factura is null and df.plan=:plan group by df.plan.id  ",[plan:factura?.plan])
+            def factura = new Factura()
+            factura.nrofactura = nroFactura
+            factura.fecha = fecha
+            factura.periodo = periodo
+            factura.plan = Plan.get(it)
+            def total = DetalleFactura.executeQuery("select sum(coalesce(df.valorHonorarios,0)* df.cantidad + coalesce(df.valorGastos,0)*df.cantidad ) as total from DetalleFactura df where df.factura is null and df.plan=:plan group by df.plan.id  ", [plan: factura?.plan])
 
-factura.totalFacturado=total?.get(0)
-factura.save(flush: true)
+            factura.totalFacturado = total?.get(0)
+            factura.save(flush: true)
 
 
 
-def detalles= DetalleFactura.findAllByFacturaIsNullAndPlan(factura?.plan)
+            def detalles = DetalleFactura.findAllByFacturaIsNullAndPlan(factura?.plan)
 
-    detalles.each {
-        it.factura=factura
-        it.save(flush: true)
+            detalles.each {
+                it.factura = factura
+                it.save(flush: true)
+            }
+
+            nroFactura++
+
+        }
+
+        redirect(action: "index")
+
+
     }
 
-   nroFactura++
+    @Transactional
+    def aprobarFacturaSeleccionada(Factura facturaInstance) {
 
-}
+        if (facturaInstance == null) {
+            notFound()
+            return
+        }
 
-     redirect(action:"index")
+        if (facturaInstance.plan.obrasocial.enteReceptor && facturaInstance.plan.obrasocial.enteReceptor.llevaFactura) {
+            if (!(params.int('nroFactura') && params.int('nroFactura') > 0)) {
+                flash.errors = "El nro de factura no es un valor válido"
+                return
+            }
+
+            facturaInstance.nrofactura = params.int('nroFactura')
+
+            if (facturaInstance.hasErrors()) {
+                respond facturaInstance.errors, view: 'show'
+                return
+            }
+        }
+
+        def estado = EstadoPlanilla.findByCodigo("FAC")
+        def usuario = springSecurityService.currentUser
+        facturaInstance.listaPlanillasInternacion()?.each {
+            planilla ->
+
+                planilla.estadoPlanilla = estado
+                planilla.save(flush: true)
+
+                def movimiento = new MovimientoPlanilla()
+                movimiento.estadoPlanilla = estado
+                movimiento.fecha = new Date()
+                movimiento.planillaInternacion = planilla
+                movimiento.usuario = usuario as Usuario
+                movimiento.save(flush: true)
+
+        }
+
+        flash.message="¡Se facturó con éxito!"
+        redirect(action: "index")
 
 
     }
-
-
 
 }
