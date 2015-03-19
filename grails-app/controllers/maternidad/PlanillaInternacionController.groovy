@@ -50,6 +50,10 @@ class PlanillaInternacionController {
 
             }
 
+            if (params?.estado) {
+               estadoPlanilla{ eq('id',  params.estado as Long)}
+            }
+
             if (params.sort){
                 order(params.sort,params.order)
             }
@@ -58,7 +62,7 @@ class PlanillaInternacionController {
         def criteria = PlanillaInternacion.createCriteria()
         params.max = Math.min(params.max ? params.int('max') : 20, 100)
         def planillas = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [dni: params.dni,nroplanilla:params.nroplanilla,nombre:params.nombre]
+        def filters = [dni: params.dni,nroplanilla:params.nroplanilla,nombre:params.nombre,estado:params.estado]
 
         def model = [planillaInternacionInstanceList: planillas, planillaInternacionInstanceCount:planillas.totalCount, filters: filters]
 
@@ -110,7 +114,24 @@ class PlanillaInternacionController {
             return
         }
 
+
+        def estadoPlanilla = EstadoPlanilla.findByNombre("INICIADA")
+
+        planillaInternacionInstance.estadoPlanilla=estadoPlanilla
+
         planillaInternacionInstance.save flush:true
+
+        if(estadoPlanilla){
+
+            def usuario = springSecurityService.currentUser
+            def movimiento= new  MovimientoPlanilla()
+            movimiento.estadoPlanilla=estadoPlanilla
+            movimiento.fecha=new Date()
+            movimiento.planillaInternacion=planillaInternacionInstance
+            movimiento.usuario=usuario as Usuario
+            movimiento.save(flush:true)
+        }
+
 
         request.withFormat {
             form multipartForm {
@@ -147,7 +168,22 @@ class PlanillaInternacionController {
         }
 
 
-        planillaInternacionInstance.save flush: true
+        def estadoPlanilla = EstadoPlanilla.findByNombre("INICIADA")
+
+        planillaInternacionInstance.estadoPlanilla=estadoPlanilla
+
+        planillaInternacionInstance.save flush:true
+
+        if(estadoPlanilla){
+
+            def usuario = springSecurityService.currentUser
+            def movimiento= new  MovimientoPlanilla()
+            movimiento.estadoPlanilla=estadoPlanilla
+            movimiento.fecha=new Date()
+            movimiento.planillaInternacion=planillaInternacionInstance
+            movimiento.usuario=usuario as Usuario
+            movimiento.save(flush:true)
+        }
 
         request.withFormat {
             form multipartForm {
@@ -287,6 +323,12 @@ class PlanillaInternacionController {
 
     }
 
+
+    def facturarSeleccionadas={
+
+        def seleccionados=params?.facturar
+
+    }
 
 
 }

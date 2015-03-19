@@ -12,6 +12,8 @@ class DetalleFacturaController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def springSecurityService
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond DetalleFactura.list(params), model: [detalleFacturaInstanceCount: DetalleFactura.count()]
@@ -166,7 +168,24 @@ def planConvenio=PlanConvenio.withCriteria {
         detalleFacturaInstance.valorGastos=(params?.valorGastos)? params?.valorGastos as Double : 0
         detalleFacturaInstance.valorHonorarios=(params?.valorHonorarios)? params?.valorHonorarios as Double : 0
         detalleFacturaInstance.cantidad=(params?.cantidad)? params?.cantidad as Double : 0
+
         detalleFacturaInstance.save flush: true
+
+
+        if(detalleFacturaInstance.planillaInternacion.estadoPlanilla==EstadoPlanilla.findByNombre("INICIADA")){
+            detalleFacturaInstance.planillaInternacion.estadoPlanilla=EstadoPlanilla.findByNombre("EN PROCESO")
+            detalleFacturaInstance.planillaInternacion.save(flush:true)
+
+            def usuario = springSecurityService.currentUser
+            def movimiento= new  MovimientoPlanilla()
+            movimiento.estadoPlanilla=detalleFacturaInstance.planillaInternacion.estadoPlanilla
+            movimiento.fecha=new Date()
+            movimiento.planillaInternacion=detalleFacturaInstance.planillaInternacion
+            movimiento.usuario=usuario as Usuario
+            movimiento.save(flush:true)
+        }
+
+
 
         request.withFormat {
             form multipartForm {
@@ -194,6 +213,19 @@ def planConvenio=PlanConvenio.withCriteria {
         detalleFacturaInstance.valorMedicamento=(params?.valorMedicamento)? params?.valorMedicamento as Double : 0
 
         detalleFacturaInstance.save flush: true
+
+        if(detalleFacturaInstance.planillaInternacion.estadoPlanilla==EstadoPlanilla.findByNombre("INICIADA")){
+            detalleFacturaInstance.planillaInternacion.estadoPlanilla=EstadoPlanilla.findByNombre("EN PROCESO")
+            detalleFacturaInstance.planillaInternacion.save(flush:true)
+
+            def usuario = springSecurityService.currentUser
+            def movimiento= new  MovimientoPlanilla()
+            movimiento.estadoPlanilla=detalleFacturaInstance.planillaInternacion.estadoPlanilla
+            movimiento.fecha=new Date()
+            movimiento.planillaInternacion=detalleFacturaInstance.planillaInternacion
+            movimiento.usuario=usuario as Usuario
+            movimiento.save(flush:true)
+        }
 
         request.withFormat {
             form multipartForm {

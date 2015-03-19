@@ -14,7 +14,7 @@ class PlanillaInternacion {
     String tratamiento
     Long numeroAfiliado
     Set movimientos
-
+    EstadoPlanilla estadoPlanilla
 
     static constraints = {
         paciente(nullable: true,blank:true)

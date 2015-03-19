@@ -4,6 +4,7 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
+
     <table>
         <thead>
         <tr>
@@ -15,15 +16,13 @@
 
             <th><g:message code="planillaInternacion.plan.label" default="Plan" params="${filters}"/></th>
 
+
+            <th><g:message code="planillaInternacion.plan.label" default="Estado" params="${filters}"/></th>
+
             <g:sortableColumn property="fechaInternacion"
                               title="${message(code: 'planillaInternacion.fechaInternacion.label', default: 'Fecha Internacion')}" params="${filters}"/>
 
-       <!--     <g:sortableColumn property="nombreFamiliarResponsable"
-                              title="${message(code: 'planillaInternacion.nombreFamiliarResponsable.label', default: 'Nombre Familiar Responsable')}" params="${filters}"/>
 
-            <g:sortableColumn property="telefonoFamiliarResponsable"
-                              title="${message(code: 'planillaInternacion.telefonoFamiliarResponsable.label', default: 'Telefono Familiar Responsable')}" params="${filters}"/>
--->
             <g:sortableColumn property="fechaAlta"
                               title="${message(code: 'planillaInternacion.fechaAlta.label', default: 'Fecha Alta')}" params="${filters}"/>
 
@@ -37,6 +36,11 @@
 
             <th></th>
 
+            <g:if test="${filters?.estado==maternidad.EstadoPlanilla.findByNombre("EN PROCESO")?.id?.toString()}">
+                <th></th>
+            </g:if>
+
+
         </tr>
         </thead>
         <tbody>
@@ -49,12 +53,11 @@
 
                 <td>${fieldValue(bean: planillaInternacionInstance, field: "plan")}</td>
 
+                <td> ${ planillaInternacionInstance?.estadoPlanilla } </td>
+
                 <td><g:formatDate type="date" style="MEDIUM"  date="${planillaInternacionInstance.fechaInternacion}"/></td>
 
-               <!-- <td>${fieldValue(bean: planillaInternacionInstance, field: "nombreFamiliarResponsable")}</td>
 
-                <td>${fieldValue(bean: planillaInternacionInstance, field: "telefonoFamiliarResponsable")}</td>
--->
                 <td><g:formatDate type="date" style="MEDIUM"  date="${planillaInternacionInstance.fechaAlta}"/></td>
 
                 <!-- ACCIONES -->
@@ -71,6 +74,9 @@
 
                 <td><g:link controller="planillaInternacion"  action="imprimirOrden" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirOrden')}</g:link></td>
 
+                <g:if test="${filters.estado == maternidad.EstadoPlanilla.findByNombre("EN PROCESO")?.id?.toString()}">
+                    <td><g:checkBox  name="facturar" value="${planillaInternacionInstance.id}"/> </td>
+                </g:if>
 
 
             </tr>
