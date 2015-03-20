@@ -6,7 +6,7 @@
 
     <g:set var="entityName" value="${message(code: 'plan.label', default: 'Plan')}" />
     <title><g:message code="default.edit.label" args="[entityName]" /></title>
-
+    <g:javascript library="jquery"/>
 <style type='text/css' >
     #spinner {
         position: absolute;

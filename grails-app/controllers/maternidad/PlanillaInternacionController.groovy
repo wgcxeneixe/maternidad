@@ -356,69 +356,104 @@ sel ->
 
     def facturar={
 
-      def planillas=  params.list("planilla")
-
-      planillas.each {
-
-          sel ->
-              def planilla=PlanillaInternacion.findById(sel as Integer)
-              def estadoFacturada=EstadoPlanilla.findByCodigo("FAC")
-              def estadoAprobacion=EstadoPlanilla.findByCodigo("PEN")
-
-              // si no tiene ente -> factura
-              if(!planilla.plan.obrasocial.enteReceptor){
-            //facturar
-
-                  planilla.estadoPlanilla=estadoFacturada
-                  planilla.save(flush: true)
-
-                  def usuario = springSecurityService.currentUser
-                  def movimiento= new  MovimientoPlanilla()
-                  movimiento.estadoPlanilla=estadoFacturada
-                  movimiento.fecha=new Date()
-                  movimiento.planillaInternacion=planilla
-                  movimiento.usuario=usuario as Usuario
-                  movimiento.save(flush:true)
+        def planillas = params.list("planilla")
 
 
 
-              }
-                  //sino si tiene ente y pide aprobacion -> marca con aprobacion
-            else if (planilla.plan.obrasocial.enteReceptor.pidePreAprobacion){
+        planillas.each {
 
-                  planilla.estadoPlanilla=estadoAprobacion
-                  planilla.save(flush: true)
+            sel ->
+                def planilla = PlanillaInternacion.findById(sel as Integer)
+                def estadoFacturada = EstadoPlanilla.findByCodigo("FAC")
+                def estadoAprobacion = EstadoPlanilla.findByCodigo("PEN")
 
-                  def usuario = springSecurityService.currentUser
-                  def movimiento= new  MovimientoPlanilla()
-                  movimiento.estadoPlanilla=estadoAprobacion
-                  movimiento.fecha=new Date()
-                  movimiento.planillaInternacion=planilla
-                  movimiento.usuario=usuario as Usuario
-                  movimiento.save(flush:true)
-
-              }
-                else if(!planilla.plan.obrasocial.enteReceptor.pidePreAprobacion){
+                // si no tiene ente -> factura
+                if (!planilla.plan.obrasocial.enteReceptor) {
+                    //facturar
 
 
-                  planilla.estadoPlanilla=estadoFacturada
-                  planilla.save(flush: true)
+                    planilla.estadoPlanilla = estadoFacturada
+                    planilla.save(flush: true)
 
-                  def usuario = springSecurityService.currentUser
-                  def movimiento= new  MovimientoPlanilla()
-                  movimiento.estadoPlanilla=estadoFacturada
-                  movimiento.fecha=new Date()
-                  movimiento.planillaInternacion=planilla
-                  movimiento.usuario=usuario as Usuario
-                  movimiento.save(flush:true)
-
-
-
-              }
+                    def usuario = springSecurityService.currentUser
+                    def movimiento = new MovimientoPlanilla()
+                    movimiento.estadoPlanilla = estadoFacturada
+                    movimiento.fecha = new Date()
+                    movimiento.planillaInternacion = planilla
+                    movimiento.usuario = usuario as Usuario
+                    movimiento.save(flush: true)
 
 
+                    Factura factura = new Factura()
 
-      }
+                    factura.detallesFactura=planilla.detalles
+                    factura.fecha = new Date()
+                    factura.periodo = "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
+
+                    def maxNroFactura=  Factura.createCriteria().get {
+                        projections {
+                            max "nrofactura"
+                        }
+                    } as Long
+
+                    factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
+
+                    factura.save(flush: true)
+
+
+                }
+                //sino si tiene ente y pide aprobacion -> marca con aprobacion
+                else if (planilla.plan.obrasocial.enteReceptor.pidePreAprobacion) {
+
+                    planilla.estadoPlanilla = estadoAprobacion
+                    planilla.save(flush: true)
+
+                    def usuario = springSecurityService.currentUser
+                    def movimiento = new MovimientoPlanilla()
+                    movimiento.estadoPlanilla = estadoAprobacion
+                    movimiento.fecha = new Date()
+                    movimiento.planillaInternacion = planilla
+                    movimiento.usuario = usuario as Usuario
+                    movimiento.save(flush: true)
+
+                } else if (!planilla.plan.obrasocial.enteReceptor.pidePreAprobacion) {
+
+
+                    planilla.estadoPlanilla = estadoFacturada
+                    planilla.save(flush: true)
+
+                    def usuario = springSecurityService.currentUser
+                    def movimiento = new MovimientoPlanilla()
+                    movimiento.estadoPlanilla = estadoFacturada
+                    movimiento.fecha = new Date()
+                    movimiento.planillaInternacion = planilla
+                    movimiento.usuario = usuario as Usuario
+                    movimiento.save(flush: true)
+
+                    Factura factura = new Factura()
+
+                    factura.detallesFactura=planilla.detalles
+                    factura.fecha = new Date()
+                    factura.periodo = "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
+
+                    def maxNroFactura=  Factura.createCriteria().get {
+                        projections {
+                            max "nrofactura"
+                        }
+                    } as Long
+
+                    factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
+
+                    factura.save(flush: true)
+
+
+                }
+
+
+
+
+                redirect(controller: "factura",action: "index")
+        }
 
     }
 

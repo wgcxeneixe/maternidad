@@ -6,11 +6,12 @@ class Factura {
     Boolean anulada = false
     Integer nrofactura
     Boolean pagoCompleto = false
-    Integer periodo
+    String periodo
     Double totalFacturado = 0
     Double totalPagado = 0
-
-
+    Double totalMedicamento
+    Double totalHonorario
+    Double totalGasto
 
     Set<DetalleFactura> detallesFactura
     Set<PagoFactura> pagosFactura
@@ -40,5 +41,70 @@ class Factura {
 
     String toString() { "Nº ${nrofactura}" }
 
+    private calcularTotales(Set<DetalleFactura> detalles){
+
+
+        def totalHonorarios=0
+        def totalGastos=0
+        def totalMedicamentos=0
+
+        detalles.each {
+           if(!it.factura){
+
+             if (it.planillaInternacion.estadoPlanilla==EstadoPlanilla.findByCodigo("AFA")){
+
+                 totalHonorarios+=  it.valorHonorarios * it.cantidad
+                 totalGastos+=it.valorGastos * it.cantidad
+                 totalMedicamentos+= it.valorMedicamento * it.cantidad
+
+
+             }
+
+
+
+           }
+        }
+
+        totalFacturado=totalHonorarios+totalGastos+totalMedicamentos
+        totalHonorario=totalHonorarios
+        totalGasto=totalGastos
+        totalMedicamento=totalMedicamentos
+
+    }
+
+
+    def beforeInsert = {
+
+      calcularTotales(detallesFactura)
+
+    }
+
+    def beforeUpdate = {
+
+        calcularTotales(detallesFactura)
+
+    }
+
+
+    def afterInsert={
+
+        detallesFactura.each {
+
+            if(!it.factura){
+
+                if (it.planillaInternacion.estadoPlanilla==EstadoPlanilla.findByCodigo("AFA")){
+
+                 it.factura=this
+                 it.save(flush: true)
+                }
+
+
+
+            }
+
+
+        }
+
+    }
 
 }

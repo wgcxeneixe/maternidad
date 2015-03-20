@@ -105,7 +105,7 @@ class CalculoValoresService {
             def calculo = 0
             if (valorGalenoGasto) {
                 // si existe calculo el valor gasto resultante
-                calculo = valorGalenoGasto.valor * it.valor * practica.multiplicadorGasto
+                calculo = valorGalenoGasto.valor * it.valor // * practica.multiplicadorGasto
             }
 
             sum += calculo
@@ -134,7 +134,7 @@ class CalculoValoresService {
             if (it?.id == 1) {
                 def valorunidad = ValorUnidadHonorario.findByComponenteAndPractica(it, practica)
 
-                valorAyudante = valorunidad?.valor * valorGalenohonorario?.valor * practica.multiplicadorHonorario
+                valorAyudante = valorunidad?.valor * valorGalenohonorario?.valor  //* practica.multiplicadorHonorario
 
             }
 
@@ -142,14 +142,14 @@ class CalculoValoresService {
             if (it?.id == 2) {
                 def valorunidad = ValorUnidadHonorario.findByComponenteAndPractica(it, practica)
 
-                valorAnestesista = valorunidad?.valor * valorGalenohonorario?.valor * practica.multiplicadorHonorario
+                valorAnestesista = valorunidad?.valor * valorGalenohonorario?.valor //* practica.multiplicadorHonorario
             }
 
             // valor especialista
             if (it?.id == 3) {
                 def valorunidad = ValorUnidadHonorario.findByComponenteAndPractica(it, practica)
 
-                valorEspecialista = valorunidad?.valor * valorGalenohonorario?.valor * practica.multiplicadorHonorario
+                valorEspecialista = valorunidad?.valor * valorGalenohonorario?.valor //* practica.multiplicadorHonorario
             }
 
         }
