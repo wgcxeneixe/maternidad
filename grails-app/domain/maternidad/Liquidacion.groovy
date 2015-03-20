@@ -22,7 +22,7 @@ class Liquidacion {
 
     def agregarPagoFactura(PagoFactura pago) {
         if(!detallesLiquidacion)detallesLiquidacion=[]
-        pago.factura.detallesFactura.each {
+        pago.factura.planillaInternacion?.detalles?.each {
             detalle ->
                 if (detalle.profesional == profesional) {
                     def detalleLiq = new DetalleLiquidacion(liquidacion: this)

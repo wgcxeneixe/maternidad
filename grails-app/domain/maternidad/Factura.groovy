@@ -6,18 +6,19 @@ class Factura {
     Boolean anulada = false
     Integer nrofactura
     Boolean pagoCompleto = false
-    String periodo
+    Integer periodo
     Double totalFacturado = 0
     Double totalPagado = 0
     Double totalMedicamento
     Double totalHonorario
     Double totalGasto
 
-    Set<DetalleFactura> detallesFactura
+    PlanillaInternacion planillaInternacion
+   // Set<DetalleFactura> detallesFactura
     Set<PagoFactura> pagosFactura
 
     static hasMany = [
-            detallesFactura        : DetalleFactura,
+          //  detallesFactura        : DetalleFactura,
             pagosFactura        : PagoFactura
             ]
 
@@ -39,7 +40,7 @@ class Factura {
 
 
     public List<PlanillaInternacion> listaPlanillasInternacion(){
-        return detallesFactura?.planillaInternacion?.unique()?.asList()
+        return planillaInternacion?.detalles?.planillaInternacion?.unique()?.asList()
     }
 
     public Boolean facturaPendienteConfirmacion(){
@@ -61,13 +62,13 @@ class Factura {
         def totalMedicamentos=0
 
         detalles.each {
-           if(!it.factura){
+           if(!it?.planillaInternacion?.factura){
 
-             if (it.planillaInternacion.estadoPlanilla==EstadoPlanilla.findByCodigo("AFA")){
+             if (it.planillaInternacion.estadoPlanilla==EstadoPlanilla.findByCodigo("FAC")){
 
-                 totalHonorarios+=  it.valorHonorarios * it.cantidad
-                 totalGastos+=it.valorGastos * it.cantidad
-                 totalMedicamentos+= it.valorMedicamento * it.cantidad
+                 totalHonorarios+=  (it?.valorHonorarios)?:0 * it.cantidad
+                 totalGastos+=(it?.valorGastos)?:0 * it.cantidad
+                 totalMedicamentos+= (it?.valorMedicamento)?:0 * it.cantidad
 
 
              }
@@ -87,27 +88,25 @@ class Factura {
 
     def beforeInsert = {
 
-      calcularTotales(detallesFactura)
-
-    }
-
-    def beforeUpdate = {
-
-        calcularTotales(detallesFactura)
+      calcularTotales(planillaInternacion?.detalles)
 
     }
 
 
     def afterInsert={
 
-        detallesFactura.each {
+        planillaInternacion?.detalles?.each {
 
-            if(!it.factura){
+            if(!it?.planillaInternacion?.factura){
 
-                if (it.planillaInternacion.estadoPlanilla==EstadoPlanilla.findByCodigo("AFA")){
+                if (it.planillaInternacion.estadoPlanilla==EstadoPlanilla.findByCodigo("FAC")){
 
                  it.factura=this
-                 it.save(flush: true)
+
+              try{ it.save(flush: true)} catch(Exception ex){
+                  ex
+              }
+
                 }
 
 

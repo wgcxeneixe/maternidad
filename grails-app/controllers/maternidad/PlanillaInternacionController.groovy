@@ -386,9 +386,10 @@ sel ->
 
                     Factura factura = new Factura()
 
-                    factura.detallesFactura=planilla.detalles
+
+
                     factura.fecha = new Date()
-                    factura.periodo = "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
+                    factura.periodo = 0315//"" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
 
                     def maxNroFactura=  Factura.createCriteria().get {
                         projections {
@@ -398,7 +399,20 @@ sel ->
 
                     factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
 
-                    factura.save(flush: true)
+                    try{
+
+                        factura.detallesFactura= new ArrayList<DetalleFactura>()
+                        planilla.detalles.each { d->
+
+                            factura.detallesFactura.add(d)
+                        }
+
+                        factura.save(flush: true,validate: false)
+
+
+                    }catch (Exception ex){
+                        ex
+                    }
 
 
                 }
@@ -432,9 +446,10 @@ sel ->
 
                     Factura factura = new Factura()
 
-                    factura.detallesFactura=planilla.detalles
+
+
                     factura.fecha = new Date()
-                    factura.periodo = "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
+                    factura.periodo = 0315//"" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
 
                     def maxNroFactura=  Factura.createCriteria().get {
                         projections {
@@ -444,7 +459,22 @@ sel ->
 
                     factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
 
-                    factura.save(flush: true)
+                    try{
+
+                        factura.detallesFactura= new ArrayList<DetalleFactura>()
+                        planilla.detalles.each { d->
+
+                            factura.detallesFactura.add(d)
+                        }
+
+                        factura.save(flush: true,validate: false)
+
+
+                    }catch (Exception ex){
+                        ex
+                    }
+
+
 
 
                 }

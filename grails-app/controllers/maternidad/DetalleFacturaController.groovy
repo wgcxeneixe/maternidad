@@ -80,7 +80,7 @@ class DetalleFacturaController {
     @Transactional
     def update() {
         def detalleFacturaInstance
-        println params?.dump()
+
         if (params.id) {
             detalleFacturaInstance = DetalleFactura.read(params.long('id'))
         }
@@ -99,7 +99,9 @@ class DetalleFacturaController {
 
             if (detalleFacturaInstance.save(flush: true)) {
 
-                redirect(controller: 'factura', action: 'show', params: [id: detalleFacturaInstance?.factura?.id])
+               def factura= Factura.findByPlanillaInternacion(detalleFacturaInstance?.planillaInternacion)
+
+                redirect(controller: 'factura', action: 'show', params: [id: factura?.id])
             } else {
                 respond detalleFacturaInstance.errors, view: 'edit'
                 return

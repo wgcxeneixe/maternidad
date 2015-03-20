@@ -5,7 +5,7 @@ class DetalleFactura {
     Profesional profesional
     Practica practica
     Plan plan
-    Factura factura
+    // Factura factura
     Double valorGastos = 0
     Double valorHonorarios = 0
     Double valorPractica //no se usa
@@ -23,7 +23,7 @@ class DetalleFactura {
 
     static belongsTo = [
             planillaInternacion: PlanillaInternacion,
-            factura                : Factura,
+           // factura                : Factura,
             profesional : Profesional,
             practica : Practica,
             plan : Plan
@@ -42,5 +42,5 @@ class DetalleFactura {
         return tot * cantidad
     }
 
-    String toString() { "Plan: "+factura?.plan?.codigo + ", Práctica: " + practica?.codigo + ", Función: " + funcion?.toString() + ". Total: " + total().toString()}
+    String toString() { "Plan: "+planillaInternacion?.plan?.codigo + ", Práctica: " + practica?.codigo + ", Función: " + funcion?.toString() + ". Total: " + total().toString()}
 }

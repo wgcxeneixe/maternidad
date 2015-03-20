@@ -25,14 +25,14 @@ class DetalleLiquidacion {
         this.pagoFactura = pago
         this.porcentajePagoFacturaLiquidado = pagoFactura.porcentajeALiquidar
         monto = detalleFactura.total() * porcentajePagoFacturaLiquidado / 100
-        detalle = "Pago de práctica ${detalleFactura.practica.codigo} del plan ${detalleFactura.plan.codigo}, factura Nro ${detalleFactura.factura.nrofactura}"
+        detalle = "Pago de práctica ${detalleFactura.practica.codigo} del plan ${detalleFactura.plan.codigo}, factura Nro ${detalleFactura.planillaInternacion.factura.nrofactura}"
     }
 
     def agregarRetencionPagoFactura(RetencionPago retencion) {
         this.retencionPago = retencion
         this.debito = true
         monto = retencionPago.monto * retencion.porcentajeDelPago() / 100
-        detalle = "Prorrateo del Pago de la factura Nro ${detalleFactura.factura.nrofactura} plan ${detalleFactura.plan.codigo}"
+        detalle = "Prorrateo del Pago de la factura Nro ${detalleFactura.planillaInternacion.factura.nrofactura} plan ${detalleFactura.plan.codigo}"
     }
 
     def agregarConceptoPorProfesional(ConceptoPorProfesional cpp) {

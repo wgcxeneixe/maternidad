@@ -15,6 +15,7 @@ class PlanillaInternacion {
     Long numeroAfiliado
     Set movimientos
     EstadoPlanilla estadoPlanilla
+    Factura factura
 
     static constraints = {
         paciente(nullable: true,blank:true)
@@ -28,6 +29,8 @@ class PlanillaInternacion {
         diagnostico(nullable: true,blank:true, size: 0..5000)
         tratamiento(nullable: true,blank:true, size: 0..5000)
         numeroAfiliado(nullable: true,blank:true)
+        factura(nullable: true,blank:true)
+
     }
 
     static hasMany = [
