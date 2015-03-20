@@ -67,7 +67,7 @@
         <g:message code="planillaInternacion.fechaAlta.label" default="Fecha Alta"/>
 
     </label>
-    <g:datePicker name="fechaAlta" precision="minute" value="${planillaInternacionInstance?.fechaAlta}"/>
+    <g:datePicker default="none" noSelection="['':'']" name="fechaAlta" precision="minute" value="${planillaInternacionInstance?.fechaAlta}"/>
 
 </div>
 

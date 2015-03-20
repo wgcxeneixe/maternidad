@@ -23,6 +23,15 @@
 			</g:if>
 			<ol class="property-list detalleFactura">
 			
+				<g:if test="${detalleFacturaInstance?.practica}">
+				<li class="fieldcontain">
+					<span id="practica-label" class="property-label"><g:message code="detalleFactura.practica.label" default="Practica" /></span>
+					
+						<span class="property-value" aria-labelledby="practica-label"><g:link controller="practica" action="show" id="${detalleFacturaInstance?.practica?.id}">${detalleFacturaInstance?.practica?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${detalleFacturaInstance?.profesional}">
 				<li class="fieldcontain">
 					<span id="profesional-label" class="property-label"><g:message code="detalleFactura.profesional.label" default="Profesional" /></span>
@@ -46,6 +55,15 @@
 					<span id="planillaInternacion-label" class="property-label"><g:message code="detalleFactura.planillaInternacion.label" default="Planilla Internacion" /></span>
 					
 						<span class="property-value" aria-labelledby="planillaInternacion-label"><g:link controller="planillaInternacion" action="show" id="${detalleFacturaInstance?.planillaInternacion?.id}">${detalleFacturaInstance?.planillaInternacion?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${detalleFacturaInstance?.medicamento}">
+				<li class="fieldcontain">
+					<span id="medicamento-label" class="property-label"><g:message code="detalleFactura.medicamento.label" default="Medicamento" /></span>
+					
+						<span class="property-value" aria-labelledby="medicamento-label"><g:link controller="medicamento" action="show" id="${detalleFacturaInstance?.medicamento?.id}">${detalleFacturaInstance?.medicamento?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -77,6 +95,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${detalleFacturaInstance?.fecha}">
+				<li class="fieldcontain">
+					<span id="fecha-label" class="property-label"><g:message code="detalleFactura.fecha.label" default="Fecha" /></span>
+					
+						<span class="property-value" aria-labelledby="fecha-label"><g:formatDate date="${detalleFacturaInstance?.fecha}" /></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${detalleFacturaInstance?.funcion}">
 				<li class="fieldcontain">
 					<span id="funcion-label" class="property-label"><g:message code="detalleFactura.funcion.label" default="Funcion" /></span>
@@ -104,11 +131,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${detalleFacturaInstance?.practica}">
+				<g:if test="${detalleFacturaInstance?.valorFijo}">
 				<li class="fieldcontain">
-					<span id="practica-label" class="property-label"><g:message code="detalleFactura.practica.label" default="Practica" /></span>
+					<span id="valorFijo-label" class="property-label"><g:message code="detalleFactura.valorFijo.label" default="Valor Fijo" /></span>
 					
-						<span class="property-value" aria-labelledby="practica-label"><g:link controller="practica" action="show" id="${detalleFacturaInstance?.practica?.id}">${detalleFacturaInstance?.practica?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="valorFijo-label"><g:formatBoolean boolean="${detalleFacturaInstance?.valorFijo}" /></span>
 					
 				</li>
 				</g:if>
@@ -131,6 +158,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${detalleFacturaInstance?.valorMedicamento}">
+				<li class="fieldcontain">
+					<span id="valorMedicamento-label" class="property-label"><g:message code="detalleFactura.valorMedicamento.label" default="Valor Medicamento" /></span>
+					
+						<span class="property-value" aria-labelledby="valorMedicamento-label"><g:fieldValue bean="${detalleFacturaInstance}" field="valorMedicamento"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${detalleFacturaInstance?.valorPractica}">
 				<li class="fieldcontain">
 					<span id="valorPractica-label" class="property-label"><g:message code="detalleFactura.valorPractica.label" default="Valor Practica" /></span>
@@ -143,7 +179,7 @@
 			</ol>
 			<g:form url="[resource:detalleFacturaInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
-					<g:link class="edit" action="edit" resource="${detalleFacturaInstance}"><g:message code="default.button.editar.label" default="Edit" /></g:link>
+					<g:link class="edit" action="edit" resource="${detalleFacturaInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

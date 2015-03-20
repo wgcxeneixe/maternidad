@@ -8,4 +8,7 @@ class EstadoPlanilla {
 
     static constraints = {
     }
+
+    String toString() { "${nombre}" }
+
 }

@@ -24,17 +24,17 @@
 			<thead>
 					<tr>
 					
+						<th><g:message code="detalleFactura.practica.label" default="Practica" /></th>
+					
 						<th><g:message code="detalleFactura.profesional.label" default="Profesional" /></th>
 					
 						<th><g:message code="detalleFactura.plan.label" default="Plan" /></th>
 					
 						<th><g:message code="detalleFactura.planillaInternacion.label" default="Planilla Internacion" /></th>
 					
+						<th><g:message code="detalleFactura.medicamento.label" default="Medicamento" /></th>
+					
 						<g:sortableColumn property="cantidad" title="${message(code: 'detalleFactura.cantidad.label', default: 'Cantidad')}" />
-					
-						<g:sortableColumn property="carreraMedica" title="${message(code: 'detalleFactura.carreraMedica.label', default: 'Carrera Medica')}" />
-					
-						<th><g:message code="detalleFactura.factura.label" default="Factura" /></th>
 					
 					</tr>
 				</thead>
@@ -42,17 +42,17 @@
 				<g:each in="${detalleFacturaInstanceList}" status="i" var="detalleFacturaInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${detalleFacturaInstance.id}">${fieldValue(bean: detalleFacturaInstance, field: "profesional")}</g:link></td>
+						<td><g:link action="show" id="${detalleFacturaInstance.id}">${fieldValue(bean: detalleFacturaInstance, field: "practica")}</g:link></td>
+					
+						<td>${fieldValue(bean: detalleFacturaInstance, field: "profesional")}</td>
 					
 						<td>${fieldValue(bean: detalleFacturaInstance, field: "plan")}</td>
 					
 						<td>${fieldValue(bean: detalleFacturaInstance, field: "planillaInternacion")}</td>
 					
+						<td>${fieldValue(bean: detalleFacturaInstance, field: "medicamento")}</td>
+					
 						<td>${fieldValue(bean: detalleFacturaInstance, field: "cantidad")}</td>
-					
-						<td>${fieldValue(bean: detalleFacturaInstance, field: "carreraMedica")}</td>
-					
-						<td>${fieldValue(bean: detalleFacturaInstance, field: "factura")}</td>
 					
 					</tr>
 				</g:each>

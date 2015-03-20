@@ -50,6 +50,10 @@ class PlanillaInternacionController {
 
             }
 
+            if (params?.estado) {
+               estadoPlanilla{ eq('id',  params.estado as Long)}
+            }
+
             if (params.sort){
                 order(params.sort,params.order)
             }
@@ -58,7 +62,7 @@ class PlanillaInternacionController {
         def criteria = PlanillaInternacion.createCriteria()
         params.max = Math.min(params.max ? params.int('max') : 20, 100)
         def planillas = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [dni: params.dni,nroplanilla:params.nroplanilla,nombre:params.nombre]
+        def filters = [dni: params.dni,nroplanilla:params.nroplanilla,nombre:params.nombre,estado:params.estado]
 
         def model = [planillaInternacionInstanceList: planillas, planillaInternacionInstanceCount:planillas.totalCount, filters: filters]
 
@@ -110,7 +114,24 @@ class PlanillaInternacionController {
             return
         }
 
+
+        def estadoPlanilla = EstadoPlanilla.findByNombre("INICIADA")
+
+        planillaInternacionInstance.estadoPlanilla=estadoPlanilla
+
         planillaInternacionInstance.save flush:true
+
+        if(estadoPlanilla){
+
+            def usuario = springSecurityService.currentUser
+            def movimiento= new  MovimientoPlanilla()
+            movimiento.estadoPlanilla=estadoPlanilla
+            movimiento.fecha=new Date()
+            movimiento.planillaInternacion=planillaInternacionInstance
+            movimiento.usuario=usuario as Usuario
+            movimiento.save(flush:true)
+        }
+
 
         request.withFormat {
             form multipartForm {
@@ -147,7 +168,22 @@ class PlanillaInternacionController {
         }
 
 
-        planillaInternacionInstance.save flush: true
+        def estadoPlanilla = EstadoPlanilla.findByNombre("INICIADA")
+
+        planillaInternacionInstance.estadoPlanilla=estadoPlanilla
+
+        planillaInternacionInstance.save flush:true
+
+        if(estadoPlanilla){
+
+            def usuario = springSecurityService.currentUser
+            def movimiento= new  MovimientoPlanilla()
+            movimiento.estadoPlanilla=estadoPlanilla
+            movimiento.fecha=new Date()
+            movimiento.planillaInternacion=planillaInternacionInstance
+            movimiento.usuario=usuario as Usuario
+            movimiento.save(flush:true)
+        }
 
         request.withFormat {
             form multipartForm {
@@ -288,5 +324,137 @@ class PlanillaInternacionController {
     }
 
 
+    def facturarSeleccionadas={
+
+        def seleccionados=params?.list("facturar")
+
+        seleccionados.each {
+sel ->
+           def planilla=PlanillaInternacion.findById(sel as Integer)
+           def estado=EstadoPlanilla.findByCodigo("AFA")
+
+           planilla.estadoPlanilla=estado
+           planilla.save(flush: true)
+
+
+            def usuario = springSecurityService.currentUser
+            def movimiento= new  MovimientoPlanilla()
+            movimiento.estadoPlanilla=estado
+            movimiento.fecha=new Date()
+            movimiento.planillaInternacion=planilla
+            movimiento.usuario=usuario as Usuario
+            movimiento.save(flush:true)
+
+        }
+
+
+        redirect(action: "index")
+
+    }
+
+
+
+    def facturar={
+
+        def planillas = params.list("planilla")
+
+
+
+        planillas.each {
+
+            sel ->
+                def planilla = PlanillaInternacion.findById(sel as Integer)
+                def estadoFacturada = EstadoPlanilla.findByCodigo("FAC")
+                def estadoAprobacion = EstadoPlanilla.findByCodigo("PEN")
+
+                // si no tiene ente -> factura
+                if (!planilla.plan.obrasocial.enteReceptor) {
+                    //facturar
+
+
+                    planilla.estadoPlanilla = estadoFacturada
+                    planilla.save(flush: true)
+
+                    def usuario = springSecurityService.currentUser
+                    def movimiento = new MovimientoPlanilla()
+                    movimiento.estadoPlanilla = estadoFacturada
+                    movimiento.fecha = new Date()
+                    movimiento.planillaInternacion = planilla
+                    movimiento.usuario = usuario as Usuario
+                    movimiento.save(flush: true)
+
+
+                    Factura factura = new Factura()
+
+                    factura.detallesFactura=planilla.detalles
+                    factura.fecha = new Date()
+                    factura.periodo = "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
+
+                    def maxNroFactura=  Factura.createCriteria().get {
+                        projections {
+                            max "nrofactura"
+                        }
+                    } as Long
+
+                    factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
+
+                    factura.save(flush: true)
+
+
+                }
+                //sino si tiene ente y pide aprobacion -> marca con aprobacion
+                else if (planilla.plan.obrasocial.enteReceptor.pidePreAprobacion) {
+
+                    planilla.estadoPlanilla = estadoAprobacion
+                    planilla.save(flush: true)
+
+                    def usuario = springSecurityService.currentUser
+                    def movimiento = new MovimientoPlanilla()
+                    movimiento.estadoPlanilla = estadoAprobacion
+                    movimiento.fecha = new Date()
+                    movimiento.planillaInternacion = planilla
+                    movimiento.usuario = usuario as Usuario
+                    movimiento.save(flush: true)
+
+                } else if (!planilla.plan.obrasocial.enteReceptor.pidePreAprobacion) {
+
+
+                    planilla.estadoPlanilla = estadoFacturada
+                    planilla.save(flush: true)
+
+                    def usuario = springSecurityService.currentUser
+                    def movimiento = new MovimientoPlanilla()
+                    movimiento.estadoPlanilla = estadoFacturada
+                    movimiento.fecha = new Date()
+                    movimiento.planillaInternacion = planilla
+                    movimiento.usuario = usuario as Usuario
+                    movimiento.save(flush: true)
+
+                    Factura factura = new Factura()
+
+                    factura.detallesFactura=planilla.detalles
+                    factura.fecha = new Date()
+                    factura.periodo = "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
+
+                    def maxNroFactura=  Factura.createCriteria().get {
+                        projections {
+                            max "nrofactura"
+                        }
+                    } as Long
+
+                    factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
+
+                    factura.save(flush: true)
+
+
+                }
+
+
+
+
+                redirect(controller: "factura",action: "index")
+        }
+
+    }
 
 }
