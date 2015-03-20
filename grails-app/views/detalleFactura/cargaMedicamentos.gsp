@@ -18,7 +18,7 @@
     </ul>
 </div>
 <div id="create-detalleFactura" class="content scaffold-create" role="main">
-    <h1><g:message code="planillainternacion.cargadepracticas"  /></h1>
+    <h1><g:message code="planillainternacion.cargademedicamentos"  /></h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
