@@ -178,8 +178,10 @@
         </tr>
         </thead>
         <tbody>
-        <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)}
+        <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)
             isNull("factura")
+        }
+
             isNull("medicamento")
         }}" status="i" var="detalleFactura">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">

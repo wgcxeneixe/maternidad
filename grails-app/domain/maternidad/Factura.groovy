@@ -6,7 +6,7 @@ class Factura {
     Boolean anulada = false
     Integer nrofactura
     Boolean pagoCompleto = false
-    Integer periodo
+    String periodo
     Double totalFacturado = 0
     Double totalPagado = 0
     Double totalMedicamento
@@ -101,7 +101,7 @@ class Factura {
 
                 if (it.planillaInternacion.estadoPlanilla==EstadoPlanilla.findByCodigo("FAC")){
 
-                 it.factura=this
+                 it.planillaInternacion=this.planillaInternacion
 
               try{ it.save(flush: true)} catch(Exception ex){
                   ex

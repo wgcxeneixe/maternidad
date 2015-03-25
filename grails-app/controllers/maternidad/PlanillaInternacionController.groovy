@@ -401,11 +401,13 @@ sel ->
 
                     try{
 
-                        factura.detallesFactura= new ArrayList<DetalleFactura>()
-                        planilla.detalles.each { d->
+                        factura.planillaInternacion=planilla
+
+                        /* planilla.detalles.each { d->
 
                             factura.detallesFactura.add(d)
                         }
+*/
 
                         factura.save(flush: true,validate: false)
 
@@ -461,11 +463,13 @@ sel ->
 
                     try{
 
-                        factura.detallesFactura= new ArrayList<DetalleFactura>()
-                        planilla.detalles.each { d->
+                        factura.planillaInternacion= planilla
+
+                     /*   planilla.detalles.each { d->
 
                             factura.detallesFactura.add(d)
                         }
+*/
 
                         factura.save(flush: true,validate: false)
 

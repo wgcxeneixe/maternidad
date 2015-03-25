@@ -66,7 +66,7 @@
 
                 </label>
                 <select required name ="funcion" id="funcion">
-                    <option value="61">61</option>
+                    <option value="91">91</option>
                 </select>
             </div>
 
@@ -141,8 +141,9 @@
         </tr>
         </thead>
         <tbody>
-        <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)}
+        <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)
             isNull("factura")
+        }
             isNull("practica")
 
         }}" status="i" var="detalleFactura">

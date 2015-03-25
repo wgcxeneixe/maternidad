@@ -170,7 +170,7 @@
     </tr>
     </thead>
     <tbody>
-    <g:each in="${facturaInstance?.detallesFactura}" status="i" var="detalleFacturaInstance">
+    <g:each in="${facturaInstance?.planillaInternacion?.detalles}" status="i" var="detalleFacturaInstance">
         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
             <td>${fieldValue(bean: detalleFacturaInstance, field: "profesional")}</td>

@@ -17,7 +17,9 @@
             <th><g:message code="planillaInternacion.plan.label" default="Plan" params="${filters}"/></th>
 
 
-            <th><g:message code="planillaInternacion.plan.label" default="Estado" params="${filters}"/></th>
+            <th><g:message code="planillaInternacion.estado.label" default="Estado" params="${filters}"/></th>
+
+            <th><g:message code="planillaInternacion.estado.label" default="Nro Ingreso" /></th>
 
             <g:sortableColumn property="fechaInternacion"
                               title="${message(code: 'planillaInternacion.fechaInternacion.label', default: 'Fecha Internacion')}" params="${filters}"/>
@@ -54,6 +56,8 @@
                 <td>${fieldValue(bean: planillaInternacionInstance, field: "plan")}</td>
 
                 <td> ${ planillaInternacionInstance?.estadoPlanilla } </td>
+
+                <td> ${ planillaInternacionInstance?.numeroIngreso } </td>
 
                 <td><g:formatDate type="date" style="MEDIUM"  date="${planillaInternacionInstance.fechaInternacion}"/></td>
 
