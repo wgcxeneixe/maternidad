@@ -73,7 +73,7 @@
 
             <td>${fieldValue(bean: facturaInstance, field: "periodo")}</td>
 
-            <td>${fieldValue(bean: facturaInstance, field: "plan")}</td>
+            <td>${facturaInstance?.planillaInternacion?.plan}</td>
 
             <td><g:formatBoolean boolean="${facturaInstance?.anulada}"/></td>
 

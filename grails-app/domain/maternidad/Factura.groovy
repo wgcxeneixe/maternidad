@@ -87,7 +87,7 @@ class Factura {
 
 
     def beforeInsert = {
-
+      plan=planillaInternacion?.plan
       calcularTotales(planillaInternacion?.detalles)
 
     }

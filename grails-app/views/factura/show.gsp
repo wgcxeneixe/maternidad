@@ -99,13 +99,13 @@
         </li>
     </g:if>
 
-    <g:if test="${facturaInstance?.plan}">
+    <g:if test="${facturaInstance?.planillaInternacion?.plan}">
         <li class="fieldcontain">
             <span id="plan-label" class="property-label"><g:message code="factura.plan.label"
                                                                     default="Plan"/></span>
 
             <span class="property-value" aria-labelledby="plan-label"><g:link controller="plan" action="show"
-                                                                              id="${facturaInstance?.plan?.id}">${facturaInstance?.plan?.encodeAsHTML()}</g:link></span>
+                                                                              id="${facturaInstance?.planillaInternacion?.plan?.id}">${facturaInstance?.planillaInternacion?.plan?.encodeAsHTML()}</g:link></span>
 
         </li>
     </g:if>
