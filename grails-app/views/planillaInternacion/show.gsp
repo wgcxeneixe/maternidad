@@ -284,8 +284,10 @@
     </tr>
     </thead>
     <tbody>
-    <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',planillaInternacionInstance?.id as Long)}
+    <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',planillaInternacionInstance?.id as Long)
         isNull("factura")
+    }
+
 
     }}" status="i" var="detalleFactura">
         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
@@ -316,8 +318,10 @@
     </tbody>
 </table>
 <!--    <div class="pagination">
-        <g:paginate params="[id:params?.id]" total="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)}
-    isNull("factura")}.size() ?: 0}" />
+        <g:paginate params="[id:params?.id]" total="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)
+    isNull("factura")
+}
+    }.size() ?: 0}" />
     </div>
 -->
 

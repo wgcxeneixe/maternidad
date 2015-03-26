@@ -79,7 +79,23 @@
 
 <g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByNombre("A FACTURAR")?.id?.toString()}">
 
-    <g:link action="facturar" params="${[planilla:planillaInternacionInstanceList?.id]}">Facturar</g:link>
+
+    <g:form name="formFacturarSeleccionadas"  controller="planillaInternacion" action="facturar" params="${[planilla:planillaInternacionInstanceList?.id]}">
+
+
+            <div class="">
+                <label for="periodo">
+                    <g:message code="factura.periodo.label" default="Periodo" />
+
+                </label>
+                <g:textField name="periodo" value=""/>
+
+            </div>
+
+       <g:submitButton name="facturarSeleccionados"  value="Facturar"/>
+    </g:form>
+
+
 
 </g:if>
 

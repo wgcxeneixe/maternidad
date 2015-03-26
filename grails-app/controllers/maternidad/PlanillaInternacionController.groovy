@@ -356,8 +356,9 @@ sel ->
 
     def facturar={
 
-        def planillas = params.list("planilla")
 
+        def planillas = params.list("planilla")
+        def periodo = (params?.periodo)?:  "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
 
 
         planillas.each {
@@ -389,7 +390,7 @@ sel ->
 
 
                     factura.fecha = new Date()
-                    factura.periodo = 0315//"" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
+                    factura.periodo = periodo
 
                     def maxNroFactura=  Factura.createCriteria().get {
                         projections {
@@ -451,7 +452,7 @@ sel ->
 
 
                     factura.fecha = new Date()
-                    factura.periodo = 0315//"" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
+                    factura.periodo = periodo
 
                     def maxNroFactura=  Factura.createCriteria().get {
                         projections {

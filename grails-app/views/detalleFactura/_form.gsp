@@ -102,7 +102,7 @@
 	%{--<g:textField name="observacion" value="${detalleFacturaInstance?.observacion}"/>--}%
 
 %{--</div>--}%
-
+%{--
 <g:if test="${detalleFacturaInstance?.factura}">
     <li class="fieldcontain">
         <span id="factura-label" class="property-label"><g:message code="detalleFactura.factura.label" default="Factura" /></span>
@@ -111,7 +111,7 @@
 
     </li>
 </g:if>
-
+--}%
 <g:if test="${detalleFacturaInstance?.planillaInternacion}">
     <li class="fieldcontain">
         <span id="planillaInternacion-label" class="property-label"><g:message code="detalleFactura.planillaInternacion.label" default="Planilla Internacion" /></span>

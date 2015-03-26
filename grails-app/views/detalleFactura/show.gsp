@@ -86,15 +86,7 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${detalleFacturaInstance?.factura}">
-				<li class="fieldcontain">
-					<span id="factura-label" class="property-label"><g:message code="detalleFactura.factura.label" default="Factura" /></span>
-					
-						<span class="property-value" aria-labelledby="factura-label"><g:link controller="factura" action="show" id="${detalleFacturaInstance?.factura?.id}">${detalleFacturaInstance?.factura?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
+
 				<g:if test="${detalleFacturaInstance?.fecha}">
 				<li class="fieldcontain">
 					<span id="fecha-label" class="property-label"><g:message code="detalleFactura.fecha.label" default="Fecha" /></span>
