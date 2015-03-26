@@ -60,7 +60,7 @@
             <th>Fecha Pago</th>
             <th>Monto Pago</th>
             <th>% liquidado</th>
-            <th>% a liquidar</th>
+            <th>a liquidar</th>
             <th>Total a liquidar</th>
         </tr>
         </thead>
@@ -86,7 +86,7 @@
            value="Armar Liquidaciones"/>
     <fieldset>
         <div id="confirmarLiquidacionDiv">
-            %{--<g:render template="confirmarLiquidacion"/>--}%
+            <g:render template="confirmarLiquidacion"/>
         </div>
     </fieldset>
 </div>
