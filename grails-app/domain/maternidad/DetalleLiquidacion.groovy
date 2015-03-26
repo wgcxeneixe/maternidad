@@ -25,7 +25,7 @@ class DetalleLiquidacion {
         this.pagoFactura = pago
         this.porcentajePagoFacturaLiquidado = pagoFactura.porcentajeALiquidar
         monto = detalleFactura.total() * porcentajePagoFacturaLiquidado / 100
-        detalle = "Pago de práctica ${detalleFactura.practica.codigo} del plan ${detalleFactura.plan.codigo}, factura Nro ${detalleFactura.planillaInternacion.factura.nrofactura}"
+        detalle = "Pago de práctica ${detalleFactura?.practica?.codigo} del plan ${detalleFactura?.plan?.codigo}, factura Nro ${detalleFactura?.planillaInternacion?.factura?.nrofactura}"
     }
 
     def agregarRetencionPagoFactura(RetencionPago retencion) {

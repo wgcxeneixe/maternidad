@@ -111,7 +111,6 @@ class LiquidacionController {
     }
 
     def armarLiquidacion = {
-
         def conceptos = params?.getList('conceptos')
         def listaPagos = []
         def listaConceptos = ConceptoProfesional.findAllByIdInList(conceptos)
