@@ -37,7 +37,8 @@ class PlanillaInternacion {
             nacimientos: Nacimiento,
             detalles:DetalleFactura,
             detallesCaja:DetalleCaja,
-            movimientos:MovimientoPlanilla
+            movimientos:MovimientoPlanilla,
+            profesionales:Profesional
     ]
 
     String toString() { "Nº ${id}"+ " - "+ paciente }

@@ -287,7 +287,7 @@
     <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',planillaInternacionInstance?.id as Long)
         isNull("factura")
     }
-
+isNull("medicamento")
 
     }}" status="i" var="detalleFactura">
         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
@@ -325,6 +325,60 @@
     </div>
 -->
 
+<br>
+<h1><g:message code="planillainternacion.listadodemedicamentos"  /></h1>
+<table>
+    <thead>
+    <tr>
+
+        <th><g:message code="detalleFactura.medicamento.label" default="Medicamento" /></th>
+
+        <th><g:message code="detalleFactura.cantidad.label" default="Cantidad" /></th>
+
+        <th><g:message code="detalleFactura.valorPractica.label" default="Valor" /></th>
+
+        <th><g:message code="detalleFactura.valorPractica.label" default="Función" /></th>
+
+        <th><g:message code="detalleFactura.valorPractica.label" default="Fecha" /></th>
+
+        <th><g:message code="detalleFactura.valorPractica.label" default="Total" /></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)
+        isNull("factura")
+    }
+        isNull("practica")
+
+    }}" status="i" var="detalleFactura">
+        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+            <td>${fieldValue(bean: detalleFactura, field: "medicamento")}</td>
+
+            <td>${fieldValue(bean: detalleFactura, field: "cantidad")}</td>
+
+            <td>${fieldValue(bean: detalleFactura, field: "valorMedicamento")}</td>
+
+
+            <td>${detalleFactura?.funcion}</td>
+
+
+            <td>${detalleFactura?.fecha}</td>
+
+
+            <td>
+                <g:formatNumber number="${ (detalleFactura?.valorMedicamento)? (detalleFactura?.valorMedicamento * detalleFactura?.cantidad ):0
+                }" type="currency" currencyCode="ARS" />
+            </td>
+
+        </tr>
+    </g:each>
+    </tbody>
+</table>
+
+
+
 
 
 <!-- Listado de Transacciones de caja -->
@@ -334,6 +388,51 @@
     </fieldset>
 </g:if>
 
+
+<div id="list-detalleCaja" class="content scaffold-list" role="main">
+    <h1><g:message code="planillaInternacion.profesionalesAsociados"  /></h1>
+<table class="ajax">
+    <thead>
+    <tr>
+
+        <th><g:message code="profesional.persona.label" default="Persona"  /></th>
+
+        <g:sortableColumn property="matriculaProvincial" title="${message(code: 'profesional.matriculaProvincial.label', default: 'Matricula Provincial')}"  />
+
+        <th><g:message code="persona.nroDocumento.label" default="Nº Documento"  /></th>
+
+        <th><g:message code="persona.cuit.label" default="Cuit"  /></th>
+
+        <th><g:message code="profesional.banco.label" default="Banco"  /></th>
+
+        <g:sortableColumn property="activo" title="${message(code: 'profesional.activo.label', default: 'Activo')}"  />
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <g:each in="${planillaInternacionInstance?.profesionales}" status="i" var="profesionalInstance">
+        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+            <td>${fieldValue(bean: profesionalInstance, field: "persona")}</td>
+
+
+            <td>${fieldValue(bean: profesionalInstance, field: "matriculaProvincial")}</td>
+
+            <td>${profesionalInstance?.persona?.nroDocumento} </td>
+
+            <td>${profesionalInstance?.persona?.cuit}</td>
+
+            <td>${fieldValue(bean: profesionalInstance, field: "banco")}</td>
+
+            <td><g:formatBoolean boolean="${profesionalInstance.activo}" /></td>
+
+        </tr>
+    </g:each>
+    </tbody>
+</table>
+
+</div>
 
     <g:form url="[resource: planillaInternacionInstance, action: 'delete']" method="DELETE">
         <fieldset class="buttons">

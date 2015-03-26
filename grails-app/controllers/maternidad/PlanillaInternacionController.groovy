@@ -492,4 +492,33 @@ sel ->
 
     }
 
+   def asociarProfesional ={
+
+       def planilla=PlanillaInternacion.get(params.id)
+
+       render(view: "asociarProfesional", model: [planillaInternacionInstance: planilla])
+
+
+   }
+
+
+    def saveAsociacionProfesional={
+
+        def planilla=PlanillaInternacion.get(params.planillaInternacion.id)
+        def profesional=Profesional.get(params.profesional.id)
+
+        if (!planilla.profesionales.contains(profesional)){
+            planilla.profesionales.add(profesional)
+        }
+        else {
+
+        flash.message="Ya está asociado el Profesional"
+        }
+
+        planilla.save(flush: true)
+
+        render(view: "asociarProfesional", model: [planillaInternacionInstance: planilla])
+
+    }
+
 }
