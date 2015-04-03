@@ -60,11 +60,12 @@ class Factura {
         def totalHonorarios=0
         def totalGastos=0
         def totalMedicamentos=0
+        totalPagado = 0
 
         detalles.each {
            if(!it?.planillaInternacion?.factura){
 
-             if (it.planillaInternacion.estadoPlanilla==EstadoPlanilla.findByCodigo("FAC")){
+             if (it.planillaInternacion.estadoPlanilla.codigo=="FAC" || it.planillaInternacion.estadoPlanilla.codigo=="PEN"){
 
                  totalHonorarios+=  (it?.valorHonorarios)?:0 * it.cantidad
                  totalGastos+=(it?.valorGastos)?:0 * it.cantidad
@@ -72,7 +73,11 @@ class Factura {
 
 
              }
-
+             if(pagosFactura){
+                 pagosFactura?.each { pago ->
+                     totalPagado += pago.monto
+                 }
+             }
 
 
            }
