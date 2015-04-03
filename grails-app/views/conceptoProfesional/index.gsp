@@ -53,6 +53,8 @@
 						<td><g:formatBoolean boolean="${conceptoProfesionalInstance.credito}" /></td>
 					
 						<td>${fieldValue(bean: conceptoProfesionalInstance, field: "montoFijo")}</td>
+
+                        <td><g:link class="edit" controller="conceptoProfesional" name="edit" action="edit" params="['id': conceptoProfesionalInstance?.id]">Editar</g:link></td>
 					
 					</tr>
 				</g:each>

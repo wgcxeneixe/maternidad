@@ -11,7 +11,7 @@
     </tr>
     </thead>
     <tbody>
-    <g:each in="${maternidad.ConceptoProfesional?.list() }" status="i" var="conceptoProfesional">
+    <g:each in="${maternidad.ConceptoProfesional.findAllByActivo(true) }" status="i" var="conceptoProfesional">
         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
 
@@ -20,14 +20,14 @@
             <td> ${conceptoProfesional?.nombre} </td>
 
             <td>
-                <g:field type="number" step="any" name="${'valor'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional).montoFijo:'0'}" />  </td>
+                <g:field type="number" step="any" name="${'valor'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional)?.montoFijo:conceptoProfesional.montoFijo}" />  </td>
 
       <td>
-          <g:field type="number" step="any" name="${'porcentaje'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional).porcentaje:'0'}" />
+          <g:field type="number" step="any" name="${'porcentaje'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional)?.porcentaje:conceptoProfesional.porcentaje}" />
       </td>
 
             <td>
-                <g:checkBox name="${'unicavez'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional).porUnicaVez:false}" />
+                <g:checkBox name="${'unicavez'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional).porUnicaVez:true}" />
             </td>
 
             <td>
@@ -35,7 +35,7 @@
             </td>
 
             <td>
-                <g:checkBox checked="true" name="${'activo'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional).activo:false}" />
+                <g:checkBox checked="true" name="${'activo'+conceptoProfesional?.id}"    value="${ conceptoProfesional?.id in conceptos?.conceptoProfesional?.id ? maternidad.ConceptoPorProfesional.findByConceptoProfesionalAndProfesional(conceptoProfesional,profesional).activo:true}" />
             </td>
 
 
