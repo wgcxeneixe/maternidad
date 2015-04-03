@@ -133,9 +133,14 @@ class LiquidacionController {
     private Collection<Liquidacion> armarLiquidaciones(List<PagoFactura> listaPagos, List<ConceptoPorProfesional> listaConceptos) {
         def mapaLiquidaciones = [:]
 
-        Profesional.findAllByActivo(true)?.each { profesional ->
-            mapaLiquidaciones.put(profesional, new Liquidacion(profesional: profesional))
+        listaPagos?.factura?.planillaInternacion?.each{ PlanillaInternacion planilla ->
+            planilla?.detalles?.profesional?.each {
+                if(it && !mapaLiquidaciones.containsKey(it)) mapaLiquidaciones.put(it, new Liquidacion(profesional: it))
+            }
         }
+//        Profesional.findAllByActivo(true)?.each { profesional ->
+//            mapaLiquidaciones.put(profesional, new Liquidacion(profesional: profesional))
+//        }
 
         listaPagos.each {
             pago ->
