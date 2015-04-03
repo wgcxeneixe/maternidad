@@ -56,12 +56,11 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'numeroComprobante', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'numeroComprobante', 'error')}">
     <label for="numeroComprobante">
         <g:message code="pagoFactura.numeroComprobante.label" default="Numero Comprobante"/>
-        <span class="required-indicator">*</span>
     </label>
-    <g:field name="numeroComprobante" type="number" value="${pagoFacturaInstance.numeroComprobante}" required=""/>
+    <g:field name="numeroComprobante" type="number" value="${pagoFacturaInstance.numeroComprobante}" />
 
 </div>
 
