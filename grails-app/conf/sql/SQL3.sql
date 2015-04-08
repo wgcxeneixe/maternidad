@@ -1168,6 +1168,6 @@ select setval('sami.seq_tipo_pago', 3, true);
 
 INSERT INTO sami.estado_planilla VALUES (1, 0, 'INI', 'INICIADA', NULL);
 INSERT INTO sami.estado_planilla VALUES (2, 0, 'EPR', 'EN PROCESO', NULL);
-INSERT INTO sami.estado_planilla VALUES (3, 0, 'AFA', 'A FACTURAR', NULL);
-INSERT INTO sami.estado_planilla VALUES (4, 0, 'PEN', 'PENDIENTE APROBACION', NULL);
-INSERT INTO sami.estado_planilla VALUES (5, 0, 'FAC', 'FACTURADA', NULL);
+INSERT INTO sami.estado_planilla VALUES (3, 0, 'IMP', 'IMPRESA', NULL);
+INSERT INTO sami.estado_planilla VALUES (4, 0, 'PRE', 'PRESENTADA', NULL);
+INSERT INTO sami.estado_planilla VALUES (5, 0, 'CER', 'CERRADA', NULL);

@@ -14,8 +14,9 @@ class PlanillaInternacionController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def springSecurityService
     def jasperService
+    def springSecurityService
+
     /*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -293,10 +294,58 @@ class PlanillaInternacionController {
 
             generarPDF('ordenInternacion.jasper', "Orden", [data], 'orden-' + planillaInstance?.id)
 
-            redirect(action: "show", id: planillaInstance.id)
+          //  redirect(action: "show", id: planillaInstance.id)
 
         }
     }
+
+
+    // ***************************
+    // Imprimir Detalle Valorizado
+    // ***************************
+    def imprimirDetalle = {
+        def planillaInstance = PlanillaInternacion.get(params.id)
+        if(!planillaInstance){
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
+            redirect(action: "index")
+        }else{
+
+         try{   def data = DetalleValorizado.generar(planillaInstance)
+
+            generarPDF('detalleValorizado.jasper', "Detalle", [data], 'detalle-' + planillaInstance?.id)
+         }catch(Exception ex){
+             ex
+         }
+
+         //si la planilla tiene el estado en proceso entonces cambiarla a impresa
+
+            if (planillaInstance.estadoPlanilla.codigo=="EPR" || planillaInstance.estadoPlanilla.codigo=="INI" ){
+
+                def estadoPlanilla = EstadoPlanilla.findByCodigo("IMP")
+
+                def usuario = springSecurityService.currentUser
+                def movimiento= new  MovimientoPlanilla()
+                movimiento.estadoPlanilla=estadoPlanilla
+                movimiento.fecha=new Date()
+                movimiento.planillaInternacion=planillaInstance
+                movimiento.usuario=usuario as Usuario
+                movimiento.save(flush:true)
+
+
+                planillaInstance.estadoPlanilla=estadoPlanilla
+
+                planillaInstance.save flush:true
+
+
+            }
+
+
+
+          //  redirect(action: "show", id: planillaInstance.id)
+
+        }
+    }
+
 
 
     // ***************************
@@ -352,6 +401,34 @@ sel ->
 
     }
 
+
+    def presentarSeleccionadas={
+
+        def seleccionados=params?.list("facturar")
+
+        seleccionados.each {
+            sel ->
+                def planilla=PlanillaInternacion.findById(sel as Integer)
+                def estado=EstadoPlanilla.findByCodigo("PRE")
+
+                planilla.estadoPlanilla=estado
+                planilla.save(flush: true)
+
+
+                def usuario = springSecurityService.currentUser
+                def movimiento= new  MovimientoPlanilla()
+                movimiento.estadoPlanilla=estado
+                movimiento.fecha=new Date()
+                movimiento.planillaInternacion=planilla
+                movimiento.usuario=usuario as Usuario
+                movimiento.save(flush:true)
+
+        }
+
+
+        redirect(action: "index")
+
+    }
 
 
     def facturar={
