@@ -26,7 +26,7 @@
     </label>
     ${pagoFacturaInstance?.factura}
     <g:textField id="factura" name="factura.id" required="" value="${pagoFacturaInstance?.factura?.id}"/>
-
+    ${pagoFacturaInstance?.factura?.periodo+' - '+pagoFacturaInstance?.factura?.plan}
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'fecha', 'error')} required">
@@ -52,16 +52,15 @@
         <g:message code="pagoFactura.monto.label" default="Monto"/>
         <span class="required-indicator">*</span>
     </label>
-    <g:field name="monto" type="number" value="${fieldValue(bean: pagoFacturaInstance, field: 'monto')}" required=""/>
+    <g:field name="monto"  value="${fieldValue(bean: pagoFacturaInstance, field: 'monto')}" required=""/>
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'numeroComprobante', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'numeroComprobante', 'error')}">
     <label for="numeroComprobante">
         <g:message code="pagoFactura.numeroComprobante.label" default="Numero Comprobante"/>
-        <span class="required-indicator">*</span>
     </label>
-    <g:field name="numeroComprobante" type="number" value="${pagoFacturaInstance.numeroComprobante}" required=""/>
+    <g:field name="numeroComprobante" type="number" value="${pagoFacturaInstance.numeroComprobante}" />
 
 </div>
 

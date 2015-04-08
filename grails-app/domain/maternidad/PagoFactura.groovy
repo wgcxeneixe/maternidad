@@ -25,7 +25,7 @@ class PagoFactura {
         //retencion(nullable: true, validator: validadorRetencion)
         monto(nullable: false)//, validator: validadorMonto)
         factura(nullable: false)
-        numeroComprobante(nullable: false)
+        numeroComprobante(nullable: true)
         tipoPago(nullable: false)
         porcentajeALiquidar(nullable: false, validator: validadorPorcentajeALiquidar)
     }

@@ -34,6 +34,9 @@ class PagoFacturaController {
 
         def pagoFactura = new PagoFactura(params)
         pagoFactura?.factura = Factura?.findById(params?.id)
+        if(pagoFactura.factura){
+            pagoFactura.monto=pagoFactura.factura.totalFacturado-pagoFactura.factura.totalPagado-pagoFactura.factura.totalRetencion
+        }
         respond pagoFactura
 
     }
