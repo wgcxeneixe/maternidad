@@ -1171,3 +1171,7 @@ INSERT INTO sami.estado_planilla VALUES (2, 0, 'EPR', 'EN PROCESO', NULL);
 INSERT INTO sami.estado_planilla VALUES (3, 0, 'IMP', 'IMPRESA', NULL);
 INSERT INTO sami.estado_planilla VALUES (4, 0, 'PRE', 'PRESENTADA', NULL);
 INSERT INTO sami.estado_planilla VALUES (5, 0, 'CER', 'CERRADA', NULL);
+
+
+INSERT INTO sami.tipo_medicamento VALUES (1, 0, 'MED', 'Medicamento');
+INSERT INTO sami.tipo_medicamento VALUES (2, 0, 'DES', 'Descartable');

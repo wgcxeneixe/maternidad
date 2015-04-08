@@ -347,6 +347,26 @@ class PlanillaInternacionController {
     }
 
 
+    def imprimirDetalleMedicamento = {
+
+        def planillaInstance = PlanillaInternacion.get(params.id)
+        if (!planillaInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
+            redirect(action: "index")
+        } else {
+
+            try {
+                def data = FacturaMedicamentos.generar(planillaInstance)
+
+                generarPDF('FacturacionMedicamentos.jasper', "Detalle Medicamento", [data], 'detalleMedicamentos-' + planillaInstance?.id)
+            } catch (Exception ex) {
+                ex
+            }
+
+
+        }
+    }
+
 
     // ***************************
     // Generar PDF para impresion

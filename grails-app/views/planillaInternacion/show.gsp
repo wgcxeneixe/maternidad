@@ -16,7 +16,7 @@
      <!--   <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li> -->
         <li><g:link class="list" action="index"><g:message code="planillaInternacion.list.label" args="[entityName]"/></g:link></li>
         <li><g:link class="list" action="create" controller="nacimiento" id="${planillaInternacionInstance?.id}"><g:message code="nacimiento.edit.label" args="[entityName]"/></g:link></li>
-
+<li><g:link class="create" controller="planillaInternacion"  action="imprimirDetalleMedicamento" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirDetalleMedicamento')}</g:link></li>
     </ul>
 </div>
 
