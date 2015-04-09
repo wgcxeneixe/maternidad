@@ -19,7 +19,7 @@
 
         <g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
             <li>
-                <a href="#" id="facturar" class="create" ><g:message code="planillaInternacion.planillaspresentadas" /></a>
+                <a href="#" id="presentar" class="create" ><g:message code="planillaInternacion.planillaspresentadas" /></a>
                </li>
         </g:if>
 
@@ -61,7 +61,7 @@
     </g:form>
 </div>
 
-<g:form name="formFacturar"  controller="planillaInternacion" action="presentarSeleccionadas">
+<g:form name="formPresentar"  controller="planillaInternacion" action="presentarSeleccionadas">
 
     <g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
     <div class="">
@@ -124,10 +124,10 @@
         // jQuery("#obrasocial").attr('readonly',true).select2({allowClear: true});
       //  jQuery("#obrasocial").attr('readonly',true);
 
-        jQuery( "#facturar" ).click(function(e) {
+        jQuery( "#presentar" ).click(function(e) {
            // e.preventDefault();
             //jQuery("#formFacturar").submit();
-            jQuery('form[name="formFacturar"]').submit();
+            jQuery('form[name="formPresentar"]').submit();
 
         });
 

@@ -367,6 +367,48 @@ class PlanillaInternacionController {
         }
     }
 
+    def imprimirRegistroPractica = {
+
+        def planillaInstance = PlanillaInternacion.get(params.id)
+        if (!planillaInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
+            redirect(action: "index")
+        } else {
+
+            try {
+                def data = RegistroPracticas.generar(planillaInstance)
+
+                generarPDF('RegistroPracticas.jasper', "Registro Practicas", [data], 'registroPracticas-' + planillaInstance?.id)
+            } catch (Exception ex) {
+                ex
+            }
+
+
+        }
+    }
+
+
+
+
+    def imprimirDetalleSinValor = {
+
+        def planillaInstance = PlanillaInternacion.get(params.id)
+        if (!planillaInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
+            redirect(action: "index")
+        } else {
+
+            try {
+                def data = DetalleSinValor.generar(planillaInstance)
+
+                generarPDF('detalleSinValor.jasper', "Detalle Sin Valor", [data], 'detalleSinValor-' + planillaInstance?.id)
+            } catch (Exception ex) {
+                ex
+            }
+
+
+        }
+    }
 
     // ***************************
     // Generar PDF para impresion
