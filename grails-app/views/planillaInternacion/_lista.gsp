@@ -37,7 +37,7 @@
             <th></th>
 
             <th></th>
-
+            <th></th>
             <th></th>
 
             <g:if test="${filters?.estado==maternidad.EstadoPlanilla.findByNombre("EN PROCESO")?.id?.toString()}">
@@ -80,9 +80,11 @@
 
                 <td><g:link controller="planillaInternacion"  action="imprimirOrden" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirOrden')}</g:link></td>
 
+                <td><g:link controller="planillaInternacion"  action="imprimirDetalle" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirOrden')}</g:link></td>
+
                 <td><g:link controller="planillaInternacion"  action="asociarProfesional" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.asociarProfesional')}</g:link></td>
 
-                <g:if test="${filters.estado == maternidad.EstadoPlanilla.findByNombre("EN PROCESO")?.id?.toString()}">
+                <g:if test="${filters.estado == maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
                     <td><g:checkBox  name="facturar" value="${planillaInternacionInstance.id}"/> </td>
                 </g:if>
 

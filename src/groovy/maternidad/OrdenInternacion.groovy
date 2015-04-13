@@ -19,7 +19,7 @@ class OrdenInternacion {
         orden.nombreYApellido=planilla.paciente.apellido +" "+planilla.paciente.nombre
         orden.obraSocial=planilla?.plan?.obrasocial?.nombre
         orden.tratamiento=planilla?.tratamiento
-        orden.fecha=new Date().format("dd-MM-yyyy")
+        orden.fecha=planilla?.fechaInternacion?.format("dd-MM-yyyy")
 
     orden
     }

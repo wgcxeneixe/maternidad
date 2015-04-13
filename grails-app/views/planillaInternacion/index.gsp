@@ -17,9 +17,9 @@
         <li><g:link class="create" action="buscapaciente"><g:message code="planillaInternacion.new.label"
                                                               args="[entityName]"/></g:link></li>
 
-        <g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByNombre("EN PROCESO")?.id?.toString()}">
+        <g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
             <li>
-                <a href="#" id="facturar" class="create" ><g:message code="planillaInternacion.facturarseleccionadas" /></a>
+                <a href="#" id="presentar" class="create" ><g:message code="planillaInternacion.planillaspresentadas" /></a>
                </li>
         </g:if>
 
@@ -61,9 +61,9 @@
     </g:form>
 </div>
 
-<g:form name="formFacturar"  controller="planillaInternacion" action="facturarSeleccionadas">
+<g:form name="formPresentar"  controller="planillaInternacion" action="presentarSeleccionadas">
 
-    <g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByNombre("EN PROCESO")?.id?.toString()}">
+    <g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
     <div class="">
         <label for="periodo">
             <g:message code="factura.periodo.label" default="Seleccionar Todas" />
@@ -124,10 +124,10 @@
         // jQuery("#obrasocial").attr('readonly',true).select2({allowClear: true});
       //  jQuery("#obrasocial").attr('readonly',true);
 
-        jQuery( "#facturar" ).click(function(e) {
+        jQuery( "#presentar" ).click(function(e) {
            // e.preventDefault();
             //jQuery("#formFacturar").submit();
-            jQuery('form[name="formFacturar"]').submit();
+            jQuery('form[name="formPresentar"]').submit();
 
         });
 
