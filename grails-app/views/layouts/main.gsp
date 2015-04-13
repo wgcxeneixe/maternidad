@@ -358,7 +358,7 @@
             </a>
         </li>
         <li class="${(controllerName == 'pagoFactura' && actionName == 'index') ? 'active' : ''}">
-            <a href="${createLink(controller:'factura',action: 'abrirPagarFactura')}" class="auto"> <!-- /CreateLink -->
+            <a href="${createLink(controller:'facturaPeriodo',action: 'abrirPagarFactura')}" class="auto"> <!-- /CreateLink -->
                 <i class="i i-dot"></i>
                 <span>Pago Facturas</span>
             </a>

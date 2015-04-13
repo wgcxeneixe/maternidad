@@ -3,6 +3,7 @@ package maternidad
 class PagoFactura {
 
     Factura factura
+    FacturaPeriodo facturaPeriodo
     Double monto = 0
     Liquidacion liquidacion
     Date fecha
@@ -12,6 +13,7 @@ class PagoFactura {
     String aclaracionComprobante
     Double porcentajeALiquidar  = 0
     Double porcentajeLiquidado  = 0
+
 
     Set<RetencionPago> retencionPagos
 
@@ -24,7 +26,7 @@ class PagoFactura {
         retencion(nullable: true)
         //retencion(nullable: true, validator: validadorRetencion)
         monto(nullable: false)//, validator: validadorMonto)
-        factura(nullable: false)
+        factura(nullable: true)
         numeroComprobante(nullable: true)
         tipoPago(nullable: false)
         porcentajeALiquidar(nullable: false, validator: validadorPorcentajeALiquidar)

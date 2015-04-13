@@ -20,7 +20,6 @@ class PagoFacturaController {
     }
 
 
-
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond PagoFactura.list(params), model: [pagoFacturaInstanceCount: PagoFactura.count()]
@@ -33,9 +32,16 @@ class PagoFacturaController {
     def create() {
 
         def pagoFactura = new PagoFactura(params)
-        pagoFactura?.factura = Factura?.findById(params?.id)
-        if(pagoFactura.factura){
-            pagoFactura.monto=pagoFactura.factura.totalFacturado-pagoFactura.factura.totalPagado-pagoFactura.factura.totalRetencion
+        if (params?.pagoPeriodo) {
+            pagoFactura?.facturaPeriodo = FacturaPeriodo?.findById(params?.id)
+        } else {
+            pagoFactura?.factura = Factura?.findById(params?.id)
+        }
+        if (pagoFactura.factura) {
+            pagoFactura.monto = pagoFactura.factura.totalFacturado - pagoFactura.factura.totalPagado - pagoFactura.factura.totalRetencion
+        }
+        if (pagoFactura.facturaPeriodo) {
+            pagoFactura.monto = pagoFactura.facturaPeriodo.totalFacturado - pagoFactura.facturaPeriodo.totalPagado - pagoFactura.facturaPeriodo.totalRetencion
         }
         respond pagoFactura
 
@@ -52,8 +58,13 @@ class PagoFacturaController {
             respond pagoFacturaInstance.errors, view: 'create'
             return
         } else {
-            def facturaSeleccionada = new Factura()
-            facturaSeleccionada = Factura?.get(pagoFacturaInstance?.factura?.id)
+            def facturaSeleccionada
+            if (pagoFacturaInstance?.factura) {
+                facturaSeleccionada = Factura?.get(pagoFacturaInstance?.factura?.id)
+            }
+            if (pagoFacturaInstance?.facturaPeriodo) {
+                facturaSeleccionada = FacturaPeriodo?.get(pagoFacturaInstance?.facturaPeriodo?.id)
+            }
             def totalFacturaPagado
             def totalRetencionesPago
             pagoFacturaInstance.save(flush: true)
@@ -73,7 +84,6 @@ class PagoFacturaController {
             def totalAPagarConRetenciones = totalFacturaPagado - totalRetencionesPago
             def totalDFacturadoSinRetenciones = facturaSeleccionada?.totalFacturado - totalAPagarConRetenciones
             facturaSeleccionada?.totalPagado = totalAPagarConRetenciones + pagoFacturaInstance?.monto
-
 
 //            println  'facturaSeleccionada?.totalPagado'
 //            println  facturaSeleccionada?.totalPagado
@@ -101,7 +111,7 @@ class PagoFacturaController {
         PagoFactura pagoFacturaInstance = new PagoFactura()
         pagoFacturaInstance.properties = params
         if (pagoFacturaInstance.hasErrors()) {
-            render(view: 'create', controller: PagoFactura, params:[pagoFacturaInstance:pagoFacturaInstance])
+            render(view: 'create', controller: PagoFactura, params: [pagoFacturaInstance: pagoFacturaInstance])
 
         } else {
             def facturaSeleccionada = new Factura()
@@ -128,7 +138,7 @@ class PagoFacturaController {
 
             if (facturaSeleccionada?.totalPagado > totalDFacturadoSinRetenciones) {
                 flash.message = 'El monto es superior al total facturado'
-                render(view: 'create', controller: PagoFactura, params:[pagoFacturaInstance:pagoFacturaInstance])
+                render(view: 'create', controller: PagoFactura, params: [pagoFacturaInstance: pagoFacturaInstance])
             } else {
                 if (facturaSeleccionada?.totalPagado == totalDFacturadoSinRetenciones) facturaSeleccionada?.pagoCompleto = true
 

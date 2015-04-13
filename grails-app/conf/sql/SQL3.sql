@@ -1175,3 +1175,6 @@ INSERT INTO sami.estado_planilla VALUES (5, 0, 'CER', 'CERRADA', NULL);
 
 INSERT INTO sami.tipo_medicamento VALUES (1, 0, 'MED', 'Medicamento');
 INSERT INTO sami.tipo_medicamento VALUES (2, 0, 'DES', 'Descartable');
+
+
+ALTER TABLE sami.pago_factura  ALTER COLUMN factura_id DROP NOT NULL;
