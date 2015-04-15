@@ -18,18 +18,20 @@ class Liquidacion {
     static constraints = {
     }
 
-    String toString(){ "${profesional} - ${fecha?.format('dd/MM/yyyy')}" }
+    String toString() { "${profesional} - ${fecha?.format('dd/MM/yyyy')}" }
 
     def agregarPagoFactura(PagoFactura pago) {
-        if(!detallesLiquidacion)detallesLiquidacion=[]
-        pago.factura.planillaInternacion?.detalles?.each {
-            detalle ->
-                if (detalle.profesional == profesional) {
-                    def detalleLiq = new DetalleLiquidacion(liquidacion: this)
-                    detalleLiq.agregarPagoFactura(pago, detalle)
-                    detallesLiquidacion.add(detalleLiq)
-                    montoBruto += detalleLiq.monto
-                }
+        if (!detallesLiquidacion) detallesLiquidacion = []
+        pago.facturaPeriodo.facturas?.each { Factura fac ->
+            fac.planillaInternacion?.detalles?.each {
+                detalle ->
+                    if (detalle.profesional == profesional) {
+                        def detalleLiq = new DetalleLiquidacion(liquidacion: this)
+                        detalleLiq.agregarPagoFactura(pago, detalle)
+                        detallesLiquidacion.add(detalleLiq)
+                        montoBruto += detalleLiq.monto
+                    }
+            }
         }
 
         montoNeto = montoBruto
@@ -46,7 +48,7 @@ class Liquidacion {
     }
 
     def agregarConceptosProfesional(listaCodigoConeptos) {
-        if(!detallesLiquidacion)detallesLiquidacion=[]
+        if (!detallesLiquidacion) detallesLiquidacion = []
         def listaConceptos = profesional.listaConceptos?.findAll {
             it.conceptoProfesional.codigo in listaCodigoConeptos
         }

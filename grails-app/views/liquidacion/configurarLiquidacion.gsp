@@ -47,16 +47,11 @@
 <body>
 <div class="list">
 
-    <div>
-        <g:select id="conceptos" name="conceptos.id" from="${maternidad.ConceptoProfesional.list()}" optionKey="id" optionValue="nombre"
-                   multiple="true"/>
-    </div>
-
     <table>
         <thead>
         <tr>
             <th>Plan</th>
-            <th>Nro Factura</th>
+            <th>Periodo</th>
             <th>Fecha Pago</th>
             <th>Monto Pago</th>
             <th>% liquidado</th>
@@ -67,8 +62,8 @@
         <tbody>
         <g:each in="${listaPagos}" status="i" var="pago">
             <tr>
-                <td>${pago.factura.plan.codigo}</td>
-                <td>${pago.factura.nrofactura}</td>
+                <td>${pago.facturaPeriodo.plan.codigo}</td>
+                <td>${pago.facturaPeriodo.periodo}</td>
                 <td>${pago.fecha.format('dd/MM/yyyy')}</td>
                 <td>${pago.monto}</td>
                 <td>${pago.porcentajeLiquidado}</td>

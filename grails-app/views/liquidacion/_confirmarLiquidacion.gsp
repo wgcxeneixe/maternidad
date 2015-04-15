@@ -70,7 +70,7 @@
 
                         <td><g:formatDate date="${pagoFacturaInstance.fecha}"/></td>
 
-                        <td>${fieldValue(bean: pagoFacturaInstance, field: "factura")}</td>
+                        <td>${fieldValue(bean: pagoFacturaInstance, field: "facturaPeriodo")}</td>
 
                         <td><g:link action="show"
                                     id="${pagoFacturaInstance.id}">${fieldValue(bean: pagoFacturaInstance, field: "retencion")}</g:link></td>
