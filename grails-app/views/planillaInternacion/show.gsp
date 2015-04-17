@@ -19,6 +19,7 @@
 <li><g:link class="create" controller="planillaInternacion"  action="imprimirDetalleMedicamento" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirDetalleMedicamento')}</g:link></li>
         <li><g:link class="create" controller="planillaInternacion"  action="imprimirRegistroPractica" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirRegistroPracticas')}</g:link></li>
         <li><g:link class="create" controller="planillaInternacion"  action="imprimirDetalleSinValor" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirDetalleSinValor')}</g:link></li>
+   <li><g:link controller="planillaInternacion"  action="imprimirDetalle" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirDetalleConValor')}</g:link></li>
     </ul>
 </div>
 

@@ -49,6 +49,8 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
+
+        build "com.lowagie:itext:2.1.7"
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.29'
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
@@ -78,6 +80,8 @@ grails.project.dependency.resolution = {
         //compile ":coffee-asset-pipeline:1.8.0"
         //compile ":handlebars-asset-pipeline:1.3.0.3"
         compile ":remote-pagination:0.4.8"
+
+
         compile ":jasper:1.11.0"
     }
 

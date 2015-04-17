@@ -29,13 +29,8 @@
                               title="${message(code: 'planillaInternacion.fechaAlta.label', default: 'Fecha Alta')}" params="${filters}"/>
 
             <th></th>
-
             <th></th>
-
             <th></th>
-
-            <th></th>
-
             <th></th>
             <th></th>
             <th></th>
@@ -79,8 +74,6 @@
                 <td><g:link controller="detalleFactura"  action="cargaMedicamentos" id="${planillaInternacionInstance.id}">${message(code: 'planillainternacion.cargademedicamentos')}</g:link></td>
 
                 <td><g:link controller="planillaInternacion"  action="imprimirOrden" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirOrden')}</g:link></td>
-
-                <td><g:link controller="planillaInternacion"  action="imprimirDetalle" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirOrden')}</g:link></td>
 
                 <td><g:link controller="planillaInternacion"  action="asociarProfesional" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.asociarProfesional')}</g:link></td>
 

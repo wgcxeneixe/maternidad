@@ -636,29 +636,29 @@ sel ->
 
 
         def planillas = params.list("planilla")
-        def periodo = (params?.periodo)?:  "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
-def estado=EstadoPlanilla.findByCodigo("PRE")
-try{
-def data=[]
-def d
-    def  planillasss
-  def os=  ObraSocial.list()
-  os.planes.each {
-def planid=it
-    // planillasss=  PlanillaInternacion.executeQuery("select distinct pi from PlanillaInternacion pi  where  pi.id =:planid  ",[planid:planid.first() as Long])
-      planillasss=  PlanillaInternacion.findAllByPlanAndEstadoPlanilla(planid.first(),estado)
+        def periodo = (params?.periodo) ?: "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
+        def estado = EstadoPlanilla.findByCodigo("PRE")
+        try {
+            def data = []
+            def d
+            def planillasss
+            def os = ObraSocial.list()
+            os.planes.each {
+                def planid = it
 
- def directorio=servletContext.getRealPath('/reports') + "/"
-      d=CierreMes.generar(planillasss,periodo,directorio)
+                planillasss = PlanillaInternacion.findAllByPlanAndEstadoPlanilla(planid.first(), estado)
 
-data.add(d)
-  }
+                def directorio = servletContext.getRealPath('/reports') + "/"
+                d = CierreMes.generar(planillasss, periodo, directorio)
 
-    generarPDF('cierreMes.jasper', "Resumen Facturacion", data, 'resumenFacturacion-' + new Date().getAt(Calendar.MONTH) + "-" + new Date().getAt(Calendar.YEAR))
+                data.add(d)
+            }
 
-}catch(Exception ex){
-    ex
-}
+            generarPDF('cierreMes.jasper', "Resumen Facturacion", data, 'resumenFacturacion-' + new Date().getAt(Calendar.MONTH) + "-" + new Date().getAt(Calendar.YEAR))
+
+        } catch (Exception ex) {
+            ex
+        }
 
        /* planillas.each {
 
