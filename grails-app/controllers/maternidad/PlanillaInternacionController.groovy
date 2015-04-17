@@ -631,6 +631,160 @@ sel ->
 
     }
 
+
+    def cerrar={
+
+
+        def planillas = params.list("planilla")
+        def periodo = (params?.periodo)?:  "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
+def estado=EstadoPlanilla.findByCodigo("PRE")
+try{
+def data=[]
+def d
+    def  planillasss
+  def os=  ObraSocial.list()
+  os.planes.each {
+def planid=it
+    // planillasss=  PlanillaInternacion.executeQuery("select distinct pi from PlanillaInternacion pi  where  pi.id =:planid  ",[planid:planid.first() as Long])
+      planillasss=  PlanillaInternacion.findAllByPlanAndEstadoPlanilla(planid.first(),estado)
+
+ def directorio=servletContext.getRealPath('/reports') + "/"
+      d=CierreMes.generar(planillasss,periodo,directorio)
+
+data.add(d)
+  }
+
+    generarPDF('cierreMes.jasper', "Resumen Facturacion", data, 'resumenFacturacion-' + new Date().getAt(Calendar.MONTH) + "-" + new Date().getAt(Calendar.YEAR))
+
+}catch(Exception ex){
+    ex
+}
+
+       /* planillas.each {
+
+            sel ->
+                def planilla = PlanillaInternacion.findById(sel as Integer)
+                def estadoFacturada = EstadoPlanilla.findByCodigo("FAC")
+                def estadoAprobacion = EstadoPlanilla.findByCodigo("PEN")
+
+                // si no tiene ente -> factura
+                if (!planilla.plan.obrasocial.enteReceptor) {
+                    //facturar
+
+
+                    planilla.estadoPlanilla = estadoFacturada
+                    planilla.save(flush: true)
+
+                    def usuario = springSecurityService.currentUser
+                    def movimiento = new MovimientoPlanilla()
+                    movimiento.estadoPlanilla = estadoFacturada
+                    movimiento.fecha = new Date()
+                    movimiento.planillaInternacion = planilla
+                    movimiento.usuario = usuario as Usuario
+                    movimiento.save(flush: true)
+
+
+                    Factura factura = new Factura()
+
+
+
+                    factura.fecha = new Date()
+                    factura.periodo = periodo
+
+                    def maxNroFactura=  Factura.createCriteria().get {
+                        projections {
+                            max "nrofactura"
+                        }
+                    } as Long
+
+                    factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
+
+                    try{
+
+                        factura.planillaInternacion=planilla
+
+
+
+                        factura.save(flush: true,validate: false)
+
+
+                    }catch (Exception ex){
+                        ex
+                    }
+
+
+                }
+                //sino si tiene ente y pide aprobacion -> marca con aprobacion
+                else if (planilla.plan.obrasocial.enteReceptor.pidePreAprobacion) {
+
+                    planilla.estadoPlanilla = estadoAprobacion
+                    planilla.save(flush: true)
+
+                    def usuario = springSecurityService.currentUser
+                    def movimiento = new MovimientoPlanilla()
+                    movimiento.estadoPlanilla = estadoAprobacion
+                    movimiento.fecha = new Date()
+                    movimiento.planillaInternacion = planilla
+                    movimiento.usuario = usuario as Usuario
+                    movimiento.save(flush: true)
+
+                } else if (!planilla.plan.obrasocial.enteReceptor.pidePreAprobacion) {
+
+
+                    planilla.estadoPlanilla = estadoFacturada
+                    planilla.save(flush: true)
+
+                    def usuario = springSecurityService.currentUser
+                    def movimiento = new MovimientoPlanilla()
+                    movimiento.estadoPlanilla = estadoFacturada
+                    movimiento.fecha = new Date()
+                    movimiento.planillaInternacion = planilla
+                    movimiento.usuario = usuario as Usuario
+                    movimiento.save(flush: true)
+
+                    Factura factura = new Factura()
+
+
+
+                    factura.fecha = new Date()
+                    factura.periodo = periodo
+
+                    def maxNroFactura=  Factura.createCriteria().get {
+                        projections {
+                            max "nrofactura"
+                        }
+                    } as Long
+
+                    factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
+
+                    try{
+
+                        factura.planillaInternacion= planilla
+
+
+
+                        factura.save(flush: true,validate: false)
+
+
+                    }catch (Exception ex){
+                        ex
+                    }
+
+
+
+
+                }
+
+
+
+
+                redirect(controller: "factura",action: "index")
+        }
+*/
+    }
+
+
+
    def asociarProfesional ={
 
        def planilla=PlanillaInternacion.get(params.id)

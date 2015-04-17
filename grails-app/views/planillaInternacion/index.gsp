@@ -77,10 +77,10 @@
 
 </g:form>
 
-<g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByNombre("A FACTURAR")?.id?.toString()}">
+<g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByCodigo("PRE")?.id?.toString()}">
 
 
-    <g:form name="formFacturarSeleccionadas"  controller="planillaInternacion" action="facturar" params="${[planilla:planillaInternacionInstanceList?.id]}">
+    <g:form name="formFacturarSeleccionadas"  controller="planillaInternacion" action="cerrar" params="${[planilla:planillaInternacionInstanceList?.id]}">
 
 
             <div class="">
