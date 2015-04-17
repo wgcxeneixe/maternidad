@@ -632,7 +632,45 @@ sel ->
     }
 
 
+    private Factura facturarPlanilla(PlanillaInternacion planilla, String periodo){
+        planilla.estadoPlanilla = EstadoPlanilla.findByCodigo('CER')
+//        planilla.save(flush: true)
+
+        Factura factura = new Factura()
+
+        factura.fecha = new Date()
+        factura.periodo = periodo
+
+        def maxNroFactura=  Factura.createCriteria().get {
+            projections {
+                max "nrofactura"
+            }
+        } as Long
+
+        factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
+
+
+            factura.planillaInternacion=planilla
+
+            factura.save(flush: true,validate: false)
+
+            def usuario = springSecurityService.currentUser
+            def movimiento = new MovimientoPlanilla()
+            movimiento.estadoPlanilla = planilla.estadoPlanilla
+            movimiento.fecha = new Date()
+            movimiento.planillaInternacion = planilla
+            movimiento.usuario = usuario as Usuario
+            movimiento.save(flush: true)
+            return factura
+    }
+
     def cerrar={
+        cerrar_action()
+//        redirect(action: 'index')
+    }
+
+    @Transactional
+    def cerrar_action(){
 
 
         def planillas = params.list("planilla")
@@ -643,11 +681,20 @@ sel ->
             def d
             def planillasss
             def os = ObraSocial.list()
-            os.planes.each {
-                def planid = it
+            os.planes.each { Plan plan->
+                def planid = plan
 
                 planillasss = PlanillaInternacion.findAllByPlanAndEstadoPlanilla(planid.first(), estado)
-
+                def listaFacturas = []
+                planillasss?.each { PlanillaInternacion planilla ->
+                    listaFacturas += facturarPlanilla(planilla,periodo)
+                }
+                FacturaPeriodo facturaPeriodo = new FacturaPeriodo()
+                facturaPeriodo.facturas =  listaFacturas
+                facturaPeriodo.plan = it
+                facturaPeriodo.periodo = periodo
+                facturaPeriodo.fecha = new Date()
+                facturaPeriodo.save()
                 def directorio = servletContext.getRealPath('/reports') + "/"
                 d = CierreMes.generar(planillasss, periodo, directorio)
 
