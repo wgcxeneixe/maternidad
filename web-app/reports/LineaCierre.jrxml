@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LineaCierre" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<parameter name="miURL" class="java.lang.String"/>
+	<field name="paciente" class="java.lang.String"/>
+	<field name="totalMedicamentos" class="java.lang.String"/>
+	<field name="totalDescartables" class="java.lang.String"/>
+	<field name="totalFactura" class="java.lang.String"/>
+	<field name="subItems" class="java.util.Collection"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="92">
+			<subreport>
+				<reportElement x="0" y="20" width="595" height="61"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{subItems})]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "SubLineaCierre.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="6" y="0" width="49" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Paciente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="67" y="0" width="78" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{paciente}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="83">
+			<textField>
+				<reportElement x="514" y="30" width="67" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalDescartables}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="294" y="54" width="139" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL FACTURA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="514" y="54" width="67" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalFactura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="514" y="10" width="67" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="11" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalMedicamentos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="294" y="30" width="139" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DESCARTABLES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="294" y="10" width="139" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL MEDICAMENTOS]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

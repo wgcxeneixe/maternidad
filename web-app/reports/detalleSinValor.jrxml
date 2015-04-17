@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detalleSinValor" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="miURL" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<field name="nombreYApellido" class="java.lang.String"/>
+	<field name="items" class="java.util.Collection"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="14" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[NUEVA MATERNIDAD CONCEPCION S.R.L.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="154" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="10" width="531" height="104"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[
+Preparación Psicoprofiláctica - Atención del Embarazo
+Clases de Gimnasia - Control durante el parto
+MEDICO OBSTETRA Y MEDICOS DE NIÑOS - MEDICO GINECOLOGO
+
+CAP. GENERAL URQUIZA 174                  TELEFONO 0442-22257
+
+C. del Uruguay - E. Rios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="13" y="125" width="115" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PACIENTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="128" y="125" width="125" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreYApellido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36">
+			<staticText>
+				<reportElement x="26" y="14" width="72" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PRESTADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="136" y="14" width="43" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[MAT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="503" y="14" width="52" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FUNCION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="189" y="14" width="64" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PRACTICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="458" y="14" width="45" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="14" width="94" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="14" width="46" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<subreport>
+				<reportElement x="11" y="7" width="531" height="16"/>
+				<subreportParameter name="miURL">
+					<subreportParameterExpression><![CDATA[$P{miURL}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{items})]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "LineaDetalleSinValor.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="28" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
