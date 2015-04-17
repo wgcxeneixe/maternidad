@@ -19,15 +19,33 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'factura', 'error')} required">
-    <label for="factura">
-        <g:message code="pagoFactura.factura.label" default="Factura"/>
-        <span class="required-indicator">*</span>
-    </label>
-    ${pagoFacturaInstance?.factura}
-    <g:textField id="factura" name="factura.id" required="" value="${pagoFacturaInstance?.factura?.id}"/>
-    ${pagoFacturaInstance?.factura?.periodo+' - '+pagoFacturaInstance?.factura?.plan}
-</div>
+<g:if test="${pagoFacturaInstance?.factura}">
+    <div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'factura', 'error')} required">
+        <label for="factura">
+            <g:message code="pagoFactura.factura.label" default="Factura"/>
+            <span class="required-indicator">*</span>
+        </label>
+        ${pagoFacturaInstance?.factura}
+        <g:textField id="factura" name="factura.id" required="" value="${pagoFacturaInstance?.factura?.id}"/>
+        ${pagoFacturaInstance?.factura?.periodo + ' - ' + pagoFacturaInstance?.factura?.plan}
+    </div>
+</g:if>
+<g:if test="${pagoFacturaInstance?.facturaPeriodo}">
+    <div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'facturaPeriodo', 'error')} required">
+        <label >
+            <g:message code="pagoFactura.factura.label" default="Período"/>
+            <span class="required-indicator">*</span>
+        </label>
+        ${pagoFacturaInstance?.facturaPeriodo?.periodo + ' - ' + pagoFacturaInstance?.facturaPeriodo?.plan}
+    </div>
+    <div class="fieldcontain" hidden="hidden">
+        <label for="facturaPeriodo">
+            <g:message code="pagoFactura.porcentajeLiquidado.label" default="facturaPeriodo"/>
+        </label>
+        <g:textField id="facturaPeriodo" name="facturaPeriodo.id" required="" value="${pagoFacturaInstance?.facturaPeriodo?.id}"/>
+
+    </div>
+</g:if>
 
 <div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'fecha', 'error')} required">
     <label for="fecha">
@@ -52,7 +70,7 @@
         <g:message code="pagoFactura.monto.label" default="Monto"/>
         <span class="required-indicator">*</span>
     </label>
-    <g:field name="monto"  value="${fieldValue(bean: pagoFacturaInstance, field: 'monto')}" required=""/>
+    <g:field name="monto" value="${fieldValue(bean: pagoFacturaInstance, field: 'monto')}" required=""/>
 
 </div>
 
@@ -60,7 +78,7 @@
     <label for="numeroComprobante">
         <g:message code="pagoFactura.numeroComprobante.label" default="Numero Comprobante"/>
     </label>
-    <g:field name="numeroComprobante" type="number" value="${pagoFacturaInstance.numeroComprobante}" />
+    <g:field name="numeroComprobante" type="number" value="${pagoFacturaInstance.numeroComprobante}"/>
 
 </div>
 
@@ -78,26 +96,25 @@
     <label for="porcentajeLiquidado">
         <g:message code="pagoFactura.porcentajeLiquidado.label" default="Porcentaje Liquidado"/>
     </label>
-    <g:field name="porcentajeLiquidado" value="${fieldValue(bean: pagoFacturaInstance, field: 'porcentajeLiquidado')}"
-            />
+    <g:field name="porcentajeLiquidado" value="${fieldValue(bean: pagoFacturaInstance, field: 'porcentajeLiquidado')}"/>
 
 </div>
 
 %{--<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'retencionPagos', 'error')} ">--}%
-    %{--<label for="retencionPagos">--}%
-        %{--<g:message code="pagoFactura.retencionPagos.label" default="Retencion Pagos"/>--}%
+%{--<label for="retencionPagos">--}%
+%{--<g:message code="pagoFactura.retencionPagos.label" default="Retencion Pagos"/>--}%
 
-    %{--</label>--}%
+%{--</label>--}%
 
-    %{--<ul class="one-to-many">--}%
-        %{--<g:each in="${pagoFacturaInstance?.retencionPagos ?}" var="r">--}%
-            %{--<li><g:link controller="retencionPago" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></li>--}%
-        %{--</g:each>--}%
-        %{--<li class="add">--}%
-            %{--<g:link controller="retencionPago" action="create"--}%
-                    %{--params="['pagoFactura.id': pagoFacturaInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'retencionPago.label', default: 'RetencionPago')])}</g:link>--}%
-        %{--</li>--}%
-    %{--</ul>--}%
+%{--<ul class="one-to-many">--}%
+%{--<g:each in="${pagoFacturaInstance?.retencionPagos ?}" var="r">--}%
+%{--<li><g:link controller="retencionPago" action="show" id="${r.id}">${r?.encodeAsHTML()}</g:link></li>--}%
+%{--</g:each>--}%
+%{--<li class="add">--}%
+%{--<g:link controller="retencionPago" action="create"--}%
+%{--params="['pagoFactura.id': pagoFacturaInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'retencionPago.label', default: 'RetencionPago')])}</g:link>--}%
+%{--</li>--}%
+%{--</ul>--}%
 
 %{--</div>--}%
 

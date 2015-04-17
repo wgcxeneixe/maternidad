@@ -106,19 +106,20 @@ class LiquidacionController {
     def configurarLiquidacion = {
         def listaPagos = PagoFactura.withCriteria {
             le('porcentajeLiquidado', new Double(100))
+            isNotNull('facturaPeriodo')
         }
         [listaPagos: listaPagos]
     }
 
     def armarLiquidacion = {
-        def conceptos = params?.getList('conceptos')
         def listaPagos = []
-        def listaConceptos = ConceptoProfesional.findAllByIdInList(conceptos)
+        def listaConceptos = ConceptoProfesional.findAllByActivo(true)
         def listaLiquidaciones = []
         try {
             listaPagos = PagoFactura.withCriteria {
                 le('porcentajeLiquidado', Double.valueOf(100))
                 gt('porcentajeALiquidar', Double.valueOf(0))
+                isNotNull('facturaPeriodo')
             }
 
             listaLiquidaciones = armarLiquidaciones(listaPagos, listaConceptos)
@@ -132,12 +133,15 @@ class LiquidacionController {
 
     private Collection<Liquidacion> armarLiquidaciones(List<PagoFactura> listaPagos, List<ConceptoPorProfesional> listaConceptos) {
         def mapaLiquidaciones = [:]
+        listaPagos?.each { PagoFactura pago ->
+            pago?.facturaPeriodo?.facturas?.each { Factura fac ->
+                fac?.planillaInternacion?.detalles?.profesional?.each {
+                    if (it && !mapaLiquidaciones.containsKey(it)) mapaLiquidaciones.put(it, new Liquidacion(profesional: it))
+                }
 
-        listaPagos?.factura?.planillaInternacion?.each{ PlanillaInternacion planilla ->
-            planilla?.detalles?.profesional?.each {
-                if(it && !mapaLiquidaciones.containsKey(it)) mapaLiquidaciones.put(it, new Liquidacion(profesional: it))
             }
         }
+
 //        Profesional.findAllByActivo(true)?.each { profesional ->
 //            mapaLiquidaciones.put(profesional, new Liquidacion(profesional: profesional))
 //        }
@@ -145,7 +149,7 @@ class LiquidacionController {
         listaPagos.each {
             pago ->
                 mapaLiquidaciones.values()?.each {
-                    liq ->
+                    Liquidacion liq ->
                         liq.agregarPagoFactura(pago)
 
                 }
