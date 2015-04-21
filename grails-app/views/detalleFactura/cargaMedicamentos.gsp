@@ -1,3 +1,4 @@
+<%@ page import="maternidad.PlanillaInternacionImpresion" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,12 +33,22 @@
     <g:form id="formulario" url="[resource:detalleFacturaInstance, action:'saveCargaMedicamento']" >
         <fieldset class="form">
 
+            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'profesional', 'error')} required">
+                <label for="profesional">
+                    <g:message code="detalleFactura.profesional.label" default="Profesional" />
+                    <span class="required-indicator">*</span>
+                </label>
+                <g:select readonly="" id="profesional" name="profesional.id" from="${maternidad.Profesional.list()}" optionKey="id" required="" value="${maternidad.Profesional.withCriteria {persona{eq("razonSocial","NUEVA MATERNIDAD")}}?.first()?.id}" class="many-to-one"/>
+
+            </div>
+
+
             <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'planillaInternacion', 'error')} required">
                 <label for="planillaInternacion">
                     <g:message code="detalleFactura.planillaInternacion.label" default="Planilla Internacion" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select id="planillaInternacion" name="planillaInternacion.id" from="${maternidad.PlanillaInternacion.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.planillaInternacion?.id}" class="many-to-one"/>
+                <g:select id="planillaInternacion" name="planillaInternacion.id" from="${PlanillaInternacionImpresion.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.planillaInternacion?.id}" class="many-to-one"/>
 
             </div>
 

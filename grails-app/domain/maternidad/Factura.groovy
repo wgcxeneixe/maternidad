@@ -90,19 +90,20 @@ class Factura {
 
 
     def beforeInsert = {
+       try{
         plan = planillaInternacion?.plan
         calcularTotales(planillaInternacion?.detalles)
-
+       }catch(Exception ex){
+           ex
+       }
     }
 
 
     def afterInsert = {
-
+/*
         planillaInternacion?.detalles?.each {
 
             if (!it?.planillaInternacion?.factura) {
-
-                if (it.planillaInternacion.estadoPlanilla == EstadoPlanilla.findByCodigo("FAC")) {
 
                     it.planillaInternacion = this.planillaInternacion
 
@@ -112,14 +113,14 @@ class Factura {
                         ex
                     }
 
-                }
+
 
 
             }
 
 
         }
-
+*/
     }
 
 }

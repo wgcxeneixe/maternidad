@@ -16,7 +16,7 @@ class PlanillaInternacionController {
 
     def jasperService
     def springSecurityService
-
+    def FacturacionService
     /*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -410,6 +410,28 @@ class PlanillaInternacionController {
         }
     }
 
+
+    def imprimirPlanilla = {
+
+        def planillaInstance = PlanillaInternacion.get(params.id)
+        if (!planillaInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
+            redirect(action: "index")
+        } else {
+
+            try {
+                def data = PlanillaInternacionImpresion.generar(planillaInstance)
+
+                generarPDF('PlanillaInternacion.jasper', "Planilla", [data], 'planilla-' + planillaInstance?.id)
+            } catch (Exception ex) {
+                ex
+            }
+
+
+        }
+    }
+
+
     // ***************************
     // Generar PDF para impresion
     // ***************************
@@ -632,74 +654,20 @@ sel ->
     }
 
 
-    private Factura facturarPlanilla(PlanillaInternacion planilla, String periodo){
-        planilla.estadoPlanilla = EstadoPlanilla.findByCodigo('CER')
-//        planilla.save(flush: true)
 
-        Factura factura = new Factura()
-
-        factura.fecha = new Date()
-        factura.periodo = periodo
-
-        def maxNroFactura=  Factura.createCriteria().get {
-            projections {
-                max "nrofactura"
-            }
-        } as Long
-
-        factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
-
-
-            factura.planillaInternacion=planilla
-
-            factura.save(flush: true,validate: false)
-
-            def usuario = springSecurityService.currentUser
-            def movimiento = new MovimientoPlanilla()
-            movimiento.estadoPlanilla = planilla.estadoPlanilla
-            movimiento.fecha = new Date()
-            movimiento.planillaInternacion = planilla
-            movimiento.usuario = usuario as Usuario
-            movimiento.save(flush: true)
-            return factura
-    }
-
-    def cerrar={
-        cerrar_action()
-//        redirect(action: 'index')
-    }
 
     @Transactional
-    def cerrar_action(){
+    def cerrar(){
 
 
-        def planillas = params.list("planilla")
+        //def planillas = params.list("planilla")
         def periodo = (params?.periodo) ?: "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
-        def estado = EstadoPlanilla.findByCodigo("PRE")
+        def directorio = servletContext.getRealPath('/reports') + "/"
+       def data=[]
+
+       // def estado = EstadoPlanilla.findByCodigo("PRE")
         try {
-            def data = []
-            def d
-            def planillasss
-            def os = ObraSocial.list()
-            os.planes.each { Plan plan->
-                def planid = plan
-
-                planillasss = PlanillaInternacion.findAllByPlanAndEstadoPlanilla(planid.first(), estado)
-                def listaFacturas = []
-                planillasss?.each { PlanillaInternacion planilla ->
-                    listaFacturas += facturarPlanilla(planilla,periodo)
-                }
-                FacturaPeriodo facturaPeriodo = new FacturaPeriodo()
-                facturaPeriodo.facturas =  listaFacturas
-                facturaPeriodo.plan = it
-                facturaPeriodo.periodo = periodo
-                facturaPeriodo.fecha = new Date()
-                facturaPeriodo.save()
-                def directorio = servletContext.getRealPath('/reports') + "/"
-                d = CierreMes.generar(planillasss, periodo, directorio)
-
-                data.add(d)
-            }
+            data= FacturacionService.cerrar(periodo,directorio)
 
             generarPDF('cierreMes.jasper', "Resumen Facturacion", data, 'resumenFacturacion-' + new Date().getAt(Calendar.MONTH) + "-" + new Date().getAt(Calendar.YEAR))
 
@@ -707,127 +675,7 @@ sel ->
             ex
         }
 
-       /* planillas.each {
 
-            sel ->
-                def planilla = PlanillaInternacion.findById(sel as Integer)
-                def estadoFacturada = EstadoPlanilla.findByCodigo("FAC")
-                def estadoAprobacion = EstadoPlanilla.findByCodigo("PEN")
-
-                // si no tiene ente -> factura
-                if (!planilla.plan.obrasocial.enteReceptor) {
-                    //facturar
-
-
-                    planilla.estadoPlanilla = estadoFacturada
-                    planilla.save(flush: true)
-
-                    def usuario = springSecurityService.currentUser
-                    def movimiento = new MovimientoPlanilla()
-                    movimiento.estadoPlanilla = estadoFacturada
-                    movimiento.fecha = new Date()
-                    movimiento.planillaInternacion = planilla
-                    movimiento.usuario = usuario as Usuario
-                    movimiento.save(flush: true)
-
-
-                    Factura factura = new Factura()
-
-
-
-                    factura.fecha = new Date()
-                    factura.periodo = periodo
-
-                    def maxNroFactura=  Factura.createCriteria().get {
-                        projections {
-                            max "nrofactura"
-                        }
-                    } as Long
-
-                    factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
-
-                    try{
-
-                        factura.planillaInternacion=planilla
-
-
-
-                        factura.save(flush: true,validate: false)
-
-
-                    }catch (Exception ex){
-                        ex
-                    }
-
-
-                }
-                //sino si tiene ente y pide aprobacion -> marca con aprobacion
-                else if (planilla.plan.obrasocial.enteReceptor.pidePreAprobacion) {
-
-                    planilla.estadoPlanilla = estadoAprobacion
-                    planilla.save(flush: true)
-
-                    def usuario = springSecurityService.currentUser
-                    def movimiento = new MovimientoPlanilla()
-                    movimiento.estadoPlanilla = estadoAprobacion
-                    movimiento.fecha = new Date()
-                    movimiento.planillaInternacion = planilla
-                    movimiento.usuario = usuario as Usuario
-                    movimiento.save(flush: true)
-
-                } else if (!planilla.plan.obrasocial.enteReceptor.pidePreAprobacion) {
-
-
-                    planilla.estadoPlanilla = estadoFacturada
-                    planilla.save(flush: true)
-
-                    def usuario = springSecurityService.currentUser
-                    def movimiento = new MovimientoPlanilla()
-                    movimiento.estadoPlanilla = estadoFacturada
-                    movimiento.fecha = new Date()
-                    movimiento.planillaInternacion = planilla
-                    movimiento.usuario = usuario as Usuario
-                    movimiento.save(flush: true)
-
-                    Factura factura = new Factura()
-
-
-
-                    factura.fecha = new Date()
-                    factura.periodo = periodo
-
-                    def maxNroFactura=  Factura.createCriteria().get {
-                        projections {
-                            max "nrofactura"
-                        }
-                    } as Long
-
-                    factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
-
-                    try{
-
-                        factura.planillaInternacion= planilla
-
-
-
-                        factura.save(flush: true,validate: false)
-
-
-                    }catch (Exception ex){
-                        ex
-                    }
-
-
-
-
-                }
-
-
-
-
-                redirect(controller: "factura",action: "index")
-        }
-*/
     }
 
 
