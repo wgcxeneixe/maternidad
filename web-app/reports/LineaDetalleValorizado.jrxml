@@ -11,7 +11,7 @@
 	<detail>
 		<band height="30" splitType="Stretch">
 			<textField>
-				<reportElement x="274" y="10" width="78" height="20"/>
+				<reportElement x="274" y="10" width="210" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>

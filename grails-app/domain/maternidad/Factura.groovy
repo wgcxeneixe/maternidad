@@ -66,9 +66,9 @@ class Factura {
             if (!it?.planillaInternacion?.factura) {
 
 
-                totalHonorarios += (it?.valorHonorarios) ?: 0 * it.cantidad
-                totalGastos += (it?.valorGastos) ?: 0 * it.cantidad
-                totalMedicamentos += (it?.valorMedicamento) ?: 0 * it.cantidad
+                totalHonorarios += (it?.valorHonorarios) ? it?.valorHonorarios * it.cantidad : 0 * it.cantidad
+                totalGastos += (it?.valorGastos) ? it?.valorGastos * it.cantidad : 0 * it.cantidad
+                totalMedicamentos += (it?.valorMedicamento) ? it?.valorMedicamento * it.cantidad : 0 * it.cantidad
 
 
                 if (pagosFactura) {

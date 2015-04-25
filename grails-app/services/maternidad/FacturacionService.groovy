@@ -20,9 +20,9 @@ class FacturacionService {
             os.planes.each {
                 def Plan planid = it?.first()
 
-                planillasss = PlanillaInternacionImpresion.findAllByPlanAndEstadoPlanilla(planid, estado)
+                planillasss = PlanillaInternacion.findAllByPlanAndEstadoPlanilla(planid, estado)
                 def listaFacturas = []
-                planillasss?.each { PlanillaInternacionImpresion planilla ->
+                planillasss?.each { PlanillaInternacion planilla ->
                     listaFacturas += facturarPlanilla(planilla,periodo)
                 }
                 if(listaFacturas?.size()>0){
@@ -50,7 +50,7 @@ class FacturacionService {
     }
 
 
-    private Factura facturarPlanilla(PlanillaInternacionImpresion planilla, String periodo){
+    private Factura facturarPlanilla(PlanillaInternacion planilla, String periodo){
         planilla.estadoPlanilla = EstadoPlanilla.findByCodigo('CER')
        // planilla.save(flush: true)
 
@@ -77,6 +77,7 @@ class FacturacionService {
             ex
         }
 
+        //Movimiento Planilla
         def usuario = springSecurityService.currentUser
         def movimiento = new MovimientoPlanilla()
         movimiento.estadoPlanilla = planilla.estadoPlanilla
@@ -84,6 +85,17 @@ class FacturacionService {
         movimiento.planillaInternacion = planilla
         movimiento.usuario = usuario as Usuario
         movimiento.save(flush: true)
+
+        //Cuenta corriente
+        def movimientoPlan = new MovimientoPlan()
+        def conceptoMovimiento=ConceptoPlan.findByCodigo("FACP")
+        movimientoPlan.conceptoPlan=conceptoMovimiento
+        movimientoPlan.credito=false
+        movimientoPlan.fecha=new Date()
+        movimientoPlan.monto=factura?.totalFacturado
+        movimientoPlan.plan=planilla?.plan
+        movimientoPlan.save(flush: true)
+
         return factura
     }
 

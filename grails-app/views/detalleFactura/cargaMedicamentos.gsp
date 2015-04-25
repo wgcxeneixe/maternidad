@@ -1,4 +1,4 @@
-<%@ page import="maternidad.PlanillaInternacionImpresion" %>
+<%@ page import="maternidad.PlanillaInternacion" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +48,7 @@
                     <g:message code="detalleFactura.planillaInternacion.label" default="Planilla Internacion" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select id="planillaInternacion" name="planillaInternacion.id" from="${PlanillaInternacionImpresion.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.planillaInternacion?.id}" class="many-to-one"/>
+                <g:select id="planillaInternacion" name="planillaInternacion.id" from="${PlanillaInternacion.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.planillaInternacion?.id}" class="many-to-one"/>
 
             </div>
 
