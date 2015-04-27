@@ -54,6 +54,30 @@ class DetalleFacturaController {
         respond detalleFacturaInstance
     }
 
+    def editDetalle= {
+
+        DetalleFactura detalleFacturaInstance= DetalleFactura.get(params.id)
+
+        def planilla
+        def valores
+
+
+            planilla = detalleFacturaInstance.planillaInternacion
+
+            def planConvenio = PlanConvenio.withCriteria {
+                eq("plan", planilla?.plan)
+                convenio {
+                    eq("activo", Boolean.TRUE)
+                }
+            }
+
+            valores = ValorPractica.findAllByPlanConvenio(planConvenio)?.practica as List<Practica>
+
+        return [detalleFacturaInstance: detalleFacturaInstance, practicas: valores]
+
+    }
+
+
 //    @Transactional
 //    def update(DetalleFactura detalleFacturaInstance) {
 //        if (detalleFacturaInstance == null) {
@@ -110,6 +134,47 @@ class DetalleFacturaController {
 
     }
 
+
+    @Transactional
+    def updateDetalle(DetalleFactura detalleFacturaInstance) {
+
+        if (detalleFacturaInstance == null) {
+            notFound()
+            return
+        }
+        if (detalleFacturaInstance) {
+            detalleFacturaInstance.valorHonorarios = params.double('valorHonorarios')
+            detalleFacturaInstance.valorGastos = params.double('valorGastos')
+            detalleFacturaInstance.cantidad = params.double('cantidad')
+            if (params?.valorMedicamento) {
+                detalleFacturaInstance.valorMedicamento = params.double('valorMedicamento')
+            }
+
+            if (detalleFacturaInstance.hasErrors()) {
+                respond detalleFacturaInstance.errors, view: 'editDetalle'
+                return
+            }
+
+            if (detalleFacturaInstance.save(flush: true)) {
+
+if(detalleFacturaInstance?.practica){
+    redirect( action: 'cargaPracticas', params: [id: detalleFacturaInstance?.planillaInternacion?.id])
+}else {
+
+    redirect( action: 'cargaMedicamentos', params: [id: detalleFacturaInstance?.planillaInternacion?.id])
+
+}
+
+
+            } else {
+                respond detalleFacturaInstance.errors, view: 'editDetalle'
+                return
+            }
+        }
+
+    }
+
+
     @Transactional
     def delete(DetalleFactura detalleFacturaInstance) {
 
@@ -129,13 +194,39 @@ class DetalleFacturaController {
         }
     }
 
+
+    @Transactional
+    def eliminarDetalle() {
+
+        def detalleFacturaInstance= DetalleFactura.get(params.detalle as long)
+        def planilla=params.planilla
+
+        if (detalleFacturaInstance == null) {
+            notFound()
+            return
+        }
+
+        detalleFacturaInstance.delete flush: true
+
+        redirect action: "cargaPracticas",params: [id:planilla]
+
+       /* request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'DetalleFactura.label', default: 'DetalleFactura'), detalleFacturaInstance.id])
+
+            }
+            '*' { render status: NO_CONTENT }
+        } */
+    }
+
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'detalleFactura.label', default: 'DetalleFactura'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*' { render status: NOT_FOUND }
+            '*' { respond view: 'cargaPracticas' }
         }
     }
 

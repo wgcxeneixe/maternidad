@@ -174,7 +174,7 @@
             <th><g:message code="detalleFactura.valorPractica.label" default="Fecha" /></th>
 
             <th><g:message code="detalleFactura.valorPractica.label" default="Total" /></th>
-
+<th></th>
         </tr>
         </thead>
         <tbody>
@@ -204,10 +204,20 @@
 
 
                 <td>
-                    <g:formatNumber number="${ (detalleFactura?.valorHonorarios)? (detalleFactura?.valorHonorarios?.multiply( detalleFactura?.cantidad as Character) ):0  +
-                            (detalleFactura?.valorGastos)? (detalleFactura?.valorGastos?.multiply( detalleFactura?.cantidad as Character) ):0
+                    <g:formatNumber number="${ ((detalleFactura?.valorHonorarios)? (detalleFactura?.valorHonorarios?.multiply( detalleFactura?.cantidad as Character) ):0 ) +
+                            ( (detalleFactura?.valorGastos)? (detalleFactura?.valorGastos?.multiply( detalleFactura?.cantidad as Character) ):0 )
                     }" type="currency" currencyCode="ARS" />
                      </td>
+
+                <td>
+                    <g:link class="edit" action="editDetalle" params="[id:detalleFactura?.id]"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+                </td>
+
+                <td>
+                <g:link action="eliminarDetalle" controller="detalleFactura" params="[detalle:detalleFactura?.id,planilla:detalleFactura?.planillaInternacion?.id]"
+                        onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"
+                >${message(code: 'default.button.delete.label')}</g:link>
+                </td>
 
             </tr>
         </g:each>
