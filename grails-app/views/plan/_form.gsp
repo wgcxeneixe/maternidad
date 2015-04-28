@@ -43,6 +43,15 @@
 </div>
 
 
+<div class="fieldcontain ${hasErrors(bean: planInstance, field: 'valorMedicamento', 'error')} ">
+    <label for="porcentajeAfiliado">
+        <g:message code="detalleFactura.valorMedicamento.label" default="Porcentaje Afiliado" />
+
+    </label>
+    <g:field name="porcentajeAfiliado" type="number" step="any" value="${planInstance.porcentajeAfiliado}"/>
+
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: planInstance, field: 'activo', 'error')} ">
 	<label for="activo">
 		<g:message code="plan.activo.label" default="Activo" />

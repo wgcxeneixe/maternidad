@@ -7,7 +7,7 @@ class Plan {
     String observacion
     Boolean activo = true
     ObraSocial obrasocial
-
+    BigDecimal porcentajeAfiliado
 
     static hasMany = [movimientosPlan:MovimientoPlan,planConvenios:PlanConvenio]
 

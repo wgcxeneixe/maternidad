@@ -58,7 +58,17 @@
 					
 				</li>
 				</g:if>
-			
+
+
+                <g:if test="${planInstance?.porcentajeAfiliado}">
+                    <li class="fieldcontain">
+                        <span id="valorPractica-label" class="property-label"><g:message code="detalleFactura.valorPractica.label" default="Porcentaje Afiliado" /></span>
+
+                        <span class="property-value" aria-labelledby="valorPractica-label"><g:fieldValue bean="${planInstance}" field="porcentajeAfiliado"/></span>
+
+                    </li>
+                </g:if>
+
 				<g:if test="${planInstance?.activo}">
 				<li class="fieldcontain">
 					<span id="activo-label" class="property-label"><g:message code="plan.activo.label" default="Activo" /></span>

@@ -59,6 +59,9 @@ class PlanController {
             return
         }
 
+        planInstance.porcentajeAfiliado=(params?.porcentajeAfiliado)?params?.porcentajeAfiliado as BigDecimal:0
+
+
         planInstance.save flush: true
 
        /* def planConvenio= new PlanConvenio()
@@ -95,6 +98,8 @@ class PlanController {
             respond planInstance.errors, view: 'edit'
             return
         }
+
+        planInstance.porcentajeAfiliado=(params?.porcentajeAfiliado)?params?.porcentajeAfiliado as BigDecimal:0
 
         planInstance.save flush: true
 
