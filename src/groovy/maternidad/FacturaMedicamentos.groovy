@@ -53,7 +53,7 @@ class FacturaMedicamentos {
                  DetalleFacturaMedicamento detalleFacturacion = new DetalleFacturaMedicamento()
                  detalleFacturacion.cantidad = it?.cantidad
                  detalleFacturacion.fecha = it.fecha?.format("dd-MM-yyyy")
-                 detalleFacturacion.formaDePres = it?.medicamento?.formaPresentacion
+                 detalleFacturacion.formaDePres = (it?.medicamento?.formaPresentacion)?:""
                  detalleFacturacion.nombre = it?.medicamento?.nombre
                  detalleFacturacion.nro = renglon+1
                  renglon++
@@ -62,22 +62,25 @@ class FacturaMedicamentos {
 
                  factura.items.add(detalleFacturacion)
 
+                 def porcentajeAfiliado=(it.plan.porcentajeAfiliado)?:0
+                 def porcentajeOS=100-porcentajeAfiliado
+
                  if(it?.medicamento?.tipoMedicamento?.codigo=='DES'){
                      factura.totalDescartable+=it.valorMedicamento*it.cantidad
-                     factura.totalDescartableAfiliado=0
-                     factura.totalDescartableOS=0
+                     factura.totalDescartableAfiliado=it.valorMedicamento*it.cantidad*porcentajeAfiliado/100
+                     factura.totalDescartableOS=it.valorMedicamento*it.cantidad*porcentajeOS/100
                  }
                  else if(it?.medicamento?.tipoMedicamento?.codigo=='MED'){
                      factura.totalMedicamento=it.valorMedicamento*it.cantidad
-                     factura.totalMedicamentoAfiliado=0
-                     factura.totalMedicamentoOS=0
+                     factura.totalMedicamentoAfiliado=it.valorMedicamento*it.cantidad*porcentajeAfiliado/100
+                     factura.totalMedicamentoOS=it.valorMedicamento*it.cantidad*porcentajeOS/100
                  }
 
 
 
                  factura.total+=it.valorMedicamento*it.cantidad
-                 factura.totalAfiliado=0
-                 factura.totalOS=0
+                 factura.totalAfiliado+=it.valorMedicamento*it.cantidad*porcentajeAfiliado/100
+                 factura.totalOS+=it.valorMedicamento*it.cantidad*porcentajeOS/100
 
 
 

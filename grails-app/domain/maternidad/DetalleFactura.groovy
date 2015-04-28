@@ -38,8 +38,8 @@ class DetalleFactura {
     }
 
     def  Double total() {
-        Double tot = valorGastos?:0 + valorHonorarios?:0
-        return tot * cantidad
+        Double tot = (valorGastos?:0) + (valorHonorarios?:0)
+        return  Math.round(tot * 100) / 100
     }
 
     String toString() { "Plan: "+planillaInternacion?.plan?.codigo + ", Práctica: " + practica?.codigo + ", Función: " + funcion?.toString() + ". Total: " + total().toString()}

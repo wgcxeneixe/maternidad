@@ -18,13 +18,13 @@ class DetalleValorizado {
     static generar(PlanillaInternacion planilla){
         def detalle = new DetalleValorizado()
         detalle.items= new ArrayList<Detalle>()
-        detalle.numeroAfiliado=planilla?.numeroAfiliado
-        detalle.diagnostico=planilla?.diagnostico
+        detalle.numeroAfiliado=(planilla?.numeroAfiliado)?:""
+        detalle.diagnostico=(planilla?.diagnostico)?:""
         detalle.nombreYApellido=planilla.paciente.apellido +" "+planilla.paciente.nombre
         detalle.obraSocial=planilla?.plan?.obrasocial?.nombre
         detalle.fechaInternacion=planilla.fechaInternacion.format("dd-MM-yyyy")
-        detalle.fechaAlta=planilla?.fechaAlta?.format("dd-MM-yyyy")
-        detalle.domicilio=planilla?.paciente?.calle
+        detalle.fechaAlta=(planilla?.fechaAlta)? planilla?.fechaAlta?.format("dd-MM-yyyy"):""
+        detalle.domicilio=(planilla?.paciente?.calle)?:""  +" - "+ ((planilla?.paciente?.numero)?:"")
 
 detalle.total=0
 detalle.totalMedicamento=0

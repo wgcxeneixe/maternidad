@@ -313,31 +313,34 @@ class PlanillaInternacionController {
          try{   def data = DetalleValorizado.generar(planillaInstance)
 
             generarPDF('detalleValorizado.jasper', "Detalle", [data], 'detalle-' + planillaInstance?.id)
+
+             //si la planilla tiene el estado en proceso entonces cambiarla a impresa
+
+             if (planillaInstance.estadoPlanilla.codigo=="EPR" || planillaInstance.estadoPlanilla.codigo=="INI" ){
+
+                 def estadoPlanilla = EstadoPlanilla.findByCodigo("IMP")
+
+                 def usuario = springSecurityService.currentUser
+                 def movimiento= new  MovimientoPlanilla()
+                 movimiento.estadoPlanilla=estadoPlanilla
+                 movimiento.fecha=new Date()
+                 movimiento.planillaInternacion=planillaInstance
+                 movimiento.usuario=usuario as Usuario
+                 movimiento.save(flush:true)
+
+
+                 planillaInstance.estadoPlanilla=estadoPlanilla
+
+                 planillaInstance.save flush:true
+
+
+             }
+
+
+
          }catch(Exception ex){
              ex
          }
-
-         //si la planilla tiene el estado en proceso entonces cambiarla a impresa
-
-            if (planillaInstance.estadoPlanilla.codigo=="EPR" || planillaInstance.estadoPlanilla.codigo=="INI" ){
-
-                def estadoPlanilla = EstadoPlanilla.findByCodigo("IMP")
-
-                def usuario = springSecurityService.currentUser
-                def movimiento= new  MovimientoPlanilla()
-                movimiento.estadoPlanilla=estadoPlanilla
-                movimiento.fecha=new Date()
-                movimiento.planillaInternacion=planillaInstance
-                movimiento.usuario=usuario as Usuario
-                movimiento.save(flush:true)
-
-
-                planillaInstance.estadoPlanilla=estadoPlanilla
-
-                planillaInstance.save flush:true
-
-
-            }
 
 
 
@@ -402,6 +405,32 @@ class PlanillaInternacionController {
                 def data = DetalleSinValor.generar(planillaInstance)
 
                 generarPDF('detalleSinValor.jasper', "Detalle Sin Valor", [data], 'detalleSinValor-' + planillaInstance?.id)
+
+
+                //si la planilla tiene el estado en proceso entonces cambiarla a impresa
+
+                if (planillaInstance.estadoPlanilla.codigo=="EPR" || planillaInstance.estadoPlanilla.codigo=="INI" ){
+
+                    def estadoPlanilla = EstadoPlanilla.findByCodigo("IMP")
+
+                    def usuario = springSecurityService.currentUser
+                    def movimiento= new  MovimientoPlanilla()
+                    movimiento.estadoPlanilla=estadoPlanilla
+                    movimiento.fecha=new Date()
+                    movimiento.planillaInternacion=planillaInstance
+                    movimiento.usuario=usuario as Usuario
+                    movimiento.save(flush:true)
+
+
+                    planillaInstance.estadoPlanilla=estadoPlanilla
+
+                    planillaInstance.save flush:true
+
+
+                }
+
+
+
             } catch (Exception ex) {
                 ex
             }

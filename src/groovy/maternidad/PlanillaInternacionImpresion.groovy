@@ -29,15 +29,15 @@ class PlanillaInternacionImpresion {
     static generar(PlanillaInternacion planilla){
         def planillaI = new PlanillaInternacionImpresion()
 
-        planillaI.domicilio=planilla?.paciente?.calle+" - "+planilla?.paciente?.numero
-        planillaI.estadoCivil=planilla?.paciente?.estadoCivil?.denominacion
+        planillaI.domicilio=(planilla?.paciente?.calle)?:""  +" - "+ ((planilla?.paciente?.numero)?:"")
+        planillaI.estadoCivil=(planilla?.paciente?.estadoCivil?.denominacion)?:""
         planillaI.familiar=planilla?.nombreFamiliarResponsable
         planillaI.historiaClinica=planilla?.numeroIngreso
         planillaI.nombreYApellido=planilla.paciente?.toString()
-        planillaI.nroAfiliado=planilla?.numeroAfiliado
+        planillaI.nroAfiliado=(planilla?.numeroAfiliado)?:""
         planillaI.nroDocumento=planilla?.paciente?.nroDocumento
         planillaI.obraSocial=planilla?.plan?.obrasocial?.codigo+' - '+planilla?.plan?.obrasocial?.nombre
-        planillaI.observaciones=planilla?.observaciones
+        planillaI.observaciones=(planilla?.observaciones)?:""
         planillaI.tipoDocumento=planilla?.paciente?.tipoDocumento?.nombre
         String medicos="- "
         planilla.profesionales.each {medicos+=it?.persona?.toString()+" - "}

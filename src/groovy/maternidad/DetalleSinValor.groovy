@@ -33,7 +33,7 @@ class DetalleSinValor {
                 lineaDetalle.practica=it?.practica?.nombre
                 lineaDetalle.cantidad=it?.cantidad
                 lineaDetalle.funcion=it?.funcion?.toString()
-                lineaDetalle.matricula=it?.profesional?.matriculaProvincial
+                lineaDetalle.matricula=(it?.profesional?.matriculaProvincial)?:""
                 detalle.items.add(lineaDetalle)
 
 
