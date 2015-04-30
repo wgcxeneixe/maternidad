@@ -59,8 +59,8 @@ class CierreMes {
                      subLineaCierre.honorarios=  Math.round(sel.valorHonorarios * 100) / 100
                      subLineaCierre.practica=sel.practica?.codigo
 
-                     subLineaCierre.total= Math.round(sel?.total() * 100) / 100
-                     lineaCierre.totalFactura+=Math.round(sel?.total() * 100) / 100
+                     subLineaCierre.total= Math.round(sel?.total()*sel.cantidad * 100) / 100
+                     lineaCierre.totalFactura+=Math.round(sel?.total()*sel.cantidad * 100) / 100
                  }
 
                  lineaCierre.subItems.add(subLineaCierre)

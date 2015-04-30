@@ -40,11 +40,11 @@ detalle.totalImporte=0
                 detalleFacturacion.practica=it?.practica?.codigo
                 detalleFacturacion.funcion=it?.funcion
                 detalleFacturacion.profesional=it.profesional.persona.toString()
-                detalleFacturacion.importe=it.total()
+                detalleFacturacion.importe=Math.round(it.total()*it?.cantidad * 100) / 100
 
                 detalle.items.add(detalleFacturacion)
 detalle.totalCant+=it?.cantidad
-detalle.totalImporte+=it.total()
+detalle.totalImporte+=  Math.round(it.total()*it?.cantidad * 100) / 100
 
             }
             else if(it.medicamento){

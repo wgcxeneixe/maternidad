@@ -251,6 +251,13 @@
             </a>
         </li>
 
+        <li class="${(controllerName == 'enteReceptor' && actionName == 'index') ? 'active' : ''}">
+            <a href="${createLink(controller:'enteReceptor',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                <i class="i i-arrow-right5"></i>
+                <span>Listado Ente Receptor</span>
+            </a>
+        </li>
+
     </ul>
 </li>
 
@@ -388,6 +395,32 @@
         </li>
     </ul>
 </li>
+
+
+
+<li class="${controllerName == 'medicamento' ? 'active' : ''}"> <!-- /Controller -->
+    <a href="#" class="auto">
+        <i class="i i-folder2 icon"></i>
+        <span class="font-bold">MEDICAMENTOS</span>
+    </a>
+    <ul class="nav dk">
+        <li class="${(controllerName == 'medicamento' && actionName == 'index') ? 'active' : ''}">
+            <a href="${createLink(controller:'medicamento',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                <i class="i i-dot"></i>
+                <span>Listado de Medicamento</span>
+            </a>
+        </li>
+
+        <li class="${(controllerName == 'tipoMedicamento' && actionName == 'index') ? 'active' : ''}">
+            <a href="${createLink(controller:'tipoMedicamento',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                <i class="i i-dots"></i>
+                <span>Tipo Medicamento</span>
+            </a>
+        </li>
+
+    </ul>
+</li>
+
 
 <li class="${(controllerName == 'tipoDocumento' || controllerName == 'localidad' || controllerName == 'pais'
         || controllerName == 'provincia' || controllerName == 'tipoHonorario' || controllerName == 'tipoGasto' || controllerName == 'componente' || controllerName == 'componenteTipoHonorario'

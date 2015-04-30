@@ -314,8 +314,8 @@ isNull("medicamento")
             <td>
 
 
-                <g:formatNumber number="${ (detalleFactura?.valorHonorarios)? (detalleFactura?.valorHonorarios?.multiply( detalleFactura?.cantidad as Character) ):0  +
-                        (detalleFactura?.valorGastos)? (detalleFactura?.valorGastos?.multiply( detalleFactura?.cantidad as Character) ):0
+                <g:formatNumber number="${ ((detalleFactura?.valorHonorarios)? (detalleFactura?.valorHonorarios?.multiply( detalleFactura?.cantidad as Character) ):0)  +
+                        ( (detalleFactura?.valorGastos)? (detalleFactura?.valorGastos?.multiply( detalleFactura?.cantidad as Character) ):0 )
                 }" type="currency" currencyCode="ARS" />
             </td>
 
