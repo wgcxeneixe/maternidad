@@ -3,6 +3,10 @@ package maternidad
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import maternidad.Factura
+import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
+import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
+
+import java.lang.reflect.Array
 
 import static org.springframework.http.HttpStatus.*
 
@@ -14,6 +18,7 @@ class PagoFacturaController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def jasperService
 
     def beforeInterceptor = {
 
@@ -203,5 +208,79 @@ class PagoFacturaController {
             }
             '*' { render status: NOT_FOUND }
         }
+    }
+
+    def reportListaPagos = {
+//        println params.dump()
+        def listaId = params.list('id')
+//        println listaId.class
+        def listaIdLong = [1]
+
+
+        def nombrePDF = ''
+        // Creo un array para guardar los datos
+        def data = [:]
+        def fecha = new Date()
+        data += [fecha: fecha.format('dd/MM/yyyy')]
+        def items = [:]
+
+        def listaPagos = PagoFactura.findAllByIdInList(listaIdLong)
+        def totalFacturas=0
+        def totalALiquidar=0
+        def totalPagado=0
+
+        listaPagos.each { PagoFactura pagoFactura ->
+            items += [fechaPago: pagoFactura.fecha?.format('dd/MM/yyyy')]
+            items += [obraSocial: pagoFactura.facturaPeriodo.plan.codigo + pagoFactura.facturaPeriodo.plan.nombre]
+            items += [totalFacturado: pagoFactura.facturaPeriodo.getTotalFacturado()]
+            items += [totalPagado: pagoFactura.monto]
+            items += [periodo: pagoFactura.facturaPeriodo.periodo]
+            items += [porcentaje: pagoFactura.porcentajeALiquidar]
+            items += [totalALiquidar: pagoFactura.montoALiquidar()]
+            totalFacturas+=pagoFactura.facturaPeriodo.getTotalFacturado()
+            totalALiquidar+=pagoFactura.montoALiquidar()
+            totalPagado+=pagoFactura.monto
+
+        }
+
+//        data += [pagos: items]
+        data += [items: [items]]
+        data += [totalFacturas: totalFacturas]
+        data += [totalALiquidar: totalALiquidar]
+        data += [totalPagado: totalPagado]
+
+        try {
+            generarPDF('resumenDePagos.jasper', "Detalle de Pagos", [data], 'Detalle de Pagos')
+        } catch (e) {
+            println e.stackTrace
+            println "------------------------------------------------"
+            println e.cause
+            println "------------------------------------------------"
+            println e.dump()
+        }
+    }
+
+    // ***************************
+    // Generar PDF para impresion
+    // ***************************
+    def private generarPDF(reporte, titulo, data, nombre) {
+        //Seteamos los directorios de los subreportes y las imagenes
+        def params = [:]
+//        println data.dump()
+        params.SUBREPORT_DIR = servletContext.getRealPath('/reports') + "/"
+        // Definimos el reporte
+        def reportDef = new JasperReportDef(name: reporte,
+                fileFormat: JasperExportFormat.PDF_FORMAT,
+                reportData: data,
+                parameters: params
+        )
+
+        // Establecemos un nombre de archivo único...
+        response.setHeader("Content-disposition", "attachment; filename=\"${nombre}.pdf\"");
+        // Establecemos el tipo de archivo a PDF...
+        response.contentType = "application/pdf"
+        // Enviamos el contenido del PDF
+        response.outputStream << jasperService.generateReport(reportDef).toByteArray()
+
     }
 }
