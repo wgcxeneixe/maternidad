@@ -42,7 +42,7 @@
                         <g:textField name="nombre" value="${filters?.nombre}" /></p></td>
 
                 <td>
-                    <p><label for="nroplanilla">Nº Planilla</label>
+                    <p><label for="nroplanilla">Nº Historia</label>
                         <g:textField id="nroplanilla" name="nroplanilla" value="${filters?.nroplanilla}" /></p></td>
 
 

@@ -46,7 +46,7 @@
         <g:each in="${planillaInternacionInstanceList}" status="i" var="planillaInternacionInstance">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                <td>${fieldValue(bean: planillaInternacionInstance, field: "id")}</td>
+                <td>${planillaInternacionInstance?.numeroIngreso}</td>
 
                 <td>${fieldValue(bean: planillaInternacionInstance, field: "paciente")}</td>
 

@@ -62,6 +62,15 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'fechaNacimiento', 'error')} ">
+    <label for="fechaAlta">
+        <g:message code="planillaInternacion.fechaNacimiento.label" default="Fecha Nacimiento"/>
+
+    </label>
+    <g:datePicker default="none" noSelection="['':'']" name="fechaNacimiento" precision="day" value="${planillaInternacionInstance?.fechaNacimiento}"/>
+
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'fechaAlta', 'error')} required">
     <label for="fechaAlta">
         <g:message code="planillaInternacion.fechaAlta.label" default="Fecha Alta"/>

@@ -35,7 +35,7 @@
 				<text><![CDATA[INFORME DE HOSPITALIZACION]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="30" width="99" height="20"/>
+				<reportElement x="321" y="30" width="99" height="20"/>
 				<textElement verticalAlignment="Top">
 					<font size="10" isUnderline="false"/>
 				</textElement>
@@ -50,7 +50,7 @@
 ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="99" y="30" width="125" height="20"/>
+				<reportElement x="420" y="30" width="125" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>

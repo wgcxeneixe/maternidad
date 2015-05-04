@@ -38,7 +38,7 @@ class PlanillaInternacionController {
 
             }
             if (params.nroplanilla) {
-               eq('id',  params.nroplanilla as Long)
+               eq('numeroIngreso',  params.nroplanilla as Integer)
             }
 
             if (params.nombre) {
@@ -452,6 +452,26 @@ class PlanillaInternacionController {
                 def data = PlanillaInternacionImpresion.generar(planillaInstance)
 
                 generarPDF('PlanillaInternacion.jasper', "Planilla", [data], 'planilla-' + planillaInstance?.id)
+            } catch (Exception ex) {
+                ex
+            }
+
+
+        }
+    }
+
+    def imprimirHistoria = {
+
+        def planillaInstance = PlanillaInternacion.get(params.id)
+        if (!planillaInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
+            redirect(action: "index")
+        } else {
+
+            try {
+                def data = HistoriaClinica.generar(planillaInstance)
+
+                generarPDF('historiaClinica.jasper', "Historia", [data], 'historia-' + planillaInstance?.id)
             } catch (Exception ex) {
                 ex
             }

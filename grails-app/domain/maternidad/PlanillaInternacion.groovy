@@ -16,6 +16,9 @@ class PlanillaInternacion {
     Set movimientos
     EstadoPlanilla estadoPlanilla
     Factura factura
+    Date fechaNacimiento
+
+
 
     static constraints = {
         paciente(nullable: true,blank:true)
@@ -30,6 +33,7 @@ class PlanillaInternacion {
         tratamiento(nullable: true,blank:true, size: 0..5000)
         numeroAfiliado(nullable: true,blank:true)
         factura(nullable: true,blank:true)
+        fechaNacimiento(nullable: true,blank:true, attributes:[precision:"day"])
 
     }
 
@@ -67,6 +71,19 @@ class PlanillaInternacion {
             }
             numeroIngreso = numeroIngreso + 1
         }
+
+
+    }
+
+    Integer edad(){
+
+        Date offset= new Date()
+
+        def birthdayThisYear = offset.clearTime()
+        birthdayThisYear[Calendar.MONTH]= fechaNacimiento[Calendar.MONTH]
+        birthdayThisYear[Calendar.DATE] = fechaNacimiento[Calendar.DATE]
+
+       return offset[Calendar.YEAR] - fechaNacimiento[Calendar.YEAR] - (birthdayThisYear > offset ? 1 : 0)
 
 
     }
