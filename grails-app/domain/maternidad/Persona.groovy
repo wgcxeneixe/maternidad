@@ -23,6 +23,8 @@ class Persona {
 
     EstadoCivil estadoCivil
 
+    String sexo
+    String telefono
 
     static constraints = {
 
@@ -61,6 +63,8 @@ class Persona {
         localidad(nullable: true,blank:true)
         estadoCivil(nullable: true,blank:true)
         numero(nullable: true,blank:true)
+        sexo(nullable: true,blank:true,inList: ["Masculino", "Femenino"])
+        telefono(nullable: true,blank:true)
     }
 
     /*

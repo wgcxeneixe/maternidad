@@ -179,8 +179,24 @@
         </li>
     </g:if>
 
+    <g:if test="${planillaInternacionInstance?.paciente?.sexo}">
+        <li class="fieldcontain">
+            <span id="sexo-label" class="property-label"><g:message code="persona.sexo.label" default="Sexo" /></span>
+
+            <span class="property-value" aria-labelledby="sexo-label"><g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="sexo"/></span>
+
+        </li>
+    </g:if>
 
 
+    <g:if test="${planillaInternacionInstance?.paciente?.telefono}">
+        <li class="fieldcontain">
+            <span id="telefono-label" class="property-label"><g:message code="persona.telefono.label" default="Telefono" /></span>
+
+            <span class="property-value" aria-labelledby="telefono-label"><g:fieldValue bean="${planillaInternacionInstance?.paciente}" field="telefono"/></span>
+
+        </li>
+    </g:if>
 
 
     <!--- fin persona-->
@@ -212,6 +228,18 @@
 
             </li>
         </g:if>
+
+    <g:if test="${planillaInternacionInstance?.fechaNacimiento}">
+        <li class="fieldcontain">
+            <span id="fechaNacimiento-label" class="property-label"><g:message
+                    code="planillaInternacion.fechaNacimiento.label" default="Fecha Nacimiento"/></span>
+
+            <span class="property-value" aria-labelledby="fechaNacimiento-label"><g:formatDate style="LONG" type="date"
+                                                                                                date="${planillaInternacionInstance?.fechaNacimiento}"/></span>
+
+        </li>
+    </g:if>
+
 
         <g:if test="${planillaInternacionInstance?.nombreFamiliarResponsable}">
             <li class="fieldcontain">
@@ -258,6 +286,41 @@
 
             </li>
         </g:if>
+
+    <g:if test="${planillaInternacionInstance?.domicilioFamiliarResponsable}">
+        <li class="fieldcontain">
+            <span id="domicilioFamiliar-label" class="property-label"><g:message
+                    code="planillaInternacion.domicilio.label" default="Domicilio Familiar Responsable"/></span>
+
+            <span class="property-value" aria-labelledby="observaciones-label"><g:fieldValue
+                    bean="${planillaInternacionInstance}" field="domicilioFamiliarResponsable"/></span>
+
+        </li>
+    </g:if>
+
+
+    <g:if test="${planillaInternacionInstance?.ocupacion}">
+        <li class="fieldcontain">
+            <span id="ocupacion-label" class="property-label"><g:message
+                    code="planillaInternacion.ocupacion.label" default="Ocupación"/></span>
+
+            <span class="property-value" aria-labelledby="ocupacion-label"><g:fieldValue
+                    bean="${planillaInternacionInstance}" field="ocupacion"/></span>
+
+        </li>
+    </g:if>
+
+
+    <g:if test="${planillaInternacionInstance?.tipoSocio}">
+        <li class="fieldcontain">
+            <span id="tipoSocio-label" class="property-label"><g:message
+                    code="planillaInternacion.tipoSocio.label" default="Tipo Socio"/></span>
+
+            <span class="property-value" aria-labelledby="tipoSocio-label"><g:fieldValue
+                    bean="${planillaInternacionInstance}" field="tipoSocio"/></span>
+
+        </li>
+    </g:if>
 
     </ol>
     <!-- Listado de Nacimientos -->
@@ -439,6 +502,47 @@ isNull("medicamento")
 </table>
 
 </div>
+
+<div id="list-listadoInternaciones" class="content scaffold-list" role="main">
+    <h1><g:message code="planillaInternacion.listadoInternaciones"  /></h1>
+    <table class="ajax">
+        <thead>
+        <tr>
+
+            <th><g:message code="profesional.persona.label" default="Fecha"  /></th>
+
+            <th><g:message code="persona.nroDocumento.label" default="Sector"  /></th>
+
+            <th><g:message code="persona.cuit.label" default="Tipo Pension"  /></th>
+
+            <th><g:message code="profesional.banco.label" default="Dias Int"  /></th>
+
+            <th></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <g:each in="${planillaInternacionInstance?.internaciones}" status="i" var="internacionInstance">
+            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                <td>${internacionInstance?.fecha}</td>
+
+                <td>${internacionInstance?.sector}</td>
+
+                <td>${internacionInstance.tipoPension} </td>
+
+                <td>${internacionInstance.diasInternacion}</td>
+
+                <td><g:link class="linkEdit" controller="internacion" action="edit" id="${internacionInstance?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+
+            </tr>
+        </g:each>
+        </tbody>
+    </table>
+
+</div>
+
+
 
     <g:form url="[resource: planillaInternacionInstance, action: 'delete']" method="DELETE">
         <fieldset class="buttons">

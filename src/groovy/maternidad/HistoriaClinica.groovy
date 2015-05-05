@@ -27,7 +27,7 @@ class HistoriaClinica {
       def historiaClinica= new HistoriaClinica()
       historiaClinica.historia=planilla?.numeroIngreso
       historiaClinica.nombreYApellido=planilla.paciente?.toString()
-      historiaClinica.sexo="M"
+      historiaClinica.sexo=(planilla?.paciente?.sexo)?planilla?.paciente?.sexo:""
       historiaClinica.edad=planilla?.edad()?.toString()
       historiaClinica.domicilio=(planilla?.paciente?.calle)?:""  +" - "+ ((planilla?.paciente?.numero)?:"")
       historiaClinica.obraSocial=planilla?.plan?.obrasocial?.codigo+' - '+planilla?.plan?.obrasocial?.nombre
@@ -38,8 +38,8 @@ class HistoriaClinica {
       historiaClinica.medicoAyudante1=(planilla?.medicoAyudante1)?planilla?.medicoAyudante1?.toString():""
       historiaClinica.medicoAyudante2=(planilla?.medicoAyudante2)?planilla?.medicoAyudante2?.toString():""
       historiaClinica.medicoAnestesista=(planilla?.medicoAnestesista)?planilla?.medicoAnestesista?.toString():""
-      historiaClinica.diagnostico=planilla?.diagnostico
-      historiaClinica.tratamiento=planilla?.tratamiento
+      historiaClinica.diagnostico=(planilla?.diagnostico)?planilla?.diagnostico:""
+      historiaClinica.tratamiento=(planilla?.tratamiento)?planilla?.tratamiento:""
 
       historiaClinica
     }

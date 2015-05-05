@@ -1180,3 +1180,7 @@ INSERT INTO sami.concepto_plan VALUES (1, 1, true, 'FACP', NULL, 'Facturacion Pl
 select setval('sami.seq_concepto_plan', 1, true);
 
 ALTER TABLE sami.pago_factura  ALTER COLUMN factura_id DROP NOT NULL;
+
+INSERT INTO tipo_parto VALUES (1, 0, 'CESAREA', 'CESAREA');
+INSERT INTO tipo_parto VALUES (2, 0, 'NORMAL', 'NORMAL');
+select setval('sami.seq_tipo_parto', 2, true);

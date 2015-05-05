@@ -7,6 +7,9 @@ class PlanillaInternacion {
     Date fechaInternacion
     String nombreFamiliarResponsable
     String telefonoFamiliarResponsable
+    String domicilioFamiliarResponsable
+    String ocupacion
+
     Date fechaAlta
     String observaciones
     Integer numeroIngreso
@@ -22,7 +25,7 @@ class PlanillaInternacion {
     Profesional medicoAyudante1
     Profesional medicoAyudante2
     Profesional medicoAnestesista
-
+    String tipoSocio
 
     static constraints = {
         paciente(nullable: true,blank:true)
@@ -43,6 +46,10 @@ class PlanillaInternacion {
         medicoAnestesista(nullable: true,blank:true)
         medicoAyudante1(nullable: true,blank:true)
         medicoAyudante2(nullable: true,blank:true)
+        domicilioFamiliarResponsable(nullable: true,blank:true)
+        ocupacion(nullable: true,blank:true)
+        tipoSocio(nullable: true,blank:true,inList: ["Titular", "Adherente"])
+
     }
 
     static hasMany = [
@@ -50,7 +57,8 @@ class PlanillaInternacion {
             detalles:DetalleFactura,
             detallesCaja:DetalleCaja,
             movimientos:MovimientoPlanilla,
-            profesionales:Profesional
+            profesionales:Profesional,
+            internaciones:Internacion
     ]
 
     String toString() { "Nº ${id}"+ " - "+ paciente }

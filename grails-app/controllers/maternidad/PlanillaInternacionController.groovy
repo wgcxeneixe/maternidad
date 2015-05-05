@@ -168,6 +168,13 @@ class PlanillaInternacionController {
             return
         }
 
+        Internacion internacion = new Internacion()
+        internacion.fecha=planillaInternacionInstance?.fechaInternacion
+        internacion.diasInternacion=0
+
+        internacion.save(flush: true)
+
+        planillaInternacionInstance.addToInternaciones(internacion)
 
         def estadoPlanilla = EstadoPlanilla.findByNombre("INICIADA")
 
