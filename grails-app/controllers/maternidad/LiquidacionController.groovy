@@ -2,6 +2,8 @@ package maternidad
 
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
+import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
+import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
 
 import static org.springframework.http.HttpStatus.*
 
@@ -10,6 +12,8 @@ import static org.springframework.http.HttpStatus.*
 class LiquidacionController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+    def jasperService
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -195,6 +199,74 @@ class LiquidacionController {
 
         flash.message = "Se generó la liquidación correctamente"
         redirect(controller: "liquidacion")
+    }
+
+
+    def reportLiquidacion = {
+//        println params.dump()
+        def liquidacion = Liquidacion.read(params.long('id'))
+
+        // Creo un array para guardar los datos
+        def data = [:]
+        data += [cuit: liquidacion.profesional.persona.cuit]
+        data += [nombre: liquidacion.profesional?.persona?.apellido]
+        data += [fecha: liquidacion.fecha.format('dd/MM/yyyy')]
+        data += [bruto: liquidacion.montoBruto.toString()]
+        data += [neto: liquidacion.montoNeto.toString()]
+        data += [descuentos: (liquidacion.montoBruto - liquidacion.montoNeto).toString()]
+        data += [maticula: liquidacion.profesional.matriculaProvincial]
+
+        def listaHaberesToReport=[:]
+        def listaRetencionesToReport=[:]
+
+        liquidacion.detallesLiquidacion?.each {DetalleLiquidacion detalle->
+            if(detalle.debito){
+                listaRetencionesToReport+=[codigo:detalle?.detalleFactura?.practica?.codigo]
+                listaRetencionesToReport+=[descripcion:detalle?.detalleFactura?.practica?.nombre]
+                listaRetencionesToReport+=[porcentaje:detalle?.porcentajePagoFacturaLiquidado?.toString()]
+                listaRetencionesToReport+=[nombre:detalle?.detalleFactura?.planillaInternacion?.paciente]
+                listaRetencionesToReport+=[fecha:detalle?.pagoFactura?.facturaPeriodo?.periodo]
+                listaRetencionesToReport+=[importe:detalle?.monto?.toString()]
+                listaRetencionesToReport+=[fechaPractica:detalle?.detalleFactura?.fecha?.format('dd/MM/yyyy')]
+            }else{
+                listaHaberesToReport+=[descripcion: detalle?.detalle]
+                listaHaberesToReport+=[importe: detalle?.monto?.toString()]
+            }
+        }
+
+        data += [listaHaberesToReport: [listaHaberesToReport]]
+        data += [listaRetencionesToReport: [listaRetencionesToReport]]
+
+
+        try {
+            generarPDF('liquidacion.jasper', "liquidacion-${liquidacion.profesional}", [data], "liquidacion-${liquidacion.profesional}")
+        } catch (e) {
+
+        }
+    }
+
+    // ***************************
+    // Generar PDF para impresion
+    // ***************************
+    def private generarPDF(reporte, titulo, data, nombre) {
+        //Seteamos los directorios de los subreportes y las imagenes
+        def params = [:]
+//        println data.dump()
+        params.SUBREPORT_DIR = servletContext.getRealPath('/reports') + "/"
+        // Definimos el reporte
+        def reportDef = new JasperReportDef(name: reporte,
+                fileFormat: JasperExportFormat.PDF_FORMAT,
+                reportData: data,
+                parameters: params
+        )
+
+        // Establecemos un nombre de archivo único...
+        response.setHeader("Content-disposition", "attachment; filename=\"${nombre}.pdf\"");
+        // Establecemos el tipo de archivo a PDF...
+        response.contentType = "application/pdf"
+        // Enviamos el contenido del PDF
+        response.outputStream << jasperService.generateReport(reportDef).toByteArray()
+
     }
 
 }

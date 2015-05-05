@@ -13,8 +13,8 @@
 	<field name="neto" class="java.lang.String"/>
 	<field name="descuentos" class="java.lang.String"/>
 	<field name="maticula" class="java.lang.String"/>
-	<field name="listaHaberesToReport" class="net.sf.jasperreports.engine.JRDataSource"/>
-	<field name="listaRetencionesToReport" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="listaHaberesToReport" class="java.util.Collection"/>
+	<field name="listaRetencionesToReport" class="java.util.Collection"/>
 	<background>
 		<band/>
 	</background>
@@ -36,11 +36,6 @@
 				<textFieldExpression class="java.lang.String"><![CDATA["CUIT: "+($F{cuit}==null?"":$F{cuit})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="6" y="44" width="355" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA["PRESTADOR: "+($F{nombre}==null?"":$F{nombre})]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
 				<reportElement x="444" y="10" width="109" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA["FECHA: "+($F{fecha}==null?"":$F{fecha})]]></textFieldExpression>
@@ -52,6 +47,16 @@
 				</textElement>
 				<text><![CDATA[LIQUIDACIÓN]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="6" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[PROFESIONAL:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="106" y="41" width="441" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<detail>
@@ -61,15 +66,15 @@
 				<subreportParameter name="bruto">
 					<subreportParameterExpression><![CDATA[$F{bruto}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[$F{listaHaberesToReport}]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaHaberesToReport})]]></dataSourceExpression>
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "liquidacion_haber_subreport.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" x="2" y="113" width="548" height="11"/>
+				<reportElement positionType="Float" x="2" y="138" width="548" height="11"/>
 				<subreportParameter name="descuentos">
 					<subreportParameterExpression><![CDATA[$F{descuentos}]]></subreportParameterExpression>
 				</subreportParameter>
-				<dataSourceExpression><![CDATA[$F{listaRetencionesToReport}]]></dataSourceExpression>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaRetencionesToReport})]]></dataSourceExpression>
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "liquidacion_retencion_subreport.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
@@ -103,41 +108,51 @@
 			<line>
 				<reportElement x="2" y="41" width="551" height="2"/>
 			</line>
-			<textField isBlankWhenNull="true">
-				<reportElement x="407" y="43" width="147" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA["MONTO BRUTO: "+($F{bruto}==null?"0":$F{bruto})]]></textFieldExpression>
-			</textField>
 			<line>
-				<reportElement x="0" y="110" width="552" height="1"/>
+				<reportElement x="0" y="135" width="552" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="1" y="89" width="272" height="20"/>
+				<reportElement x="1" y="114" width="272" height="20"/>
 				<textElement/>
 				<text><![CDATA[RETENCIONES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="476" y="89" width="76" height="20"/>
+				<reportElement x="476" y="114" width="76" height="20"/>
 				<textElement/>
 				<text><![CDATA[IMPORTE]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="383" y="131" width="170" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA["TOTAL DESCUENTOS: "+($F{descuentos}==null?"0":$F{descuentos})]]></textFieldExpression>
-			</textField>
 			<line>
-				<reportElement x="1" y="127" width="551" height="1"/>
+				<reportElement x="1" y="152" width="551" height="1"/>
 			</line>
 		</band>
 	</detail>
 	<summary>
-		<band height="39">
+		<band height="96">
 			<textField isBlankWhenNull="true">
-				<reportElement x="407" y="16" width="140" height="20"/>
+				<reportElement x="410" y="76" width="140" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA["MONTO NETO: "+($F{neto}==null?"0":$F{neto})]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="456" y="44" width="91" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{descuentos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="44" width="116" height="20"/>
+				<textElement/>
+				<text><![CDATA[TOTAL DESCUENTOS: ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="457" y="13" width="90" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{bruto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="13" width="116" height="20"/>
+				<textElement/>
+				<text><![CDATA[MONTO BRUTO: ]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>

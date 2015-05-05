@@ -43,7 +43,7 @@
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{importe}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="">
 				<reportElement x="3" y="5" width="165" height="20"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{codigo}]]></textFieldExpression>

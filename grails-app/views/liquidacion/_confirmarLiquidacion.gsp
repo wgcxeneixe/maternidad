@@ -45,9 +45,8 @@
             <br/>
             <br/>
 
-            <div> <g:link controller="pagoFactura" action="reportListaPagos" id="${listaPagoFactura.id}" params="listaId:${listaPagoFactura.id}">Pagos a Liquidar</g:link>
-
-                <label>Pagos a Liquidar</label>
+            <div>
+                <g:link controller="pagoFactura" action="reportListaPagos" id="${listaPagoFactura.id}" params="listaId:${listaPagoFactura.id}">Pagos a Liquidar</g:link>
             </div>
             <table>
                 <thead>

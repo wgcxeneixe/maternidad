@@ -22,6 +22,7 @@
 			<table>
 			<thead>
 					<tr>
+                        <g:sortableColumn property="profesional" title="${message(code: 'liquidacion.profesional.label', default: 'Profesional')}" />
 					
 						<g:sortableColumn property="fecha" title="${message(code: 'liquidacion.fecha.label', default: 'Fecha')}" />
 					
@@ -38,8 +39,12 @@
 				<tbody>
 				<g:each in="${liquidacionInstanceList}" status="i" var="liquidacionInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                        <td>
+                            <g:link controller="liquidacion" action="reportLiquidacion" id="${liquidacionInstance.id}">${liquidacionInstance.profesional}</g:link>
+                        </td>
 					
-						<td><g:link action="show" id="${liquidacionInstance.id}">${fieldValue(bean: liquidacionInstance, field: "fecha")}</g:link></td>
+						<td>${liquidacionInstance.fecha.format('dd/MM/yyyy')}</td>
 					
 						<td>${fieldValue(bean: liquidacionInstance, field: "montoBruto")}</td>
 					
