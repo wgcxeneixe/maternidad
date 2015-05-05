@@ -33,11 +33,11 @@ class HistoriaClinica {
       historiaClinica.obraSocial=planilla?.plan?.obrasocial?.codigo+' - '+planilla?.plan?.obrasocial?.nombre
       historiaClinica.fechaIngreso=planilla.fechaInternacion.format("dd-MM-yyyy")
       historiaClinica.fechaAlta=(planilla?.fechaAlta)?planilla?.fechaAlta?.format("dd-MM-yyyy"):""
-      historiaClinica.medicoCabecera=""
-      historiaClinica.medicoCirujano=""
-      historiaClinica.medicoAyudante1=""
-      historiaClinica.medicoAyudante2=""
-      historiaClinica.medicoAnestesista=""
+      historiaClinica.medicoCabecera=(planilla?.medicoCabecera)?planilla?.medicoCabecera?.toString():""
+      historiaClinica.medicoCirujano=(planilla?.medicoCirujano)?planilla?.medicoCirujano?.toString():""
+      historiaClinica.medicoAyudante1=(planilla?.medicoAyudante1)?planilla?.medicoAyudante1?.toString():""
+      historiaClinica.medicoAyudante2=(planilla?.medicoAyudante2)?planilla?.medicoAyudante2?.toString():""
+      historiaClinica.medicoAnestesista=(planilla?.medicoAnestesista)?planilla?.medicoAnestesista?.toString():""
       historiaClinica.diagnostico=planilla?.diagnostico
       historiaClinica.tratamiento=planilla?.tratamiento
 

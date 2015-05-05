@@ -17,7 +17,11 @@ class PlanillaInternacion {
     EstadoPlanilla estadoPlanilla
     Factura factura
     Date fechaNacimiento
-
+    Profesional medicoCabecera
+    Profesional medicoCirujano
+    Profesional medicoAyudante1
+    Profesional medicoAyudante2
+    Profesional medicoAnestesista
 
 
     static constraints = {
@@ -34,7 +38,11 @@ class PlanillaInternacion {
         numeroAfiliado(nullable: true,blank:true)
         factura(nullable: true,blank:true)
         fechaNacimiento(nullable: true,blank:true, attributes:[precision:"day"])
-
+        medicoCabecera(nullable: true,blank:true)
+        medicoCirujano(nullable: true,blank:true)
+        medicoAnestesista(nullable: true,blank:true)
+        medicoAyudante1(nullable: true,blank:true)
+        medicoAyudante2(nullable: true,blank:true)
     }
 
     static hasMany = [

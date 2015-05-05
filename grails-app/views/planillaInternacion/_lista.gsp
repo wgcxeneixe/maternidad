@@ -75,7 +75,7 @@
 
                 <td><g:link controller="planillaInternacion"  action="imprimirOrden" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirOrden')}</g:link></td>
 
-                <td><g:link controller="planillaInternacion"  action="asociarProfesional" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.asociarProfesional')}</g:link></td>
+                <td><g:link controller="planillaInternacion"  action="asociarMedicos" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.asociarProfesional')}</g:link></td>
 
                 <g:if test="${filters.estado == maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
                     <td><g:checkBox  name="facturar" value="${planillaInternacionInstance.id}"/> </td>

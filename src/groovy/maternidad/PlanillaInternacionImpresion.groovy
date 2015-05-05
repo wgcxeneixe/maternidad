@@ -40,7 +40,13 @@ class PlanillaInternacionImpresion {
         planillaI.observaciones=(planilla?.observaciones)?:""
         planillaI.tipoDocumento=planilla?.paciente?.tipoDocumento?.nombre
         String medicos="- "
-        planilla.profesionales.each {medicos+=it?.persona?.toString()+" - "}
+        //planilla.profesionales.each {medicos+=it?.persona?.toString()+" - "}
+        medicos+=(planilla?.medicoCabecera)?planilla?.medicoCabecera?.toString()+" - ":""
+        medicos+=(planilla?.medicoCirujano)?planilla?.medicoCirujano?.toString()+" - ":""
+        medicos+=(planilla?.medicoAyudante1)?planilla?.medicoAyudante1?.toString()+" - ":""
+        medicos+=(planilla?.medicoAyudante2)?planilla?.medicoAyudante2?.toString()+" - ":""
+        medicos+=(planilla?.medicoAnestesista)?planilla?.medicoAnestesista?.toString()+" - ":""
+
         planillaI.medicos=medicos
 
         //ESTOS CAMPOS NO ESTAN
