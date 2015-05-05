@@ -62,6 +62,25 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'domicilioFamiliarResponsable', 'error')} ">
+    <label for="domicilioFamiliarResponsable">
+        <g:message code="planillaInternacion.domicilioFamiliarResponsable.label" default="Domicilio Familiar Responsable"/>
+
+    </label>
+    <g:textField name="domicilioFamiliarResponsable"
+                 value="${planillaInternacionInstance?.domicilioFamiliarResponsable}"/>
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'fechaNacimiento', 'error')} ">
+    <label for="fechaNacimiento">
+        <g:message code="planillaInternacion.fechaNacimiento.label" default="Fecha Nacimiento"/>
+
+    </label>
+    <g:datePicker default="none" noSelection="['':'']" name="fechaNacimiento" precision="day" value="${planillaInternacionInstance?.fechaNacimiento}"/>
+
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'fechaAlta', 'error')} required">
     <label for="fechaAlta">
         <g:message code="planillaInternacion.fechaAlta.label" default="Fecha Alta"/>
@@ -87,6 +106,26 @@
 
     </label>
     <g:field type="number" name="numeroAfiliado" cols="40" rows="5" maxlength="5000" value="${planillaInternacionInstance?.numeroAfiliado}"/>
+
+</div>
+
+
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'tipoSocio', 'error')} ">
+    <label for="tipoSocio">
+        <g:message code="planilla.tipoSocio" default="Tipo Socio" />
+
+    </label>
+    <g:select name="tipoSocio" from="${planillaInternacionInstance.constraints.tipoSocio.inList}"  value="${planillaInternacionInstance?.tipoSocio}" />
+
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'ocupacion', 'error')} ">
+    <label for="ocupacion">
+        <g:message code="planillaInternacion.ocupacion.label" default="Ocupación"/>
+
+    </label>
+    <g:textField name="ocupacion"
+                 value="${planillaInternacionInstance?.ocupacion}"/>
 
 </div>
 

@@ -63,6 +63,18 @@ class NacimientoController {
 
         nacimientoInstance.save flush: true
 
+        Internacion internacion = new Internacion()
+        internacion.fecha=nacimientoInstance.fecha_hora_parto
+        internacion.diasInternacion=0
+
+        internacion.save(flush: true)
+
+        def planilla = nacimientoInstance.planillainternacion
+
+        planilla.addToInternaciones(internacion)
+
+        planilla.save(flush:true)
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'nacimiento.label', default: 'Nacimiento'), nacimientoInstance.id])

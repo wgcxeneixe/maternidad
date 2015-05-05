@@ -21,6 +21,10 @@ class PlanillaInternacionImpresion {
     String domicilioResponsable
     String observaciones
     String medicos
+    String fechaAlta
+    String horaAlta
+    String diagnostico
+    String edad
 
     List<NacimientoImpresion> nacimientos
     List<LineaPlanillaImpresion> items
@@ -36,19 +40,30 @@ class PlanillaInternacionImpresion {
         planillaI.nombreYApellido=planilla.paciente?.toString()
         planillaI.nroAfiliado=(planilla?.numeroAfiliado)?:""
         planillaI.nroDocumento=planilla?.paciente?.nroDocumento
-        planillaI.obraSocial=planilla?.plan?.obrasocial?.codigo+' - '+planilla?.plan?.obrasocial?.nombre
+        planillaI.obraSocial=planilla?.plan?.obrasocial?.codigo+' - '+planilla?.plan?.obrasocial?.nombre+' - '+planilla?.tipoSocio
         planillaI.observaciones=(planilla?.observaciones)?:""
         planillaI.tipoDocumento=planilla?.paciente?.tipoDocumento?.nombre
+        planillaI.edad=(planilla?.fechaNacimiento)?planilla?.edad()?.toString():""
         String medicos="- "
-        planilla.profesionales.each {medicos+=it?.persona?.toString()+" - "}
+        //planilla.profesionales.each {medicos+=it?.persona?.toString()+" - "}
+        medicos+=(planilla?.medicoCabecera)?planilla?.medicoCabecera?.toString()+" - ":""
+        medicos+=(planilla?.medicoCirujano)?planilla?.medicoCirujano?.toString()+" - ":""
+        medicos+=(planilla?.medicoAyudante1)?planilla?.medicoAyudante1?.toString()+" - ":""
+        medicos+=(planilla?.medicoAyudante2)?planilla?.medicoAyudante2?.toString()+" - ":""
+        medicos+=(planilla?.medicoAnestesista)?planilla?.medicoAnestesista?.toString()+" - ":""
+
         planillaI.medicos=medicos
 
-        //ESTOS CAMPOS NO ESTAN
-        planillaI.domicilioResponsable=""//planilla.domicilioResponsable
-        planillaI.fechaNacimiento=""//planilla.paciente.fechaNacimiento
-        planillaI.ocupacion=""
-        planillaI.sexo=""
-        planillaI.telefono=""
+
+        planillaI.domicilioResponsable=(planilla?.domicilioFamiliarResponsable)?planilla.domicilioFamiliarResponsable:""
+        planillaI.fechaNacimiento=(planilla.fechaNacimiento)?planilla.fechaNacimiento.format("dd-MM-yyyy"):""
+        planillaI.ocupacion=(planilla?.ocupacion)?planilla?.ocupacion:""
+        planillaI.sexo=planilla.paciente.sexo
+        planillaI.telefono=(planilla.paciente.telefono)?planilla.paciente.telefono:""
+
+        planillaI.fechaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("dd-MM-yyyy"):""
+        planillaI.horaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("H:m:s"):""
+        planillaI.diagnostico=(planilla?.diagnostico)?planilla?.diagnostico:""
 
         planillaI.nacimientos= new ArrayList<NacimientoImpresion>()
         planilla.nacimientos.each {
@@ -62,18 +77,18 @@ class PlanillaInternacionImpresion {
 
         planillaI.items= new ArrayList<LineaPlanillaImpresion>()
         //aca irian los detalles de los pases
-        planilla.detalles.each {
+        planilla.internaciones.each {
 
-            if(it.practica){
+
 
             def detalle=new LineaPlanillaImpresion()
-            detalle.diasInt=0
+            detalle.diasInt=it?.diasInternacion?.toString()
             detalle.fecha=it?.fecha?.format("dd-MM-yyyy")
-            detalle.hora=it.fecha.format("H:m:s")
-            detalle.sector=it?.practica?.codigo
-            detalle.tipoPension=""
+            detalle.hora=it?.fecha?.format("H:m:s")
+            detalle.sector=(it?.sector)?it?.sector?.toString():""
+            detalle.tipoPension=(it?.tipoPension)?it?.tipoPension:""
             planillaI.items+=detalle
-            }
+
         }
 
        planillaI

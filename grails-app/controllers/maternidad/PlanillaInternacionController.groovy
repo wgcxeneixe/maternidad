@@ -38,7 +38,7 @@ class PlanillaInternacionController {
 
             }
             if (params.nroplanilla) {
-               eq('id',  params.nroplanilla as Long)
+               eq('numeroIngreso',  params.nroplanilla as Integer)
             }
 
             if (params.nombre) {
@@ -168,6 +168,13 @@ class PlanillaInternacionController {
             return
         }
 
+        Internacion internacion = new Internacion()
+        internacion.fecha=planillaInternacionInstance?.fechaInternacion
+        internacion.diasInternacion=0
+
+        internacion.save(flush: true)
+
+        planillaInternacionInstance.addToInternaciones(internacion)
 
         def estadoPlanilla = EstadoPlanilla.findByNombre("INICIADA")
 
@@ -460,6 +467,26 @@ class PlanillaInternacionController {
         }
     }
 
+    def imprimirHistoria = {
+
+        def planillaInstance = PlanillaInternacion.get(params.id)
+        if (!planillaInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
+            redirect(action: "index")
+        } else {
+
+            try {
+                def data = HistoriaClinica.generar(planillaInstance)
+
+                generarPDF('historiaClinica.jasper', "Historia", [data], 'historia-' + planillaInstance?.id)
+            } catch (Exception ex) {
+                ex
+            }
+
+
+        }
+    }
+
 
     // ***************************
     // Generar PDF para impresion
@@ -718,7 +745,6 @@ sel ->
 
    }
 
-
     def saveAsociacionProfesional={
 
         def planilla=PlanillaInternacion.get(params.planillaInternacion.id)
@@ -737,5 +763,34 @@ sel ->
         render(view: "asociarProfesional", model: [planillaInternacionInstance: planilla])
 
     }
+
+
+
+    def asociarMedicos ={
+
+        def planilla=PlanillaInternacion.get(params.id)
+
+        render(view: "asociarMedicos", model: [planillaInternacionInstance: planilla])
+
+
+    }
+
+
+
+    def saveAsociacionMedicos={
+
+        def planilla=PlanillaInternacion.get(params.planillaInternacion.id)
+        planilla.medicoCabecera=(params.medicoCabecera.id)?Profesional.get(params.medicoCabecera.id):null
+        planilla.medicoCirujano=(params.medicoCirujano.id)?Profesional.get(params.medicoCirujano.id):null
+        planilla.medicoAyudante1=(params.medicoAyudante1.id)?Profesional.get(params.medicoAyudante1.id):null
+        planilla.medicoAyudante2=(params.medicoAyudante2.id)?Profesional.get(params.medicoAyudante2.id):null
+        planilla.medicoAnestesista=(params.medicoAnestesista.id)?Profesional.get(params.medicoAnestesista.id):null
+
+        planilla.save(flush: true)
+
+        redirect(action: "index")
+
+    }
+
 
 }

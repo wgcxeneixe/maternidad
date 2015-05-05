@@ -51,6 +51,15 @@
 </div>
 
 
+<div class="fieldcontain ${hasErrors(bean: personaInstance, field: 'sexo', 'error')} required">
+    <label for="sexo">
+        <g:message code="nacimiento.sexo.label" default="Sexo" />
+        <span class="required-indicator">*</span>
+    </label>
+    <g:select name="sexo" from="${personaInstance.constraints.sexo.inList}" required="" value="${personaInstance?.sexo}" />
+
+</div>
+
 <div id="divestadocivil" class="fieldcontain ${hasErrors(bean: personaInstance, field: 'estadoCivil', 'error')} ">
     <label for="estadoCivil">
         <g:message code="persona.estadoCivil.label" default="Estado Civil" />
@@ -148,6 +157,14 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: personaInstance, field: 'telefono', 'error')} ">
+    <label for="telefono">
+        <g:message code="persona.telefono.label" default="Telefono" />
+
+    </label>
+    <g:textField name="telefono" value="${personaInstance?.telefono}"/>
+
+</div>
 
 
 

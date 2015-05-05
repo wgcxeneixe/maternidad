@@ -10,6 +10,7 @@ class OrdenInternacion {
     String diagnostico
     String tratamiento
     String fecha
+    String historia
 
     static generar(PlanillaInternacion planilla){
         def orden = new OrdenInternacion()
@@ -20,6 +21,7 @@ class OrdenInternacion {
         orden.obraSocial=planilla?.plan?.obrasocial?.nombre
         orden.tratamiento=(planilla?.tratamiento)?:""
         orden.fecha=planilla?.fechaInternacion?.format("dd-MM-yyyy")
+        orden.historia=(planilla?.numeroIngreso)?planilla.numeroIngreso.toString():""
 
     orden
     }
