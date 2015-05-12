@@ -15,6 +15,16 @@
 	</background>
 	<title>
 		<band height="104" splitType="Stretch">
+			<rectangle>
+				<reportElement x="3" y="2" width="551" height="102"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="14" y="0" width="531" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="14" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[NUEVA MATERNIDAD CONCEPCION S.R.L.]]></text>
+			</staticText>
 			<staticText>
 				<reportElement x="14" y="25" width="531" height="79"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
@@ -26,13 +36,6 @@ PREPARACION PSICOPROFILACTICA - MONITOREO FETAL - ECOGRAFIA
 GUARDIA DE OBSTETRICIA Y GINECOLOGIA PERMANENTE
 CAP. GENERAL URQUIZA 174
 TELEFONO 0442-22257]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="14" y="0" width="531" height="26"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="14" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[NUEVA MATERNIDAD CONCEPCION S.R.L.]]></text>
 			</staticText>
 		</band>
 	</title>

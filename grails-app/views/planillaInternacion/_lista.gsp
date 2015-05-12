@@ -19,7 +19,7 @@
 
             <th><g:message code="planillaInternacion.estado.label" default="Estado" params="${filters}"/></th>
 
-            <th><g:message code="planillaInternacion.estado.label" default="Nro Ingreso" /></th>
+
 
             <g:sortableColumn property="fechaInternacion"
                               title="${message(code: 'planillaInternacion.fechaInternacion.label', default: 'Fecha Internacion')}" params="${filters}"/>
@@ -54,7 +54,7 @@
 
                 <td> ${ planillaInternacionInstance?.estadoPlanilla } </td>
 
-                <td> ${ planillaInternacionInstance?.numeroIngreso } </td>
+
 
                 <td><g:formatDate type="date" style="MEDIUM"  date="${planillaInternacionInstance.fechaInternacion}"/></td>
 
@@ -86,7 +86,7 @@
         </g:each>
         </tbody>
     </table>
-
+${(planillaInternacionInstanceCount<20)?"Total Planillas:"+planillaInternacionInstanceCount:""}
     <div class="pagination">
         <g:paginate total="${planillaInternacionInstanceCount ?: 0}" params="${filters}"/>
     </div>

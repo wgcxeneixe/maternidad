@@ -26,6 +26,7 @@ class PlanillaInternacion {
     Profesional medicoAyudante2
     Profesional medicoAnestesista
     String tipoSocio
+    String fichaAcler
 
     static constraints = {
         paciente(nullable: true,blank:true)
@@ -49,6 +50,7 @@ class PlanillaInternacion {
         domicilioFamiliarResponsable(nullable: true,blank:true)
         ocupacion(nullable: true,blank:true)
         tipoSocio(nullable: true,blank:true,inList: ["Titular", "Adherente"])
+        fichaAcler(nullable: true,blank:true)
 
     }
 
@@ -61,7 +63,7 @@ class PlanillaInternacion {
             internaciones:Internacion
     ]
 
-    String toString() { "Nº ${id}"+ " - "+ paciente }
+    String toString() { "Nº ${numeroIngreso}"+ " - "+ paciente }
 
 
     static obtenerUltimoNumero(){

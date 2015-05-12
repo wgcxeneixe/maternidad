@@ -58,7 +58,7 @@ class FacturaMedicamentos {
                  detalleFacturacion.nro = renglon+1
                  renglon++
                  detalleFacturacion.precioU = it.valorMedicamento
-                 detalleFacturacion.totalLinea = detalleFacturacion.precioU * it?.cantidad
+                 detalleFacturacion.totalLinea = Math.round(detalleFacturacion.precioU * it?.cantidad * 100) / 100
 
                  factura.items.add(detalleFacturacion)
 
@@ -66,21 +66,21 @@ class FacturaMedicamentos {
                  def porcentajeOS=100-porcentajeAfiliado
 
                  if(it?.medicamento?.tipoMedicamento?.codigo=='DES'){
-                     factura.totalDescartable+=it.valorMedicamento*it.cantidad
-                     factura.totalDescartableAfiliado=it.valorMedicamento*it.cantidad*porcentajeAfiliado/100
-                     factura.totalDescartableOS=it.valorMedicamento*it.cantidad*porcentajeOS/100
+                     factura.totalDescartable+= Math.round(it.valorMedicamento*it.cantidad  * 100) / 100
+                     factura.totalDescartableAfiliado= Math.round(it.valorMedicamento*it.cantidad*porcentajeAfiliado/100  * 100) / 100
+                     factura.totalDescartableOS=  Math.round(it.valorMedicamento*it.cantidad*porcentajeOS/100  * 100) / 100
                  }
                  else if(it?.medicamento?.tipoMedicamento?.codigo=='MED'){
-                     factura.totalMedicamento=it.valorMedicamento*it.cantidad
-                     factura.totalMedicamentoAfiliado=it.valorMedicamento*it.cantidad*porcentajeAfiliado/100
-                     factura.totalMedicamentoOS=it.valorMedicamento*it.cantidad*porcentajeOS/100
+                     factura.totalMedicamento=Math.round(it.valorMedicamento*it.cantidad  * 100) / 100
+                     factura.totalMedicamentoAfiliado=Math.round(it.valorMedicamento*it.cantidad*porcentajeAfiliado/100  * 100) / 100
+                     factura.totalMedicamentoOS=Math.round(it.valorMedicamento*it.cantidad*porcentajeOS/100  * 100) / 100
                  }
 
 
 
-                 factura.total+=it.valorMedicamento*it.cantidad
-                 factura.totalAfiliado+=it.valorMedicamento*it.cantidad*porcentajeAfiliado/100
-                 factura.totalOS+=it.valorMedicamento*it.cantidad*porcentajeOS/100
+                 factura.total+=Math.round(it.valorMedicamento*it.cantidad  * 100) / 100
+                 factura.totalAfiliado+=Math.round(it.valorMedicamento*it.cantidad*porcentajeAfiliado/100  * 100) / 100
+                 factura.totalOS+=Math.round(it.valorMedicamento*it.cantidad*porcentajeOS/100  * 100) / 100
 
 
 

@@ -7,6 +7,7 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
 	<field name="nombreYApellido" class="java.lang.String"/>
 	<field name="items" class="java.util.Collection"/>
+	<field name="fichaUnica" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -51,19 +52,33 @@ C. del Uruguay - E. Rios]]></text>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreYApellido}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="274" y="125" width="67" height="20">
+					<printWhenExpression><![CDATA[$F{fichaUnica}]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FICHA UNICA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="358" y="125" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fichaUnica}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="36">
+		<band height="37">
 			<staticText>
-				<reportElement x="26" y="14" width="72" height="20"/>
+				<reportElement x="26" y="14" width="82" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[PRESTADOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="136" y="14" width="43" height="20"/>
+				<reportElement x="141" y="14" width="43" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>
@@ -109,7 +124,7 @@ C. del Uruguay - E. Rios]]></text>
 	<detail>
 		<band height="42" splitType="Stretch">
 			<subreport>
-				<reportElement x="11" y="7" width="531" height="16"/>
+				<reportElement x="11" y="4" width="531" height="16"/>
 				<subreportParameter name="miURL">
 					<subreportParameterExpression><![CDATA[$P{miURL}]]></subreportParameterExpression>
 				</subreportParameter>

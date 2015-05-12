@@ -488,6 +488,32 @@ class PlanillaInternacionController {
     }
 
 
+    def imprimirPlanillasSinPresentar = {
+        def planillasInstance
+try{
+    planillasInstance = PlanillaInternacion.findAllByEstadoPlanillaInList([EstadoPlanilla.findByCodigo("INI"),EstadoPlanilla.findByCodigo("EPR"),EstadoPlanilla.findByCodigo("IMP")],[ sort: "plan", order: "desc"])
+}catch (Exception ex){
+  ex
+}
+
+        if (!planillasInstance) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
+            redirect(action: "index")
+        } else {
+
+            try {
+                def data = PlanillasSinPresentar.generar(planillasInstance)
+
+                generarPDF('PlanillasSinPresentar.jasper', "Planillas Sin Presentar", [data], 'planillasSinPresentar' )
+            } catch (Exception ex) {
+                ex
+            }
+
+
+        }
+    }
+
+
     // ***************************
     // Generar PDF para impresion
     // ***************************

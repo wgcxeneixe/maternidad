@@ -23,6 +23,7 @@
 
         <li><g:link class="create" controller="planillaInternacion"  action="imprimirPlanilla" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirPlanilla')}</g:link></li>
         <li><g:link class="create" controller="planillaInternacion"  action="imprimirHistoria" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirHistoria')}</g:link></li>
+        <li><g:link class="create" controller="planillaInternacion"  action="imprimirPlanillasSinPresentar" >${message(code: 'planillaInternacion.imprimirPlanillasSinPresentar')}</g:link></li>
     </ul>
 </div>
 
@@ -32,6 +33,18 @@
         <div class="message" role="status">${flash.message}</div>
     </g:if>
     <ol class="property-list planillaInternacion">
+
+    <g:if test="${planillaInternacionInstance?.telefonoFamiliarResponsable}">
+        <li class="fieldcontain">
+            <span id="historia-label" class="property-label"><g:message
+                    code="planillaInternacion.historia.label"
+                    default="Historia Clinica"/></span>
+
+            <span class="property-value" aria-labelledby="historia-label">${planillaInternacionInstance?.numeroIngreso}</span>
+
+        </li>
+    </g:if>
+
 
         <g:if test="${planillaInternacionInstance?.paciente}">
             <li class="fieldcontain">
@@ -198,6 +211,14 @@
         </li>
     </g:if>
 
+    <g:if test="${planillaInternacionInstance?.fichaAcler}">
+        <li class="fieldcontain">
+            <span id="ficha-label" class="property-label"><g:message code="persona.ficha.label" default="Ficha Unica" /></span>
+
+            <span class="property-value" aria-labelledby="ficha-label"><g:fieldValue bean="${planillaInternacionInstance}" field="fichaAcler"/></span>
+
+        </li>
+    </g:if>
 
     <!--- fin persona-->
 

@@ -11,51 +11,51 @@
 	<field name="precioU" class="java.math.BigDecimal"/>
 	<field name="nro" class="java.lang.String"/>
 	<detail>
-		<band height="30" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<textField>
-				<reportElement x="226" y="10" width="134" height="20"/>
+				<reportElement x="226" y="2" width="134" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="118" y="10" width="108" height="20"/>
+				<reportElement x="118" y="2" width="108" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{formaDePres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="459" y="10" width="78" height="20"/>
+				<reportElement x="502" y="2" width="78" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalLinea}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="40" y="10" width="78" height="20"/>
+				<reportElement x="40" y="2" width="78" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="10" width="40" height="20"/>
+				<reportElement x="0" y="2" width="40" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{nro}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="373" y="10" width="38" height="20"/>
+				<reportElement x="373" y="2" width="38" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="421" y="10" width="38" height="20"/>
+				<reportElement x="421" y="2" width="38" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>

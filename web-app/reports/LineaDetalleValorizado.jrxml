@@ -9,37 +9,37 @@
 	<field name="profesional" class="java.lang.String"/>
 	<field name="importe" class="java.lang.String"/>
 	<detail>
-		<band height="30" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<textField>
-				<reportElement x="274" y="10" width="210" height="20"/>
+				<reportElement x="274" y="2" width="210" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{profesional}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="196" y="10" width="78" height="20"/>
+				<reportElement x="196" y="2" width="78" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{funcion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="484" y="10" width="78" height="20"/>
+				<reportElement x="484" y="2" width="78" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{importe}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="112" y="10" width="78" height="20"/>
+				<reportElement x="112" y="2" width="78" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{practica}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="10" y="10" width="78" height="20"/>
+				<reportElement x="10" y="2" width="78" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>

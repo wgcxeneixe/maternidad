@@ -432,7 +432,8 @@ if(detalleFacturaInstance?.practica){
 
         render(contentType: 'text/json') {
             [
-                    'valor': Math.round(medicamento?.valor * 100) / 100
+                    //'valor': (medicamento?.valor)?(Math.round(medicamento?.valor * 100) / 100):0
+                    'valor': (medicamento?.valor)?(medicamento?.valor):0
             ]
         }
     }

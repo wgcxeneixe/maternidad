@@ -38,7 +38,7 @@ class MedicamentoController {
             respond medicamentoInstance.errors, view: 'create'
             return
         }
-
+        medicamentoInstance.valor=(params?.valor)?params?.valor as Double:null
         medicamentoInstance.save flush: true
 
         request.withFormat {
@@ -65,7 +65,7 @@ class MedicamentoController {
             respond medicamentoInstance.errors, view: 'edit'
             return
         }
-
+        medicamentoInstance.valor=(params?.valor)?params?.valor as Double:null
         medicamentoInstance.save flush: true
 
         request.withFormat {

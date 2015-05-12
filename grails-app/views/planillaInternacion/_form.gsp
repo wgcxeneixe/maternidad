@@ -158,3 +158,13 @@
 
 </div>
 
+
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'ocupacion', 'error')} ">
+    <label for="ficha">
+        <g:message code="planillaInternacion.ficha.label" default="Ficha Unica"/>
+
+    </label>
+    <g:textField name="fichaAcler"
+                 value="${planillaInternacionInstance?.fichaAcler}"/>
+
+</div>

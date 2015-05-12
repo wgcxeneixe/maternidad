@@ -142,7 +142,7 @@
                     <g:message code="convenio.fecha.label" default="Fecha" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:datePicker name="fecha" precision="minute"  value="${detalleFacturaInstance?.fecha}"  />
+                <g:datePicker name="fecha" precision="day"  value="${detalleFacturaInstance?.fecha}"  />
 
             </div>
 

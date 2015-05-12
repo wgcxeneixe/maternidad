@@ -7,6 +7,7 @@ class DetalleSinValor {
 
 
     String nombreYApellido
+    String fichaUnica
 
     List<LineaDetalleSinValor> items
 
@@ -15,6 +16,7 @@ class DetalleSinValor {
         detalle.items= new ArrayList<LineaDetalleSinValor>()
 
         detalle.nombreYApellido=planilla.paciente.apellido +" "+planilla.paciente.nombre
+        detalle.fichaUnica=(planilla?.fichaAcler)?planilla?.fichaAcler:""
 
         Integer renglon=0
 
