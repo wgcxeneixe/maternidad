@@ -235,6 +235,7 @@ class DetalleFacturaController {
         def planilla
         def valores
         def detalle = new DetalleFactura(params)
+        def listaDetalles = []
         if (params.id) {
             planilla = PlanillaInternacion.get(params.id)
             detalle.planillaInternacion = planilla
@@ -248,15 +249,17 @@ class DetalleFacturaController {
 
             valores = ValorPractica.findAllByPlanConvenio(planConvenio)?.practica as List<Practica>
 
-            if (params.fechaCargada) {
-                detalle.fecha = params.date('fechaCargada', 'dd/MM/yyyy')
-            } else {
-
-                if (planilla.detalles) detalle.fecha = planilla.detalles?.sort { -it.id }.first()?.fecha
-            }
+            listaDetalles = DetalleFactura.createCriteria().list {
+                createAlias('planillaInternacion','planilla')
+                eq('planillaInternacion',planilla)
+                    isNull("planilla.factura")
+                    isNull("medicamento")
+                }?.sort { -it.id }
+            println listaDetalles
+                if (listaDetalles) detalle.fecha = listaDetalles.first()?.fecha
         }
 
-        return [detalleFacturaInstance: detalle, practicas: valores]
+        return [detalleFacturaInstance: detalle, practicas: valores, listaDetalles: listaDetalles]
     }
 
 
@@ -269,8 +272,6 @@ class DetalleFacturaController {
             planilla = PlanillaInternacion.get(params.id)
             detalle.planillaInternacion = planilla
             detalle.plan = planilla.plan
-
-
         }
 
         return [detalleFacturaInstance: detalle]
@@ -330,7 +331,7 @@ class DetalleFacturaController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'detalleFactura.label', default: 'DetalleFactura'), detalleFacturaInstance.id])
-                redirect(action: "cargaPracticas", params: [id: detalleFacturaInstance?.planillaInternacion?.id, fechaCargada: detalleFacturaInstance?.fecha?.format('dd/MM/yyyy')])
+                redirect(action: "cargaPracticas", params: [id: detalleFacturaInstance?.planillaInternacion?.id])
             }
             '*' { respond detalleFacturaInstance, [status: CREATED] }
         }
