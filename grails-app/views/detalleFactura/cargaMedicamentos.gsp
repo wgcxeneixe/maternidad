@@ -48,7 +48,7 @@
                     <g:message code="detalleFactura.planillaInternacion.label" default="Planilla Internacion" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select id="planillaInternacion" name="planillaInternacion.id" from="${PlanillaInternacion.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.planillaInternacion?.id}" class="many-to-one"/>
+                <g:select id="planillaInternacion" name="planillaInternacion.id" from="${maternidad.PlanillaInternacion.findAllById(detalleFacturaInstance?.planillaInternacion?.id)}" optionKey="id" required="" value="${detalleFacturaInstance?.planillaInternacion?.id}" class="many-to-one"/>
 
             </div>
 
@@ -57,7 +57,7 @@
                     <g:message code="detalleFactura.plan.label" default="Plan" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select readonly="" id="plan" name="plan.id" from="${maternidad.Plan.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.plan?.id}" class="many-to-one"/>
+                <g:select readonly="" id="plan" name="plan.id" from="${maternidad.Plan.findAllById(detalleFacturaInstance?.plan?.id)}" optionKey="id" required="" value="${detalleFacturaInstance?.plan?.id}" class="many-to-one"/>
 
             </div>
 
