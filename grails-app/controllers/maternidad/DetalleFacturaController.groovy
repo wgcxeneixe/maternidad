@@ -250,13 +250,12 @@ class DetalleFacturaController {
             valores = ValorPractica.findAllByPlanConvenio(planConvenio)?.practica as List<Practica>
 
             listaDetalles = DetalleFactura.createCriteria().list {
-                createAlias('planillaInternacion','planilla')
-                eq('planillaInternacion',planilla)
-                    isNull("planilla.factura")
-                    isNull("medicamento")
-                }?.sort { -it.id }
-            println listaDetalles
-                if (listaDetalles) detalle.fecha = listaDetalles.first()?.fecha
+                createAlias('planillaInternacion', 'planilla')
+                eq('planillaInternacion', planilla)
+                isNull("planilla.factura")
+                isNull("medicamento")
+            }?.sort { -it.id }
+            if (listaDetalles) detalle.fecha = listaDetalles.first()?.fecha
         }
 
         return [detalleFacturaInstance: detalle, practicas: valores, listaDetalles: listaDetalles]
@@ -285,30 +284,37 @@ class DetalleFacturaController {
             return
         }
 
-        if (detalleFacturaInstance.hasErrors()) {
-            respond detalleFacturaInstance.errors, view: 'cargaPracticas'
-            return
-        }
-
         if (detalleFacturaInstance.practica.modulo) {
             detalleFacturaInstance.modulo = Boolean.TRUE
         }
         try {
             if (params?.fechaText && params?.date('fechaText', 'dd/MM/yyyy')) {
                 detalleFacturaInstance.fecha = params?.date('fechaText', 'dd/MM/yyyy')
-            }else{
-                flash.error= "La fecha ingresada (${params?.fechaText}) no es válida"
+            } else {
+                flash.error = "La fecha ingresada (${params?.fechaText}) no es válida"
                 redirect(action: "cargaPracticas", params: [id: detalleFacturaInstance?.planillaInternacion?.id])
                 return
             }
         } catch (e) {
-            flash.error= "La fecha ingresada (${params?.fechaText}) no es válida"
+            flash.error = "La fecha ingresada (${params?.fechaText}) no es válida"
             redirect(action: "cargaPracticas", params: [id: detalleFacturaInstance?.planillaInternacion?.id])
             return
         }
         detalleFacturaInstance.valorGastos = (params?.valorGastos) ? params?.valorGastos as Double : 0
         detalleFacturaInstance.valorHonorarios = (params?.valorHonorarios) ? params?.valorHonorarios as Double : 0
         detalleFacturaInstance.cantidad = (params?.cantidad) ? params?.cantidad as Double : 0
+
+        if (!detalleFacturaInstance.validate() || detalleFacturaInstance.hasErrors()) {
+            def listaDetalles = DetalleFactura.createCriteria().list {
+                createAlias('planillaInternacion', 'planilla')
+                eq('planillaInternacion', detalleFacturaInstance?.planillaInternacion)
+                isNull("planilla.factura")
+                isNull("medicamento")
+            }?.sort { -it.id }
+
+            render(view: "cargaPracticas", model: [detalleFacturaInstance: detalleFacturaInstance, listaDetalles: listaDetalles])
+            return
+        }
 
         detalleFacturaInstance.save flush: true
 
