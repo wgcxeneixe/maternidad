@@ -22,6 +22,9 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
+<g:if test="${flash.error}">
+    <div class="errors" role="status">${flash.error}</div>
+</g:if>
     <g:hasErrors bean="${detalleFacturaInstance}">
         <ul class="errors" role="alert">
             <g:eachError bean="${detalleFacturaInstance}" var="error">
@@ -37,16 +40,7 @@
                     <g:message code="detalleFactura.planillaInternacion.label" default="Planilla Internacion" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select id="planillaInternacion" name="planillaInternacion.id" from="${maternidad.PlanillaInternacion.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.planillaInternacion?.id}" class="many-to-one"/>
-
-            </div>
-
-            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'profesional', 'error')} required">
-                <label for="profesional">
-                    <g:message code="detalleFactura.profesional.label" default="Profesional" />
-                    <span class="required-indicator">*</span>
-                </label>
-                <g:select id="profesional" name="profesional.id" from="${maternidad.Profesional.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.profesional?.id}" class="many-to-one"/>
+                <g:select id="planillaInternacion" name="planillaInternacion.id" from="${maternidad.PlanillaInternacion.findAllById(detalleFacturaInstance?.planillaInternacion?.id)}" optionKey="id" required="" value="${detalleFacturaInstance?.planillaInternacion?.id}" class="many-to-one" />
 
             </div>
 
@@ -55,7 +49,25 @@
                     <g:message code="detalleFactura.plan.label" default="Plan" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select id="plan" name="plan.id" from="${maternidad.Plan.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.plan?.id}" class="many-to-one"/>
+                <g:select id="plan" name="plan.id" from="${maternidad.Plan.findAllById(detalleFacturaInstance?.plan?.id)}" optionKey="id" required="" value="${detalleFacturaInstance?.plan?.id}" class="many-to-one" />
+
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'fecha', 'error')} required">
+                <label for="fecha">
+                    <g:message code="convenio.fecha.label" default="Fecha" />
+                    <span class="required-indicator">*</span>
+                </label>
+                %{--<g:datePicker name="fecha" precision="day"  value="${detalleFacturaInstance?.fecha}"  />--}%
+                 <g:textField name="fechaText" value="${detalleFacturaInstance?.fecha?.format('dd/MM/yyyy')}" />
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'profesional', 'error')} required">
+                <label for="profesional">
+                    <g:message code="detalleFactura.profesional.label" default="Profesional" />
+                    <span class="required-indicator">*</span>
+                </label>
+                <g:select id="profesional" name="profesional.id" from="${maternidad.Profesional.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.profesional?.id}" class="many-to-one"/>
 
             </div>
 
@@ -137,17 +149,6 @@
             </div>
 -->
 
-            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'fecha', 'error')} required">
-                <label for="fecha">
-                    <g:message code="convenio.fecha.label" default="Fecha" />
-                    <span class="required-indicator">*</span>
-                </label>
-                <g:datePicker name="fecha" precision="day"  value="${detalleFacturaInstance?.fecha}"  />
-
-            </div>
-
-
-
         </fieldset>
         <fieldset class="buttons">
             <g:submitButton id="boton" name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
@@ -183,7 +184,7 @@
         }
 
             isNull("medicamento")
-        }}" status="i" var="detalleFactura">
+        }?.sort { -it.id }}" status="i" var="detalleFactura">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
                 <td>${fieldValue(bean: detalleFactura, field: "profesional")}</td>
@@ -200,7 +201,7 @@
                 <td>${detalleFactura?.funcion}</td>
 
 
-                <td>${detalleFactura?.fecha}</td>
+                <td>${detalleFactura?.fecha?.format('dd/MM/yyyy')}</td>
 
 
                 <td>
@@ -385,7 +386,7 @@
                             valorGastos.prop('readonly', false);
                         }
 
-
+//                        jQuery("#cantidad").select();
                     },
                     error: function (request, status, error) {
                         alert(error)
@@ -399,6 +400,18 @@
 
         });
 
+        jQuery("#fechaText").mask('00/00/0000');
+       jQuery("#fechaText").focus();
+        jQuery("#fechaText").select();
+
+//        jQuery("#fechaText").keyup(function (e) {
+////            alert(this.value.length);
+//            if ( this.value.length == 10) {
+////            jQuery("#profesional").select2('focus');
+//                jQuery("#profesional").select2('open');
+//
+//            }
+//        });
 
 
         jQuery("#practica").change(function() {
@@ -474,7 +487,7 @@
                             valorGastos.prop('readonly', false);
                         }
 
-
+//                        jQuery("#cantidad").select();
                     },
                     error: function (request, status, error) {
                         alert(error)
@@ -505,6 +518,16 @@
             }
         });
 
+           //para seguir el próximo foco con el enter
+//        var elementos = jQuery('#divInit').find(':input:visible');
+//        elementos.keydown(function(e){
+//            var key = e.charCode? e.charCode : e.keyCode? e.keyCode : 0;
+//            if(key == 13){
+//                e.preventDefault();
+//                var inputs = jQuery(this).closest('#divInit').find(':input:visible');
+//                inputs.eq(inputs.index(this) + 1).focus();
+//            }
+//        });
 
 
     })

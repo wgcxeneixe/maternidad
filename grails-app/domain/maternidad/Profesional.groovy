@@ -38,7 +38,7 @@ class Profesional {
     codigoCirculo(nullable: true,blank:true)
     }
 
-    String toString() { if(persona){"${persona.razonSocial?:persona.apellido+', '+persona.nombre}"} else {""} }
+    String toString() { if(persona){"${(codigoCirculo? codigoCirculo?.toString():'0')+' - '+(persona.razonSocial?:(persona.apellido+', '+persona.nombre))}"} else {""} }
 
 }
 
