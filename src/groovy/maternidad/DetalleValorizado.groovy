@@ -14,6 +14,7 @@ class DetalleValorizado {
     BigDecimal totalCant
     BigDecimal totalImporte
     BigDecimal total
+    String fichaUnica
 
     static generar(PlanillaInternacion planilla){
         def detalle = new DetalleValorizado()
@@ -25,6 +26,7 @@ class DetalleValorizado {
         detalle.fechaInternacion=planilla.fechaInternacion.format("dd-MM-yyyy")
         detalle.fechaAlta=(planilla?.fechaAlta)? planilla?.fechaAlta?.format("dd-MM-yyyy"):""
         detalle.domicilio=(planilla?.paciente?.calle)?:""  +" - "+ ((planilla?.paciente?.numero)?:"")
+        detalle.fichaUnica=(planilla?.fichaAcler)?planilla?.fichaAcler:""
 
 detalle.total=0
 detalle.totalMedicamento=0
