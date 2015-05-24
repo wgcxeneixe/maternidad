@@ -32,11 +32,11 @@ class Persona {
             def fisica = obj.properties["personaFisica"]
             if((!fisica) && !Cuit.validar(val.toString())) return ['Cuit Inválido']
         })
-        apellido(nullable: true,size:1..30, blank:true, validator: { val, obj ->
+        apellido(nullable: true,size:1..40, blank:true, validator: { val, obj ->
             def fisica = obj.properties["personaFisica"]
             if((fisica)&& ((!val)||(!val?.trim()))) return['blank']
         })
-        nombre(nullable: true,size:1..30, blank:true, validator: { val, obj ->
+        nombre(nullable: true,size:1..40, blank:true, validator: { val, obj ->
             def fisica = obj.properties["personaFisica"]
             if((fisica)&& ((!val)||(!val?.trim()))) return['blank']
         })

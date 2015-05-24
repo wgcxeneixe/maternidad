@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="detalleValorizado" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="49"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="miURL" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
 	<field name="obraSocial" class="java.lang.String"/>
@@ -17,6 +17,7 @@
 	<field name="totalImporte" class="java.math.BigDecimal"/>
 	<field name="totalMedicamento" class="java.math.BigDecimal"/>
 	<field name="total" class="java.math.BigDecimal"/>
+	<field name="fichaUnica" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -32,119 +33,133 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="282" splitType="Stretch">
+		<band height="241" splitType="Stretch">
+			<rectangle>
+				<reportElement x="4" y="68" width="551" height="168"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="11" y="10" width="531" height="104"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[
-Preparación Psicoprofiláctica - Atención del Embarazo
-Clases de Gimnasia - Control durante el parto
-MEDICO OBSTETRA Y MEDICOS DE NIÑOS - MEDICO GINECOLOGO
-
-CAP. GENERAL URQUIZA 174                  TELEFONO 0442-22257
-
-C. del Uruguay - E. Rios]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="11" y="186" width="115" height="20"/>
+				<reportElement x="11" y="140" width="115" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[NOMBRE Y APELLIDO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="126" y="155" width="135" height="20"/>
+				<reportElement x="126" y="109" width="135" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{numeroAfiliado}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="11" y="155" width="115" height="20"/>
+				<reportElement x="11" y="109" width="115" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Nº AFILIADO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="126" y="125" width="135" height="20"/>
+				<reportElement x="126" y="79" width="135" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{obraSocial}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="11" y="125" width="115" height="20"/>
+				<reportElement x="11" y="79" width="115" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[OBRA SOCIAL:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="126" y="186" width="125" height="20"/>
+				<reportElement x="126" y="140" width="125" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreYApellido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="388" y="125" width="144" height="20"/>
+				<reportElement x="388" y="79" width="144" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{fechaInternacion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="388" y="155" width="144" height="20"/>
+				<reportElement x="388" y="109" width="144" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{fechaAlta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="388" y="186" width="144" height="20"/>
+				<reportElement x="388" y="140" width="144" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{domicilio}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="273" y="155" width="115" height="20"/>
+				<reportElement x="273" y="109" width="115" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[FECHA ALTA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="273" y="125" width="115" height="20"/>
+				<reportElement x="273" y="79" width="115" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[FECHA INTERNACION:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="273" y="186" width="115" height="20"/>
+				<reportElement x="273" y="140" width="115" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[DOMICILIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="11" y="216" width="149" height="20"/>
+				<reportElement x="11" y="170" width="149" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[DIAGNOSTICO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="9" y="236" width="531" height="25"/>
+				<reportElement x="9" y="190" width="531" height="25"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{diagnostico}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="273" y="170" width="76" height="20">
+					<printWhenExpression><![CDATA[$F{fichaUnica}]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FICHA UNICA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="388" y="170" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{fichaUnica}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="1" width="531" height="66"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Preparación Psicoprofiláctica - Atención del Embarazo
+Clases de Gimnasia - Control durante el parto
+MEDICO OBSTETRA Y MEDICOS DE NIÑOS - MEDICO GINECOLOGO
+CAP. GENERAL URQUIZA 174                  TELEFONO 0442-22257
+C. del Uruguay - E. Rios]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -187,9 +202,9 @@ C. del Uruguay - E. Rios]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="33" splitType="Stretch">
+		<band height="43" splitType="Stretch">
 			<subreport>
-				<reportElement x="11" y="7" width="519" height="16"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="13" y="0" width="519" height="36" isPrintWhenDetailOverflows="true"/>
 				<subreportParameter name="miURL">
 					<subreportParameterExpression><![CDATA[$P{miURL}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -198,31 +213,31 @@ C. del Uruguay - E. Rios]]></text>
 			</subreport>
 		</band>
 	</detail>
-	<pageFooter>
-		<band height="132" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="10" width="35" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[TOT]]></text>
-			</staticText>
+	<summary>
+		<band height="106">
 			<textField>
-				<reportElement x="35" y="10" width="79" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalCant}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="474" y="10" width="79" height="20"/>
+				<reportElement stretchType="RelativeToTallestObject" x="498" y="2" width="55" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalImporte}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="47" y="2" width="79" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalCant}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="346" y="51" width="104" height="27"/>
+				<reportElement stretchType="RelativeToTallestObject" x="4" y="2" width="35" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TOT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="43" width="104" height="27"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -230,26 +245,26 @@ C. del Uruguay - E. Rios]]></text>
 Y DESCARTABLES]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="474" y="58" width="79" height="20"/>
+				<reportElement x="473" y="43" width="79" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalMedicamento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="346" y="93" width="35" height="20"/>
+				<reportElement x="345" y="76" width="54" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="474" y="93" width="79" height="20"/>
+				<reportElement x="473" y="76" width="79" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 		</band>
-	</pageFooter>
+	</summary>
 </jasperReport>

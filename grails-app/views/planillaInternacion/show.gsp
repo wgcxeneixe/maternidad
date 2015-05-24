@@ -24,6 +24,7 @@
         <li><g:link class="create" controller="planillaInternacion"  action="imprimirPlanilla" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirPlanilla')}</g:link></li>
         <li><g:link class="create" controller="planillaInternacion"  action="imprimirHistoria" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirHistoria')}</g:link></li>
         <li><g:link class="create" controller="planillaInternacion"  action="imprimirPlanillasSinPresentar" >${message(code: 'planillaInternacion.imprimirPlanillasSinPresentar')}</g:link></li>
+        <li><g:link class="create" controller="planillaInternacion"  action="imprimirPlanillasPresentadas" >${message(code: 'planillaInternacion.imprimirPlanillasPresentadas')}</g:link></li>
     </ul>
 </div>
 

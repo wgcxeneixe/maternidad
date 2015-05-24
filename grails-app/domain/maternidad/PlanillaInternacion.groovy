@@ -95,13 +95,20 @@ class PlanillaInternacion {
 
     Integer edad(){
 
-        Date offset= new Date()
+        if (fechaNacimiento){
 
-        def birthdayThisYear = offset.clearTime()
-        birthdayThisYear[Calendar.MONTH]= fechaNacimiento[Calendar.MONTH]
-        birthdayThisYear[Calendar.DATE] = fechaNacimiento[Calendar.DATE]
+            Date offset= new Date()
 
-       return offset[Calendar.YEAR] - fechaNacimiento[Calendar.YEAR] - (birthdayThisYear > offset ? 1 : 0)
+            def birthdayThisYear = offset.clearTime()
+            birthdayThisYear[Calendar.MONTH]= fechaNacimiento[Calendar.MONTH]
+            birthdayThisYear[Calendar.DATE] = fechaNacimiento[Calendar.DATE]
+
+            return offset[Calendar.YEAR] - fechaNacimiento[Calendar.YEAR] - (birthdayThisYear > offset ? 1 : 0)
+        }
+        else {
+        return 0
+        }
+
 
 
     }
