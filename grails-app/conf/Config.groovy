@@ -183,3 +183,5 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/**/fonts/**':                     ['permitAll']
 ]
 
+maternidad.codigo = 543
+

@@ -100,12 +100,12 @@
             </label>
             <select required name="funcion" id="funcion">
                 <option value="">Seleccione una Función</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="60">60</option>
-                <option value="70">70</option>
-                <option value="91">91</option>
+                <option value="10" selected="${detalleFacturaInstance?.funcion=='10'?'selected':''}">10</option>
+                <option value="20" selected="${detalleFacturaInstance?.funcion=='10'?'selected':''}">20</option>
+                <option value="30" selected="${detalleFacturaInstance?.funcion=='10'?'selected':''}">30</option>
+                <option value="60" selected="${detalleFacturaInstance?.funcion=='10'?'selected':''}">60</option>
+                <option value="70" selected="${detalleFacturaInstance?.funcion=='10'?'selected':''}">70</option>
+                <option value="91" selected="${detalleFacturaInstance?.funcion=='10'?'selected':''}">91</option>
             </select>
         </div>
 
