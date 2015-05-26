@@ -25,6 +25,8 @@ class PlanillaInternacion {
     Profesional medicoAyudante1
     Profesional medicoAyudante2
     Profesional medicoAnestesista
+    Profesional medicoOtro1
+    Profesional medicoOtro2
     String tipoSocio
     String fichaAcler
 
@@ -47,6 +49,8 @@ class PlanillaInternacion {
         medicoAnestesista(nullable: true,blank:true)
         medicoAyudante1(nullable: true,blank:true)
         medicoAyudante2(nullable: true,blank:true)
+        medicoOtro1(nullable: true,blank:true)
+        medicoOtro2(nullable: true,blank:true)
         domicilioFamiliarResponsable(nullable: true,blank:true)
         ocupacion(nullable: true,blank:true)
         tipoSocio(nullable: true,blank:true,inList: ["Titular", "Adherente"])
