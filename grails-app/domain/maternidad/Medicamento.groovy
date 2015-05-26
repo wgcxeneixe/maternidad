@@ -10,16 +10,19 @@ class Medicamento {
     Double valor
     TipoMedicamento tipoMedicamento
     String formaPresentacion
+    Laboratorio laboratorio
+
 
     static constraints = {
         codigo(size:2..30, nullable:true, blank:true)
         nombre(size:2..35, nullable:true, blank:true)
-        activo(nullable:false, blank:false)
+        activo(nullable:true, blank:true)
         descripcion(size:0..5000, nullable:true, blank:true)
         marca( nullable:true, blank:true)
         valor ( nullable:true, blank:true)
         formaPresentacion ( nullable:true, blank:true)
         tipoMedicamento ( nullable:true, blank:true)
+        laboratorio( nullable:true, blank:true)
     }
 
     String toString() { "${nombre +' - '+ codigo}" }

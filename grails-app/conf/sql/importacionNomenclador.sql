@@ -2854,7 +2854,7 @@ INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (1530,0,773,6,98);
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (1531,0,774,6,8);
 INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (1532,0,775,6,4);
-INSERT INTO sami.valor_unidad_gasto(             id, version, practica_id, tipo_gasto_id, valor)     VALUES (1535,0,1178,4,70);
+
 
 
 
@@ -7079,7 +7079,6 @@ INSERT INTO sami.valor_unidad_honorario(             id, version, componente_id,
 INSERT INTO sami.valor_unidad_honorario(             id, version, componente_id, practica_id, valor)     VALUES (4561,0,2,1519,0);
 INSERT INTO sami.valor_unidad_honorario(             id, version, componente_id, practica_id, valor)     VALUES (4562,0,2,1520,0);
 INSERT INTO sami.valor_unidad_honorario(             id, version, componente_id, practica_id, valor)     VALUES (4563,0,2,1521,0);
-INSERT INTO sami.valor_unidad_honorario(             id, version, componente_id, practica_id, valor)     VALUES (4564,0,3,1178,52.5);
 
 
 select setval('sami.seq_practica', 1521, true);
