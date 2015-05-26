@@ -48,3 +48,4 @@ application.properties
 /maternidad.xml
 /module_maternidad-grailsplugins.xml
 /module_maternidad.xml
+/out/*

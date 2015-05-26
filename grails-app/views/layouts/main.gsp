@@ -66,7 +66,8 @@
 
     <link rel="stylesheet" href="/maternidad/css/styles.css" type="text/css" />
 
-
+    <!-- Agrego la máscara -->
+    <script src="/maternidad/js/jQuery-Mask-Plugin/jquery.mask.min.js"></script>
 
 </head>
 <body>

@@ -67,6 +67,25 @@
 
 
 
+<div class="fieldcontain ${hasErrors(bean: obraSocialInstance, field: 'telefono', 'error')} ">
+    <label for="telefono">
+        <g:message code="obraSocial.telefono.label" default="Telefono" />
+
+    </label>
+    <g:textField name="telefono" maxlength="15" value="${obraSocialInstance?.telefono}"/>
+
+</div>
+
+
+<div class="fieldcontain ${hasErrors(bean: obraSocialInstance, field: 'domicilio', 'error')} ">
+    <label for="domicilio">
+        <g:message code="obraSocial.domicilio.label" default="Domicilio" />
+
+    </label>
+    <g:textField name="domicilio" maxlength="100" value="${obraSocialInstance?.domicilio}"/>
+
+</div>
+
 <!--
 
 <div class="fieldcontain ${hasErrors(bean: obraSocialInstance, field: 'convenios', 'error')} ">

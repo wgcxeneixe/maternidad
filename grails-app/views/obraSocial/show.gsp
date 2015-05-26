@@ -85,7 +85,26 @@
 					
 				</li>
 				</g:if>
-			
+
+
+            <g:if test="${obraSocialInstance?.telefono}">
+                <li class="fieldcontain">
+                    <span id="telefono-label" class="property-label"><g:message code="obraSocial.telefono.label" default="Telefono" /></span>
+
+                    <span class="property-value" aria-labelledby="telefono-label"><g:fieldValue bean="${obraSocialInstance}" field="telefono"/></span>
+
+                </li>
+            </g:if>
+
+            <g:if test="${obraSocialInstance?.domicilio}">
+                <li class="fieldcontain">
+                    <span id="domicilio-label" class="property-label"><g:message code="obraSocial.domicilio.label" default="Domicilio" /></span>
+
+                    <span class="property-value" aria-labelledby="domicilio-label"><g:fieldValue bean="${obraSocialInstance}" field="domicilio"/></span>
+
+                </li>
+            </g:if>
+
 		<!--		<g:if test="${obraSocialInstance?.convenios}">
 				<li class="fieldcontain">
 					<span id="convenios-label" class="property-label"><g:message code="obraSocial.convenios.label" default="Convenios" /></span>

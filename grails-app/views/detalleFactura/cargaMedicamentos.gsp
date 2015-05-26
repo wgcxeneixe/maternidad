@@ -38,17 +38,16 @@
                     <g:message code="detalleFactura.profesional.label" default="Profesional" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select readonly="" id="profesional" name="profesional.id" from="${maternidad.Profesional.list()}" optionKey="id" required="" value="${maternidad.Profesional.withCriteria {persona{eq("razonSocial","NUEVA MATERNIDAD")}}?.first()?.id}" class="many-to-one"/>
+                <g:select readonly="" id="profesional" name="profesional.id" from="${maternidad.Profesional.findAllByCodigoCirculo(grailsApplication.config.maternidad.codigo)}" optionKey="id" required="" value="${maternidad.Profesional.withCriteria {persona{eq("razonSocial","NUEVA MATERNIDAD")}}?.first()?.id}" class="many-to-one"/>
 
             </div>
-
 
             <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'planillaInternacion', 'error')} required">
                 <label for="planillaInternacion">
                     <g:message code="detalleFactura.planillaInternacion.label" default="Planilla Internacion" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select id="planillaInternacion" name="planillaInternacion.id" from="${PlanillaInternacion.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.planillaInternacion?.id}" class="many-to-one"/>
+                <g:select id="planillaInternacion" name="planillaInternacion.id" from="${maternidad.PlanillaInternacion.findAllById(detalleFacturaInstance?.planillaInternacion?.id)}" optionKey="id" required="" value="${detalleFacturaInstance?.planillaInternacion?.id}" class="many-to-one"/>
 
             </div>
 
@@ -57,7 +56,27 @@
                     <g:message code="detalleFactura.plan.label" default="Plan" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select readonly="" id="plan" name="plan.id" from="${maternidad.Plan.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.plan?.id}" class="many-to-one"/>
+                <g:select readonly="" id="plan" name="plan.id" from="${maternidad.Plan.findAllById(detalleFacturaInstance?.plan?.id)}" optionKey="id" required="" value="${detalleFacturaInstance?.plan?.id}" class="many-to-one"/>
+
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'funcion', 'error')} ">
+                <label for="funcion">
+                    <g:message code="detalleFactura.funcion.label" default="Funcion" />
+
+                </label>
+                <select required name ="funcion" id="funcion">
+                    <option value="91">91</option>
+                </select>
+            </div>
+
+            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'fecha', 'error')} required">
+                <label for="fecha">
+                    <g:message code="convenio.fecha.label" default="Fecha" />
+                    <span class="required-indicator">*</span>
+                </label>
+                %{--<g:datePicker name="fecha" precision="day"  value="${detalleFacturaInstance?.fecha}"  />--}%
+                <g:textField name="fechaText" value="${detalleFacturaInstance?.fecha?.format('dd/MM/yyyy')}" />
 
             </div>
 
@@ -68,17 +87,6 @@
                 </label>
                 <g:select id="medicamento" name="medicamento.id" from="${maternidad.Medicamento.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.medicamento?.id}" class="many-to-one"/>
 
-            </div>
-
-
-            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'funcion', 'error')} ">
-                <label for="funcion">
-                    <g:message code="detalleFactura.funcion.label" default="Funcion" />
-
-                </label>
-                <select required name ="funcion" id="funcion">
-                    <option value="91">91</option>
-                </select>
             </div>
 
 
@@ -113,19 +121,6 @@
 
             </div>
 
-
-
-            <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'fecha', 'error')} required">
-                <label for="fecha">
-                    <g:message code="convenio.fecha.label" default="Fecha" />
-                    <span class="required-indicator">*</span>
-                </label>
-                <g:datePicker name="fecha" precision="day"  value="${detalleFacturaInstance?.fecha}"  />
-
-            </div>
-
-
-
         </fieldset>
         <fieldset class="buttons">
             <g:submitButton id="boton" name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
@@ -154,12 +149,7 @@
         </tr>
         </thead>
         <tbody>
-        <g:each in="${maternidad.DetalleFactura.createCriteria().list {  planillaInternacion{eq('id',params?.id as Long)
-            isNull("factura")
-        }
-            isNull("practica")
-
-        }}" status="i" var="detalleFactura">
+        <g:each in="${listaDetalles}" status="i" var="detalleFactura">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
                 <td>${fieldValue(bean: detalleFactura, field: "medicamento")}</td>
@@ -234,9 +224,9 @@
 
         }
 
-        //idioma de los calendar
-        jQuery.datepicker.regional[ "es" ];
-        updateDatePicker();
+//        //idioma de los calendar
+//        jQuery.datepicker.regional[ "es" ];
+//        updateDatePicker();
 
         jQuery("#medicamento").select2({allowClear: true});
 
@@ -246,7 +236,9 @@
 
             var medicamento =  jQuery(this).val();
 
-
+            jQuery("#fechaText").mask('00/00/0000');
+            jQuery("#fechaText").focus();
+            jQuery("#fechaText").select();
 
             if(medicamento!=''){
 
@@ -279,11 +271,6 @@
 
 
         });
-
-
-
-
-
 
     })
 
