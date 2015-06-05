@@ -17,7 +17,7 @@ class Convenio {
     }
 
     static constraints = {
-        codigo(size:2..10, nullable:true, blank:true)
+        codigo(size:2..40, nullable:true, blank:true)
         obrasocial(nullable: false,blank:false)
         fechaInicio(nullable: false,blank:false,attributes:[precision:"day"])
         fechaFin(validator: { val, obj ->val?.after(obj.fechaInicio)},attributes:[precision:"day"],nullable: false,blank:false)

@@ -42,7 +42,7 @@
             <div class="fieldcontain ">
                 <label for="profesional">
                     <g:message code="practicaModulo.practica.label" default="Médico Cabecera" />
-                    <span class="required-indicator">*</span>
+
                 </label>
 
                 <g:select id="medicoCabecera" name="medicoCabecera.id" from="${maternidad.Profesional.findAllByActivo(true)}" value="${planillaInternacionInstance?.medicoCabecera?.id}" optionKey="id"   class="many-to-one" noSelection="['':'-Seleccione un Profesional-']" />
@@ -52,7 +52,7 @@
             <div class="fieldcontain ">
                 <label for="profesional">
                     <g:message code="practicaModulo.practica.label" default="Médico Cirujano" />
-                    <span class="required-indicator">*</span>
+
                 </label>
                 <g:select id="medicoCirujano" name="medicoCirujano.id" from="${maternidad.Profesional.findAllByActivo(true)}" value="${planillaInternacionInstance?.medicoCirujano?.id}" optionKey="id"  class="many-to-one" noSelection="['':'-Seleccione un Profesional-']"/>
 
@@ -61,7 +61,7 @@
             <div class="fieldcontain  ">
                 <label for="profesional">
                     <g:message code="practicaModulo.practica.label" default="Médico Ayudante 1" />
-                    <span class="required-indicator">*</span>
+
                 </label>
                 <g:select id="medicoAyudante1" name="medicoAyudante1.id" from="${maternidad.Profesional.findAllByActivo(true)}" optionKey="id" value="${planillaInternacionInstance?.medicoAyudante1?.id}"  class="many-to-one" noSelection="['':'-Seleccione un Profesional-']"/>
 
@@ -70,7 +70,7 @@
             <div class="fieldcontain  ">
                 <label for="profesional">
                     <g:message code="practicaModulo.practica.label" default="Médico Ayudante 2" />
-                    <span class="required-indicator">*</span>
+
                 </label>
                 <g:select id="medicoAyudante2" name="medicoAyudante2.id" from="${maternidad.Profesional.findAllByActivo(true)}" optionKey="id" value="${planillaInternacionInstance?.medicoAyudante2?.id}"  class="many-to-one" noSelection="['':'-Seleccione un Profesional-']"/>
 
@@ -79,9 +79,27 @@
             <div class="fieldcontain ">
                 <label for="profesional">
                     <g:message code="practicaModulo.practica.label" default="Médico Anestesista" />
-                    <span class="required-indicator">*</span>
+
                 </label>
                 <g:select id="medicoAnestesista" name="medicoAnestesista.id" from="${maternidad.Profesional.findAllByActivo(true)}" optionKey="id"  class="many-to-one" value="${planillaInternacionInstance?.medicoAnestesista?.id}" noSelection="['':'-Seleccione un Profesional-']"/>
+
+            </div>
+
+            <div class="fieldcontain ">
+                <label for="otro1">
+                    <g:message code="practicaModulo.practica.label" default="Otro Médico 1" />
+
+                </label>
+                <g:select id="otro1" name="medicoOtro1.id" from="${maternidad.Profesional.findAllByActivo(true)}" optionKey="id"  class="many-to-one" value="${planillaInternacionInstance?.medicoAnestesista?.id}" noSelection="['':'-Seleccione un Profesional-']"/>
+
+            </div>
+
+            <div class="fieldcontain ">
+                <label for="otro2">
+                    <g:message code="practicaModulo.practica.label" default="Otro Médico 2" />
+
+                </label>
+                <g:select id="otro2" name="medicoOtro2.id" from="${maternidad.Profesional.findAllByActivo(true)}" optionKey="id"  class="many-to-one" value="${planillaInternacionInstance?.medicoAnestesista?.id}" noSelection="['':'-Seleccione un Profesional-']"/>
 
             </div>
 
@@ -96,7 +114,7 @@
 </div>
 <script>
     $(function() {
-        jQuery("#medicoCabecera,#medicoCirujano,#medicoAyudante1,#medicoAyudante2,#medicoAnestesista").select2({allowClear: true});
+        jQuery("#medicoCabecera,#medicoCirujano,#medicoAyudante1,#medicoAyudante2,#medicoAnestesista,#otro1,#otro2").select2({allowClear: true});
     })
 
 </script>
