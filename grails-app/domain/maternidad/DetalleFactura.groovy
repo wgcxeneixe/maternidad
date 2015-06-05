@@ -35,6 +35,7 @@ class DetalleFactura {
         plan(nullable: false,blank:false)
         planillaInternacion(nullable: false,blank:false)
         medicamento(nullable: true,blank:true)
+        cantidad(nullable: false,min: Double.valueOf('0.1'))
     }
 
     def  Double total() {

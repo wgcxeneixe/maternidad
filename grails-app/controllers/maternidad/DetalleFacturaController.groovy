@@ -54,29 +54,28 @@ class DetalleFacturaController {
         respond detalleFacturaInstance
     }
 
-    def editDetalle= {
+    def editDetalle = {
 
-        DetalleFactura detalleFacturaInstance= DetalleFactura.get(params.id)
+        DetalleFactura detalleFacturaInstance = DetalleFactura.get(params.id)
 
         def planilla
         def valores
 
 
-            planilla = detalleFacturaInstance.planillaInternacion
+        planilla = detalleFacturaInstance.planillaInternacion
 
-            def planConvenio = PlanConvenio.withCriteria {
-                eq("plan", planilla?.plan)
-                convenio {
-                    eq("activo", Boolean.TRUE)
-                }
+        def planConvenio = PlanConvenio.withCriteria {
+            eq("plan", planilla?.plan)
+            convenio {
+                eq("activo", Boolean.TRUE)
             }
+        }
 
-            valores = ValorPractica.findAllByPlanConvenio(planConvenio)?.practica as List<Practica>
+        valores = ValorPractica.findAllByPlanConvenio(planConvenio)?.practica as List<Practica>
 
         return [detalleFacturaInstance: detalleFacturaInstance, practicas: valores]
 
     }
-
 
 //    @Transactional
 //    def update(DetalleFactura detalleFacturaInstance) {
@@ -123,7 +122,7 @@ class DetalleFacturaController {
 
             if (detalleFacturaInstance.save(flush: true)) {
 
-               def factura= Factura.findByPlanillaInternacion(detalleFacturaInstance?.planillaInternacion)
+                def factura = Factura.findByPlanillaInternacion(detalleFacturaInstance?.planillaInternacion)
 
                 redirect(controller: 'factura', action: 'show', params: [id: factura?.id])
             } else {
@@ -157,13 +156,13 @@ class DetalleFacturaController {
 
             if (detalleFacturaInstance.save(flush: true)) {
 
-if(detalleFacturaInstance?.practica){
-    redirect( action: 'cargaPracticas', params: [id: detalleFacturaInstance?.planillaInternacion?.id])
-}else {
+                if (detalleFacturaInstance?.practica) {
+                    redirect(action: 'cargaPracticas', params: [id: detalleFacturaInstance?.planillaInternacion?.id])
+                } else {
 
-    redirect( action: 'cargaMedicamentos', params: [id: detalleFacturaInstance?.planillaInternacion?.id])
+                    redirect(action: 'cargaMedicamentos', params: [id: detalleFacturaInstance?.planillaInternacion?.id])
 
-}
+                }
 
 
             } else {
@@ -198,8 +197,8 @@ if(detalleFacturaInstance?.practica){
     @Transactional
     def eliminarDetalle() {
 
-        def detalleFacturaInstance= DetalleFactura.get(params.detalle as long)
-        def planilla=params.planilla
+        def detalleFacturaInstance = DetalleFactura.get(params.detalle as long)
+        def planilla = params.planilla
 
         if (detalleFacturaInstance == null) {
             notFound()
@@ -208,15 +207,15 @@ if(detalleFacturaInstance?.practica){
 
         detalleFacturaInstance.delete flush: true
 
-        redirect action: "cargaPracticas",params: [id:planilla]
+        redirect action: "cargaPracticas", params: [id: planilla]
 
-       /* request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'DetalleFactura.label', default: 'DetalleFactura'), detalleFacturaInstance.id])
+        /* request.withFormat {
+             form multipartForm {
+                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'DetalleFactura.label', default: 'DetalleFactura'), detalleFacturaInstance.id])
 
-            }
-            '*' { render status: NO_CONTENT }
-        } */
+             }
+             '*' { render status: NO_CONTENT }
+         } */
     }
 
 
@@ -236,6 +235,7 @@ if(detalleFacturaInstance?.practica){
         def planilla
         def valores
         def detalle = new DetalleFactura(params)
+        def listaDetalles = []
         if (params.id) {
             planilla = PlanillaInternacion.get(params.id)
             detalle.planillaInternacion = planilla
@@ -249,49 +249,79 @@ if(detalleFacturaInstance?.practica){
 
             valores = ValorPractica.findAllByPlanConvenio(planConvenio)?.practica as List<Practica>
 
+            listaDetalles = DetalleFactura.createCriteria().list {
+                createAlias('planillaInternacion', 'planilla')
+                eq('planillaInternacion', planilla)
+                isNull("planilla.factura")
+                isNull("medicamento")
+            }?.sort { -it.id }
+            if (listaDetalles) detalle.fecha = listaDetalles.first()?.fecha
+
+            if(params?.tieneErrores){
+                if(params.practicaId) detalle.practica = Practica.read(params.long('practicaId'))
+                if(params.profesionalId) detalle.profesional = Profesional.read(params.long('profesionalId'))
+                if(params.funcion) detalle.funcion = params.funcion
+                detalle.validate()
+                flash.error = params.error
+            }
 
         }
 
-        return [detalleFacturaInstance: detalle, practicas: valores]
+        return [detalleFacturaInstance: detalle, practicas: valores, listaDetalles: listaDetalles]
     }
 
 
     def cargaMedicamentos() {
 
         def planilla
-
+        def listaDetalles = []
         def detalle = new DetalleFactura(params)
         if (params.id) {
             planilla = PlanillaInternacion.get(params.id)
             detalle.planillaInternacion = planilla
             detalle.plan = planilla.plan
-
-
+            listaDetalles = DetalleFactura.createCriteria().list {
+                createAlias('planillaInternacion', 'planilla')
+                eq('planillaInternacion', planilla)
+                isNull("planilla.factura")
+                isNotNull("medicamento")
+            }?.sort { -it.id }
         }
 
-        return [detalleFacturaInstance: detalle]
+        if (listaDetalles) detalle.fecha = listaDetalles.first()?.fecha
+        return [detalleFacturaInstance: detalle, listaDetalles: listaDetalles]
     }
 
 
     @Transactional
     def saveCarga(DetalleFactura detalleFacturaInstance) {
+        flash.error = null
         if (detalleFacturaInstance == null) {
             notFound()
-            return
-        }
-
-        if (detalleFacturaInstance.hasErrors()) {
-            respond detalleFacturaInstance.errors, view: 'cargaPracticas'
             return
         }
 
         if (detalleFacturaInstance.practica.modulo) {
             detalleFacturaInstance.modulo = Boolean.TRUE
         }
-
+        try {
+            if (params?.fechaText && params?.date('fechaText', 'dd/MM/yyyy')) {
+                detalleFacturaInstance.fecha = params?.date('fechaText', 'dd/MM/yyyy')
+            } else {
+                flash.error = "La fecha ingresada (${params?.fechaText}) no es válida"
+            }
+        } catch (e) {
+            flash.error = "La fecha ingresada (${params?.fechaText}) no es válida"
+        }
         detalleFacturaInstance.valorGastos = (params?.valorGastos) ? params?.valorGastos as Double : 0
         detalleFacturaInstance.valorHonorarios = (params?.valorHonorarios) ? params?.valorHonorarios as Double : 0
         detalleFacturaInstance.cantidad = (params?.cantidad) ? params?.cantidad as Double : 0
+
+        if (flash.error || !detalleFacturaInstance.validate() || detalleFacturaInstance.hasErrors()) {
+           redirect(action: "cargaPracticas", params: [tieneErrores: true, practicaId: detalleFacturaInstance?.practica?.id, funcion: detalleFacturaInstance?.funcion, profesionalId: detalleFacturaInstance.profesional?.id, id: detalleFacturaInstance.planillaInternacion.id, error: flash.error])
+
+            return
+        }
 
         detalleFacturaInstance.save flush: true
 
@@ -433,7 +463,7 @@ if(detalleFacturaInstance?.practica){
         render(contentType: 'text/json') {
             [
                     //'valor': (medicamento?.valor)?(Math.round(medicamento?.valor * 100) / 100):0
-                    'valor': (medicamento?.valor)?(medicamento?.valor):0
+                    'valor': (medicamento?.valor) ? (medicamento?.valor) : 0
             ]
         }
     }
