@@ -90,5 +90,5 @@ class PagoFactura {
         return monto * porcentajeALiquidar / 100
     }
 
-    String toString() { "${fecha?.format('dd/MM/yyyy')} ++ ${monto}" }
+    String toString() { facturaPeriodo? ("${facturaPeriodo.periodo} - ${facturaPeriodo.plan}"):("${fecha?.format('dd/MM/yyyy')} ++ ${monto}") }
 }
