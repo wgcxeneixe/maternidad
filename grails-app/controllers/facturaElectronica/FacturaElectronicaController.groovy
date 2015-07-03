@@ -9,11 +9,12 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class FacturaElectronicaController {
 
+    def afipWsService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond FacturaElectronica.list(params), model:[facturaElectronicaInstanceCount: FacturaElectronica.count()]
+        respond FacturaElectronica.list(params), model: [facturaElectronicaInstanceCount: FacturaElectronica.count()]
     }
 
     def show(FacturaElectronica facturaElectronicaInstance) {
@@ -21,7 +22,20 @@ class FacturaElectronicaController {
     }
 
     def create() {
-        respond new FacturaElectronica(params)
+        def facturaElectronicaInstance = new FacturaElectronica()
+        def cuit = params.long('cuit') //Valido que el cuit sea Long
+        if (cuit) {
+            def empresaAfip = afipWsService.obtenerEmpresa(cuit)
+            if(empresaAfip){
+                facturaElectronicaInstance.cuit = empresaAfip.cuit
+                facturaElectronicaInstance.razonSocial = empresaAfip.razonSocial
+                facturaElectronicaInstance.direccion = empresaAfip.direccion
+                facturaElectronicaInstance.localidad = empresaAfip.localidad
+            }else{
+                facturaElectronicaInstance.cuit=cuit
+            }
+        }
+        respond facturaElectronicaInstance
     }
 
     @Transactional
@@ -32,11 +46,18 @@ class FacturaElectronicaController {
         }
 
         if (facturaElectronicaInstance.hasErrors()) {
-            respond facturaElectronicaInstance.errors, view:'create'
+            respond facturaElectronicaInstance.errors, view: 'create'
             return
         }
-
-        facturaElectronicaInstance.save flush:true
+        try {
+        def facturaAfip = afipWsService.enviarAfip(facturaElectronicaInstance?.cuit,facturaElectronicaInstance?.totalNeto)
+        println facturaAfip
+        facturaElectronicaInstance.cae = facturaAfip.CAE
+        facturaElectronicaInstance.numeroFactura = facturaAfip.nroComprobante
+        facturaElectronicaInstance.save flush: true
+        }catch (Exception e){
+            flash.alert = "Ocurrió un error al consultar AFIP"
+        }
 
         request.withFormat {
             form multipartForm {
@@ -59,18 +80,18 @@ class FacturaElectronicaController {
         }
 
         if (facturaElectronicaInstance.hasErrors()) {
-            respond facturaElectronicaInstance.errors, view:'edit'
+            respond facturaElectronicaInstance.errors, view: 'edit'
             return
         }
 
-        facturaElectronicaInstance.save flush:true
+        facturaElectronicaInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'FacturaElectronica.label', default: 'FacturaElectronica'), facturaElectronicaInstance.id])
                 redirect facturaElectronicaInstance
             }
-            '*'{ respond facturaElectronicaInstance, [status: OK] }
+            '*' { respond facturaElectronicaInstance, [status: OK] }
         }
     }
 
@@ -82,14 +103,14 @@ class FacturaElectronicaController {
             return
         }
 
-        facturaElectronicaInstance.delete flush:true
+        facturaElectronicaInstance.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'FacturaElectronica.label', default: 'FacturaElectronica'), facturaElectronicaInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -99,7 +120,7 @@ class FacturaElectronicaController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'facturaElectronica.label', default: 'FacturaElectronica'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

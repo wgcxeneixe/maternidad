@@ -185,3 +185,13 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 
 maternidad.codigo = 543
 
+
+// Configuraciones del webservices de factura electronica
+facturaElectronica {
+    // URL del WS de Factura Electrónica
+    ptoVenta =  10
+    cuitMaternidad = "20286670149"
+    service.asmx = "https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL"
+    loginCms = "https://wsaahomo.afip.gov.ar/ws/services/LoginCms"
+
+}

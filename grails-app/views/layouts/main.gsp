@@ -353,6 +353,12 @@
         <span class="font-bold">FACTURACION</span>
     </a>
     <ul class="nav dk">
+        <li class="${(controllerName == 'facturaElectronica' && actionName == 'index') ? 'active' : ''}">
+            <a href="${createLink(controller:'facturaElectronica',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                <i class="i i-dot"></i>
+                <span>Factura Electrónica - AFIP</span>
+            </a>
+        </li>
         <li class="${(controllerName == 'factura' && actionName == 'index') ? 'active' : ''}">
             <a href="${createLink(controller:'factura',action: 'index')}" class="auto"> <!-- /CreateLink -->
                 <i class="i i-dot"></i>

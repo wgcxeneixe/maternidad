@@ -20,5 +20,6 @@ class FacturaElectronica {
     Set<DetalleFacturaElectronica> detalles = []
 
     static constraints = {
+        totalNeto(nullable: false)
     }
 }
