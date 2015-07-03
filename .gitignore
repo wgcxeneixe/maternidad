@@ -49,3 +49,6 @@ application.properties
 /module_maternidad-grailsplugins.xml
 /module_maternidad.xml
 /out/*
+/cache/*
+/xmlrequest.xml
+/xmlresponse.xml

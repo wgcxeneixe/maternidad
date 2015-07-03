@@ -77,7 +77,7 @@ class AfipWsService {
             String tipo_doc = "80";  //TODO: obtener el tipo de documento para enviarlo
             String nro_doc = cuit.toString();
             int tipo_cbte = 2;
-            int punto_vta = 10;//Holders.config.facturaElectronica.ptoVenta;
+            int punto_vta = Holders.config.facturaElectronica.ptoVenta;
             int cbt_desde = wsfev1.CompUltimoAutorizado(tipo_cbte, punto_vta) + 1;
 
             int cbt_hasta = cbt_desde;

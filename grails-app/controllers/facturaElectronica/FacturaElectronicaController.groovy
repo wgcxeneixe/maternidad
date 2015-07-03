@@ -26,13 +26,13 @@ class FacturaElectronicaController {
         def cuit = params.long('cuit') //Valido que el cuit sea Long
         if (cuit) {
             def empresaAfip = afipWsService.obtenerEmpresa(cuit)
-            if(empresaAfip){
+            if (empresaAfip) {
                 facturaElectronicaInstance.cuit = empresaAfip.cuit
                 facturaElectronicaInstance.razonSocial = empresaAfip.razonSocial
                 facturaElectronicaInstance.direccion = empresaAfip.direccion
                 facturaElectronicaInstance.localidad = empresaAfip.localidad
-            }else{
-                facturaElectronicaInstance.cuit=cuit
+            } else {
+                facturaElectronicaInstance.cuit = cuit
             }
         }
         respond facturaElectronicaInstance
@@ -50,12 +50,12 @@ class FacturaElectronicaController {
             return
         }
         try {
-        def facturaAfip = afipWsService.enviarAfip(facturaElectronicaInstance?.cuit,facturaElectronicaInstance?.totalNeto)
-        println facturaAfip
-        facturaElectronicaInstance.cae = facturaAfip.CAE
-        facturaElectronicaInstance.numeroFactura = facturaAfip.nroComprobante
-        facturaElectronicaInstance.save flush: true
-        }catch (Exception e){
+            def facturaAfip = afipWsService.enviarAfip(facturaElectronicaInstance?.cuit, facturaElectronicaInstance?.totalNeto)
+            println facturaAfip
+            facturaElectronicaInstance.cae = facturaAfip.CAE
+            facturaElectronicaInstance.numeroFactura = facturaAfip.nroComprobante
+            facturaElectronicaInstance.save flush: true
+        } catch (Exception e) {
             flash.alert = "Ocurrió un error al consultar AFIP"
         }
 
