@@ -11,7 +11,7 @@ class InternacionController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    static scaffold = true
+   // static scaffold = true
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -24,6 +24,16 @@ class InternacionController {
 
     def create() {
         respond new Internacion(params)
+    }
+
+    def crear() {
+        if (params.id){
+            render (view:"crear",model:[internacion: new Internacion(params), planilla: params.id])
+        }else
+        {
+            flash.message = "Error"
+
+        }
     }
 
     @Transactional
@@ -44,6 +54,32 @@ class InternacionController {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'internacion.label', default: 'Internacion'), internacionInstance.id])
                 redirect internacionInstance
+            }
+            '*' { respond internacionInstance, [status: CREATED] }
+        }
+    }
+
+    @Transactional
+    def savePlanilla(Internacion internacionInstance) {
+        if (internacionInstance == null) {
+            notFound()
+            return
+        }
+
+        if (internacionInstance.hasErrors()) {
+            respond internacionInstance.errors, view: 'crear'
+            return
+        }
+
+        internacionInstance.save flush: true
+
+        def planilla = PlanillaInternacion.findById(params.planilla as Long)
+        planilla.addToInternaciones(internacionInstance)
+        planilla.save(flush: true)
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'internacion.label', default: 'Internacion'), internacionInstance.id])
+                redirect controller: "planillaInternacion",action: "show",params:[id:planilla?.id]
             }
             '*' { respond internacionInstance, [status: CREATED] }
         }

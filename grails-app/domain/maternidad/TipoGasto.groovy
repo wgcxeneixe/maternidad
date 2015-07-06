@@ -12,4 +12,7 @@ class TipoGasto {
         descripcion(nullable: true,blank: true)
 
     }
+
+    String toString() { "${sigla+" - "+descripcion}" }
+
 }

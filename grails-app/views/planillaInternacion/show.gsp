@@ -540,6 +540,7 @@ isNull("medicamento")
             <th><g:message code="profesional.banco.label" default="Dias Int"  /></th>
 
             <th></th>
+            <th></th>
 
         </tr>
         </thead>
@@ -556,7 +557,7 @@ isNull("medicamento")
                 <td>${internacionInstance.diasInternacion}</td>
 
                 <td><g:link class="linkEdit" controller="internacion" action="edit" id="${internacionInstance?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
-
+                <td><g:link class="linkCreate" controller="internacion" action="crear" id="${planillaInternacionInstance?.id}">${message(code: 'default.button.new.label',default: "Crear")}</g:link></td>
             </tr>
         </g:each>
         </tbody>

@@ -399,7 +399,7 @@
 
 
 
-<li class="${controllerName == 'medicamento' ? 'active' : ''}"> <!-- /Controller -->
+<li class="${(controllerName == 'medicamento' || controllerName == 'tipoMedicamento' || controllerName == 'laboratorio') ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
         <span class="font-bold">MEDICAMENTOS</span>
@@ -418,6 +418,15 @@
                 <span>Tipo Medicamento</span>
             </a>
         </li>
+
+        <li class="${(controllerName == 'laboratorio' && actionName == 'index') ? 'active' : ''}">
+            <a href="${createLink(controller:'laboratorio',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                <i class="i i-dots"></i>
+                <span>Laboratorio</span>
+            </a>
+        </li>
+
+
 
     </ul>
 </li>

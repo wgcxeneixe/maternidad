@@ -164,7 +164,7 @@ class CalculoValoresService {
                 valorEspecialista = valorunidad?.valor * valorGalenohonorario?.valor //* practica.multiplicadorHonorario
             }
          }catch (Exception ex) {
-
+ex
          }
 
         }

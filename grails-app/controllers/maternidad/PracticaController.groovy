@@ -25,6 +25,11 @@ class PracticaController {
         respond new Practica(params)
     }
 
+    def crear = {
+        respond new Practica(params)
+    }
+
+
     @Transactional
     def save(Practica practicaInstance) {
         if (practicaInstance == null) {
@@ -49,6 +54,12 @@ class PracticaController {
     }
 
     def edit(Practica practicaInstance) {
+        respond practicaInstance
+    }
+
+    def editar = {
+        def practicaInstance= Practica.findById(params.id)
+        if(practicaInstance)
         respond practicaInstance
     }
 
@@ -394,6 +405,179 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
 
     def showNomenclada(Practica practicaInstance) {
         respond practicaInstance
+    }
+
+
+    def savePractica(Practica practicaInstance) {
+        if (practicaInstance == null) {
+            notFound()
+            return
+        }
+
+        if (practicaInstance.hasErrors()) {
+            respond practicaInstance.errors, view: 'create'
+            return
+        }
+
+        def vg=(params.valorGasto)?params.valorGasto as Double:null
+
+        def tg=TipoGasto.findById(params.tipoGasto.id)
+
+
+
+
+
+
+        practicaInstance.save flush: true
+
+        if(vg){
+            def vug= new ValorUnidadGasto()
+            vug.practica=practicaInstance
+            vug.tipoGasto=tg
+            vug.valor=vg
+            vug.save(flush: true)
+        }
+
+        def va=(params.valorAnestesista)?params.valorAnestesista as Double:null
+
+        def vay=(params.valorAyudante)?params.valorAyudante as Double:null
+
+        def ve=(params.valorEspecialista)?params.valorEspecialista as Double:null
+
+       // def th=TipoHonorario.findById(params.tipoHonorario.id)
+
+
+        if(vay){
+            def vuh= new ValorUnidadHonorario()
+            vuh.componente=Componente.findById(1)
+            vuh.practica=practicaInstance
+            vuh.valor=vay
+            vuh.save(flush: true)
+        }
+
+        if(va){
+           def vuh= new ValorUnidadHonorario()
+           vuh.componente=Componente.findById(2)
+           vuh.practica=practicaInstance
+           vuh.valor=va
+           vuh.save(flush: true)
+        }
+
+        if(ve){
+            def vuh= new ValorUnidadHonorario()
+            vuh.componente=Componente.findById(3)
+            vuh.practica=practicaInstance
+            vuh.valor=ve
+            vuh.save(flush: true)
+        }
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'practica.label', default: 'Practica'), practicaInstance.id])
+                redirect practicaInstance
+            }
+            '*' { respond practicaInstance, [status: CREATED] }
+        }
+    }
+
+
+    def updatePractica = {
+
+        def practicaInstance= Practica.findById(params.id)
+
+
+        if (practicaInstance == null) {
+            notFound()
+            return
+        }
+
+        practicaInstance.properties=params
+
+        if (practicaInstance.hasErrors()) {
+            respond practicaInstance.errors, view: 'edit'
+            return
+        }
+
+        practicaInstance.save flush: true
+
+
+        def vg=(params.valorGasto)?params.valorGasto as Double:null
+
+        def tg=TipoGasto.findById(params.tipoGasto.id)
+
+        if(vg){
+            def vug= ValorUnidadGasto.findByPractica(practicaInstance)
+            if(vug){vug.tipoGasto=tg
+                vug.valor=vg
+                vug.save(flush: true)}
+            else {
+               vug=new ValorUnidadGasto()
+                vug.tipoGasto=tg
+                vug.valor=vg
+                vug.practica=practicaInstance
+                vug.save(flush: true)
+            }
+
+        }
+
+        def va=(params.valorAnestesista)?params.valorAnestesista as Double:null
+
+        def vay=(params.valorAyudante)?params.valorAyudante as Double:null
+
+        def ve=(params.valorEspecialista)?params.valorEspecialista as Double:null
+
+        //def th=TipoHonorario.findById(params.tipoHonorario.id)
+
+
+        if(vay){
+            def vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(1))
+            if(vuh){
+                vuh.valor=vay
+                vuh.save(flush: true)
+            }else {
+               vuh= new ValorUnidadHonorario()
+                vuh.componente=Componente.findById(1)
+                vuh.valor=vay
+                vuh.practica=practicaInstance
+                vuh.save(flush: true)
+            }
+        }
+
+        if(va){
+            def vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(2))
+            if(vuh){
+                vuh.valor=va
+                vuh.save(flush: true)
+            }else {
+                vuh= new ValorUnidadHonorario()
+                vuh.componente=Componente.findById(2)
+                vuh.valor=va
+                vuh.practica=practicaInstance
+                vuh.save(flush: true)
+            }
+        }
+
+        if(ve){
+            def vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(3))
+            if(vuh){
+                vuh.valor=ve
+                vuh.save(flush: true)
+            }else {
+                vuh= new ValorUnidadHonorario()
+                vuh.componente=Componente.findById(3)
+                vuh.valor=ve
+                vuh.practica=practicaInstance
+                vuh.save(flush: true)
+            }
+        }
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Practica.label', default: 'Practica'), practicaInstance.id])
+                redirect practicaInstance
+            }
+            '*' { respond practicaInstance, [status: OK] }
+        }
     }
 
 

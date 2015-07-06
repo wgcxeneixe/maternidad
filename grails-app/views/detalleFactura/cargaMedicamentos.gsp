@@ -38,8 +38,9 @@
                     <g:message code="detalleFactura.profesional.label" default="Profesional" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select readonly="" id="profesional" name="profesional.id" from="${maternidad.Profesional.findAllByCodigoCirculo(grailsApplication.config.maternidad.codigo)}" optionKey="id" required="" value="${maternidad.Profesional.withCriteria {persona{eq("razonSocial","NUEVA MATERNIDAD")}}?.first()?.id}" class="many-to-one"/>
+                <g:hiddenField name="profesional.id" value="${maternidad.Profesional.withCriteria {persona{eq("razonSocial","NUEVA MATERNIDAD CONCEPCION SRL")}}?.first()?.id}" ></g:hiddenField>
 
+${maternidad.Profesional.withCriteria {persona{eq("razonSocial","NUEVA MATERNIDAD CONCEPCION SRL")}}?.first()?.persona?.razonSocial}
             </div>
 
             <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'planillaInternacion', 'error')} required">
@@ -76,7 +77,7 @@
                     <span class="required-indicator">*</span>
                 </label>
                 %{--<g:datePicker name="fecha" precision="day"  value="${detalleFacturaInstance?.fecha}"  />--}%
-                <g:textField name="fechaText" value="${detalleFacturaInstance?.fecha?.format('dd/MM/yyyy')}" />
+                <g:textField name="fechaText" id="fechaText" value="${detalleFacturaInstance?.fecha?.format('dd/MM/yyyy')}" />
 
             </div>
 
@@ -195,6 +196,10 @@
 
         var valorMedicamento= jQuery("#medicamento").val();
 
+        jQuery("#fechaText").mask('00/00/0000');
+        jQuery("#fechaText").focus();
+        jQuery("#fechaText").select();
+
         if(valorMedicamento!=''){
 
             jQuery.ajax({
@@ -236,9 +241,7 @@
 
             var medicamento =  jQuery(this).val();
 
-            jQuery("#fechaText").mask('00/00/0000');
-            jQuery("#fechaText").focus();
-            jQuery("#fechaText").select();
+
 
             if(medicamento!=''){
 

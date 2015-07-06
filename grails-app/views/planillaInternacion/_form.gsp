@@ -51,13 +51,13 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'telefonoFamiliarResponsable', 'error')} required">
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'telefonoFamiliarResponsable', 'error')} ">
     <label for="telefonoFamiliarResponsable">
         <g:message code="planillaInternacion.telefonoFamiliarResponsable.label"
                    default="Telefono Familiar Responsable"/>
-        <span class="required-indicator">*</span>
+
     </label>
-    <g:textField name="telefonoFamiliarResponsable" required=""
+    <g:textField name="telefonoFamiliarResponsable"
                  value="${planillaInternacionInstance?.telefonoFamiliarResponsable}"/>
 
 </div>
