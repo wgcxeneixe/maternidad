@@ -48,5 +48,5 @@
     </tbody>
 </table>
 <div class="pagination">
-    <g:paginate total="${productoInstanceCount ?: 0}" params="${filters}" />
+    <g:paginate total="${productoInstanceTotal ?: 0}" params="${filters}" />
 </div>

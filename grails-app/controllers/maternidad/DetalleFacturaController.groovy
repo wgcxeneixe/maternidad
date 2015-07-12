@@ -366,6 +366,17 @@ class DetalleFacturaController {
         detalleFacturaInstance.cantidad = (params?.cantidad) ? params?.cantidad as Double : 0
         detalleFacturaInstance.valorMedicamento = (params?.valorMedicamento) ? params?.valorMedicamento as Double : 0
 
+        try {
+            if (params?.fechaText && params?.date('fechaText', 'dd/MM/yyyy')) {
+                detalleFacturaInstance.fecha = params?.date('fechaText', 'dd/MM/yyyy')
+            } else {
+                flash.error = "La fecha ingresada (${params?.fechaText}) no es válida"
+            }
+        } catch (e) {
+            flash.error = "La fecha ingresada (${params?.fechaText}) no es válida"
+        }
+
+
         detalleFacturaInstance.save flush: true
 
         if (detalleFacturaInstance.planillaInternacion.estadoPlanilla == EstadoPlanilla.findByNombre("INICIADA")) {

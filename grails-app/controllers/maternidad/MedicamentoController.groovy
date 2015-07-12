@@ -12,11 +12,47 @@ class MedicamentoController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    static scaffold = true
+   // static scaffold = true
 
+
+    /*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Medicamento.list(params), model: [medicamentoInstanceCount: Medicamento.count()]
+    }
+*/
+    def index = {
+
+        def query = {
+
+
+            if (params.codigo) {
+                ilike('codigo', '%' + params.codigo + '%')
+            }
+
+            if (params.nombre) {
+                ilike('nombre', '%' + params.nombre + '%')
+            }
+
+            if (params.sort){
+                order(params.sort,params.order)
+            }
+        }
+
+        def criteria = Medicamento.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        def medicamentos = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [codigo:params.codigo,nombre:params.nombre]
+
+        def model = [medicamentoInstanceList: medicamentos, medicamentoInstanceTotal:medicamentos.totalCount, filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grilla", model: model)
+        }
+        else {
+            model
+        }
     }
 
     def show(Medicamento medicamentoInstance) {

@@ -35,7 +35,7 @@ class PlanillaInternacion {
         plan(nullable: false,blank:false)
         fechaInternacion(nullable: false,blank:false, attributes:[precision:"minute"])
         nombreFamiliarResponsable(nullable: false,blank:false)
-        telefonoFamiliarResponsable(phoneNumber:true)
+        telefonoFamiliarResponsable(phoneNumber:true,blank:true,nullable: true,)
         //fechaAlta(nullable: true,blank:true,validator: { val, obj ->val?.after(obj.fechaInternacion) || val?.equals(obj.fechaInternacion)},attributes:[precision:"day"])
         fechaAlta(nullable: true,blank:true,attributes:[precision:"minute"])
         observaciones(nullable: true,blank:true, size: 0..5000)
