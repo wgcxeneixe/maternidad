@@ -51,57 +51,58 @@ class AfipWsService {
     }
 
 
-    def enviarAfip(Long cuit, Float totalSinIva) {
+    def enviarAfip(FacturaElectronica facturaElectronica) {
 //        try {
-            // TODO code application logic here
+        // TODO code application logic here
 
-            String userDir = System.getProperty("user.dir");
-            String fileSeparator = System.getProperty("file.separator");
-            String path_cert = userDir + fileSeparator;
+        String userDir = System.getProperty("user.dir");
+        String fileSeparator = System.getProperty("file.separator");
+        String path_cert = userDir + fileSeparator;
 
-         //   System.out.println("path_cert: " + path_cert);
+        //   System.out.println("path_cert: " + path_cert);
 
-            String crt_file = path_cert + "certificado.crt";
-            String key_file = path_cert + "certificado.key";
-            String dir_cache = path_cert + "cache";
+        String crt_file = path_cert + "certificado.crt";
+        String key_file = path_cert + "certificado.key";
+        String dir_cache = path_cert + "cache";
 
-            String cuitMater = Holders.config.facturaElectronica.cuitMaternidad
-            String asmx = Holders.config.facturaElectronica.service.asmx
-            String loginCms = Holders.config.facturaElectronica.loginCms
+        String cuitMater = Holders.config.facturaElectronica.cuitMaternidad
+        String asmx = Holders.config.facturaElectronica.service.asmx
+        String loginCms = Holders.config.facturaElectronica.loginCms
 
-            Wsfev1 wsfev1 = new Wsfev1(loginCms, asmx, cuitMater, crt_file, key_file, dir_cache);
+        Wsfev1 wsfev1 = new Wsfev1(loginCms, asmx, cuitMater, crt_file, key_file, dir_cache);
 
-            wsfev1.setDEBUG(true);
+        wsfev1.setDEBUG(true);
 
-            boolean servicio = true;
-            String tipo_doc = "80";  //TODO: obtener el tipo de documento para enviarlo
-            String nro_doc = cuit.toString();
-            int tipo_cbte = 2;
-            int punto_vta = Holders.config.facturaElectronica.ptoVenta;
-            int cbt_desde = wsfev1.CompUltimoAutorizado(tipo_cbte, punto_vta) + 1;
+        boolean servicio = true;
+        String tipo_doc = "80";  //TODO: obtener el tipo de documento para enviarlo
+        String nro_doc = facturaElectronica.cuit.toString();
+        int tipo_cbte = 2;
+        int punto_vta = Holders.config.facturaElectronica.ptoVenta;
+        int cbt_desde = wsfev1.CompUltimoAutorizado(tipo_cbte, punto_vta) + 1;
 
-            int cbt_hasta = cbt_desde;
-            double imp_tot_conc = 0.00;
-            double imp_neto = totalSinIva.toDouble();
-            double imp_iva = totalSinIva * 21 / 100 ;
-            double imp_total = imp_neto + imp_iva;
-            double imp_trib = 0.00;
-            double imp_op_ex = 0.00;
+        int cbt_hasta = cbt_desde;
+        double imp_tot_conc = 0.00;
+        double imp_neto = facturaElectronica.totalNeto.doubleValue().round(2);
+        double imp_iva = facturaElectronica.totalIva.doubleValue().round(2);
+        double imp_total = facturaElectronica.total.doubleValue().round(2);
+        double imp_trib = 0.00;
+        double imp_op_ex = 0.00;
 
-            Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
-            Date fecha_cbte = localCalendar.getTime();
+        Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+        Date fecha_cbte = localCalendar.getTime();
 
-            Date fecha_venc_pago = fecha_cbte;
-            Date fecha_serv_desde = fecha_cbte;
-            Date fecha_serv_hasta = fecha_cbte;
+        Date fecha_venc_pago = fecha_cbte;
+        Date fecha_serv_desde = fecha_cbte;
+        Date fecha_serv_hasta = fecha_cbte;
 
-            String moneda_id = "PES";
-            double moneda_ctz = 1.00;
+        String moneda_id = "PES";
+        double moneda_ctz = 1.00;
 
-            wsfev1.crearFactura(servicio, tipo_doc, nro_doc, tipo_cbte, punto_vta, cbt_desde, cbt_hasta, imp_total, imp_tot_conc, imp_neto, imp_iva, imp_trib, imp_op_ex, fecha_cbte, fecha_venc_pago, fecha_serv_desde, fecha_serv_hasta, moneda_id, moneda_ctz);
 
-//-------------ESTO VA SI HAY QUE AGREGAR MAS ITEMS A LA FACTURA-----------------
+        wsfev1.crearFactura(servicio, tipo_doc, nro_doc, tipo_cbte, punto_vta, cbt_desde, cbt_hasta, imp_total, imp_tot_conc, imp_neto, imp_iva, imp_trib, imp_op_ex, fecha_cbte, fecha_venc_pago, fecha_serv_desde, fecha_serv_hasta, moneda_id, moneda_ctz);
 
+////-------------ESTO VA SI HAY QUE AGREGAR MAS ITEMS A LA FACTURA-----------------
+//
 //            // agrego otros tributos:
 //            int tributo_id = 99;
 //            String desc = "Impuesto Municipal";
@@ -112,20 +113,24 @@ class AfipWsService {
 //            //wsfev1.AgregarTributo(tributo_id, desc, base_imp, alic, importe);
 //            // agrego el subtotal por tasa de IVA:
 //            int iva_id = 5; // 21%
-//            base_imp = 100.00;
-//            importe = 21.00;
+//            base_imp = imp_neto;//100.00;
+//            importe = imp_iva;//21.00;
 //
 //            wsfev1.AgregarIva(iva_id, base_imp, importe);
+//
+////------------------HASTA ACA ES -------------------------------------
 
-//------------------HASTA ACA ES -------------------------------------
+        //agrego el subtotal del iva
+        int iva_id = 5; // 21%
+        wsfev1.AgregarIva(iva_id, imp_neto, imp_iva);
 
-            wsfev1.CAESolicitar();
+        wsfev1.CAESolicitar();
 
 //            println("NroComprobante: " + cbt_desde);
 //            println("CAE: " + wsfev1.getCAE());
 //            println("Vencimiento: " + wsfev1.getFechaVencimientoCAE().toString());
 
-            return [nroComprobante: cbt_desde, CAE: wsfev1.getCAE(), vencimiento: wsfev1.getFechaVencimientoCAE().toString()]
+        return [nroComprobante: cbt_desde, CAE: wsfev1.getCAE(), vencimiento: wsfev1.getFechaVencimientoCAE().toString(), puntoVenta: punto_vta, fecha: fecha_cbte]
 //
 //        } catch (Exception ex) {
 //            Logger.getLogger(Wsfev1.class.getName()).log(Level.SEVERE, null, ex);
