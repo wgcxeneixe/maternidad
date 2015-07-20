@@ -96,7 +96,7 @@
 
             <div class="fieldcontain ">
                 <label for="otro2">
-                    <g:message code="practicaModulo.practica.label" default="Otro Médico 2" />
+                    <g:message code="practicaModulo.practica.label" default="Otro" />
 
                 </label>
                 <g:select id="otro2" name="medicoOtro2.id" from="${maternidad.Profesional.findAllByActivo(true)}" optionKey="id"  class="many-to-one" value="${planillaInternacionInstance?.medicoOtro2?.id}" noSelection="['':'-Seleccione un Profesional-']"/>
