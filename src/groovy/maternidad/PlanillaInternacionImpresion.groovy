@@ -62,7 +62,7 @@ class PlanillaInternacionImpresion {
         planillaI.telefono=(planilla.paciente.telefono)?planilla.paciente.telefono:""
 
         planillaI.fechaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("dd-MM-yyyy"):""
-        planillaI.horaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("H:m:s"):""
+        planillaI.horaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("H:m"):""
         planillaI.diagnostico=(planilla?.diagnostico)?planilla?.diagnostico:""
 
         planillaI.nacimientos= new ArrayList<NacimientoImpresion>()
