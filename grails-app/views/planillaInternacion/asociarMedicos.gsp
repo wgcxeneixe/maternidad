@@ -90,16 +90,16 @@
                     <g:message code="practicaModulo.practica.label" default="Otro Médico 1" />
 
                 </label>
-                <g:select id="otro1" name="medicoOtro1.id" from="${maternidad.Profesional.findAllByActivo(true)}" optionKey="id"  class="many-to-one" value="${planillaInternacionInstance?.medicoAnestesista?.id}" noSelection="['':'-Seleccione un Profesional-']"/>
+                <g:select id="otro1" name="medicoOtro1.id" from="${maternidad.Profesional.findAllByActivo(true)}" optionKey="id"  class="many-to-one" value="${planillaInternacionInstance?.medicoOtro1?.id}" noSelection="['':'-Seleccione un Profesional-']"/>
 
             </div>
 
             <div class="fieldcontain ">
                 <label for="otro2">
-                    <g:message code="practicaModulo.practica.label" default="Otro Médico 2" />
+                    <g:message code="practicaModulo.practica.label" default="Otro" />
 
                 </label>
-                <g:select id="otro2" name="medicoOtro2.id" from="${maternidad.Profesional.findAllByActivo(true)}" optionKey="id"  class="many-to-one" value="${planillaInternacionInstance?.medicoAnestesista?.id}" noSelection="['':'-Seleccione un Profesional-']"/>
+                <g:select id="otro2" name="medicoOtro2.id" from="${maternidad.Profesional.findAllByActivo(true)}" optionKey="id"  class="many-to-one" value="${planillaInternacionInstance?.medicoOtro2?.id}" noSelection="['':'-Seleccione un Profesional-']"/>
 
             </div>
 

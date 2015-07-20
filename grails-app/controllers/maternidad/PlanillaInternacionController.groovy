@@ -856,6 +856,8 @@ sel ->
         planilla.medicoAyudante1=(params.medicoAyudante1.id)?Profesional.get(params.medicoAyudante1.id):null
         planilla.medicoAyudante2=(params.medicoAyudante2.id)?Profesional.get(params.medicoAyudante2.id):null
         planilla.medicoAnestesista=(params.medicoAnestesista.id)?Profesional.get(params.medicoAnestesista.id):null
+        planilla.medicoOtro1=(params.medicoOtro1.id)?Profesional.get(params.medicoOtro1.id):null
+        planilla.medicoOtro2=(params.medicoOtro2.id)?Profesional.get(params.medicoOtro2.id):null
 
         planilla.save(flush: true)
 
