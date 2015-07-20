@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LineaRegistroPracticas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
-	<property name="ireport.zoom" value="1.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LineaRegistroPracticas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="faf317d6-4a4d-4adf-982b-d52ed28283c5">
+	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="codigo" class="java.lang.String"/>
@@ -9,41 +9,41 @@
 	<field name="practica" class="java.lang.String"/>
 	<field name="nro" class="java.lang.String"/>
 	<detail>
-		<band height="30" splitType="Stretch">
+		<band height="13" splitType="Stretch">
 			<textField>
-				<reportElement x="284" y="10" width="86" height="20"/>
+				<reportElement x="284" y="1" width="86" height="12" uuid="6eeca7f1-fe49-483e-a9f5-cc6762ce9e7c"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="9" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{codigo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="118" y="10" width="166" height="20"/>
+				<reportElement x="118" y="1" width="166" height="12" uuid="c93811d3-88d9-4876-bbc6-82d05ef9692b"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="9" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{practica}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{practica}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="370" y="10" width="225" height="20"/>
+				<reportElement x="370" y="1" width="225" height="12" uuid="89754dae-1cb6-425f-bacd-bcc341b038d0"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="9" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{profesional}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{profesional}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="40" y="10" width="78" height="20"/>
+				<reportElement x="40" y="1" width="78" height="12" uuid="36a06737-095f-4e0e-8a05-45f7d042d2d6"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="11" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="10" width="40" height="20"/>
+				<reportElement x="0" y="1" width="40" height="12" uuid="a6382e93-7fbc-4635-8e9a-e449ada5493a"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="9" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nro}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nro}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

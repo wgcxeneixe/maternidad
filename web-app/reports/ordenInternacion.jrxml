@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordenInternacion" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordenInternacion" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="77e7c79d-d435-4dbd-aca7-941e97a729d7">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -16,17 +16,17 @@
 	<title>
 		<band height="104" splitType="Stretch">
 			<rectangle>
-				<reportElement x="3" y="2" width="551" height="102"/>
+				<reportElement x="3" y="1" width="551" height="102" uuid="b7db1602-dd69-47f9-8d32-eca103863343"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="14" y="0" width="531" height="26"/>
+				<reportElement x="14" y="0" width="531" height="26" uuid="528b2d88-b225-45dd-bdbf-03ca90665197"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="14" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[NUEVA MATERNIDAD CONCEPCION S.R.L.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="14" y="25" width="531" height="79"/>
+				<reportElement x="14" y="25" width="531" height="79" uuid="4f49ef33-5022-4aa1-8fb7-7b2abceed2b7"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font isUnderline="false"/>
 				</textElement>
@@ -42,109 +42,109 @@ TELEFONO 0442-22257]]></text>
 	<detail>
 		<band height="260">
 			<staticText>
-				<reportElement x="16" y="40" width="149" height="20"/>
+				<reportElement x="16" y="40" width="149" height="20" uuid="704cef30-2659-4df6-bc63-34a519630c26"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[OBRA SOCIAL:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="16" y="70" width="149" height="20"/>
+				<reportElement x="16" y="70" width="149" height="20" uuid="c39ae9e7-7def-4e3f-97a6-a10c71405334"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Nº AFILIADO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="16" y="101" width="149" height="20"/>
+				<reportElement x="16" y="101" width="149" height="20" uuid="e680fa6f-c5ab-4614-9e8a-46a248571996"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[NOMBRE Y APELLIDO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="14" y="8" width="531" height="26"/>
+				<reportElement x="14" y="8" width="531" height="26" uuid="2e0f6f55-cf49-48b7-8577-7ee602f46861"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="10" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[SE SOLICITA AUTORIZACION DE INTERNACION PARA SU ATENCION]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="183" y="40" width="362" height="20"/>
+				<reportElement x="183" y="40" width="362" height="20" uuid="907b877e-21f9-4806-a233-51f06eda8437"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{obraSocial}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{obraSocial}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="183" y="70" width="362" height="20"/>
+				<reportElement x="183" y="70" width="362" height="20" uuid="973c32b6-d730-44b3-b65e-28890593a537"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{numeroAfiliado}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{numeroAfiliado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="183" y="101" width="213" height="20"/>
+				<reportElement x="183" y="101" width="213" height="20" uuid="e1d45f2b-383c-4c91-b6cc-3c1ed0301d12"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreYApellido}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nombreYApellido}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="16" y="123" width="149" height="20"/>
+				<reportElement x="16" y="123" width="149" height="20" uuid="7ebb0505-11f2-499e-a01b-d1a282fe2216"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[DIAGNOSTICO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="14" y="143" width="531" height="34"/>
+				<reportElement x="14" y="143" width="531" height="34" uuid="262e63ea-3092-4301-86cc-16f0a9054aa7"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{diagnostico}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{diagnostico}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="14" y="177" width="149" height="20"/>
+				<reportElement x="14" y="177" width="149" height="20" uuid="88f7986b-4292-401e-b861-799cb9495682"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[TRATAMIENTO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="16" y="197" width="531" height="30"/>
+				<reportElement x="16" y="197" width="531" height="30" uuid="5d6dc1f2-ee70-4f78-afa5-270985019f47"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{tratamiento}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tratamiento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="396" y="101" width="89" height="20"/>
+				<reportElement x="396" y="101" width="89" height="20" uuid="08f5b852-4bc8-41fd-a7e8-000072cc1e75"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[HISTORIA CLIN.:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="485" y="101" width="60" height="20"/>
+				<reportElement x="485" y="101" width="60" height="20" uuid="50129314-2a9a-40df-8e10-13f9e5e727e3"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{historia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{historia}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="398" y="240" width="149" height="20"/>
+				<reportElement x="398" y="240" width="149" height="20" uuid="21f62f39-7ffc-427d-9aa3-76d746d0ce32"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[FIRMA]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="16" y="240" width="88" height="20"/>
+				<reportElement x="16" y="240" width="88" height="20" uuid="0b192db0-8f0d-475b-9350-cd80c52755c4"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

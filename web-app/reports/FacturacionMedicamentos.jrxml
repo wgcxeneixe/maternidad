@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FacturacionMedicamentos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FacturacionMedicamentos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="14032907-49d8-4fc3-bc81-1b161b44c4cc">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -20,226 +20,231 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="40" splitType="Stretch">
+		<band height="17" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="10" width="555" height="26"/>
+				<reportElement x="0" y="0" width="555" height="17" uuid="67562b22-705d-4545-9171-214f66977b68"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="14" isUnderline="false"/>
+					<font size="12" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[FACTURACION DE MEDICAMENTOS]]></text>
 			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="36" splitType="Stretch">
+		<band height="14" splitType="Stretch">
 			<staticText>
-				<reportElement x="9" y="0" width="115" height="20"/>
+				<reportElement x="9" y="0" width="115" height="12" uuid="bcc84e99-6a23-4395-bbcc-ae5fbd9e55ad"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="true"/>
+					<font size="8" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[PACIENTE]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="124" y="0" width="125" height="20"/>
+				<reportElement x="124" y="0" width="125" height="12" uuid="e1d6d5da-fcb6-4e00-ab96-05d2a6bf18b0"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreYApellido}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nombreYApellido}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="0" y="12" width="555" height="1" uuid="3b20d975-820b-43a7-a639-939615403edc"/>
+			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="36">
+		<band height="15">
 			<staticText>
-				<reportElement x="15" y="14" width="32" height="20"/>
+				<reportElement x="15" y="0" width="32" height="13" uuid="9d1edf42-9ac5-47af-97a7-44b98c7a4a00"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="9" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[ORD]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="65" y="14" width="75" height="20"/>
+				<reportElement x="58" y="0" width="45" height="13" uuid="31638bd8-72b5-480e-879c-b1a23d18bb3d"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="9" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[FECHA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="124" y="14" width="99" height="20"/>
+				<reportElement x="124" y="0" width="99" height="13" uuid="a2ac40a0-5a0e-47f9-bf38-d21cb861154d"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="9" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[FORMA DE PRES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="233" y="14" width="123" height="20"/>
+				<reportElement x="236" y="0" width="123" height="13" uuid="1f06f29e-26ae-4fd8-9c8b-f2db5c2a724a"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="9" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[NOMBRE COMERCIAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="497" y="14" width="58" height="20"/>
+				<reportElement x="518" y="0" width="30" height="13" uuid="e8689543-cb06-41bb-9eca-3116f78a1c9b"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="9" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="368" y="14" width="42" height="20"/>
+				<reportElement x="385" y="0" width="33" height="13" uuid="dc81a736-d0e7-4fb8-9941-24fdc0b3ebe2"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="9" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CANT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="406" y="14" width="68" height="20"/>
+				<reportElement x="437" y="0" width="50" height="13" uuid="eee066e5-b36e-409e-a62e-8422b01cdcb9"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="9" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[PRECIO U]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="12" width="555" height="1" uuid="a377172c-5cf9-4245-8f40-aa1ce8bfed98"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="316" splitType="Stretch">
-			<staticText>
-				<reportElement x="293" y="103" width="131" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[SubTotal descartables]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="424" y="103" width="119" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalDescartable}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="428" y="245" width="79" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{total}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="293" y="123" width="131" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[A cargo del afiliado]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="424" y="123" width="119" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalDescartableAfiliado}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="293" y="143" width="131" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[A cargo Obra Social]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="424" y="143" width="119" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalDescartableOS}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="293" y="195" width="131" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[A cargo del afiliado]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="424" y="195" width="119" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalMedicamentoAfiliado}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="293" y="175" width="131" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[SubTotal medicamentos]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="293" y="215" width="131" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[A cargo Obra Social]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="424" y="215" width="119" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalMedicamentoOS}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="424" y="175" width="119" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalMedicamento}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="293" y="285" width="131" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[Total Obra Social]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="424" y="265" width="119" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalAfiliado}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="293" y="245" width="131" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[Total General]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="424" y="285" width="119" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalOS}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="293" y="265" width="131" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="false"/>
-				</textElement>
-				<text><![CDATA[Total afiliado]]></text>
-			</staticText>
+		<band height="37" splitType="Stretch">
 			<subreport>
-				<reportElement x="15" y="3" width="528" height="16"/>
+				<reportElement x="15" y="3" width="540" height="16" uuid="04b5f9a6-227f-499c-b3a3-b3101705bc4a"/>
 				<subreportParameter name="miURL">
 					<subreportParameterExpression><![CDATA[$P{miURL}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{items})]]></dataSourceExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "LineaFacturaMedicamento.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "LineaFacturaMedicamento.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
+		<band height="172">
+			<staticText>
+				<reportElement x="287" y="14" width="131" height="12" uuid="55b0b24b-2b98-4be6-a8a1-c0176d9dac0b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[SubTotal descartables:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="418" y="14" width="119" height="12" uuid="97e0f783-56ea-48c9-b2c3-f9b339822c42"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalDescartable}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="422" y="111" width="115" height="12" uuid="ab3f4d9c-a6bb-452b-8f24-6eaf81cae882"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="27" width="131" height="12" uuid="555cb499-ca06-44e3-b990-5c0060a4fdd4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[A cargo del afiliado:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="418" y="27" width="119" height="12" uuid="6ac39fb3-665f-4c4c-888b-2994830eff20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalDescartableAfiliado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="41" width="131" height="12" uuid="53bd8f67-ae48-490e-b4fb-1b034f315c32"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[A cargo Obra Social:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="418" y="41" width="119" height="12" uuid="153c8e61-ae12-411d-800e-42253b3e9ba6"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalDescartableOS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="76" width="131" height="12" uuid="ec85d304-8ff5-4534-a8f8-8fe4d46d8b00"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[A cargo del afiliado:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="418" y="76" width="119" height="12" uuid="60210674-6013-4bff-8a84-9d1a32fcdf26"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalMedicamentoAfiliado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="62" width="131" height="12" uuid="9aa36e80-3e5a-4a26-b32b-0e986eb230b1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[SubTotal medicamentos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="89" width="131" height="12" uuid="bbc42f5a-434f-4e4e-8c25-3d7ed73730fe"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[A cargo Obra Social:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="418" y="89" width="119" height="12" uuid="9af0c8c9-3a4c-43bd-9bd9-b05e268876a4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalMedicamentoOS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="418" y="62" width="119" height="12" uuid="55ee425e-0e44-4868-b43b-efe448697ca1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalMedicamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="139" width="131" height="12" uuid="e968a64c-ee56-42c8-a2dc-c5260d7030aa"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Total Obra Social]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="418" y="125" width="119" height="12" uuid="fb45d556-c192-4cdc-827f-4fa8e58d178c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalAfiliado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="111" width="131" height="12" uuid="c895361b-a1c1-43fa-8847-07875f4ca304"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Total General:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="418" y="139" width="119" height="12" uuid="55342295-5ac5-4b32-b9e1-51cc89140859"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalOS}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="125" width="131" height="12" uuid="801185a0-e908-4062-9be5-4be41c7f2ded"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Total afiliado]]></text>
+			</staticText>
+		</band>
 	</detail>
-	<pageFooter>
-		<band height="284" splitType="Stretch"/>
-	</pageFooter>
 </jasperReport>
