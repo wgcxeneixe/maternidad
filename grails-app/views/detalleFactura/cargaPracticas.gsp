@@ -229,7 +229,7 @@
 
             <td>
                 <g:link action="eliminarDetalle" controller="detalleFactura"
-                        params="[detalle: detalleFactura?.id, planilla: detalleFactura?.planillaInternacion?.id]"
+                        params="[detalle: detalleFactura?.id, planilla: detalleFactura?.planillaInternacion?.id,pantalla:'practica']"
                         onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">${message(code: 'default.button.delete.label')}</g:link>
             </td>
 
