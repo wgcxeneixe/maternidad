@@ -207,7 +207,13 @@ class DetalleFacturaController {
 
         detalleFacturaInstance.delete flush: true
 
-        redirect action: "cargaPracticas", params: [id: planilla]
+        if(params.pantalla=="practica"){
+            redirect action: "cargaPracticas", params: [id: planilla]
+        }
+        else {
+            redirect action: "cargaMedicamentos", params: [id: planilla]
+        }
+
 
         /* request.withFormat {
              form multipartForm {

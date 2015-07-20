@@ -86,7 +86,7 @@ ${maternidad.Profesional.withCriteria {persona{eq("razonSocial","NUEVA MATERNIDA
                     <g:message code="detalleFactura.profesional.label" default="Medicamento" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select id="medicamento" name="medicamento.id" from="${maternidad.Medicamento.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.medicamento?.id}" class="many-to-one"/>
+                <g:select id="medicamento" name="medicamento.id" from="${maternidad.Medicamento.list().sort {it.codigo.toBigInteger()}}" optionKey="id" required="" value="${detalleFacturaInstance?.medicamento?.id}" class="many-to-one"/>
 
             </div>
 
@@ -176,7 +176,7 @@ ${maternidad.Profesional.withCriteria {persona{eq("razonSocial","NUEVA MATERNIDA
                 </td>
 
                 <td>
-                    <g:link action="eliminarDetalle" controller="detalleFactura" params="[detalle:detalleFactura?.id,planilla:detalleFactura?.planillaInternacion?.id]"
+                    <g:link action="eliminarDetalle" controller="detalleFactura" params="[detalle:detalleFactura?.id,planilla:detalleFactura?.planillaInternacion?.id,pantalla:'medicamento']"
                             onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"
                     >${message(code: 'default.button.delete.label')}</g:link>
                 </td>

@@ -78,7 +78,7 @@ class NacimientoController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'nacimiento.label', default: 'Nacimiento'), nacimientoInstance.id])
-                redirect nacimientoInstance.planillainternacion
+                redirect controller: 'planillaInternacion',action: 'show',id:nacimientoInstance?.planillainternacion?.id
             }
             '*' { respond nacimientoInstance.planillainternacion, [status: CREATED] }
         }
