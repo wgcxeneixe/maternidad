@@ -84,7 +84,7 @@ class PlanillaInternacionImpresion {
             def detalle=new LineaPlanillaImpresion()
             detalle.diasInt=it?.diasInternacion?.toString()
             detalle.fecha=it?.fecha?.format("dd-MM-yyyy")
-            detalle.hora=it?.fecha?.format("H:m:s")
+            detalle.hora=it?.fecha?.format("H:m")
             detalle.sector=(it?.sector)?it?.sector?.toString():""
             detalle.tipoPension=(it?.tipoPension)?it?.tipoPension:""
             planillaI.items+=detalle
