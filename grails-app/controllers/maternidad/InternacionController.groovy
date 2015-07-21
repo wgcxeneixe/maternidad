@@ -86,7 +86,14 @@ class InternacionController {
     }
 
     def edit(Internacion internacionInstance) {
-        respond internacionInstance
+        if (params.idPlanilla){
+            render (view:"edit",model:[internacionInstance: internacionInstance, planilla: params.idPlanilla])
+        }else
+        {
+            flash.message = "Error"
+
+        }
+
     }
 
     @Transactional
@@ -106,7 +113,7 @@ class InternacionController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Internacion.label', default: 'Internacion'), internacionInstance.id])
-                redirect internacionInstance
+                redirect controller: "planillaInternacion",action: "show",params:[id:params.planilla]
             }
             '*' { respond internacionInstance, [status: OK] }
         }
@@ -128,6 +135,29 @@ class InternacionController {
                 redirect action: "index", method: "GET"
             }
             '*' { render status: NO_CONTENT }
+        }
+    }
+
+
+    def eliminar= {
+
+        if (!params.id) {
+            notFound()
+            return
+        }
+        def planilla=PlanillaInternacion.findById(params.planilla)
+
+        def internacionInstance=Internacion.findById(params.id)
+        planilla.internaciones.remove(internacionInstance)
+
+        internacionInstance.delete flush: true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Internacion.label', default: 'Internacion'), internacionInstance.id])
+                redirect controller: "planillaInternacion",action: "show",params:[id:params.planilla]
+            }
+            '*' {     redirect controller: "planillaInternacion",action: "show",params:[id:params.planilla] }
         }
     }
 
