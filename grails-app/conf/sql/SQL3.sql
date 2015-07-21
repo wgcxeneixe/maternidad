@@ -1187,3 +1187,6 @@ select setval('sami.seq_tipo_parto', 2, true);
 
 
 alter table sami.planilla_internacion alter column numero_afiliado type varchar
+ALTER TABLE sami.planilla_internacion ADD COLUMN dni_familiar_responsable bigint;
+UPDATE sami.planilla_internacion SET dni_familiar_responsable=1;
+ALTER TABLE sami.planilla_internacion ALTER COLUMN dni_familiar_responsable SET NOT NULL;
