@@ -40,7 +40,7 @@ class PlanillaInternacionImpresion {
         planillaI.nombreYApellido=planilla.paciente?.toString()
         planillaI.nroAfiliado=(planilla?.numeroAfiliado)?:""
         planillaI.nroDocumento=planilla?.paciente?.nroDocumento
-        planillaI.obraSocial=planilla?.plan.obrasocial?.codigo+' ('+planilla?.plan?.obrasocial?.nombre+') - '+planilla?.tipoSocio
+        planillaI.obraSocial=planilla?.plan?.obrasocial?.sigla+' ('+planilla?.plan.obrasocial?.codigo+') - '+planilla?.tipoSocio
         planillaI.observaciones=(planilla?.observaciones)?:""
         planillaI.tipoDocumento=planilla?.paciente?.tipoDocumento?.nombre
         planillaI.edad=(planilla?.fechaNacimiento)?planilla?.edad()?.toString():""
