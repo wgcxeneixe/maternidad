@@ -526,7 +526,13 @@ isNull("medicamento")
 </div>
 
 <div id="list-listadoInternaciones" class="content scaffold-list" role="main">
+
     <h1><g:message code="planillaInternacion.listadoInternaciones"  /></h1>
+    <div class="nav" role="navigation">
+        <ul>
+            <li><g:link class="create" controller="internacion" action="crear" id="${planillaInternacionInstance?.id}">${message(code: 'default.button.new.label',default: "Crear")}</g:link></li>
+        </ul>
+    </div>
     <table class="ajax">
         <thead>
         <tr>
@@ -541,7 +547,6 @@ isNull("medicamento")
 
             <th></th>
             <th></th>
-
         </tr>
         </thead>
         <tbody>
@@ -556,8 +561,9 @@ isNull("medicamento")
 
                 <td>${internacionInstance.diasInternacion}</td>
 
-                <td><g:link class="linkEdit" controller="internacion" action="edit" id="${internacionInstance?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
-                <td><g:link class="linkCreate" controller="internacion" action="crear" id="${planillaInternacionInstance?.id}">${message(code: 'default.button.new.label',default: "Crear")}</g:link></td>
+                <td><g:link class="linkEdit" controller="internacion" action="edit" id="${internacionInstance?.id}" params="[idPlanilla:planillaInternacionInstance?.id]">${message(code: 'default.button.edit.label')}</g:link></td>
+              <!--  <td><g:link class="linkCreate" controller="internacion" action="crear" id="${planillaInternacionInstance?.id}">${message(code: 'default.button.new.label',default: "Crear")}</g:link></td> -->
+                <td><g:link class="linkCreate" controller="internacion" action="eliminar" id="${internacionInstance?.id}" params="[planilla:planillaInternacionInstance?.id]" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">${message(code: 'default.button.new.label',default: "Eliminar")}</g:link></td>
             </tr>
         </g:each>
         </tbody>
