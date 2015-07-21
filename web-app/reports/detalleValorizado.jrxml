@@ -195,7 +195,7 @@ C. del Uruguay - E. Rios]]></text>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="2" width="43" height="12"/>
 				<textElement verticalAlignment="Middle">
-					<font size="8" isBold="true" isUnderline="true"/>
+					<font size="8" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TOTAL:]]></text>
 			</staticText>
