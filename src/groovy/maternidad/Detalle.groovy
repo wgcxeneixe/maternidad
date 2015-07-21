@@ -5,11 +5,12 @@ package maternidad
  */
 class Detalle {
 
-    String cantidad
+    BigDecimal cantidad
     String practica
     String profesional
-    String importe
+    Double importe
     String funcion
+    Integer orden
 
 
 

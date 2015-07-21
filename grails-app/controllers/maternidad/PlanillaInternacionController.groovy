@@ -318,7 +318,6 @@ class PlanillaInternacionController {
         }else{
 
          try{   def data = DetalleValorizado.generar(planillaInstance)
-
             generarPDF('detalleValorizado.jasper', "Detalle", [data], 'detalle-' + planillaInstance?.id)
 
              //si la planilla tiene el estado en proceso entonces cambiarla a impresa
