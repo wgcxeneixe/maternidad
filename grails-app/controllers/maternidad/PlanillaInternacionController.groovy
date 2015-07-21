@@ -438,6 +438,9 @@ class PlanillaInternacionController {
 
 
             } catch (Exception ex) {
+                println ex.stackTrace
+                println "------------------------"
+                println ex.message
                 ex
             }
 

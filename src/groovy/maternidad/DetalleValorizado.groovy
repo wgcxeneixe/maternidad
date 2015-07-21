@@ -43,7 +43,7 @@ class DetalleValorizado {
                 detalleFacturacion.funcion = it?.funcion
                 detalleFacturacion.profesional = it.profesional.persona.toString()
                 detalleFacturacion.importe = Double.valueOf(it.total() * it?.cantidad)
-                detalleFacturacion.orden = it?.funcion == 60? 1:(it?.funcion == 10? 2:(it?.funcion == 20? 3:(it?.funcion == 30?4:(it?.funcion == 70?5:10))))
+                detalleFacturacion.orden = it?.funcion == 60 ? 1 : (it?.funcion == 10 ? 2 : (it?.funcion == 20 ? 3 : (it?.funcion == 30 ? 4 : (it?.funcion == 70 ? 5 : 10))))
 
                 detalle.items.add(detalleFacturacion)
                 detalle.totalCant += it?.cantidad
@@ -56,8 +56,8 @@ class DetalleValorizado {
             }
 
         }
-        detalle.items?.sort{x,y->
-                x.orden <=> y.orden
+        detalle.items?.sort { x, y ->
+            x.orden <=> y.orden
         }
 
         detalle.total = detalle.totalImporte + detalle.totalMedicamento
