@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RegistroPracticas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RegistroPracticas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bc5d5118-fad4-44b6-a491-e04f41e2bd9a">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -11,82 +11,88 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="66" splitType="Stretch">
+		<band height="23" splitType="Stretch">
 			<staticText>
-				<reportElement x="10" y="20" width="555" height="26"/>
+				<reportElement x="10" y="2" width="555" height="17" uuid="48081cea-e294-4c60-9167-6296f6373b2f"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font size="14" isUnderline="false"/>
+					<font size="12" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[REGISTRO DIARIO DE PRACTICAS REALIZADAS]]></text>
 			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch">
+		<band height="14" splitType="Stretch">
 			<staticText>
-				<reportElement x="19" y="10" width="115" height="20"/>
+				<reportElement x="19" y="2" width="115" height="12" uuid="0dde8df3-e166-48ba-b44d-1a679134ecc2"/>
 				<textElement verticalAlignment="Middle">
-					<font size="10" isBold="true" isUnderline="true"/>
+					<font size="8" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[PACIENTE]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="134" y="10" width="125" height="20"/>
+				<reportElement x="134" y="2" width="125" height="12" uuid="24b5407e-eea2-430a-82b1-857d6d3969b0"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreYApellido}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nombreYApellido}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="43" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="43" y="23" width="75" height="20"/>
+				<reportElement x="43" y="5" width="75" height="13" uuid="28bf4cdb-4a89-4c6c-afb8-1f44a1cc9fa4"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="9" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[FECHA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="23" width="32" height="20"/>
+				<reportElement x="0" y="5" width="32" height="13" uuid="85f31632-77b4-4789-8572-f5b2dd557952"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="9" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[ORD]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="118" y="23" width="99" height="20"/>
+				<reportElement x="118" y="5" width="99" height="13" uuid="44f37d47-c6f6-43b8-8d3c-a7b09b6b5dfe"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="9" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[PRACTICA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="372" y="23" width="144" height="20"/>
+				<reportElement x="372" y="5" width="144" height="13" uuid="f18503fb-07ad-45c3-bdfd-d4788f3cdb57"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="9" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[PROFESIONAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="276" y="23" width="80" height="20"/>
+				<reportElement x="279" y="5" width="80" height="13" uuid="20f3808e-87b6-4cfc-a61d-9f752a4c6835"/>
 				<textElement verticalAlignment="Middle">
-					<font size="11" isBold="true" isUnderline="true"/>
+					<font size="9" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CODIGO]]></text>
 			</staticText>
+			<line>
+				<reportElement x="15" y="1" width="525" height="1" uuid="6d6752d4-513f-4e55-a6a8-525f707277b9"/>
+			</line>
+			<line>
+				<reportElement x="0" y="18" width="555" height="1" uuid="d9af684a-d041-4210-a6ad-7843b71d685e"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="58" splitType="Stretch">
 			<subreport>
-				<reportElement x="0" y="17" width="555" height="16"/>
+				<reportElement x="0" y="0" width="555" height="16" uuid="547e7496-3ca9-4ac0-940f-55febf87295a"/>
 				<subreportParameter name="miURL">
 					<subreportParameterExpression><![CDATA[$P{miURL}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{items})]]></dataSourceExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "LineaRegistroPracticas.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "LineaRegistroPracticas.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
