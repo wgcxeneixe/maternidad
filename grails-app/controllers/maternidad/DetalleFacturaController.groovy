@@ -294,6 +294,14 @@ class DetalleFacturaController {
             }?.sort { -it.id }
         }
 
+
+        if(params?.tieneErrores){
+
+            detalle.validate()
+            flash.error = params.error
+        }
+
+
         if (listaDetalles) detalle.fecha = listaDetalles.first()?.fecha
         return [detalleFacturaInstance: detalle, listaDetalles: listaDetalles]
     }
@@ -359,15 +367,18 @@ class DetalleFacturaController {
 
     @Transactional
     def saveCargaMedicamento(DetalleFactura detalleFacturaInstance) {
+        flash.error = null
+
         if (detalleFacturaInstance == null) {
             notFound()
             return
         }
 
-        if (detalleFacturaInstance.hasErrors()) {
-            respond detalleFacturaInstance.errors, view: 'cargaMedicamentos'
+       /* if (detalleFacturaInstance.hasErrors()) {
+            respond detalleFacturaInstance.errors, view: 'cargaMedicamentos',model: detalleFacturaInstance
             return
         }
+        */
 
         detalleFacturaInstance.cantidad = (params?.cantidad) ? params?.cantidad as Double : 0
         detalleFacturaInstance.valorMedicamento = (params?.valorMedicamento) ? params?.valorMedicamento as Double : 0
@@ -382,6 +393,12 @@ class DetalleFacturaController {
             flash.error = "La fecha ingresada (${params?.fechaText}) no es válida"
         }
 
+
+        if (flash.error || !detalleFacturaInstance.validate() || detalleFacturaInstance.hasErrors()) {
+            redirect(action: "cargaMedicamentos", params: [tieneErrores: true, id: detalleFacturaInstance.planillaInternacion.id, error: flash.error])
+
+            return
+        }
 
         detalleFacturaInstance.save flush: true
 

@@ -23,10 +23,14 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
+    <g:if test="${flash.error}">
+        <div class="errors" role="status">${flash.error}</div>
+    </g:if>
     <g:hasErrors bean="${detalleFacturaInstance}">
         <ul class="errors" role="alert">
             <g:eachError bean="${detalleFacturaInstance}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
+                        error="${error}"/></li>
             </g:eachError>
         </ul>
     </g:hasErrors>
@@ -94,7 +98,7 @@ ${maternidad.Profesional.withCriteria {persona{eq("razonSocial","NUEVA MATERNIDA
             <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'cantidad', 'error')} required">
                 <label for="cantidad">
                     <g:message code="detalleFactura.cantidad.label" default="Cantidad" />
-
+                    <span class="required-indicator">*</span>
                 </label>
                 <g:field type="number" step="any" id="cantidad" name="cantidad" required="" value="${fieldValue(bean: detalleFacturaInstance, field: 'cantidad')}"/>
 
