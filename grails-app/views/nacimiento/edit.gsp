@@ -39,5 +39,20 @@
 				</fieldset>
 			</g:form>
 		</div>
+
+	<script>
+		$(function() {
+			//idioma de los calendar
+			jQuery.datepicker.regional[ "es" ];
+			updateDatePicker();
+
+
+
+			jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+				updateDatePicker();
+			});
+		})
+	</script>
+
 	</body>
 </html>
