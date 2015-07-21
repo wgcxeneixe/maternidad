@@ -40,7 +40,7 @@ class PlanillaInternacionImpresion {
         planillaI.nombreYApellido=planilla.paciente?.toString()
         planillaI.nroAfiliado=(planilla?.numeroAfiliado)?:""
         planillaI.nroDocumento=planilla?.paciente?.nroDocumento
-        planillaI.obraSocial=planilla?.plan?.obrasocial?.codigo+' - '+planilla?.plan?.obrasocial?.nombre+' - '+planilla?.tipoSocio
+        planillaI.obraSocial=planilla?.plan.obrasocial?.codigo+' ('+planilla?.plan?.obrasocial?.codigo+' - '+planilla?.plan?.obrasocial?.nombre+') - '+planilla?.tipoSocio
         planillaI.observaciones=(planilla?.observaciones)?:""
         planillaI.tipoDocumento=planilla?.paciente?.tipoDocumento?.nombre
         planillaI.edad=(planilla?.fechaNacimiento)?planilla?.edad()?.toString():""
@@ -62,7 +62,7 @@ class PlanillaInternacionImpresion {
         planillaI.telefono=(planilla.paciente.telefono)?planilla.paciente.telefono:""
 
         planillaI.fechaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("dd-MM-yyyy"):""
-        planillaI.horaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("H:m:s"):""
+        planillaI.horaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("H:m"):""
         planillaI.diagnostico=(planilla?.diagnostico)?planilla?.diagnostico:""
 
         planillaI.nacimientos= new ArrayList<NacimientoImpresion>()

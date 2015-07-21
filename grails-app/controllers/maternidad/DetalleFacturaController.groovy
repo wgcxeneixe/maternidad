@@ -266,7 +266,7 @@ class DetalleFacturaController {
             if(params?.tieneErrores){
                 if(params.practicaId) detalle.practica = Practica.read(params.long('practicaId'))
                 if(params.profesionalId) detalle.profesional = Profesional.read(params.long('profesionalId'))
-                if(params.funcion) detalle.funcion = params.funcion
+                if(params.funcion) detalle.funcion = params.int('funcion')
                 detalle.validate()
                 flash.error = params.error
             }

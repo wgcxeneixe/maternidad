@@ -6,13 +6,12 @@ package maternidad
 class LineaDetalleSinValor {
 
     String nro
-    String cantidad
+    Double cantidad
     String practica
     String fecha
     String matricula
     String codigo
     String funcion
     String profesional
-
-
+    Integer orden
 }
