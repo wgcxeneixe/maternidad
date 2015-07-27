@@ -45,7 +45,7 @@ class FacturaMedicamentos {
 
         Integer renglon=0
 
-        planilla.detalles.each {
+        planilla.detalles.sort {it.fecha}.each {
 
 
              if(it.medicamento){
@@ -88,6 +88,8 @@ class FacturaMedicamentos {
 
 
         }
+
+
 
         factura.total=  Math.round(factura.total * 100) / 100
         factura.totalMedicamento=  Math.round(factura.totalMedicamento * 100) / 100
