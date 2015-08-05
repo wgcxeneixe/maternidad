@@ -1,5 +1,5 @@
 
-<%@ page import="maternidad.DetalleCaja" %>
+<%@ page import="maternidad.SubDetalleCaja; maternidad.DetalleCaja" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,6 +13,7 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="index"><g:message code="detalleCaja.list.label" args="[entityName]" /></g:link></li>
+                <li><g:link class="create" controller="subDetalleCaja" params="[detalleCajaId:detalleCajaInstance?.id]" action="create"><g:message code="subDetalleCaja.list.label" args="[entityName]" default="Nuevo Sub Detalle de Caja" /></g:link></li>
 			</ul>
 		</div>
 		<div id="show-detalleCaja" class="content scaffold-show" role="main">
@@ -110,11 +111,19 @@
 				</g:if>
 			
 			</ol>
-			<g:form url="[resource:detalleCajaInstance, action:'delete']" method="DELETE">
-				<fieldset class="buttons">
-					<g:link class="edit" action="edit" resource="${detalleCajaInstance}"><g:message code="default.button.editar.label" default="Edit" /></g:link>
-				</fieldset>
-			</g:form>
+            <g:form url="[resource:detalleCajaInstance, action:'delete']" method="DELETE">
+                <fieldset class="buttons">
+                    <g:link class="edit" action="edit" resource="${detalleCajaInstance}"><g:message code="default.button.editar.label" default="Edit" /></g:link>
+                </fieldset>
+            </g:form>
+
+            <g:if test="${detalleCajaInstance?.subDetallesCaja}">
+                <g:render  model="[subDetalleCajaInstanceList:detalleCajaInstance?.subDetallesCaja, entityName: 'Sub Detalle de Caja']" template="/subDetalleCaja/lista"/>
+            </g:if>
+
+            <g:render  model="[subDetalleCajaInstance:new SubDetalleCaja('detalleCaja':detalleCajaInstance), entityName: 'Sub Detalle de Caja']" template="/subDetalleCaja/create"/>
+
+
 		</div>
 	</body>
 </html>
