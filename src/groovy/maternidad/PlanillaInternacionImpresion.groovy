@@ -25,6 +25,7 @@ class PlanillaInternacionImpresion {
     String horaAlta
     String diagnostico
     String edad
+    String ficha
 
     List<NacimientoImpresion> nacimientos
     List<LineaPlanillaImpresion> items
@@ -51,7 +52,8 @@ class PlanillaInternacionImpresion {
         medicos+=(planilla?.medicoAyudante1)?planilla?.medicoAyudante1?.toString()+" - ":""
         medicos+=(planilla?.medicoAyudante2)?planilla?.medicoAyudante2?.toString()+" - ":""
         medicos+=(planilla?.medicoAnestesista)?planilla?.medicoAnestesista?.toString()+" - ":""
-
+        medicos+=(planilla?.medicoOtro1)?planilla?.medicoOtro1?.toString()+" - ":""
+        medicos+=(planilla?.medicoOtro2)?planilla?.medicoOtro2?.toString()+" - ":""
         planillaI.medicos=medicos
 
 
@@ -64,6 +66,8 @@ class PlanillaInternacionImpresion {
         planillaI.fechaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("dd-MM-yyyy"):""
         planillaI.horaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("H:m"):""
         planillaI.diagnostico=(planilla?.diagnostico)?planilla?.diagnostico:""
+planillaI.ficha=(planilla?.fichaAcler)?planilla?.fichaAcler:""
+
 
         planillaI.nacimientos= new ArrayList<NacimientoImpresion>()
         planilla.nacimientos.each {

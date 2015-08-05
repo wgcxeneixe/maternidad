@@ -17,7 +17,7 @@ class RegistroPracticas {
 
         Integer renglon=0
 
-        planilla.detalles.each {
+        planilla.detalles.sort {it.fecha}.each {
 
 
             if(it.practica){
@@ -40,6 +40,8 @@ class RegistroPracticas {
 
 
         }
+
+
 
 registro
     }

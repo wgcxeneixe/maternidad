@@ -480,50 +480,6 @@ isNull("medicamento")
 </g:if>
 
 
-<div id="list-detalleCaja" class="content scaffold-list" role="main">
-    <h1><g:message code="planillaInternacion.profesionalesAsociados"  /></h1>
-<table class="ajax">
-    <thead>
-    <tr>
-
-        <th><g:message code="profesional.persona.label" default="Persona"  /></th>
-
-        <g:sortableColumn property="matriculaProvincial" title="${message(code: 'profesional.matriculaProvincial.label', default: 'Matricula Provincial')}"  />
-
-        <th><g:message code="persona.nroDocumento.label" default="Nº Documento"  /></th>
-
-        <th><g:message code="persona.cuit.label" default="Cuit"  /></th>
-
-        <th><g:message code="profesional.banco.label" default="Banco"  /></th>
-
-        <g:sortableColumn property="activo" title="${message(code: 'profesional.activo.label', default: 'Activo')}"  />
-
-
-    </tr>
-    </thead>
-    <tbody>
-    <g:each in="${planillaInternacionInstance?.profesionales}" status="i" var="profesionalInstance">
-        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-
-            <td>${fieldValue(bean: profesionalInstance, field: "persona")}</td>
-
-
-            <td>${fieldValue(bean: profesionalInstance, field: "matriculaProvincial")}</td>
-
-            <td>${profesionalInstance?.persona?.nroDocumento} </td>
-
-            <td>${profesionalInstance?.persona?.cuit}</td>
-
-            <td>${fieldValue(bean: profesionalInstance, field: "banco")}</td>
-
-            <td><g:formatBoolean boolean="${profesionalInstance.activo}" /></td>
-
-        </tr>
-    </g:each>
-    </tbody>
-</table>
-
-</div>
 
 <div id="list-listadoInternaciones" class="content scaffold-list" role="main">
 
