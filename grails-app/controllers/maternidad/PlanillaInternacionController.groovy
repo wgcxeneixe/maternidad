@@ -58,6 +58,12 @@ class PlanillaInternacionController {
             if (params.sort){
                 order(params.sort,params.order)
             }
+else {
+                order("numeroIngreso", "desc")
+            }
+
+            eq('activo',true)
+
         }
 
         def criteria = PlanillaInternacion.createCriteria()
@@ -220,6 +226,10 @@ class PlanillaInternacionController {
         if (planillaInternacionInstance.hasErrors()) {
             respond planillaInternacionInstance.errors, view:'edit'
             return
+        }
+
+        if(params.planOriginal != planillaInternacionInstance.plan.id.toString()){
+            eliminarDetalles(planillaInternacionInstance?.id)
         }
 
         planillaInternacionInstance.save flush:true
@@ -867,5 +877,16 @@ sel ->
 
     }
 
+
+
+    def eliminarDetalles={
+
+        if(params.id){
+            def planilla=PlanillaInternacion.get(params.id as Integer)
+            def  detalles= DetalleFactura.findAllByPlanillaInternacion(planilla)
+            detalles.each {it.delete()}
+        }
+
+    }
 
 }

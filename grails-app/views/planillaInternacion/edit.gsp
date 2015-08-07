@@ -62,6 +62,16 @@
             updateDatePicker();
         });
 
+
+
+        jQuery( "#plan" ).change(function() {
+            if (confirm("Está seguro que desea cambiar el plan. Esto eliminará las practicas cargadas"))
+            {
+
+            }
+        });
+
+
     })
 
 </script>

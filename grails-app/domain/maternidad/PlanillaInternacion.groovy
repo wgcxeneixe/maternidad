@@ -30,7 +30,7 @@ class PlanillaInternacion {
     Profesional medicoOtro2
     String tipoSocio
     String fichaAcler
-
+    Boolean activo=true
 
 
 

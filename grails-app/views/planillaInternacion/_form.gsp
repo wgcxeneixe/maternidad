@@ -15,6 +15,8 @@
 
 
     <g:hiddenField name="paciente" value="${planillaInternacionInstance?.paciente?.id}"></g:hiddenField>
+
+    <g:hiddenField name="planOriginal" value="${planillaInternacionInstance?.plan?.id}"></g:hiddenField>
     <!--
     <g:select id="paciente" name="paciente.id" from="${maternidad.Persona.list()}" optionKey="id"
               value="${planillaInternacionInstance?.paciente?.id}" class="many-to-one" noSelection="['null': '']"/>
@@ -168,3 +170,14 @@
                  value="${planillaInternacionInstance?.fichaAcler}"/>
 
 </div>
+
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'activo', 'error')} ">
+    <label for="activo">
+        <g:message code="planillaInternacion.ficha.label" default="Activo"/>
+
+    </label>
+    <g:checkBox name="activo"
+                 value="${planillaInternacionInstance?.activo}"/>
+
+</div>
+

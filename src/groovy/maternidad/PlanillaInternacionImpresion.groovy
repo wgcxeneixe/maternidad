@@ -64,7 +64,7 @@ class PlanillaInternacionImpresion {
         planillaI.telefono=(planilla.paciente.telefono)?planilla.paciente.telefono:""
 
         planillaI.fechaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("dd-MM-yyyy"):""
-        planillaI.horaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("H:m"):""
+        planillaI.horaAlta=(planilla.fechaAlta)?planilla.fechaAlta.format("HH:mm"):""
         planillaI.diagnostico=(planilla?.diagnostico)?planilla?.diagnostico:""
 planillaI.ficha=(planilla?.fichaAcler)?planilla?.fichaAcler:""
 
@@ -81,14 +81,14 @@ planillaI.ficha=(planilla?.fichaAcler)?planilla?.fichaAcler:""
 
         planillaI.items= new ArrayList<LineaPlanillaImpresion>()
         //aca irian los detalles de los pases
-        planilla.internaciones.each {
+        planilla.internaciones.sort {it.fecha}.each {
 
 
 
             def detalle=new LineaPlanillaImpresion()
-            detalle.diasInt=it?.diasInternacion?.toString()
+            detalle.diasInt=(it?.diasInternacion)?it?.diasInternacion?.toString():'-'
             detalle.fecha=it?.fecha?.format("dd-MM-yyyy")
-            detalle.hora=it?.fecha?.format("H:m")
+            detalle.hora=it?.fecha?.format("HH:mm")
             detalle.sector=(it?.sector)?it?.sector?.toString():""
             detalle.tipoPension=(it?.tipoPension)?it?.tipoPension:""
             planillaI.items+=detalle
