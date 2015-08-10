@@ -506,7 +506,7 @@ isNull("medicamento")
         </tr>
         </thead>
         <tbody>
-        <g:each in="${planillaInternacionInstance?.internaciones}" status="i" var="internacionInstance">
+        <g:each in="${planillaInternacionInstance?.internaciones.sort{it?.fecha}}" status="i" var="internacionInstance">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
                 <td>${internacionInstance?.fecha}</td>

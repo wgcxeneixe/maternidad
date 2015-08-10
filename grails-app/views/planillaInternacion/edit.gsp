@@ -65,10 +65,8 @@
 
 
         jQuery( "#plan" ).change(function() {
-            if (confirm("Está seguro que desea cambiar el plan. Esto eliminará las practicas cargadas"))
-            {
+             alert("Atención: Al cambiar el plan se eliminarán las practicas cargadas")
 
-            }
         });
 
 

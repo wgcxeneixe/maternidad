@@ -86,7 +86,7 @@
         </g:each>
         </tbody>
     </table>
-${(planillaInternacionInstanceCount<20)?"Total Planillas:"+planillaInternacionInstanceCount:""}
+${(planillaInternacionInstanceCount<40)?"Total Planillas:"+planillaInternacionInstanceCount:""}
     <div class="pagination">
         <g:paginate total="${planillaInternacionInstanceCount ?: 0}" params="${filters}"/>
     </div>

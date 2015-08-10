@@ -67,7 +67,7 @@ else {
         }
 
         def criteria = PlanillaInternacion.createCriteria()
-        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        params.max = Math.min(params.max ? params.int('max') : 40, 100)
         def planillas = criteria.list(query, max: params.max, offset: params.offset)
         def filters = [dni: params.dni,nroplanilla:params.nroplanilla,nombre:params.nombre,estado:params.estado]
 
@@ -884,7 +884,11 @@ sel ->
         if(params.id){
             def planilla=PlanillaInternacion.get(params.id as Integer)
             def  detalles= DetalleFactura.findAllByPlanillaInternacion(planilla)
-            detalles.each {it.delete()}
+            detalles.each {
+                if (it?.practica!=null){
+                it.delete()
+                }
+            }
         }
 
     }
