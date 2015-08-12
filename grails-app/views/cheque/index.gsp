@@ -31,14 +31,20 @@
 
                     <table >
                         <tr>
-                            <td> <p><label for="nrofactura">Nº Cheque</label>
+                            <td> <p><label for="nrocheque">Nº Cheque</label>
                                 <g:field type="number" only-num="" name="nrocheque" value="${filters?.nrocheque}" /></p></td>
 
                             <td> <p><label for="fechaDesde">Fecha Emisión Desde</label>
                                 <g:datePicker name="fechaDesde" precision="day"  value="${filters?.fechaDesde}" format="dd-MM-yyyy" /></p></td>
                             <td> <p><label for="fechaHasta">Fecha Emisión Hasta</label>
                                 <g:datePicker name="fechaHasta" precision="day"  value="${filters?.fechaHasta}" format="dd-MM-yyyy" /></p></td>
+</tr>
+                        <tr>
+                            <td>
+                                <p><label for="banco">Banco</label>
 
+                                    <g:select id="banco" name="banco" from="${maternidad.Banco.list()}" optionKey="id" value="${filters?.banco}" class="many-to-one" noSelection="['': '']"/>
+                                </p><td>
 
                             <td>
                                 <p><g:submitButton name="filter" value="Filtrar" /></p></td>

@@ -320,6 +320,12 @@
                 <span>Cuenta Corriente</span>
             </a>
         </li>
+        <li class="${(controllerName == 'cheque' && actionName == 'index') ? 'active' : ''}">
+            <a href="${createLink(controller:'cheque',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                <i class="i i-dot"></i>
+                <span>Listado Cheques</span>
+            </a>
+        </li>
     </ul>
 </li>
 
@@ -359,12 +365,7 @@
                 <span>Listado de Facturas</span>
             </a>
         </li>
-        <li class="${(controllerName == 'factura' && actionName == 'facturar') ? 'active' : ''}">
-            <a href="${createLink(controller:'factura',action: 'facturar')}" class="auto"> <!-- /CreateLink -->
-                <i class="i i-dot"></i>
-                <span>Facturar</span>
-            </a>
-        </li>
+
         <li class="${(controllerName == 'pagoFactura' && actionName == 'index') ? 'active' : ''}">
             <a href="${createLink(controller:'facturaPeriodo',action: 'abrirPagarFactura')}" class="auto"> <!-- /CreateLink -->
                 <i class="i i-dot"></i>

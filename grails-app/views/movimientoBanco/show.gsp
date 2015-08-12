@@ -36,11 +36,30 @@
 				<li class="fieldcontain">
 					<span id="fecha-label" class="property-label"><g:message code="movimientoBanco.fecha.label" default="Fecha" /></span>
 					
-						<span class="property-value" aria-labelledby="fecha-label"><g:formatDate date="${movimientoBancoInstance?.fecha}" format="dd-MM-yyyy" /></span>
+						<span class="property-value" aria-labelledby="fecha-label"><g:formatDate date="${movimientoBancoInstance?.fecha}" format="dd-MM-yyyy HH:mm" /></span>
 					
 				</li>
 				</g:if>
-			
+
+				<g:if test="${movimientoBancoInstance?.fechaEmision}">
+					<li class="fieldcontain">
+						<span id="fechaEmision-label" class="property-label"><g:message code="movimientoBanco.fecha.label" default="Fecha Emisión" /></span>
+
+						<span class="property-value" aria-labelledby="fechaEmision-label"><g:formatDate date="${movimientoBancoInstance?.fechaEmision}" format="dd-MM-yyyy" /></span>
+
+					</li>
+				</g:if>
+
+				<g:if test="${movimientoBancoInstance?.fechaVencimientoCobro}">
+					<li class="fieldcontain">
+						<span id="fechaCobro-label" class="property-label"><g:message code="movimientoBanco.fecha.label" default="Fecha Vencimiento Cobro" /></span>
+
+						<span class="property-value" aria-labelledby="fechaCobro-label"><g:formatDate date="${movimientoBancoInstance?.fechaVencimientoCobro}" format="dd-MM-yyyy" /></span>
+
+					</li>
+				</g:if>
+
+
 				<g:if test="${movimientoBancoInstance?.observacion}">
 				<li class="fieldcontain">
 					<span id="observacion-label" class="property-label"><g:message code="movimientoBanco.observacion.label" default="Observacion" /></span>
@@ -50,15 +69,24 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${movimientoBancoInstance?.cheque}">
+				<g:if test="${movimientoBancoInstance?.numeroCheque}">
 				<li class="fieldcontain">
-					<span id="cheque-label" class="property-label"><g:message code="movimientoBanco.cheque.label" default="Cheque" /></span>
+					<span id="cheque-label" class="property-label"><g:message code="movimientoBanco.cheque.label" default="Numero Cheque" /></span>
 					
-						<span class="property-value" aria-labelledby="cheque-label"><g:link controller="cheque" action="show" id="${movimientoBancoInstance?.cheque?.id}">${movimientoBancoInstance?.cheque?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="cheque-label"><g:fieldValue bean="${movimientoBancoInstance}" field="numeroCheque"/></span>
 					
 				</li>
 				</g:if>
-			
+
+				<g:if test="${movimientoBancoInstance?.bancoCheque}">
+					<li class="fieldcontain">
+						<span id="bancoCheque-label" class="property-label"><g:message code="movimientoBanco.banco.label" default="Banco Cheque" /></span>
+
+						<span class="property-value" aria-labelledby="bancoCheque-label"><g:link controller="banco" action="show" id="${movimientoBancoInstance?.bancoCheque?.id}">${movimientoBancoInstance?.bancoCheque?.encodeAsHTML()}</g:link></span>
+
+					</li>
+				</g:if>
+
 				<g:if test="${movimientoBancoInstance?.numeroTransferencia}">
 				<li class="fieldcontain">
 					<span id="numeroTransferencia-label" class="property-label"><g:message code="movimientoBanco.numeroTransferencia.label" default="Numero Transferencia" /></span>

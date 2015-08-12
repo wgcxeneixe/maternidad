@@ -41,19 +41,22 @@
                                 <p><label for="banco">Banco</label>
 
                             <g:select id="banco" name="banco" from="${maternidad.Banco.list()}" optionKey="id" value="${filters?.banco}" class="many-to-one" noSelection="['': '']"/>
-                                </p>
+                                </p><td>
                         </tr>
                         <tr>
                             <td>
                                 <p><label for="concepto">Concepto</label>
 
                             <g:select id="concepto" name="concepto" from="${maternidad.ConceptoBanco.list()}" optionKey="id" value="${filters?.concepto}" class="many-to-one" noSelection="['': '']"/>
-                                </p>
+                                </p> </td>
                             <td>
                                 <p><label for="tipoPago">Tipo Pago</label>
 
                             <g:select id="tipoPago" name="tipoPago" from="${maternidad.TipoPago.list()}" optionKey="id" value="${filters?.tipoPago}" class="many-to-one" noSelection="['': '']"/>
-                        </p>
+                        </p></td>
+
+                            <td> <p><label for="numeroCheque">Nº Cheque</label>
+                                <g:field type="number" only-num="" name="numeroCheque" value="${filters?.nrocheque}" /></p></td>
 
                             <td>
                                 <p><g:submitButton name="filter" value="Filtrar" /></p></td>

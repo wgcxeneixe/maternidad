@@ -40,7 +40,7 @@
     </tbody>
 </table>
 <div class="pagination">
-    <util:remotePaginate  total="${movimientoBancoInstanceCount ?: 0}" update="divbanco" action="getCuenta" pageSizes="[5: '5 por Página',10:'10 por Página',15:'15 por Página']" params="${[idBanco:idBanco]}"  />
+    <util:remotePaginate  total="${movimientoBancoInstanceCount ?: 0}" update="divbanco" action="getCuenta" max="20" pageSizes="[5: '5 por Página',10:'10 por Página',15:'15 por Página']" params="${[idBanco:idBanco]}"  />
 </div>
 
 <div class="fieldcontain">

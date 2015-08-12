@@ -32,7 +32,11 @@ class ChequeController {
 
             }
 
+            if (params.banco) {
 
+                 banco{  eq('id',params.banco.toLong())  }
+
+            }
 
             if (params.sort){
                 order(params.sort,params.order)

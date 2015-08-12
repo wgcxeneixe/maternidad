@@ -6,6 +6,8 @@
 
         <th>${message(code: 'cheque.monto.label', default: 'Monto')}</th>
 
+        <th>${message(code: 'cheque.monto.label', default: 'Banco')}</th>
+
         <th>${message(code: 'cheque.fechaEmision.label', default: 'Fecha Emision')}</th>
 
         <th>${message(code: 'cheque.fechaVencimientoCobro.label', default: 'Fecha Vencimiento Cobro')}</th>
@@ -14,6 +16,7 @@
 
         <th>${message(code: 'cheque.descripcion.label', default: 'Descripcion')}</th>
 
+        <th>${message(code: 'cheque.descripcion.label', default: 'Rechazado')}</th>
 
 
       <th></th>
@@ -30,6 +33,8 @@
 
             <td>${chequeInstance?.monto}</td>
 
+            <td>${chequeInstance?.banco}</td>
+
             <td><g:formatDate date="${chequeInstance.fechaEmision}" format="dd-MM-yyyy" /></td>
 
             <td><g:formatDate date="${chequeInstance.fechaVencimientoCobro}" format="dd-MM-yyyy" /></td>
@@ -37,6 +42,8 @@
             <td><g:formatDate date="${chequeInstance.fechaRealCobro}" format="dd-MM-yyyy" /></td>
 
             <td>${ (chequeInstance?.descripcion?.size()>=40)? chequeInstance?.descripcion?.substring(0,40) +' ...':chequeInstance?.descripcion}</td>
+
+            <td><g:formatBoolean boolean="${chequeInstance?.rechazado}" /></td>
 
             <td><g:link class="linkEdit" action="edit" id="${chequeInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
 

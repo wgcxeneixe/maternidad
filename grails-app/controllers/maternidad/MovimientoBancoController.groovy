@@ -45,6 +45,10 @@ class MovimientoBancoController {
 
             }
 
+            if (params.numeroCheque) {
+                 eq('numeroCheque',params.numeroCheque.toInteger())
+
+            }
 
             if (params.sort){
                 order(params.sort,params.order)
@@ -53,7 +57,7 @@ class MovimientoBancoController {
 
         def criteria = MovimientoBanco.createCriteria()
         // params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        params.max = Math.min(max ?: 10, 100)
+        params.max = Math.min(max ?: 20, 100)
         def movimientos = criteria.list(query, max: params.max, offset: params.offset).unique()
         def filters = [fechaDesde: params.fechaDesde,fechaHasta: params.fechaHasta,banco:params.banco,concepto:params.concepto,tipoPago:params.tipoPago]
 
@@ -82,6 +86,7 @@ class MovimientoBancoController {
             def movimiento = new MovimientoBanco(params)
 
             movimiento.banco=banco
+            movimiento.fecha=new Date()
 
             respond movimiento
         }else {
@@ -100,8 +105,29 @@ class MovimientoBancoController {
         }
 
         if (movimientoBancoInstance.hasErrors()) {
-            respond movimientoBancoInstance.errors, view: 'create'
+
+            respond movimientoBancoInstance.errors, view: 'create',model:[id:params?.id]
             return
+        }
+
+        if (movimientoBancoInstance.tipoPago.codigo=='CHEQUE'){
+         def cheque = new Cheque()
+            cheque.fechaVencimientoCobro=movimientoBancoInstance?.fechaVencimientoCobro
+            cheque.banco=movimientoBancoInstance?.bancoCheque
+            cheque.descripcion=movimientoBancoInstance?.observacion
+            cheque.fechaEmision=movimientoBancoInstance?.fechaEmision
+            cheque.monto=movimientoBancoInstance?.monto
+            cheque.numero=movimientoBancoInstance?.numeroCheque
+            if (cheque.hasErrors()) {
+
+                respond movimientoBancoInstance.errors, view: 'create',model:[id:params?.id]
+                return
+            }
+
+          try{  cheque.save(flush: true,validate: false)}
+          catch (Exception ex){
+           ex
+          }
         }
 
         movimientoBancoInstance.monto=(params?.monto)? params?.monto as Double:0
@@ -112,7 +138,6 @@ class MovimientoBancoController {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'movimientoBanco.label', default: 'MovimientoBanco'), movimientoBancoInstance.id])
                 if(params.parametro){forward(controller: 'banco',action: 'index')}else {
-                   // redirect action: 'index'
                    redirect(action:'index')
                 }
             }
@@ -191,7 +216,7 @@ class MovimientoBancoController {
 
         if(params.idBanco && params.idBanco!='null' ) {
 
-            params.max = Math.min(params.max ? params.int('max') : 10, 100)
+            params.max = Math.min(params.max ? params.int('max') : 20, 100)
             def bancoInstance = Banco.read(params?.idBanco as String)
             def movimientos = MovimientoBanco.findAllByBanco(bancoInstance, [sort: "fecha", order: "desc",max: params.max, offset: params.offset])
 

@@ -85,7 +85,17 @@
 					
 				</li>
 				</g:if>
-			
+
+
+				<g:if test="${chequeInstance?.rechazado}">
+					<li class="fieldcontain">
+						<span id="rechazado-label" class="property-label"><g:message code="cheque.activo.label" default="Rechazado" /></span>
+
+						<span class="property-value" aria-labelledby="rechazado-label"><g:formatBoolean boolean="${chequeInstance?.rechazado}" /></span>
+
+					</li>
+				</g:if>
+
 				<g:if test="${chequeInstance?.banco}">
 				<li class="fieldcontain">
 					<span id="banco-label" class="property-label"><g:message code="cheque.banco.label" default="Banco" /></span>
@@ -94,7 +104,17 @@
 					
 				</li>
 				</g:if>
-			
+
+				<g:if test="${chequeInstance?.motivoRechazo}">
+					<li class="fieldcontain">
+						<span id="motivo-label" class="property-label"><g:message code="cheque.descripcion.label" default="Motivo Rechazo" /></span>
+
+						<span class="property-value" aria-labelledby="motivo-label"><g:fieldValue bean="${chequeInstance}" field="motivoRechazo"/></span>
+
+					</li>
+				</g:if>
+
+
 			</ol>
 			<g:form url="[resource:chequeInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
