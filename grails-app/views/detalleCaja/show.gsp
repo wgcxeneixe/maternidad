@@ -11,9 +11,9 @@
 		<a href="#show-detalleCaja" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+				<!--<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
 				<li><g:link class="list" action="index"><g:message code="detalleCaja.list.label" args="[entityName]" /></g:link></li>
-                <li><g:link class="create" controller="subDetalleCaja" params="[detalleCajaId:detalleCajaInstance?.id]" action="create"><g:message code="subDetalleCaja.list.label" args="[entityName]" default="Nuevo Sub Detalle de Caja" /></g:link></li>
+                <li><g:link class="create" controller="subDetalleCaja" params="[detalleCajaId:detalleCajaInstance?.id]" action="create"><g:message code="subDetalleCaja.list.label" args="[entityName]" default="Nuevo Detalle de Movimiento" /></g:link></li>
 			</ul>
 		</div>
 		<div id="show-detalleCaja" class="content scaffold-show" role="main">
