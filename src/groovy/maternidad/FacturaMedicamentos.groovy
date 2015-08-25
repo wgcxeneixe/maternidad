@@ -45,7 +45,7 @@ class FacturaMedicamentos {
 
         Integer renglon=0
 
-        planilla.detalles.each {
+        planilla.detalles.sort {it.fecha}.each {
 
 
              if(it.medicamento){
@@ -67,13 +67,13 @@ class FacturaMedicamentos {
 
                  if(it?.medicamento?.tipoMedicamento?.codigo=='DES'){
                      factura.totalDescartable+= Math.round(it.valorMedicamento*it.cantidad  * 100) / 100
-                     factura.totalDescartableAfiliado= Math.round(it.valorMedicamento*it.cantidad*porcentajeAfiliado/100  * 100) / 100
-                     factura.totalDescartableOS=  Math.round(it.valorMedicamento*it.cantidad*porcentajeOS/100  * 100) / 100
+                     factura.totalDescartableAfiliado+= Math.round(it.valorMedicamento*it.cantidad*porcentajeAfiliado/100  * 100) / 100
+                     factura.totalDescartableOS+=  Math.round(it.valorMedicamento*it.cantidad*porcentajeOS/100  * 100) / 100
                  }
                  else if(it?.medicamento?.tipoMedicamento?.codigo=='MED'){
-                     factura.totalMedicamento=Math.round(it.valorMedicamento*it.cantidad  * 100) / 100
-                     factura.totalMedicamentoAfiliado=Math.round(it.valorMedicamento*it.cantidad*porcentajeAfiliado/100  * 100) / 100
-                     factura.totalMedicamentoOS=Math.round(it.valorMedicamento*it.cantidad*porcentajeOS/100  * 100) / 100
+                     factura.totalMedicamento+=Math.round(it.valorMedicamento*it.cantidad  * 100) / 100
+                     factura.totalMedicamentoAfiliado+=Math.round(it.valorMedicamento*it.cantidad*porcentajeAfiliado/100  * 100) / 100
+                     factura.totalMedicamentoOS+=Math.round(it.valorMedicamento*it.cantidad*porcentajeOS/100  * 100) / 100
                  }
 
 
@@ -88,6 +88,8 @@ class FacturaMedicamentos {
 
 
         }
+
+
 
         factura.total=  Math.round(factura.total * 100) / 100
         factura.totalMedicamento=  Math.round(factura.totalMedicamento * 100) / 100

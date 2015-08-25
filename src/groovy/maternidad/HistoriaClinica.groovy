@@ -18,6 +18,8 @@ class HistoriaClinica {
     String medicoAyudante1
     String medicoAyudante2
     String medicoAnestesista
+    String otro1
+    String otro2
     String diagnostico
     String tratamiento
 
@@ -38,6 +40,8 @@ class HistoriaClinica {
       historiaClinica.medicoAyudante1=(planilla?.medicoAyudante1)?planilla?.medicoAyudante1?.toString():""
       historiaClinica.medicoAyudante2=(planilla?.medicoAyudante2)?planilla?.medicoAyudante2?.toString():""
       historiaClinica.medicoAnestesista=(planilla?.medicoAnestesista)?planilla?.medicoAnestesista?.toString():""
+      historiaClinica.otro1=(planilla?.medicoOtro1)?planilla?.medicoOtro1?.toString():""
+      historiaClinica.otro2=(planilla?.medicoOtro2)?planilla?.medicoOtro2?.toString():""
       historiaClinica.diagnostico=(planilla?.diagnostico)?planilla?.diagnostico:""
       historiaClinica.tratamiento=(planilla?.tratamiento)?planilla?.tratamiento:""
 

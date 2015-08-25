@@ -58,10 +58,16 @@ class PlanillaInternacionController {
             if (params.sort){
                 order(params.sort,params.order)
             }
+else {
+                order("numeroIngreso", "desc")
+            }
+
+            eq('activo',true)
+
         }
 
         def criteria = PlanillaInternacion.createCriteria()
-        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        params.max = Math.min(params.max ? params.int('max') : 40, 100)
         def planillas = criteria.list(query, max: params.max, offset: params.offset)
         def filters = [dni: params.dni,nroplanilla:params.nroplanilla,nombre:params.nombre,estado:params.estado]
 
@@ -222,6 +228,10 @@ class PlanillaInternacionController {
             return
         }
 
+        if(params.planOriginal != planillaInternacionInstance.plan.id.toString()){
+            eliminarDetalles(planillaInternacionInstance?.id)
+        }
+
         planillaInternacionInstance.save flush:true
 
         request.withFormat {
@@ -318,7 +328,6 @@ class PlanillaInternacionController {
         }else{
 
          try{   def data = DetalleValorizado.generar(planillaInstance)
-
             generarPDF('detalleValorizado.jasper', "Detalle", [data], 'detalle-' + planillaInstance?.id)
 
              //si la planilla tiene el estado en proceso entonces cambiarla a impresa
@@ -439,6 +448,9 @@ class PlanillaInternacionController {
 
 
             } catch (Exception ex) {
+                println ex.stackTrace
+                println "------------------------"
+                println ex.message
                 ex
             }
 
@@ -856,6 +868,8 @@ sel ->
         planilla.medicoAyudante1=(params.medicoAyudante1.id)?Profesional.get(params.medicoAyudante1.id):null
         planilla.medicoAyudante2=(params.medicoAyudante2.id)?Profesional.get(params.medicoAyudante2.id):null
         planilla.medicoAnestesista=(params.medicoAnestesista.id)?Profesional.get(params.medicoAnestesista.id):null
+        planilla.medicoOtro1=(params.medicoOtro1.id)?Profesional.get(params.medicoOtro1.id):null
+        planilla.medicoOtro2=(params.medicoOtro2.id)?Profesional.get(params.medicoOtro2.id):null
 
         planilla.save(flush: true)
 
@@ -863,5 +877,20 @@ sel ->
 
     }
 
+
+
+    def eliminarDetalles={
+
+        if(params.id){
+            def planilla=PlanillaInternacion.get(params.id as Integer)
+            def  detalles= DetalleFactura.findAllByPlanillaInternacion(planilla)
+            detalles.each {
+                if (it?.practica!=null){
+                it.delete()
+                }
+            }
+        }
+
+    }
 
 }

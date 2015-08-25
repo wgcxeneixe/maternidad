@@ -13,8 +13,12 @@ class Medicamento {
     Laboratorio laboratorio
 
 
+    static mapping = {
+        sort codigo:  "asc"
+    }
+
     static constraints = {
-        codigo(size:2..30, nullable:true, blank:true)
+        codigo(size:1..30, nullable:true, blank:true)
         nombre(size:2..35, nullable:true, blank:true)
         activo(nullable:true, blank:true)
         descripcion(size:0..5000, nullable:true, blank:true)
@@ -25,7 +29,7 @@ class Medicamento {
         laboratorio( nullable:true, blank:true)
     }
 
-    String toString() { "${nombre +' - '+ codigo}" }
+    String toString() { "${codigo +' - '+ nombre}" }
 
 
 

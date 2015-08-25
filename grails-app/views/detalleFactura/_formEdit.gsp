@@ -166,7 +166,7 @@
 
         </label>
         <g:field name="valorMedicamento" type="number" step="any"
-                 value="${fieldValue(bean: detalleFacturaInstance, field: 'valorMedicamento')}"/>
+                 value="${detalleFacturaInstance?.valorMedicamento}"/>
 
     </div>
 </g:if>

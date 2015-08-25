@@ -28,7 +28,7 @@ class CalculoValoresService {
         //def practicasNomencladaspisar = Practica.findAllByNomencladaAndIdNotInList(Boolean.TRUE, valores)
         // valores practicas de nomencladas no relacionadas con modulos
 
-        try{
+       // try{
 
             def valoresPracticas = ValorPractica.withCriteria {
                 eq("planConvenio", planConvenio)
@@ -65,23 +65,33 @@ class CalculoValoresService {
                     valorPractica.fechaActualizado = new Date()
                     valorPractica.planConvenio = planConvenio
                     valorPractica.plan = planConvenio.plan
+
                     valorPractica.valorAnestecista =  Math.round(valorHonorario.get(0) * 100) / 100
                     valorPractica.valorAyudante = Math.round(valorHonorario.get(1) * 100) / 100
                     valorPractica.valorEspecialista = Math.round(valorHonorario.get(2) * 100) / 100
+
+
+
                     // valorPractica.valorHonorario=valorPractica.valorAnestecista+valorPractica.valorAyudante+ valorPractica.valorEspecialista
-                    valorPractica.valorGasto =  Math.round(valorGasto * 100) / 100
+                   try{
+                       valorPractica.valorGasto =  Math.round(valorGasto * 100) / 100
+                   }catch (Exception ex){
+                       ex
+                   }
+
                     valorPractica.save(flush: true)
                 }
 
             }
 
             flag=true
-        }catch (Exception ex){
+
+     /*   }catch (Exception ex){
 
             flag=false
 
         }
-
+*/
         def responseData = [
                 'resultado': flag
 
@@ -130,6 +140,8 @@ class CalculoValoresService {
         def valorGalenohonorario = ValorGalenoHonorario.findByPlanConvenioAndTipoHonorario(planConvenio, practica?.tipoHonorario)
 
         componentes.each {
+
+         try{
             // valor ayudante
             if (it?.id == 1) {
                 def valorunidad = ValorUnidadHonorario.findByComponenteAndPractica(it, practica)
@@ -151,9 +163,15 @@ class CalculoValoresService {
 
                 valorEspecialista = valorunidad?.valor * valorGalenohonorario?.valor //* practica.multiplicadorHonorario
             }
+         }catch (Exception ex) {
+ex
+         }
 
         }
 
+        valorAyudante=(valorAyudante)?:0
+        valorAnestesista=(valorAnestesista)?:0
+        valorEspecialista=(valorEspecialista)?:0
         lista = [valorAyudante, valorAnestesista, valorEspecialista]
 
         return lista

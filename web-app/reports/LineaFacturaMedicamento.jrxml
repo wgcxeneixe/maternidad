@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LineaFacturaMedicamento" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LineaFacturaMedicamento" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d4b2bbd2-68ad-4db1-9759-6f7ac4463fd8">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="499"/>
 	<property name="ireport.y" value="0"/>
 	<field name="cantidad" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
@@ -11,55 +11,55 @@
 	<field name="precioU" class="java.math.BigDecimal"/>
 	<field name="nro" class="java.lang.String"/>
 	<detail>
-		<band height="22" splitType="Stretch">
+		<band height="13" splitType="Stretch">
 			<textField>
-				<reportElement x="226" y="2" width="134" height="20"/>
+				<reportElement x="226" y="1" width="134" height="12" uuid="7acfe4ff-161d-4b1c-9d55-5d48066c6cb6"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="11" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nombre}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="118" y="2" width="108" height="20"/>
+				<reportElement x="107" y="1" width="119" height="12" uuid="5d3c11b8-ab07-4831-b664-70a104f911e3"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="11" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{formaDePres}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{formaDePres}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="469" y="1" width="58" height="12" uuid="7ea0b164-45e4-4fb2-97ad-b7ce9ba01031"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalLinea}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="502" y="2" width="78" height="20"/>
+				<reportElement x="40" y="1" width="67" height="12" uuid="63eee608-5da8-45a8-a571-db6673290449"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="11" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalLinea}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="40" y="2" width="78" height="20"/>
+				<reportElement x="0" y="1" width="40" height="12" uuid="3e6c8c5a-83ad-4677-804a-5248d6a19786"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="11" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nro}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="0" y="2" width="40" height="20"/>
+			<textField pattern="">
+				<reportElement x="373" y="1" width="38" height="12" uuid="57f235f6-7b74-4582-9319-5bd10ca03bb9"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="11" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{nro}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="373" y="2" width="38" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="11" isBold="false"/>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement x="421" y="1" width="38" height="12" uuid="733f1e23-7f63-4cdb-aa38-4e7e7667fe76"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{cantidad}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="421" y="2" width="38" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="11" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{precioU}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{precioU}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

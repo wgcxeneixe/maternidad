@@ -55,5 +55,5 @@
     </tbody>
 </table>
 <div class="pagination">
-    <g:paginate total="${obraSocialInstanceCount ?: 0}" params="${filters}" />
+    <g:paginate total="${obraSocialInstanceTotal ?: 0}" params="${filters}" />
 </div>

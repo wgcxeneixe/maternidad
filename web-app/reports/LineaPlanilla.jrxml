@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LineaPlanilla" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
-	<property name="ireport.zoom" value="1.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LineaPlanilla" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5a5c88ad-d189-4783-bca6-3a13e7d4aed1">
+	<property name="ireport.zoom" value="4.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="fecha" class="java.lang.String"/>
@@ -11,43 +11,98 @@
 	<background>
 		<band splitType="Stretch"/>
 	</background>
+	<columnHeader>
+		<band height="16">
+			<staticText>
+				<reportElement x="7" y="1" width="47" height="12" uuid="c2ccb8a5-924a-446e-a59f-77efdb278d4d"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="1" width="47" height="12" uuid="878f1dd0-f443-4117-8ec8-a4786341144d"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[HORA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="161" y="1" width="105" height="12" uuid="7a50d868-fec5-457a-80dd-eb6ed16e4851"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[SECTOR-SERVICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="1" width="81" height="12" uuid="66e58b2e-bef6-4bc9-88d8-7d67931a4b5a"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[TIPO PENSION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="498" y="1" width="56" height="12" uuid="563dbd22-82f7-42c4-80cf-66800962f723"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[DIAS INT.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="13" width="545" height="1" uuid="ee9ab16c-ea25-4c22-b3b7-3d2312ef9adc"/>
+				<graphicElement>
+					<pen lineStyle="Solid" lineColor="#333333"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
 	<detail>
-		<band height="22" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="89" height="20"/>
+		<band height="12" splitType="Stretch">
+			<textField pattern="">
+				<reportElement x="8" y="0" width="77" height="12" uuid="653173d7-048c-485c-bea9-eb3a818f8f73"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm">
+				<reportElement x="89" y="0" width="89" height="12" uuid="3d9cdc54-ab5e-4d43-9a73-6b5427ccfffe"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="89" y="0" width="89" height="20"/>
+				<reportElement x="178" y="0" width="171" height="12" uuid="a6546122-8c4a-457f-b97b-c9ed507cb468"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{hora}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sector}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="178" y="0" width="171" height="20"/>
+				<reportElement x="349" y="0" width="125" height="12" uuid="ed3b674c-8e97-49ba-a2d7-7ba5230b0b6f"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{sector}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tipoPension}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="349" y="0" width="125" height="20"/>
+				<reportElement x="513" y="0" width="72" height="12" uuid="84fc6d43-6bcd-4f82-8d39-ef25d8313804"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
+					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{tipoPension}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="513" y="0" width="72" height="20"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{diasInt}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{diasInt}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
+	<columnFooter>
+		<band height="2">
+			<line>
+				<reportElement x="3" y="0" width="545" height="1" uuid="71411bc5-75b3-425b-8b93-2d80b6e8843a"/>
+				<graphicElement>
+					<pen lineStyle="Solid" lineColor="#333333"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
 </jasperReport>

@@ -33,7 +33,7 @@
 
             <td>${fieldValue(bean: practicaInstance, field: "multiplicadorGasto")}</td>
 
-            <td><g:link class="linkEdit" action="editNomenclada" id="${practicaInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
+            <td><g:link class="linkEdit" action="editar" id="${practicaInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
 
             <td><g:link class="linkShow" action="showNomenclada" id="${practicaInstance.id}">${message(code: 'default.button.show.label')}</g:link></td>
 

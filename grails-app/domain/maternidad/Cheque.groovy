@@ -10,7 +10,8 @@ class Cheque {
     Boolean activo = true
     Integer numero
     Banco banco
-
+    Boolean rechazado
+    String motivoRechazo
 
 
     static constraints = {
@@ -21,9 +22,10 @@ class Cheque {
         fechaRealCobro(attributes:[precision:"day"],nullable: true)
         descripcion(size:0..5000, nullable:true, blank:true)
         numero(nullable:false,blank:false)
-
+        motivoRechazo(size:0..5000, nullable:true, blank:true)
+        rechazado(nullable: true,blank:true)
     }
 
-    String toString() { "${numero}"  }
+    String toString() { "${numero+ " - " +banco?.nombre}"  }
 
 }

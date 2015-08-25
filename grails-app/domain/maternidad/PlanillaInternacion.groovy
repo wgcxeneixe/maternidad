@@ -7,6 +7,7 @@ class PlanillaInternacion {
     Date fechaInternacion
     String nombreFamiliarResponsable
     String telefonoFamiliarResponsable
+    Long dniFamiliarResponsable
     String domicilioFamiliarResponsable
     String ocupacion
 
@@ -15,7 +16,7 @@ class PlanillaInternacion {
     Integer numeroIngreso
     String diagnostico
     String tratamiento
-    Long numeroAfiliado
+    String numeroAfiliado
     Set movimientos
     EstadoPlanilla estadoPlanilla
     Factura factura
@@ -29,13 +30,17 @@ class PlanillaInternacion {
     Profesional medicoOtro2
     String tipoSocio
     String fichaAcler
+    Boolean activo=true
+
+
 
     static constraints = {
         paciente(nullable: true,blank:true)
         plan(nullable: false,blank:false)
         fechaInternacion(nullable: false,blank:false, attributes:[precision:"minute"])
         nombreFamiliarResponsable(nullable: false,blank:false)
-        telefonoFamiliarResponsable(phoneNumber:true)
+        telefonoFamiliarResponsable(phoneNumber:true,blank:true,nullable: true,)
+        dniFamiliarResponsable(nullable: false,blank:false)
         //fechaAlta(nullable: true,blank:true,validator: { val, obj ->val?.after(obj.fechaInternacion) || val?.equals(obj.fechaInternacion)},attributes:[precision:"day"])
         fechaAlta(nullable: true,blank:true,attributes:[precision:"minute"])
         observaciones(nullable: true,blank:true, size: 0..5000)

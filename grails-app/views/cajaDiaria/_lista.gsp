@@ -18,6 +18,7 @@
 
             <th></th>
 
+            <th></th>
 
         </tr>
         </thead>
@@ -37,6 +38,7 @@
 
                 <td>$ ${fieldValue(bean: detalleCajaInstance, field: "monto")}</td>
 
+                <td><g:link class="linkEdit" controller="detalleCaja" action="show" id="${detalleCajaInstance.id}">${message(code: 'default.button.edit.label')}</g:link></td>
 
             </tr>
         </g:each>

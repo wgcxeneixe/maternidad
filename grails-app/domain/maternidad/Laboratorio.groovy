@@ -14,4 +14,7 @@ class Laboratorio {
         telefono( nullable:true, blank:true)
 
     }
+
+    String toString() { "${nombre}" }
+
 }

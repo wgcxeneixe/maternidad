@@ -17,12 +17,11 @@ class DetalleCajaController {
     def springSecurityService
 
 
-
-    def index={
+    def index = {
 
         def query = {
             if (params.caja) {
-                eq('caja.id', params.caja?.toLong() )
+                eq('caja.id', params.caja?.toLong())
             }
             if (params.fechaDesde && params.fechaHasta) {
                 between('fecha', params.fechaDesde as Date, params.fechaHasta as Date)
@@ -30,8 +29,8 @@ class DetalleCajaController {
 
             }
 
-            if (params.sort){
-                order(params.sort,params.order)
+            if (params.sort) {
+                order(params.sort, params.order)
             }
         }
 
@@ -40,42 +39,42 @@ class DetalleCajaController {
         params.max = Math.min(params.max ? params.int('max') : 20, 100)
         def detalles = criteria.list(query, max: params.max, offset: params.offset)
 
-        def filters = [caja: params.caja,fechaDesde:params.fechaDesde,fechaHasta:params.fechaHasta]
+        def filters = [caja: params.caja, fechaDesde: params.fechaDesde, fechaHasta: params.fechaHasta]
 
-        def model = [detalleCajaInstanceList: detalles, detalleCajaInstanceCount:detalles.totalCount, filters: filters]
+        def model = [detalleCajaInstanceList: detalles, detalleCajaInstanceCount: detalles.totalCount, filters: filters]
 
         if (request.xhr) {
             // ajax request
             render(template: "grilla", model: model)
-        }
-        else {
+        } else {
             model
         }
     }
 
     def show(DetalleCaja detalleCajaInstance) {
+        if (!detalleCajaInstance?.subDetallesCaja) detalleCajaInstance?.subDetallesCaja = []
         respond detalleCajaInstance
     }
 
     def create() {
-        def cajaDiariaAbiertaInstance =  CajaDiaria.findByFechaCierreIsNull()
-        if(cajaDiariaAbiertaInstance == null ){
+
+        def cajaDiariaAbiertaInstance = CajaDiaria.findByFechaCierreIsNull()
+        if (cajaDiariaAbiertaInstance == null) {
             //No existe una caja abierta
             redirect action: "create", method: "POST", controller: "cajaDiaria"
-        }
-        else{
+        } else {
             //Existe una caja abierta, paso los datos
             def DetalleCajaInstance = new DetalleCaja()
             DetalleCajaInstance.fecha = new Date()
             DetalleCajaInstance.caja = cajaDiariaAbiertaInstance
             DetalleCajaInstance.usuario = springSecurityService.currentUser
-            respond DetalleCajaInstance, model:[cajaDiariaAbiertaInstance: CajaDiaria]
+            respond DetalleCajaInstance, model: [cajaDiariaAbiertaInstance: CajaDiaria]
         }
     }
 
     @Transactional
     def save(DetalleCaja detalleCajaInstance) {
-        def cajaDiariaAbiertaInstance =  CajaDiaria.findByFechaCierreIsNull()
+        def cajaDiariaAbiertaInstance = CajaDiaria.findByFechaCierreIsNull()
         detalleCajaInstance.fecha = new Date()
         detalleCajaInstance.caja = cajaDiariaAbiertaInstance
         detalleCajaInstance.usuario = springSecurityService.currentUser
@@ -90,9 +89,17 @@ class DetalleCajaController {
             return
         }
 
-        detalleCajaInstance.monto=(params?.monto)? params?.monto as Double :0
+        detalleCajaInstance.monto = (params?.monto) ? params?.monto as Double : 0
 
         detalleCajaInstance.save flush: true
+
+        def sub = new SubDetalleCaja()
+        sub.monto = detalleCajaInstance.monto
+        sub.credito = detalleCajaInstance.credito
+        sub.conceptocaja = detalleCajaInstance.conceptocaja
+        sub.detalleCaja = detalleCajaInstance
+        sub.usuario = detalleCajaInstance.usuario
+        sub.save()
 
         request.withFormat {
             form multipartForm {
@@ -101,7 +108,7 @@ class DetalleCajaController {
             }
             '*' {
                 respond cajaDiariaAbiertaInstance, [status: CREATED]
-                }
+            }
         }
     }
 

@@ -62,6 +62,14 @@
             updateDatePicker();
         });
 
+
+
+        jQuery( "#plan" ).change(function() {
+             alert("Atención: Al cambiar el plan se eliminarán las practicas cargadas")
+
+        });
+
+
     })
 
 </script>

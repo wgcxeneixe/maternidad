@@ -29,7 +29,7 @@
 
 
 
-            <td>${fieldValue(bean: movimientoBancoInstance, field: "cheque")}</td>
+            <td>${fieldValue(bean: movimientoBancoInstance, field: "numeroCheque")}</td>
 
             <td>${fieldValue(bean: movimientoBancoInstance, field: "numeroTransferencia")}</td>
 

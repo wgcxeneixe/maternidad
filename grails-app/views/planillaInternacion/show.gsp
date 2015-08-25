@@ -480,53 +480,15 @@ isNull("medicamento")
 </g:if>
 
 
-<div id="list-detalleCaja" class="content scaffold-list" role="main">
-    <h1><g:message code="planillaInternacion.profesionalesAsociados"  /></h1>
-<table class="ajax">
-    <thead>
-    <tr>
-
-        <th><g:message code="profesional.persona.label" default="Persona"  /></th>
-
-        <g:sortableColumn property="matriculaProvincial" title="${message(code: 'profesional.matriculaProvincial.label', default: 'Matricula Provincial')}"  />
-
-        <th><g:message code="persona.nroDocumento.label" default="Nº Documento"  /></th>
-
-        <th><g:message code="persona.cuit.label" default="Cuit"  /></th>
-
-        <th><g:message code="profesional.banco.label" default="Banco"  /></th>
-
-        <g:sortableColumn property="activo" title="${message(code: 'profesional.activo.label', default: 'Activo')}"  />
-
-
-    </tr>
-    </thead>
-    <tbody>
-    <g:each in="${planillaInternacionInstance?.profesionales}" status="i" var="profesionalInstance">
-        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-
-            <td>${fieldValue(bean: profesionalInstance, field: "persona")}</td>
-
-
-            <td>${fieldValue(bean: profesionalInstance, field: "matriculaProvincial")}</td>
-
-            <td>${profesionalInstance?.persona?.nroDocumento} </td>
-
-            <td>${profesionalInstance?.persona?.cuit}</td>
-
-            <td>${fieldValue(bean: profesionalInstance, field: "banco")}</td>
-
-            <td><g:formatBoolean boolean="${profesionalInstance.activo}" /></td>
-
-        </tr>
-    </g:each>
-    </tbody>
-</table>
-
-</div>
 
 <div id="list-listadoInternaciones" class="content scaffold-list" role="main">
+
     <h1><g:message code="planillaInternacion.listadoInternaciones"  /></h1>
+    <div class="nav" role="navigation">
+        <ul>
+            <li><g:link class="create" controller="internacion" action="crear" id="${planillaInternacionInstance?.id}">${message(code: 'default.button.new.label',default: "Crear")}</g:link></li>
+        </ul>
+    </div>
     <table class="ajax">
         <thead>
         <tr>
@@ -540,11 +502,11 @@ isNull("medicamento")
             <th><g:message code="profesional.banco.label" default="Dias Int"  /></th>
 
             <th></th>
-
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <g:each in="${planillaInternacionInstance?.internaciones}" status="i" var="internacionInstance">
+        <g:each in="${planillaInternacionInstance?.internaciones.sort{it?.fecha}}" status="i" var="internacionInstance">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
                 <td>${internacionInstance?.fecha}</td>
@@ -555,8 +517,9 @@ isNull("medicamento")
 
                 <td>${internacionInstance.diasInternacion}</td>
 
-                <td><g:link class="linkEdit" controller="internacion" action="edit" id="${internacionInstance?.id}">${message(code: 'default.button.edit.label')}</g:link></td>
-
+                <td><g:link class="linkEdit" controller="internacion" action="edit" id="${internacionInstance?.id}" params="[idPlanilla:planillaInternacionInstance?.id]">${message(code: 'default.button.edit.label')}</g:link></td>
+              <!--  <td><g:link class="linkCreate" controller="internacion" action="crear" id="${planillaInternacionInstance?.id}">${message(code: 'default.button.new.label',default: "Crear")}</g:link></td> -->
+                <td><g:link class="linkCreate" controller="internacion" action="eliminar" id="${internacionInstance?.id}" params="[planilla:planillaInternacionInstance?.id]" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">${message(code: 'default.button.new.label',default: "Eliminar")}</g:link></td>
             </tr>
         </g:each>
         </tbody>

@@ -15,6 +15,8 @@
 
 
     <g:hiddenField name="paciente" value="${planillaInternacionInstance?.paciente?.id}"></g:hiddenField>
+
+    <g:hiddenField name="planOriginal" value="${planillaInternacionInstance?.plan?.id}"></g:hiddenField>
     <!--
     <g:select id="paciente" name="paciente.id" from="${maternidad.Persona.list()}" optionKey="id"
               value="${planillaInternacionInstance?.paciente?.id}" class="many-to-one" noSelection="['null': '']"/>
@@ -51,14 +53,14 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'telefonoFamiliarResponsable', 'error')} required">
-    <label for="telefonoFamiliarResponsable">
-        <g:message code="planillaInternacion.telefonoFamiliarResponsable.label"
-                   default="Telefono Familiar Responsable"/>
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'dniFamiliarResponsable', 'error')} ">
+    <label for="dniFamiliarResponsable">
+        <g:message code="planillaInternacion.dniFamiliarResponsable.label"
+                   default="Nro Documento Familiar Responsable"/>
         <span class="required-indicator">*</span>
     </label>
-    <g:textField name="telefonoFamiliarResponsable" required=""
-                 value="${planillaInternacionInstance?.telefonoFamiliarResponsable}"/>
+    <g:textField name="dniFamiliarResponsable" required=""
+                 value="${planillaInternacionInstance?.dniFamiliarResponsable}"/>
 
 </div>
 
@@ -105,7 +107,7 @@
         <g:message code="planillaInternacion.numeroAfiliado.label" default="Número Afiliado"/>
 
     </label>
-    <g:field type="number" name="numeroAfiliado" cols="40" rows="5" maxlength="5000" value="${planillaInternacionInstance?.numeroAfiliado}"/>
+    <g:textField  name="numeroAfiliado"  value="${planillaInternacionInstance?.numeroAfiliado}"/>
 
 </div>
 
@@ -168,3 +170,14 @@
                  value="${planillaInternacionInstance?.fichaAcler}"/>
 
 </div>
+
+<div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'activo', 'error')} ">
+    <label for="activo">
+        <g:message code="planillaInternacion.ficha.label" default="Activo"/>
+
+    </label>
+    <g:checkBox name="activo"
+                 value="${planillaInternacionInstance?.activo}"/>
+
+</div>
+

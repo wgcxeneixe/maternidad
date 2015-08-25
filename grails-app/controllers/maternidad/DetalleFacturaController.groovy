@@ -207,7 +207,13 @@ class DetalleFacturaController {
 
         detalleFacturaInstance.delete flush: true
 
-        redirect action: "cargaPracticas", params: [id: planilla]
+        if(params.pantalla=="practica"){
+            redirect action: "cargaPracticas", params: [id: planilla]
+        }
+        else {
+            redirect action: "cargaMedicamentos", params: [id: planilla]
+        }
+
 
         /* request.withFormat {
              form multipartForm {
@@ -260,7 +266,7 @@ class DetalleFacturaController {
             if(params?.tieneErrores){
                 if(params.practicaId) detalle.practica = Practica.read(params.long('practicaId'))
                 if(params.profesionalId) detalle.profesional = Profesional.read(params.long('profesionalId'))
-                if(params.funcion) detalle.funcion = params.funcion
+                if(params.funcion) detalle.funcion = params.int('funcion')
                 detalle.validate()
                 flash.error = params.error
             }
@@ -287,6 +293,14 @@ class DetalleFacturaController {
                 isNotNull("medicamento")
             }?.sort { -it.id }
         }
+
+
+        if(params?.tieneErrores){
+
+            detalle.validate()
+            flash.error = params.error
+        }
+
 
         if (listaDetalles) detalle.fecha = listaDetalles.first()?.fecha
         return [detalleFacturaInstance: detalle, listaDetalles: listaDetalles]
@@ -353,18 +367,38 @@ class DetalleFacturaController {
 
     @Transactional
     def saveCargaMedicamento(DetalleFactura detalleFacturaInstance) {
+        flash.error = null
+
         if (detalleFacturaInstance == null) {
             notFound()
             return
         }
 
-        if (detalleFacturaInstance.hasErrors()) {
-            respond detalleFacturaInstance.errors, view: 'cargaMedicamentos'
+       /* if (detalleFacturaInstance.hasErrors()) {
+            respond detalleFacturaInstance.errors, view: 'cargaMedicamentos',model: detalleFacturaInstance
             return
         }
+        */
 
         detalleFacturaInstance.cantidad = (params?.cantidad) ? params?.cantidad as Double : 0
         detalleFacturaInstance.valorMedicamento = (params?.valorMedicamento) ? params?.valorMedicamento as Double : 0
+
+        try {
+            if (params?.fechaText && params?.date('fechaText', 'dd/MM/yyyy')) {
+                detalleFacturaInstance.fecha = params?.date('fechaText', 'dd/MM/yyyy')
+            } else {
+                flash.error = "La fecha ingresada (${params?.fechaText}) no es válida"
+            }
+        } catch (e) {
+            flash.error = "La fecha ingresada (${params?.fechaText}) no es válida"
+        }
+
+
+        if (flash.error || !detalleFacturaInstance.validate() || detalleFacturaInstance.hasErrors()) {
+            redirect(action: "cargaMedicamentos", params: [tieneErrores: true, id: detalleFacturaInstance.planillaInternacion.id, error: flash.error])
+
+            return
+        }
 
         detalleFacturaInstance.save flush: true
 

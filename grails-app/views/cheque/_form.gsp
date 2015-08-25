@@ -75,3 +75,22 @@
 
 </div>
 
+
+<div class="fieldcontain ${hasErrors(bean: chequeInstance, field: 'rechazado', 'error')} ">
+	<label for="rechazado">
+		<g:message code="cheque.activo.label" default="Rechazado" />
+
+	</label>
+	<g:checkBox name="rechazado" value="${chequeInstance?.rechazado}" />
+
+</div>
+
+
+<div class="fieldcontain ${hasErrors(bean: chequeInstance, field: 'motivoRechazo', 'error')} ">
+	<label for="motivoRechazo">
+		<g:message code="cheque.descripcion.label" default="Motivo Rechazo" />
+
+	</label>
+	<g:textArea name="motivoRechazo" cols="40" rows="5" maxlength="5000" value="${chequeInstance?.motivoRechazo}"/>
+
+</div>

@@ -23,10 +23,14 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
+    <g:if test="${flash.error}">
+        <div class="errors" role="status">${flash.error}</div>
+    </g:if>
     <g:hasErrors bean="${detalleFacturaInstance}">
         <ul class="errors" role="alert">
             <g:eachError bean="${detalleFacturaInstance}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
+                        error="${error}"/></li>
             </g:eachError>
         </ul>
     </g:hasErrors>
@@ -38,8 +42,9 @@
                     <g:message code="detalleFactura.profesional.label" default="Profesional" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select readonly="" id="profesional" name="profesional.id" from="${maternidad.Profesional.findAllByCodigoCirculo(grailsApplication.config.maternidad.codigo)}" optionKey="id" required="" value="${maternidad.Profesional.withCriteria {persona{eq("razonSocial","NUEVA MATERNIDAD")}}?.first()?.id}" class="many-to-one"/>
+                <g:hiddenField name="profesional.id" value="${maternidad.Profesional.withCriteria {persona{eq("razonSocial","NUEVA MATERNIDAD CONCEPCION SRL")}}?.first()?.id}" ></g:hiddenField>
 
+${maternidad.Profesional.withCriteria {persona{eq("razonSocial","NUEVA MATERNIDAD CONCEPCION SRL")}}?.first()?.persona?.razonSocial}
             </div>
 
             <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'planillaInternacion', 'error')} required">
@@ -76,7 +81,7 @@
                     <span class="required-indicator">*</span>
                 </label>
                 %{--<g:datePicker name="fecha" precision="day"  value="${detalleFacturaInstance?.fecha}"  />--}%
-                <g:textField name="fechaText" value="${detalleFacturaInstance?.fecha?.format('dd/MM/yyyy')}" />
+                <g:textField name="fechaText" id="fechaText" value="${detalleFacturaInstance?.fecha?.format('dd/MM/yyyy')}" />
 
             </div>
 
@@ -85,7 +90,7 @@
                     <g:message code="detalleFactura.profesional.label" default="Medicamento" />
                     <span class="required-indicator">*</span>
                 </label>
-                <g:select id="medicamento" name="medicamento.id" from="${maternidad.Medicamento.list()}" optionKey="id" required="" value="${detalleFacturaInstance?.medicamento?.id}" class="many-to-one"/>
+                <g:select id="medicamento" name="medicamento.id" from="${maternidad.Medicamento.list().sort {it.codigo.toBigInteger()}}" optionKey="id" required="" value="${detalleFacturaInstance?.medicamento?.id}" class="many-to-one"/>
 
             </div>
 
@@ -93,7 +98,7 @@
             <div class="fieldcontain ${hasErrors(bean: detalleFacturaInstance, field: 'cantidad', 'error')} required">
                 <label for="cantidad">
                     <g:message code="detalleFactura.cantidad.label" default="Cantidad" />
-
+                    <span class="required-indicator">*</span>
                 </label>
                 <g:field type="number" step="any" id="cantidad" name="cantidad" required="" value="${fieldValue(bean: detalleFacturaInstance, field: 'cantidad')}"/>
 
@@ -175,7 +180,7 @@
                 </td>
 
                 <td>
-                    <g:link action="eliminarDetalle" controller="detalleFactura" params="[detalle:detalleFactura?.id,planilla:detalleFactura?.planillaInternacion?.id]"
+                    <g:link action="eliminarDetalle" controller="detalleFactura" params="[detalle:detalleFactura?.id,planilla:detalleFactura?.planillaInternacion?.id,pantalla:'medicamento']"
                             onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"
                     >${message(code: 'default.button.delete.label')}</g:link>
                 </td>
@@ -194,6 +199,10 @@
     jQuery(function() {
 
         var valorMedicamento= jQuery("#medicamento").val();
+
+        jQuery("#fechaText").mask('00/00/0000');
+        jQuery("#fechaText").focus();
+        jQuery("#fechaText").select();
 
         if(valorMedicamento!=''){
 
@@ -236,9 +245,7 @@
 
             var medicamento =  jQuery(this).val();
 
-            jQuery("#fechaText").mask('00/00/0000');
-            jQuery("#fechaText").focus();
-            jQuery("#fechaText").select();
+
 
             if(medicamento!=''){
 

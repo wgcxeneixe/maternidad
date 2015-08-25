@@ -56,7 +56,7 @@
 	</label>
     <!-- No se puede editar si la fecha de cierra ya esta establecida -->
     <g:if test="${cajaDiariaInstanceCerrada == false}">
-        <g:field type="number" step="any" name="saldoFinal"  value="${cajaDiariaInstance?.saldoFinal}"/>
+        <g:field type="number" step="any"  readonly="" name="saldoFinal"  value="${cajaDiariaInstance?.saldoFinal}"/>
     </g:if>
     <g:else>
         $ <g:field type="number" readonly="" step="any" name="saldoFinal"  value="${cajaDiariaInstance?.saldoFinal}"/>

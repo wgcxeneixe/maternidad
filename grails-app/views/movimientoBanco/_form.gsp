@@ -34,7 +34,7 @@
 		<g:message code="movimientoBanco.fecha.label" default="Fecha" />
 		
 	</label>
-	<g:datePicker name="fecha" precision="day"  required="" value="${movimientoBancoInstance?.fecha}" default="none" noSelection="['': '']" />
+	<g:datePicker name="fecha" precision="minute"  required="" value="${movimientoBancoInstance?.fecha}" default="none" noSelection="['': '']" />
 
 </div>
 
@@ -50,16 +50,44 @@
     </label><g:radio name="credito" value="false" />
 
 </div>
-
-<div id="divcheque" class="fieldcontain ${hasErrors(bean: movimientoBancoInstance, field: 'cheque', 'error')} ">
+<div id="divcheque">
+<div  class="fieldcontain ${hasErrors(bean: movimientoBancoInstance, field: 'numeroCheque', 'error')} ">
 	<label for="cheque">
-		<g:message code="movimientoBanco.cheque.label" default="Cheque" />
+		<g:message code="movimientoBanco.cheque.label" default="Número Cheque" />
 		
 	</label>
-	<g:select id="cheque" name="cheque.id" from="${maternidad.Cheque.list()}" optionKey="id" value="${movimientoBancoInstance?.cheque?.id}" class="many-to-one" noSelection="['null': '']"/>
+	<g:textField name="numeroCheque" value="${movimientoBancoInstance?.numeroCheque}"/>
 
 </div>
 
+	<div class="fieldcontain ${hasErrors(bean: movimientoBancoInstance, field: 'fechaEmision', 'error')} ">
+		<label for="fecha">
+			<g:message code="movimientoBanco.fecha.label" default="Fecha Emisión Cheque" />
+
+		</label>
+		<g:datePicker name="fechaEmision" precision="day"  required="" value="${movimientoBancoInstance?.fechaEmision}" default="none" noSelection="['': '']" />
+
+	</div>
+
+	<div class="fieldcontain ${hasErrors(bean: movimientoBancoInstance, field: 'fechaVencimientoCobro', 'error')} ">
+		<label for="fecha">
+			<g:message code="movimientoBanco.fecha.label" default="Fecha Vencimiento Cheque" />
+
+		</label>
+		<g:datePicker name="fechaVencimientoCobro" precision="day"  required="" value="${movimientoBancoInstance?.fechaVencimientoCobro}" default="none" noSelection="['': '']" />
+
+	</div>
+
+	<div class="fieldcontain ${hasErrors(bean: movimientoBancoInstance, field: 'bancoCheque', 'error')} ">
+		<label for="banco">
+			<g:message code="movimientoBanco.banco.label" default="Banco Cheque" />
+
+		</label>
+		<g:select  name="bancoCheque.id" from="${maternidad.Banco.list()}" optionKey="id" value="${movimientoBancoInstance?.bancoCheque?.id}" class="many-to-one" noSelection="['null': '']"/>
+
+	</div>
+
+</div>
 <div id="divnrotransferencia" class="fieldcontain ${hasErrors(bean: movimientoBancoInstance, field: 'numeroTransferencia', 'error')} ">
 	<label for="numeroTransferencia">
 		<g:message code="movimientoBanco.numeroTransferencia.label" default="Numero Transferencia" />
