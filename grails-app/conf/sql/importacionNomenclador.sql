@@ -7082,3 +7082,5 @@ INSERT INTO sami.valor_unidad_honorario(             id, version, componente_id,
 
 
 select setval('sami.seq_practica', 1521, true);
+select setval('sami.seq_tipo_gasto', 7, true);
+select setval('sami.seq_tipo_honorario', 8, true);
