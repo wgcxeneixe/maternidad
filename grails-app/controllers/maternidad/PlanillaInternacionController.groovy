@@ -654,6 +654,8 @@ sel ->
             redirect(action: "index")
         }else {
             //poner el metodo de exportar
+
+            //obtengo los id de las planillas seleccionadas
             def seleccionados = params?.list("exportar")
 
             def c = DetalleFactura.createCriteria()
