@@ -37,6 +37,33 @@ class FacturaPeriodo {
         return total
     }
 
+    public Double getTotalFacturaciones() {
+        Double total = 0
+        facturas?.each() { Factura factura ->
+            total += factura?.totalFacturado
+        }
+        return total
+    }
+
+    def Boolean agregarPago(PagoFactura pago) {
+        pago.facturaPeriodo = this
+        pago.save(flush: true)
+        this.totalPagado += pago.monto + pago.retencion
+        if (!this.pagosFactura) this.pagosFactura = []
+        this.pagosFactura += pago
+
+        if (this?.totalPagado >= totalFacturaciones) this?.pagoCompleto = true
+        this.save(flush: true)
+
+    }
+
+    def actualizar(){
+        this.totalPagado = 0
+        pagosFactura?.each() { PagoFactura pago ->
+            this.totalPagado += pago?.retencion + pago.monto
+        }
+        this.save(flush: true)
+    }
 
     def beforeInsert = {
 

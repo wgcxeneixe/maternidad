@@ -18,7 +18,8 @@ class PagoFactura {
     Set<RetencionPago> retencionPagos
 
     static hasMany = [
-            retencionPagos: RetencionPago
+            retencionPagos: RetencionPago,
+            liquidaciones: Liquidacion
     ]
 
 

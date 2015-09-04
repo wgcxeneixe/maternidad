@@ -63,52 +63,19 @@ class PagoFacturaController {
             respond pagoFacturaInstance.errors, view: 'create'
             return
         } else {
-            def facturaSeleccionada
-            if (pagoFacturaInstance?.factura) {
-                facturaSeleccionada = Factura?.get(pagoFacturaInstance?.factura?.id)
-            }
+            FacturaPeriodo facturaSeleccionada
+
             if (pagoFacturaInstance?.facturaPeriodo) {
                 facturaSeleccionada = FacturaPeriodo?.get(pagoFacturaInstance?.facturaPeriodo?.id)
-            }
-            def totalFacturaPagado
-            def totalRetencionesPago
-            pagoFacturaInstance.save(flush: true)
-
-            if (facturaSeleccionada?.pagosFactura?.size() > 0) {
-                totalFacturaPagado = facturaSeleccionada.getTotalPagado()
-            } else {
-                totalFacturaPagado = 0
-            }
-
-            if (totalRetencionesPago?.getTotalRetencion?.size() > 0) {
-                totalRetencionesPago = facturaSeleccionada.getTotalRetencion()
-            } else {
-                totalRetencionesPago = 0
-            }
-
-            def totalAPagarConRetenciones = totalFacturaPagado - totalRetencionesPago
-            def totalDFacturadoSinRetenciones = facturaSeleccionada?.totalFacturado - totalAPagarConRetenciones
-            facturaSeleccionada?.totalPagado = totalAPagarConRetenciones + pagoFacturaInstance?.monto
-
-//            println  'facturaSeleccionada?.totalPagado'
-//            println  facturaSeleccionada?.totalPagado
-//            println  'otalDFacturadoSinRetenciones'
-//            println  totalDFacturadoSinRetenciones
-
-            if (facturaSeleccionada?.totalPagado > totalDFacturadoSinRetenciones) {
-                flash.message = 'El monto es superior al total facturado'
-                render(view: 'index', controller: PagoFactura)
-            } else {
-                if (facturaSeleccionada?.totalPagado == totalDFacturadoSinRetenciones) facturaSeleccionada?.pagoCompleto = true
-
-
-
-
-
-                facturaSeleccionada.save(flush: true)
+                facturaSeleccionada.agregarPago(pagoFacturaInstance)
                 flash.message = 'Se ha agregado un pago a su factura '
                 render(view: 'index', params: [pagoFacturaInstance: pagoFacturaInstance])
+            }else{
+                flash.message = 'Ocurrió un error al generar el pago, se perdió la referencia a la factura'
+                respond pagoFacturaInstance.errors, view: 'create'
             }
+
+
         }
     }
 
@@ -119,39 +86,12 @@ class PagoFacturaController {
             render(view: 'create', controller: PagoFactura, params: [pagoFacturaInstance: pagoFacturaInstance])
 
         } else {
-            def facturaSeleccionada = new Factura()
-            facturaSeleccionada = Factura?.get(pagoFacturaInstance?.factura?.id)
-            def totalFacturaPagado
-            def totalRetencionesPago
-            pagoFacturaInstance.save(flush: true)
-
-            if (facturaSeleccionada?.pagosFactura?.size() > 0) {
-                totalFacturaPagado = facturaSeleccionada.getTotalPagos()
-            } else {
-                totalFacturaPagado = 0
-            }
-
-            if (totalRetencionesPago?.getTotalRetencion?.size() > 0) {
-                totalRetencionesPago = facturaSeleccionada.getTotalRetencion()
-            } else {
-                totalRetencionesPago = 0
-            }
-
-            def totalAPagarConRetenciones = totalFacturaPagado - totalRetencionesPago
-            def totalDFacturadoSinRetenciones = facturaSeleccionada?.totalFacturado - totalAPagarConRetenciones
-            facturaSeleccionada?.totalPagado = totalAPagarConRetenciones + pagoFacturaInstance?.monto
-
-            if (facturaSeleccionada?.totalPagado > totalDFacturadoSinRetenciones) {
-                flash.message = 'El monto es superior al total facturado'
-                render(view: 'create', controller: PagoFactura, params: [pagoFacturaInstance: pagoFacturaInstance])
-            } else {
-                if (facturaSeleccionada?.totalPagado == totalDFacturadoSinRetenciones) facturaSeleccionada?.pagoCompleto = true
-
-                facturaSeleccionada.save(flush: true)
+            def facturaSeleccionada = FacturaPeriodo?.get(pagoFacturaInstance?.factura?.id)
+            facturaSeleccionada.agregarPago(pagoFacturaInstance)
                 flash.message = 'Se ha agregado un pago a su factura '
                 render(view: 'index', params: [pagoFacturaInstance: pagoFacturaInstance])
             }
-        }
+
     }
 
     def edit(PagoFactura pagoFacturaInstance) {
@@ -171,6 +111,7 @@ class PagoFacturaController {
         }
 
         pagoFacturaInstance.save flush: true
+        pagoFacturaInstance?.facturaPeriodo?.actualizar()
 
         request.withFormat {
             form multipartForm {

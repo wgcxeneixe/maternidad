@@ -20,6 +20,7 @@ class Liquidacion {
 
     String toString() { "${profesional} - ${fecha?.format('dd/MM/yyyy')}" }
 
+    //TODO: ver de sacar este método
     def agregarPagoFactura(PagoFactura pago) {
         if (!detallesLiquidacion) detallesLiquidacion = []
         pago.facturaPeriodo.facturas?.each { Factura fac ->
