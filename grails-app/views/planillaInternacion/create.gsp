@@ -51,7 +51,7 @@
         });
 
         jQuery("#localidad").select2({allowClear: true});
-
+        jQuery("#plan").select2({allowClear: true});
     })
 </script>
 </body>

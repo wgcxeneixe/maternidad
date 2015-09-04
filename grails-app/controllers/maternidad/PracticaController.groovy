@@ -12,6 +12,9 @@ class PracticaController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+
+    def CalculoValoresService
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Practica.list(params), model: [practicaInstanceCount: Practica.count()]
@@ -471,6 +474,10 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
             vuh.save(flush: true)
         }
 
+
+CalculoValoresService.actualizarConvenios(practicaInstance)
+
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'practica.label', default: 'Practica'), practicaInstance.id])
@@ -520,16 +527,16 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
 
         }
 
-        def va=(params.valorAnestesista)?params.valorAnestesista as Double:null
+        def va=(params.valorAnestesista)?params.valorAnestesista as Double:0
 
-        def vay=(params.valorAyudante)?params.valorAyudante as Double:null
+        def vay=(params.valorAyudante)?params.valorAyudante as Double:0
 
-        def ve=(params.valorEspecialista)?params.valorEspecialista as Double:null
+        def ve=(params.valorEspecialista)?params.valorEspecialista as Double:0
 
         //def th=TipoHonorario.findById(params.tipoHonorario.id)
 
 
-        if(vay){
+
             def vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(1))
             if(vuh){
                 vuh.valor=vay
@@ -541,10 +548,10 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
                 vuh.practica=practicaInstance
                 vuh.save(flush: true)
             }
-        }
 
-        if(va){
-            def vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(2))
+
+
+             vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(2))
             if(vuh){
                 vuh.valor=va
                 vuh.save(flush: true)
@@ -555,10 +562,10 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
                 vuh.practica=practicaInstance
                 vuh.save(flush: true)
             }
-        }
 
-        if(ve){
-            def vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(3))
+
+
+        vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(3))
             if(vuh){
                 vuh.valor=ve
                 vuh.save(flush: true)
@@ -569,7 +576,9 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
                 vuh.practica=practicaInstance
                 vuh.save(flush: true)
             }
-        }
+
+        CalculoValoresService.actualizarConveniosEdit(practicaInstance)
+
 
         request.withFormat {
             form multipartForm {

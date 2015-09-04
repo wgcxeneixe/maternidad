@@ -4,7 +4,19 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'detalleFactura.label', default: 'DetalleFactura')}"/>
     <title><g:message code="planillainternacion.cargadepracticas"/></title>
+    <style type="text/css">
 
+    input:focus, select:focus, textarea:focus {
+        background-color: #ddeeff;
+        border: 2px solid #eeeeee;
+        box-shadow: 0 0 0.5em #ffffff;
+        outline: 0 none;
+    }
+.negrita{
+    font-weight: bold;
+}
+
+    </style>
 </head>
 
 <body>
@@ -200,7 +212,7 @@
 
             <td>${fieldValue(bean: detalleFactura, field: "profesional")}</td>
 
-            <td>${fieldValue(bean: detalleFactura, field: "practica")}</td>
+            <td class="negrita">${fieldValue(bean: detalleFactura, field: "practica")}</td>
 
             <td>${fieldValue(bean: detalleFactura, field: "cantidad")}</td>
 

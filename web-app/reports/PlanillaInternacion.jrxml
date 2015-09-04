@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanillaInternacion" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1341951-d3e4-4d68-a485-3aa89c6d3f61">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="734"/>
+	<property name="ireport.y" value="110"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
 	<field name="historiaClinica" class="java.lang.String"/>
 	<field name="obraSocial" class="java.lang.String"/>
@@ -96,7 +96,7 @@
 	<pageHeader>
 		<band height="171" splitType="Stretch">
 			<rectangle>
-				<reportElement mode="Transparent" x="1" y="28" width="554" height="95" uuid="d551fe9e-c5ee-4e5e-b032-89b34535e0fe"/>
+				<reportElement mode="Transparent" x="1" y="28" width="554" height="125" uuid="d551fe9e-c5ee-4e5e-b032-89b34535e0fe"/>
 			</rectangle>
 			<textField>
 				<reportElement x="118" y="38" width="77" height="12" uuid="203cfcbe-b935-432d-9022-ebaf4dabfc0f"/>
@@ -190,21 +190,21 @@
 				<text><![CDATA[DOMICILIO:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="47" y="79" width="192" height="12" uuid="a4323bde-d5b9-440d-a931-61fddd7aca29"/>
+				<reportElement x="47" y="79" width="300" height="12" uuid="a4323bde-d5b9-440d-a931-61fddd7aca29"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{domicilio}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="288" y="79" width="71" height="12" uuid="3f71084b-99cf-4d65-ad82-9b12c7e33073"/>
+				<reportElement x="51" y="96" width="186" height="12" uuid="3f71084b-99cf-4d65-ad82-9b12c7e33073"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="239" y="79" width="49" height="12" uuid="0f1100e9-cb8f-4d80-b866-02a2a64197d1"/>
+				<reportElement x="2" y="96" width="49" height="12" uuid="0f1100e9-cb8f-4d80-b866-02a2a64197d1"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isUnderline="false"/>
 				</textElement>
@@ -225,14 +225,14 @@
 				<textFieldExpression><![CDATA[$F{ocupacion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="118" y="99" width="119" height="12" uuid="57633d60-8d20-4fca-9805-dd1c8555d0c5"/>
+				<reportElement x="118" y="122" width="119" height="12" uuid="57633d60-8d20-4fca-9805-dd1c8555d0c5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{familiar}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="3" y="99" width="115" height="12" uuid="8ce3f4ff-e2c1-4535-98e8-77be9a2fae0d"/>
+				<reportElement x="3" y="122" width="115" height="12" uuid="8ce3f4ff-e2c1-4535-98e8-77be9a2fae0d"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isUnderline="false"/>
 				</textElement>
@@ -246,14 +246,14 @@
 				<text><![CDATA[DATOS DEL BENEFICIARIO]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="290" y="99" width="259" height="12" uuid="e8e42e1d-37e7-4691-a18e-123be33f93bc"/>
+				<reportElement x="290" y="122" width="259" height="12" uuid="e8e42e1d-37e7-4691-a18e-123be33f93bc"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{domicilioResponsable}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="239" y="99" width="51" height="12" uuid="6acf2eb9-c0bb-4554-b9af-cbf3f8054588"/>
+				<reportElement x="239" y="122" width="51" height="12" uuid="6acf2eb9-c0bb-4554-b9af-cbf3f8054588"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isUnderline="false"/>
 				</textElement>

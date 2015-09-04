@@ -38,7 +38,10 @@
             <g:if test="${filters?.estado==maternidad.EstadoPlanilla.findByNombre("EN PROCESO")?.id?.toString()}">
                 <th></th>
             </g:if>
-
+            <g:if test="${filters.estado == maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
+                <th>Presentar</th>
+                <th>Exportar</th>
+            </g:if>
 
         </tr>
         </thead>
@@ -78,7 +81,8 @@
                 <td><g:link controller="planillaInternacion"  action="asociarMedicos" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.asociarProfesional')}</g:link></td>
 
                 <g:if test="${filters.estado == maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
-                    <td><g:checkBox  name="facturar" value="${planillaInternacionInstance.id}"/> </td>
+                    <td><g:checkBox  name="facturar" value="${planillaInternacionInstance.id}" checked="false"/> </td>
+                    <td><g:checkBox class="exportar" name="exportar" value="${planillaInternacionInstance.id}" checked="false"/> </td>
                 </g:if>
 
 

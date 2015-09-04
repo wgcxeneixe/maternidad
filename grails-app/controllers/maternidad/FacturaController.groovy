@@ -2,6 +2,8 @@ package maternidad
 
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
+import pl.touk.excel.export.WebXlsxExporter
+
 import static org.springframework.http.HttpStatus.*
 
 @Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -292,5 +294,40 @@ class FacturaController {
 
 
     }
+
+
+    def exportar={
+
+        def c = DetalleFactura.createCriteria()
+
+        def resultado=c.list {
+            planillaInternacion {
+                eq("activo",true)
+                plan { 'in'("id", [11.toLong(), 12.toLong(), 13.toLong(),79.toLong(),80.toLong(),81.toLong(),82.toLong(),83.toLong(),84.toLong(),85.toLong(),86.toLong(),127.toLong()]) }
+            }
+
+            order("planillaInternacion")
+
+        }
+
+
+
+            def headers = ['Profesional-Nombre','Profesional-Apellido','Profesional-Razon Social'
+                           ,'Practica','Practica-Nombre','Fecha', 'Funcion','Cantidad','Valor Honorario','Valor Gasto','Paciente-Nombre','Paciente-Apellido']
+            def withProperties = ['profesional.persona.nombre','profesional.persona.apellido','profesional.persona.razonSocial'
+                                  ,'practica.codigo','practica.nombre','fecha', 'funcion','cantidad','valorHonorarios','valorGastos','planillaInternacion.paciente.nombre','planillaInternacion.paciente.apellido']
+
+            new WebXlsxExporter().with {
+                setResponseHeaders(response)
+                fillHeader(headers)
+                add(resultado, withProperties)
+                save(response.outputStream)
+            }
+
+
+
+
+    }
+
 
 }

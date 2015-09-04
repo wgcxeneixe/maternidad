@@ -53,7 +53,7 @@
 
 <script>
     $(function() {
-
+        jQuery("#plan").select2({allowClear: true});
         //idioma de los calendar
         jQuery.datepicker.regional[ "es" ];
         updateDatePicker();

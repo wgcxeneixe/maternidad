@@ -3,6 +3,7 @@ package maternidad
 import grails.plugin.springsecurity.annotation.Secured
 import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
 import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
+import pl.touk.excel.export.WebXlsxExporter
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -625,31 +626,68 @@ sel ->
     }
 
 
-    def presentarSeleccionadas={
+    def presentarSeleccionadas= {
 
-        def seleccionados=params?.list("facturar")
+
+        if (params.accion == "presentar"){
+
+            def seleccionados = params?.list("facturar")
 
         seleccionados.each {
             sel ->
-                def planilla=PlanillaInternacion.findById(sel as Integer)
-                def estado=EstadoPlanilla.findByCodigo("PRE")
+                def planilla = PlanillaInternacion.findById(sel as Integer)
+                def estado = EstadoPlanilla.findByCodigo("PRE")
 
-                planilla.estadoPlanilla=estado
+                planilla.estadoPlanilla = estado
                 planilla.save(flush: true)
 
 
                 def usuario = springSecurityService.currentUser
-                def movimiento= new  MovimientoPlanilla()
-                movimiento.estadoPlanilla=estado
-                movimiento.fecha=new Date()
-                movimiento.planillaInternacion=planilla
-                movimiento.usuario=usuario as Usuario
-                movimiento.save(flush:true)
+                def movimiento = new MovimientoPlanilla()
+                movimiento.estadoPlanilla = estado
+                movimiento.fecha = new Date()
+                movimiento.planillaInternacion = planilla
+                movimiento.usuario = usuario as Usuario
+                movimiento.save(flush: true)
+
+        }
+            redirect(action: "index")
+        }else {
+            //poner el metodo de exportar
+            def seleccionados = params?.list("exportar")
+
+            def c = DetalleFactura.createCriteria()
+
+            def resultado=c.list {
+                planillaInternacion {
+                    eq("activo",true)
+                    plan { 'in'("id",seleccionados ) }
+                }
+
+                order("planillaInternacion")
+
+            }
+
+
+
+            def headers = ['Profesional-Nombre','Profesional-Apellido','Profesional-Razon Social'
+                           ,'Practica','Practica-Nombre','Fecha', 'Funcion','Cantidad','Valor Honorario','Valor Gasto','Paciente-Nombre','Paciente-Apellido']
+            def withProperties = ['profesional.persona.nombre','profesional.persona.apellido','profesional.persona.razonSocial'
+                                  ,'practica.codigo','practica.nombre','fecha', 'funcion','cantidad','valorHonorarios','valorGastos','planillaInternacion.paciente.nombre','planillaInternacion.paciente.apellido']
+
+            new WebXlsxExporter().with {
+                setResponseHeaders(response)
+                fillHeader(headers)
+                add(resultado, withProperties)
+                save(response.outputStream)
+            }
+
+
+
 
         }
 
 
-        redirect(action: "index")
 
     }
 

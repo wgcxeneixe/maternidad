@@ -21,6 +21,14 @@
             <li>
                 <a href="#" id="presentar" class="create" ><g:message code="planillaInternacion.planillaspresentadas" /></a>
                </li>
+
+        </g:if>
+
+        <g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
+            <li>
+                <a href="#" id="exportar" class="create" ><g:message code="planillaInternacion.exportarSeleccionadas" /></a>
+            </li>
+
         </g:if>
 
     </ul>
@@ -62,14 +70,14 @@
 </div>
 
 <g:form name="formPresentar"  controller="planillaInternacion" action="presentarSeleccionadas">
-
+<input type="hidden" name="accion" id="accion" value="presentar">
     <g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
     <div class="">
         <label for="periodo">
             <g:message code="factura.periodo.label" default="Seleccionar Todas" />
 
         </label>
-        <g:checkBox id="seleccionar" name="seleccionar"/>
+        <g:checkBox id="seleccionar" name="seleccionar" />
 
     </div>
 </g:if>
@@ -127,9 +135,19 @@
         jQuery( "#presentar" ).click(function(e) {
            // e.preventDefault();
             //jQuery("#formFacturar").submit();
+            jQuery("#accion").val("presentar");
             jQuery('form[name="formPresentar"]').submit();
 
         });
+
+        jQuery( "#exportar" ).click(function(e) {
+            // e.preventDefault();
+            //jQuery("#formFacturar").submit();
+            jQuery("#accion").val("exportar");
+            jQuery('form[name="formPresentar"]').submit();
+
+        });
+
 
     });
 
