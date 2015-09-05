@@ -83,6 +83,8 @@ grails.project.dependency.resolution = {
 
 
         compile ":jasper:1.11.0"
+
+        compile ":excel-export:0.2.1"
     }
 
     //grails.server.port.http=8181

@@ -25,6 +25,9 @@
         <li><g:link class="create" controller="planillaInternacion"  action="imprimirHistoria" id="${planillaInternacionInstance.id}">${message(code: 'planillaInternacion.imprimirHistoria')}</g:link></li>
         <li><g:link class="create" controller="planillaInternacion"  action="imprimirPlanillasSinPresentar" >${message(code: 'planillaInternacion.imprimirPlanillasSinPresentar')}</g:link></li>
         <li><g:link class="create" controller="planillaInternacion"  action="imprimirPlanillasPresentadas" >${message(code: 'planillaInternacion.imprimirPlanillasPresentadas')}</g:link></li>
+<g:if test="${planillaInternacionInstance?.estadoPlanilla?.id== maternidad.EstadoPlanilla.findByCodigo("PRE")?.id}">
+        <li><g:link class="create" controller="planillaInternacion"  action="imprimirPlanillaPresentadas" >${message(code: 'planillaInternacion.imprimirPlanillaPresentada')}</g:link></li>
+</g:if>
     </ul>
 </div>
 
