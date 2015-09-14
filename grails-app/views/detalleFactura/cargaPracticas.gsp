@@ -229,8 +229,8 @@
 
             <td>
                 <g:formatNumber
-                        number="${((detalleFactura?.valorHonorarios) ? (detalleFactura?.valorHonorarios?.multiply(detalleFactura?.cantidad as Character)) : 0) +
-                                ((detalleFactura?.valorGastos) ? (detalleFactura?.valorGastos?.multiply(detalleFactura?.cantidad as Character)) : 0)
+                        number="${((detalleFactura?.valorHonorarios) ? (detalleFactura?.valorHonorarios?.multiply(detalleFactura?.cantidad )) : 0) +
+                                ((detalleFactura?.valorGastos) ? (detalleFactura?.valorGastos?.multiply(detalleFactura?.cantidad )) : 0)
                         }" type="currency" currencyCode="ARS"/>
             </td>
 
@@ -347,6 +347,7 @@
                         if (funcion == 10) {
                             valorHonorarios.val(hon);
                             divhonorario.show();
+                            valorGastos.val(0);
                             divgasto.hide();
                         }
 
@@ -354,12 +355,14 @@
                             //valorHonorarios.val(data.honorario);
                             valorHonorarios.val(hon);
                             divhonorario.show();
+                            valorGastos.val(0);
                             divgasto.hide();
                         }
 
                         if (funcion == 30) {
                             valorHonorarios.val(hon);
                             divhonorario.show();
+                            valorGastos.val(0);
                             divgasto.hide();
                         }
 
@@ -367,6 +370,7 @@
                         if (funcion == 60) {
                             valorGastos.val(gas);
                             divgasto.show();
+                            valorHonorarios.val(0);
                             divhonorario.hide();
                         }
 
@@ -447,6 +451,7 @@
                         if (funcion == 10) {
                             valorHonorarios.val(hon);
                             divhonorario.show();
+                            valorGastos.val(0);
                             divgasto.hide();
                         }
 
@@ -454,12 +459,14 @@
                             //valorHonorarios.val(data.honorario);
                             valorHonorarios.val(hon);
                             divhonorario.show();
+                            valorGastos.val(0);
                             divgasto.hide();
                         }
 
                         if (funcion == 30) {
                             valorHonorarios.val(hon);
                             divhonorario.show();
+                            valorGastos.val(0);
                             divgasto.hide();
                         }
 
@@ -467,6 +474,7 @@
                         if (funcion == 60) {
                             valorGastos.val(gas);
                             divgasto.show();
+                            valorHonorarios.val(0);
                             divhonorario.hide();
                         }
 
