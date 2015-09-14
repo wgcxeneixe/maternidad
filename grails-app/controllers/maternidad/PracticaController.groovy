@@ -345,7 +345,15 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
   */
         def query = {
 
-            eq("nomenclada",Boolean.TRUE)
+            if(params.nomenclada){
+                eq("nomenclada",Boolean.TRUE)
+            }
+            else if(!params.nomenclada) {
+               or{ eq("nomenclada",Boolean.FALSE)
+                   isNull("nomenclada")
+               }
+            }
+
 
             if (params.codigo) {
                 ilike('codigo', '%' + params.codigo + '%')
@@ -363,7 +371,7 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
         def criteria = Practica.createCriteria()
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         def practicas = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [codigo:params.codigo,nombre:params.nombre]
+        def filters = [codigo:params.codigo,nombre:params.nombre,nomenclada:params.nomenclada]
 
         def model = [practicaInstanceList: practicas, practicaInstanceTotal:practicas.totalCount, filters: filters]
 

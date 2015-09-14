@@ -35,6 +35,10 @@
                             <g:textField id="nombre" name="nombre" value="${filters?.nombre}" /></p></td>
 
                     <td>
+                        <p><label for="nomenclada">Nomenclada</label>
+                            <g:checkBox  id="nomenclada" name="nomenclada" value="${filters?.nomenclada}" /></p></td>
+
+                    <td>
                         <p><g:submitButton name="filter" value="Filtrar" /></p></td>
                 </tr>
             </table>
