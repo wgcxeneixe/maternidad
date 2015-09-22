@@ -225,4 +225,114 @@ ex
 
 
 
+    def calcularNuevo (Integer id) {
+
+        def flag=false
+
+        def planConvenio = PlanConvenio.get(id)
+        def practicasNomencladas = Practica.findAllByNomenclada(Boolean.TRUE)
+
+
+
+
+        practicasNomencladas.each {
+            def valorPractica = ValorPractica.findByPlanConvenioAndPractica(planConvenio,it)
+            def valorGasto = calcularValorGastoNuevo(it, planConvenio)
+            def valorHonorario = calcularValorHonorarioNuevo(it, planConvenio)
+
+            if (valorPractica) {
+                valorPractica.fechaActualizado = new Date()
+                valorPractica.valorGasto =  Math.round(valorGasto * 100) / 100
+                valorPractica.valorAnestecista =  Math.round(valorHonorario.get(0) * 100) / 100
+                valorPractica.valorAyudante = Math.round(valorHonorario.get(1) * 100) / 100
+                valorPractica.valorEspecialista = Math.round(valorHonorario.get(2) * 100) / 100
+                valorPractica.save(flush: true)
+
+            } else {
+                valorPractica = new ValorPractica()
+                valorPractica.practica = it
+                valorPractica.fechaActualizado = new Date()
+                valorPractica.planConvenio = planConvenio
+                valorPractica.plan = planConvenio.plan
+
+                valorPractica.valorAnestecista =  Math.round(valorHonorario.get(0) * 100) / 100
+                valorPractica.valorAyudante = Math.round(valorHonorario.get(1) * 100) / 100
+                valorPractica.valorEspecialista = Math.round(valorHonorario.get(2) * 100) / 100
+
+                try{
+                    valorPractica.valorGasto =  Math.round(valorGasto * 100) / 100
+                }catch (Exception ex){
+                    ex
+                }
+
+                valorPractica.save(flush: true)
+            }
+
+        }
+
+        flag=true
+
+        def responseData = [
+                'resultado': flag
+
+        ]
+
+        return responseData
+    }
+
+
+    def calcularValorGastoNuevo(Practica practica, PlanConvenio planconvenio) {
+
+        def calculo = 0
+
+            def valorGalenoGasto = ValorGalenoGasto.findByTipoGastoAndPlanConvenio(practica.tipoGasto, planconvenio)
+            if (valorGalenoGasto) {
+                // si existe calculo el valor gasto resultante
+                calculo = valorGalenoGasto.valor * practica.unidadGasto // * practica.multiplicadorGasto
+            }
+
+        return calculo
+
+    }
+
+
+    def calcularValorHonorarioNuevo(Practica practica, PlanConvenio planConvenio) {
+
+        def lista = []
+        def valorEspecialista = 0
+        def valorAnestesista = 0
+        def valorAyudante = 0
+
+        // obtener valorGalenoHonorario
+        def valorGalenohonorario = ValorGalenoHonorario.findByPlanConvenioAndTipoHonorario(planConvenio, practica?.tipoHonorario)
+
+               // valor ayudante
+                if (valorGalenohonorario && practica?.unidadAyudante) {
+                    valorAyudante = practica.unidadAyudante * valorGalenohonorario?.valor  //* practica.multiplicadorHonorario
+
+                }
+
+                // valor anestesista
+                if (valorGalenohonorario && practica?.unidadAnestesista) {
+
+                    valorAnestesista = practica.unidadAnestesista * valorGalenohonorario?.valor //* practica.multiplicadorHonorario
+                }
+
+                // valor especialista
+                if (valorGalenohonorario && practica?.unidadEspecialista) {
+
+                    valorEspecialista = practica.unidadEspecialista * valorGalenohonorario?.valor //* practica.multiplicadorHonorario
+                }
+
+
+        valorAyudante=(valorAyudante)?:0
+        valorAnestesista=(valorAnestesista)?:0
+        valorEspecialista=(valorEspecialista)?:0
+        lista = [valorAnestesista, valorAyudante, valorEspecialista]
+
+        return lista
+    }
+
+
+
 }

@@ -12,6 +12,14 @@ class Practica {
     ObraSocial obrasocial
     TipoHonorario tipoHonorario
 
+    //se agregan los multiplicadores para agilizar los calculos.
+    Double unidadGasto
+    TipoGasto tipoGasto
+
+    Double unidadEspecialista
+    Double unidadAyudante
+    Double unidadAnestesista
+
     static mappedBy = [practicasModulos: 'modulo']
 
     static hasMany = [practicasModulos:PracticaModulo]
