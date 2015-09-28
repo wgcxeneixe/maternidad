@@ -11,7 +11,8 @@ class Detalle {
     Double importe
     String funcion
     Integer orden
-
+    String matricula
+    String codigoCirculo
 
 
 }

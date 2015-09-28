@@ -44,7 +44,8 @@ class DetalleValorizado {
                 detalleFacturacion.profesional = it.profesional.persona.toString()
                 detalleFacturacion.importe = Double.valueOf(it.total() * it?.cantidad)
                 detalleFacturacion.orden = it?.funcion == 60 ? 1 : (it?.funcion == 10 ? 2 : (it?.funcion == 20 ? 3 : (it?.funcion == 30 ? 4 : (it?.funcion == 70 ? 5 : 10))))
-
+                detalleFacturacion.matricula = (it?.profesional?.matriculaProvincial) ?: ""
+                detalleFacturacion.codigoCirculo = (it?.profesional?.codigoCirculo) ?: ""
                 detalle.items.add(detalleFacturacion)
                 detalle.totalCant += it?.cantidad
                 detalle.totalImporte += it.total() * it?.cantidad
