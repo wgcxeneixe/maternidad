@@ -5,6 +5,8 @@ import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
 import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
 import pl.touk.excel.export.WebXlsxExporter
 
+import java.text.DecimalFormat
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -60,6 +62,17 @@ class PlanillaInternacionController {
                 plan { eq('id', params.plan as Long) }
             }
 
+            if (params?.enteReceptor) {
+                def ente = EnteReceptor.read(params.enteReceptor as Long)
+                def listaOS = ObraSocial.findAllByEnteReceptor(ente)
+                def listaPlan = []
+                listaOS.each {
+                    listaPlan.addAll(it.planes)
+                }
+                plan { 'in'('obrasocial', listaOS) }
+            }
+
+
             if (params.sort) {
                 order(params.sort, params.order)
             } else {
@@ -71,9 +84,9 @@ class PlanillaInternacionController {
         }
 
         def criteria = PlanillaInternacion.createCriteria()
-        params.max = Math.min(params.max ? params.int('max') : 40, 100)
+        params.max = Math.min(params.max ? params.int('max') : 200, 100)
         def planillas = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [dni: params.dni, nroplanilla: params.nroplanilla, nombre: params.nombre, estado: params.estado, plan: params.plan]
+        def filters = [dni: params.dni, nroplanilla: params.nroplanilla, nombre: params.nombre, estado: params.estado, plan: params.plan, enteReceptor: params.enteReceptor]
         def model = [planillaInternacionInstanceList: planillas, planillaInternacionInstanceCount: planillas.totalCount, filters: filters]
 
         if (request.xhr) {
@@ -644,33 +657,72 @@ class PlanillaInternacionController {
 
             //obtengo los id de las planillas seleccionadas
             def seleccionados = params?.list("exportar")
+            if (seleccionados) {
+                seleccionados = seleccionados.collect { new Long(it) }
 
-            def c = DetalleFactura.createCriteria()
+                def c = DetalleFactura.createCriteria()
 
-            def resultado = c.list {
-                planillaInternacion {
-                    eq("activo", true)
-                    plan { 'in'("id", seleccionados) }
+                def resultado = c.list {
+                    planillaInternacion {
+                        eq("activo", true)
+                        'in'("id", seleccionados)
+                    }
+
+                    order("planillaInternacion")
+
                 }
 
-                order("planillaInternacion")
 
+                println "entoro sss ${seleccionados.size()} - ${resultado.size()}"
+
+                String texArchivo = ""
+                if (resultado) {
+                    def hoy = new Date()
+                    def peri = hoy.format('ddMMyy').toString()
+                    resultado.each() { DetalleFactura detalle ->
+                        texArchivo += convertirACadena(6, detalle.planillaInternacion.numeroAfiliado)
+                        texArchivo += ' 1'
+                        texArchivo += ' 46408'
+                        texArchivo += convertirACadena(6, detalle.planillaInternacion.plan.codigo.toString())
+                        texArchivo += String.format("%06.2f", detalle.cantidad)?.replace(',', '')
+                        texArchivo += convertirACadena(8, detalle.practica ? detalle.practica.codigo.toString() : (detalle.medicamento ? detalle.medicamento.codigo?.toString() : '500101'))
+                        texArchivo += peri
+                        texArchivo += convertirACadena(2, detalle.funcion.toString())
+                        texArchivo += String.format("%011.2f", (detalle.medicamento ? detalle.medicamento.valor : (detalle.valorGastos + detalle.valorHonorarios)))?.replace(',', '')
+                        texArchivo += convertirACadena(6, detalle.profesional.codigoCirculo?.toString())
+                        texArchivo += convertirACadena(30, (detalle.planillaInternacion.paciente.apellido + ' ' + detalle.planillaInternacion.paciente.nombre))
+
+                    }
+                }
+                def fichero = new File("fichero.txt")
+                println fichero
+                fichero.write(texArchivo)
+                println "algo"
+                println fichero
+
+                // Establecemos un nombre de archivo único...
+                response.setHeader("Content-disposition", "attachment; filename=\"fichero.txt\"");
+                // Establecemos el tipo de archivo a PDF...
+                response.contentType = "text-plain"
+                // Enviamos el contenido del PDF
+                response.outputStream << fichero
+                redirect(action: "index")
+//
+//            def headers = ['Profesional-Nombre', 'Profesional-Apellido', 'Profesional-Razon Social'
+//                    , 'Practica', 'Practica-Nombre', 'Fecha', 'Funcion', 'Cantidad', 'Valor Honorario', 'Valor Gasto', 'Paciente-Nombre', 'Paciente-Apellido']
+//            def withProperties = ['profesional.persona.nombre', 'profesional.persona.apellido', 'profesional.persona.razonSocial'
+//                    , 'practica.codigo', 'practica.nombre', 'fecha', 'funcion', 'cantidad', 'valorHonorarios', 'valorGastos', 'planillaInternacion.paciente.nombre', 'planillaInternacion.paciente.apellido']
+//
+//            new WebXlsxExporter().with {
+//                setResponseHeaders(response)
+//                fillHeader(headers)
+//                add(resultado, withProperties)
+//                save(response.outputStream)
+//            }
+            } else {
+                flash.error = "Debe seleccionar al menos una planilla"
+                redirect(action: "index")
             }
-
-
-
-            def headers = ['Profesional-Nombre', 'Profesional-Apellido', 'Profesional-Razon Social'
-                    , 'Practica', 'Practica-Nombre', 'Fecha', 'Funcion', 'Cantidad', 'Valor Honorario', 'Valor Gasto', 'Paciente-Nombre', 'Paciente-Apellido']
-            def withProperties = ['profesional.persona.nombre', 'profesional.persona.apellido', 'profesional.persona.razonSocial'
-                    , 'practica.codigo', 'practica.nombre', 'fecha', 'funcion', 'cantidad', 'valorHonorarios', 'valorGastos', 'planillaInternacion.paciente.nombre', 'planillaInternacion.paciente.apellido']
-
-            new WebXlsxExporter().with {
-                setResponseHeaders(response)
-                fillHeader(headers)
-                add(resultado, withProperties)
-                save(response.outputStream)
-            }
-
 
         }
 
@@ -905,6 +957,23 @@ class PlanillaInternacionController {
             }
         }
 
+    }
+
+    private String convertirACadena(int longitud, String texto) {
+        texto = texto.replace('/', '')
+        texto = texto.replace('-', '')
+        texto = texto.replace('*', '')
+        if (texto && texto?.length() >= longitud) {
+            return texto.substring(0, longitud)
+        } else {
+            def res = ""
+            res += texto
+            while (res.length() < longitud) {
+                res = ' ' + res
+            }
+
+            return res
+        }
     }
 
 }

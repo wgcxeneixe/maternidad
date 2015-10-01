@@ -65,6 +65,10 @@
                     <g:select id="plan" name="plan" from="${maternidad.Plan.list()}" optionKey="id"
                               value="${filters?.plan? Long.valueOf(filters?.plan):''}" noSelection="['': '']"/></p></td>
                 <td>
+                <td colspan="5"><p><label for="enteReceptor">Ente Receptor</label>
+                    <g:select id="plan" name="enteReceptor" from="${maternidad.EnteReceptor.list()}" optionKey="id"
+                              value="${filters?.enteReceptor? Long.valueOf(filters?.enteReceptor):''}" noSelection="['': '']"/></p></td>
+                <td>
                     <p><br><g:submitButton name="filter" value="Filtrar"/></p></td>
             </tr>
         </table>
