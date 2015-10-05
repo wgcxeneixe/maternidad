@@ -38,7 +38,7 @@
     </g:if>
     <ol class="property-list planillaInternacion">
 
-    <g:if test="${planillaInternacionInstance?.telefonoFamiliarResponsable}">
+    <g:if test="${planillaInternacionInstance?.numeroIngreso}">
         <li class="fieldcontain">
             <span id="historia-label" class="property-label"><g:message
                     code="planillaInternacion.historia.label"
@@ -215,19 +215,19 @@
         </li>
     </g:if>
 
-    <g:if test="${planillaInternacionInstance?.fichaAcler}">
-        <li class="fieldcontain">
-            <span id="ficha-label" class="property-label"><g:message code="persona.ficha.label" default="Ficha Unica" /></span>
 
-            <span class="property-value" aria-labelledby="ficha-label"><g:fieldValue bean="${planillaInternacionInstance}" field="fichaAcler"/></span>
-
-        </li>
-    </g:if>
 
     <!--- fin persona-->
 
 
+        <g:if test="${planillaInternacionInstance?.fichaAcler}">
+            <li class="fieldcontain">
+                <span id="ficha-label" class="property-label"><g:message code="persona.ficha.label" default="Ficha Unica" /></span>
 
+                <span class="property-value" aria-labelledby="ficha-label"><g:fieldValue bean="${planillaInternacionInstance}" field="fichaAcler"/></span>
+
+            </li>
+        </g:if>
 
 
 
@@ -290,6 +290,18 @@
             </li>
         </g:if>
 
+        <g:if test="${planillaInternacionInstance?.dniFamiliarResponsable}">
+            <li class="fieldcontain">
+                <span id="dniFamiliarResponsable-label" class="property-label"><g:message
+                        code="planillaInternacion.dniFamiliarResponsable.label"
+                        default="DNI Familiar Responsable"/></span>
+
+                <span class="property-value" aria-labelledby="dniFamiliarResponsable-label"><g:fieldValue
+                        bean="${planillaInternacionInstance}" field="dniFamiliarResponsable"/></span>
+
+            </li>
+        </g:if>
+
         <g:if test="${planillaInternacionInstance?.fechaAlta}">
             <li class="fieldcontain">
                 <span id="fechaAlta-label" class="property-label"><g:message code="planillaInternacion.fechaAlta.label"
@@ -324,6 +336,7 @@
     </g:if>
 
 
+
     <g:if test="${planillaInternacionInstance?.ocupacion}">
         <li class="fieldcontain">
             <span id="ocupacion-label" class="property-label"><g:message
@@ -346,6 +359,28 @@
 
         </li>
     </g:if>
+
+        <g:if test="${planillaInternacionInstance?.diagnostico}">
+            <li class="fieldcontain">
+                <span id="diagnostico-label" class="property-label"><g:message
+                        code="planillaInternacion.tipoSocio.label" default="Diagnostico"/></span>
+
+                <span class="property-value" aria-labelledby="diagnostico-label"><g:fieldValue
+                        bean="${planillaInternacionInstance}" field="diagnostico"/></span>
+
+            </li>
+        </g:if>
+
+        <g:if test="${planillaInternacionInstance?.tratamiento}">
+            <li class="fieldcontain">
+                <span id="tratamiento-label" class="property-label"><g:message
+                        code="planillaInternacion.tipoSocio.label" default="Tratamiento"/></span>
+
+                <span class="property-value" aria-labelledby="tratamiento-label"><g:fieldValue
+                        bean="${planillaInternacionInstance}" field="tratamiento"/></span>
+
+            </li>
+        </g:if>
 
     </ol>
     <!-- Listado de Nacimientos -->
