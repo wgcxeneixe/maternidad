@@ -885,7 +885,7 @@ class PlanillaInternacionController {
         try {
             data = FacturacionService.cerrar(periodo, directorio)
 
-            generarPDF('cierreMes.jasper', "Resumen Facturacion", data, 'resumenFacturacion-' + new Date().getAt(Calendar.MONTH) + "-" + new Date().getAt(Calendar.YEAR))
+            generarPDF('cierreMes.jasper', "Resumen Facturacion", data, 'resumenFacturacion-'  + "-" + periodo)
 
         } catch (Exception ex) {
             ex
