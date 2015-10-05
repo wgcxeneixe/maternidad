@@ -660,45 +660,51 @@ class PlanillaInternacionController {
             if (seleccionados) {
                 seleccionados = seleccionados.collect { new Long(it) }
 
-                def c = DetalleFactura.createCriteria()
+//                def c = DetalleFactura.createCriteria()
 
-                def resultado = c.list {
-                    planillaInternacion {
-                        eq("activo", true)
-                        'in'("id", seleccionados)
-                    }
+                def planillas = PlanillaInternacion.findAllByActivoAndIdInList(true, seleccionados)
+//                def resultado = c.list {
+//                    planillaInternacion {
+//                        eq("activo", true)
+//                        'in'("id", seleccionados)
+//                    }
+//
+//                    order("planillaInternacion")
+//
+//                }
 
-                    order("planillaInternacion")
-
+                def resultado = []
+                planillas.each {
+                    resultado.addAll(it.detalles)
                 }
-
-
-                println "entoro sss ${seleccionados.size()} - ${resultado.size()}"
 
                 String texArchivo = ""
                 if (resultado) {
+                    def nroPlanilla = 0
                     def hoy = new Date()
+                    int cont = 0
                     def peri = hoy.format('ddMMyy').toString()
                     resultado.each() { DetalleFactura detalle ->
-                        texArchivo += convertirACadena(6, detalle.planillaInternacion.numeroAfiliado)
-                        texArchivo += ' 1'
+                        if (nroPlanilla != detalle.planillaInternacion.numeroIngreso) cont = 1
+                        texArchivo += convertirACadena(6, detalle.planillaInternacion.numeroIngreso.toString())
+                        texArchivo += convertirACadena(2, cont.toString())
                         texArchivo += ' 46408'
                         texArchivo += convertirACadena(6, detalle.planillaInternacion.plan.codigo.toString())
-                        texArchivo += String.format("%06.2f", detalle.cantidad)?.replace(',', '')
+                        texArchivo += quitarCerosIzquierda(String.format("%06.2f", detalle.cantidad)?.replace(',', ''))
                         texArchivo += convertirACadena(8, detalle.practica ? detalle.practica.codigo.toString() : (detalle.medicamento ? detalle.medicamento.codigo?.toString() : '500101'))
                         texArchivo += peri
-                        texArchivo += convertirACadena(2, detalle.funcion.toString())
-                        texArchivo += String.format("%011.2f", (detalle.medicamento ? detalle.medicamento.valor : (detalle.valorGastos + detalle.valorHonorarios)))?.replace(',', '')
+                        texArchivo += convertirACadena(4, detalle.funcion.toString())
+                        texArchivo += quitarCerosIzquierda(String.format("%011.2f", (detalle.medicamento ? detalle.medicamento.valor : (detalle.valorGastos + detalle.valorHonorarios)))?.replace(',', ''))
                         texArchivo += convertirACadena(6, detalle.profesional.codigoCirculo?.toString())
-                        texArchivo += convertirACadena(30, (detalle.planillaInternacion.paciente.apellido + ' ' + detalle.planillaInternacion.paciente.nombre))
-
+                        texArchivo += convertirACadena(30, (detalle.planillaInternacion.paciente.apellido + ' ' + detalle.planillaInternacion.paciente.nombre), false)
+                        texArchivo += '\n'
+                        cont++
+                        nroPlanilla = detalle.planillaInternacion.numeroIngreso
                     }
+                    texArchivo += '\u001A'
                 }
                 def fichero = new File("fichero.txt")
-                println fichero
                 fichero.write(texArchivo)
-                println "algo"
-                println fichero
 
                 // Establecemos un nombre de archivo único...
                 response.setHeader("Content-disposition", "attachment; filename=\"fichero.txt\"");
@@ -959,7 +965,7 @@ class PlanillaInternacionController {
 
     }
 
-    private String convertirACadena(int longitud, String texto) {
+    private String convertirACadena(int longitud, String texto, Boolean completarDelante = true) {
         texto = texto.replace('/', '')
         texto = texto.replace('-', '')
         texto = texto.replace('*', '')
@@ -969,11 +975,38 @@ class PlanillaInternacionController {
             def res = ""
             res += texto
             while (res.length() < longitud) {
-                res = ' ' + res
+                if (completarDelante) {
+                    res = ' ' + res
+                } else {
+                    res = res + ' '
+                }
             }
 
             return res
         }
+    }
+
+    private String quitarCerosIzquierda(String texto) {
+        def res = ""
+        try{
+        int i = 0
+        def continuar = true
+        while (continuar && i<texto.length()) {
+            if (texto[i] == '0') {
+                res += ' '
+            } else {
+                res += texto.substring(i, texto.length())
+                continuar = false
+            }
+            i++
+        }
+        }catch (e){
+            println e.stackTrace
+            println e.message
+        }
+
+        return res
+
     }
 
 }
