@@ -147,15 +147,16 @@
             <script>
                 jQuery(function() {
 
-                    jQuery('#profesional').change(function(e){
+                    jQuery("#localidad").select2({allowClear: true});
+               /*     jQuery('#profesional').change(function(e){
 
                         jQuery("#profesional").val('${profesionalInstance?.id}');
-                        jQuery("#profesional").prop("disabled", true);
+                        //jQuery("#profesional").prop("disabled", true);
                         jQuery("#filaoculta").hide();
                     });
-
+*/
                     // And now fire change event when the DOM is ready
-                    jQuery('#profesional').trigger('change');
+                  //  jQuery('#profesional').trigger('change');
 
                     // jQuery("#obrasocial").attr('readonly',true).select2({allowClear: true});
                    // jQuery("#obrasocial").attr('readonly',true);
@@ -169,100 +170,7 @@
         </div>
 
 
-    <script>
-        jQuery(function() {
 
-
-            if(jQuery("#personaFisica").is(':checked')) {
-
-                jQuery("#divnombre").addClass("required").show();
-                jQuery("#nombre").attr("required",true);
-                jQuery("#divapellido").addClass("required").show();
-                jQuery("#apellido").attr("required",true);
-                jQuery("#divTipoDocumento").show();
-                jQuery("#divnrodoc").addClass("required").show();
-
-                jQuery("#nroDocumento").attr("required",true);
-                jQuery("#divestadocivil").show();
-
-                jQuery("#divrazonsocial").removeClass("required").hide();
-                jQuery("#razonSocial").attr("required",false);
-                jQuery("#divcuit").hide();
-                jQuery("#cuit").attr("required",false);
-
-            } else {
-                jQuery("#divnombre").removeClass("required").hide();
-                jQuery("#nombre").attr("required",false);
-                jQuery("#divapellido").removeClass("required").hide();
-                jQuery("#apellido").attr("required",false);
-                jQuery("#divTipoDocumento").hide();
-                jQuery("#divnrodoc").removeClass("required").hide();
-                jQuery("#nroDocumento").attr("required",false);
-                jQuery("#divestadocivil").hide();
-
-                jQuery("#divrazonsocial").addClass("required").show();
-                jQuery("#razonSocial").attr("required",true);
-
-                jQuery("#cuit").attr("required",true);
-                jQuery("#divcuit").addClass("required").show();
-            }
-
-
-            jQuery("#personaFisica").click(function() {
-                if(jQuery("#personaFisica").is(':checked')) {
-
-                    jQuery("#divnombre").addClass("required").show();
-                    jQuery("#nombre").attr("required",true);
-                    jQuery("#divapellido").addClass("required").show();
-                    jQuery("#apellido").attr("required",true);
-                    jQuery("#divTipoDocumento").show();
-                    jQuery("#divnrodoc").addClass("required").show();
-                    jQuery("#nroDocumento").attr("required",true);
-                    jQuery("#divestadocivil").show();
-
-                    jQuery("#divrazonsocial").hide();
-                    jQuery("#razonSocial").attr("required",false);
-                    jQuery("#divcuit").hide();
-                    jQuery("#cuit").attr("required",false);
-
-                } else {
-                    jQuery("#divnombre").removeClass("required").hide();
-                    jQuery("#nombre").attr("required",false);
-                    jQuery("#divapellido").removeClass("required").hide();
-                    jQuery("#apellido").attr("required",false);
-                    jQuery("#divTipoDocumento").hide();
-                    jQuery("#divnrodoc").removeClass("required").hide();
-                    jQuery("#nroDocumento").attr("required",false);
-                    jQuery("#divestadocivil").hide();
-
-                    jQuery("#divrazonsocial").addClass("required").show();
-                    jQuery("#razonSocial").attr("required",true);
-
-                    jQuery("#cuit").attr("required",true);
-                    jQuery("#divcuit").addClass("required").show();
-                }
-            });
-
-
-            //idioma de los calendar
-            jQuery.datepicker.regional[ "es" ];
-            updateDatePicker();
-
-            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
-                updateDatePicker();
-            });
-
-            jQuery("#banco").select2({allowClear: true});
-            jQuery("#persona").select2({allowClear: true});
-
-            jQuery("#localidad").select2({allowClear: true});
-
-
-            jQuery("#personaFisica").attr("disabled",true);
-
-        })
-
-    </script>
 
 	</body>
 </html>
