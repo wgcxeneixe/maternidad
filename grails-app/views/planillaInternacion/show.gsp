@@ -5,6 +5,62 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'planillaInternacion.label', default: 'PlanillaInternacion')}"/>
     <title><g:message code="default.show.label" args="[entityName]"/></title>
+
+    <script>
+        $(function() {
+/*
+            //idioma de los calendar
+            jQuery.datepicker.regional[ "es" ];
+            updateDatePicker();
+            jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+                updateDatePicker();
+            });
+*/
+            var dialog, form;
+
+
+
+            function addUser() {
+
+jQuery("#formPlanillas").submit();
+                    dialog.dialog( "close" );
+
+
+            }
+
+            dialog = jQuery( "#dialog-form" ).dialog({
+                autoOpen: false,
+                height: 300,
+                width: 350,
+                modal: true,
+                buttons: {
+                    "Enviar": addUser,
+                    Cancel: function() {
+                        dialog.dialog( "close" );
+                    }
+                },
+                close: function() {
+                    form[ 0 ].reset();
+
+                }
+            });
+
+         /*   form = dialog.find( "form" ).on( "submit", function( event ) {
+              //  event.preventDefault();
+                addUser();
+            });
+*/
+            jQuery( "#imprimirPorDia" ).click(function(e) {
+                e.preventDefault();
+                var url = jQuery(this).attr('href');
+                dialog.dialog( "open" );
+            });
+
+
+        });
+    </script>
+
+
 </head>
 
 <body>
@@ -28,6 +84,7 @@
 <g:if test="${planillaInternacionInstance?.estadoPlanilla?.id== maternidad.EstadoPlanilla.findByCodigo("PRE")?.id}">
         <li><g:link class="create" controller="planillaInternacion"  action="imprimirPlanillaPresentadas" >${message(code: 'planillaInternacion.imprimirPlanillaPresentada')}</g:link></li>
 </g:if>
+        <li><a id="imprimirPorDia" class="create" href="#" >${message(code: 'planillaInternacion.imprimirPlanillaspordia')}</a></li>
     </ul>
 </div>
 
@@ -579,5 +636,33 @@ isNull("medicamento")
         </fieldset>
     </g:form>
 </div>
+
+<script>
+
+    $(document).ready(function(){
+
+        jQuery( "#imprimirPorDia" ).click(function(e) {
+            e.preventDefault();
+            var url = jQuery(this).attr('href');
+
+        });
+
+    });
+
+</script>
+
+<div id="dialog-form" title="Create new user">
+    <p class="validateTips">All form fields are required.</p>
+
+    <form id="formPlanillas" action="<g:createLink action='imprimirPlanillaPresentadasPorDia' controller='planillaInternacion'/> ">
+        <fieldset>
+            <label for="dia">Dia</label>
+      <g:datePicker name="dia" precision="day"></g:datePicker>
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        </fieldset>
+    </form>
+</div>
+
 </body>
 </html>

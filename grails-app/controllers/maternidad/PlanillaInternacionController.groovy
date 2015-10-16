@@ -1009,4 +1009,54 @@ class PlanillaInternacionController {
 
     }
 
+
+    def imprimirPlanillaPresentadasPorDia = {
+
+        def data = []
+
+        def datos
+        def dia = params.dia as Date
+
+        def mes = params.dia_month as int
+        mes = mes - 1
+        def dia2 = new Date();
+        dia2.set(year: params.dia_year as int, month: mes, dayOfMonth: params.dia_day as int, hourOfDay: 23, minute: 59, second: 59)
+        def estado = EstadoPlanilla.findByCodigo("PRE")
+        def planillas = MovimientoPlanilla.findAllByEstadoPlanillaAndFechaBetween(estado, dia, dia2).planillaInternacion
+
+        def planillaPresentadas
+        def os = ObraSocial.list()
+        os.planes.each {
+            def Plan planid = it?.first()
+
+            planillaPresentadas = PlanillaInternacion.findAllByPlanAndIdInList(planid,planillas.id)
+
+            if (planillaPresentadas?.size() > 0) {
+                datos = PlanillasPresentadas.generar(planillaPresentadas)
+                data.add(datos)
+            }
+
+
+        }
+
+
+        if (!data) {
+            flash.message = "${message(code: 'planillaInternacion.planillaspresentadasnoencontradas', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
+            redirect(action: "index")
+        } else {
+
+            try {
+
+                generarPDF('PlanillasPresentadas.jasper', "Planillas Presentadas", data, 'planillasPresentadas' + '-' + new Date().format("dd-MM-yyyy"))
+            } catch (Exception ex) {
+                ex
+            }
+
+
+        }
+
+
+    }
+
+
 }
