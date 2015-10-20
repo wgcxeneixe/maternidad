@@ -243,7 +243,8 @@ class PlanillaInternacionController {
         }
 
         if (params.planOriginal != planillaInternacionInstance.plan.id.toString()) {
-            eliminarDetalles(planillaInternacionInstance?.id)
+           // eliminarDetalles(planillaInternacionInstance?.id)
+           actualizarDetalles(planillaInternacionInstance,planillaInternacionInstance.plan)
         }
 
         planillaInternacionInstance.save flush: true
@@ -964,6 +965,63 @@ class PlanillaInternacionController {
         }
 
     }
+
+
+    def actualizarDetalles(PlanillaInternacion planilla, Plan plan) {
+
+        def planConvenio = PlanConvenio.findByPlan(plan)
+        def detalles = DetalleFactura.findAllByPlanillaInternacion(planilla)
+        detalles.each {
+            if (it?.practica != null) {
+
+                def valorP = ValorPractica.findByPlanConvenioAndPractica(planConvenio, it?.practica)
+
+                /*  10 - honorarios    si tiene valor honorario tomar valorhon sino valor especialista
+                     20- ayudante
+                     30-anestecista
+                     60 - gasto
+                     70 - gasto y honorarios llenar los dos campos
+                     91 - libre carga valor honorario a mano  sacar el readonly y permitir cargar valor que se escribe en valor honorario */
+                it.plan = plan
+                if (valorP) {
+                    if (it.funcion == 10) {
+                        it.valorHonorarios = valorP?.valorEspecialista
+
+                    }
+
+                    if (it.funcion == 20) {
+                        it.valorHonorarios = valorP?.valorAyudante
+
+                    }
+                    if (it.funcion == 30) {
+                        it.valorHonorarios = valorP?.valorAnestecista
+
+                    }
+                    if (it.funcion == 60) {
+                        it.valorGastos = valorP?.valorGasto
+
+                    }
+                    if (it.funcion == 70) {
+                        it.valorGastos = valorP?.valorGasto
+                        it.valorHonorarios = valorP?.valorEspecialista
+                    }
+                    if (it.funcion == 91) {
+                        it.valorGastos = valorP?.valorGasto
+                        it.valorHonorarios = valorP?.valorEspecialista
+                    }
+                }
+                else {
+                    it.valorGastos = 0
+                    it.valorHonorarios = 0
+                }
+
+it.save(flush: true)
+            }
+        }
+
+
+    }
+
 
     private String convertirACadena(int longitud, String texto, Boolean completarDelante = true) {
         texto = texto.replace('/', '')

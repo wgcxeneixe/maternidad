@@ -65,7 +65,7 @@
 
 
         jQuery( "#plan" ).change(function() {
-             alert("Atención: Al cambiar el plan se eliminarán las practicas cargadas")
+             alert("Atención: Al cambiar el plan se recalcularán las practicas cargadas")
 
         });
 
