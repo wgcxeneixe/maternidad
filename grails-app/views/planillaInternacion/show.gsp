@@ -651,7 +651,7 @@ isNull("medicamento")
 
 </script>
 
-<div id="dialog-form" title="Create new user">
+<div id="dialog-form" title="Planilla Presentadas por día">
     <p class="validateTips">All form fields are required.</p>
 
     <form id="formPlanillas" action="<g:createLink action='imprimirPlanillaPresentadasPorDia' controller='planillaInternacion'/> ">
