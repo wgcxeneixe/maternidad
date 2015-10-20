@@ -35,6 +35,7 @@ class DetalleSinValor {
                 lineaDetalle.cantidad = it?.cantidad
                 lineaDetalle.funcion = it?.funcion?.toString()
                 lineaDetalle.matricula = (it?.profesional?.matriculaProvincial) ?: ""
+                lineaDetalle.codigoCirculo =  (it?.profesional?.codigoCirculo) ?: ""
                 lineaDetalle.orden = it?.funcion == 60? 1:(it?.funcion == 10? 2:(it?.funcion == 20? 3:(it?.funcion == 30?4:(it?.funcion == 70?5:10))))
                 detalle.items.add(lineaDetalle)
             }

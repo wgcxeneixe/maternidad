@@ -15,7 +15,7 @@
         <g:message code="facturaProveedor.numero.label" default="Numero" />
         <span class="required-indicator">*</span>
     </label>
-    <g:field type="number" name="numero" required="" value="${facturaProveedorInstance?.numero}"/>
+    <g:textField  name="numero" required="" value="${facturaProveedorInstance?.numero}"/>
 
 </div>
 

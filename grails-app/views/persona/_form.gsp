@@ -9,7 +9,7 @@
         <g:message code="persona.personaFisica.label" default="Persona Fisica" />
 
     </label>
-    <g:checkBox id="personaFisica" name="personaFisica" value="${personaInstance?.personaFisica}" />
+    <g:checkBox id="personaFisica"  name="personaFisica" value="${personaInstance?.personaFisica}" />
 
 </div>
 

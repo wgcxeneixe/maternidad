@@ -372,6 +372,13 @@
                 <span>Pago Facturas</span>
             </a>
         </li>
+
+        <li class="${(controllerName == 'factura' && actionName == 'exportar') ? 'active' : ''}">
+            <a href="${createLink(controller:'factura',action: 'exportar')}" class="auto"> <!-- /CreateLink -->
+                <i class="i i-dot"></i>
+                <span>Exportar Circulo</span>
+            </a>
+        </li>
     </ul>
 </li>
 

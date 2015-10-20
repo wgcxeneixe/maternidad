@@ -138,21 +138,25 @@ class ProfesionalController {
         profesionalInstance.persona?.localidad=(params?.localidad.id!='null')?Localidad.get(params?.localidad.id as Long):null
         profesionalInstance.persona?.nacionalidad=(params?.nacionalidad.id!='null')?Pais.get(params?.nacionalidad.id as Long):null
         profesionalInstance.persona.nombre=params?.nombre
-        profesionalInstance.persona.nroDocumento=params?.nroDocumento as Long
+        profesionalInstance.persona.nroDocumento=(params?.nroDocumento)?params?.nroDocumento as Long:null
         profesionalInstance.persona.numero=params?.numero
         profesionalInstance.persona.piso=params?.piso
         profesionalInstance.persona.razonSocial=params?.razonSocial
         profesionalInstance.persona?.tipoDocumento=TipoDocumento.get(params?.tipoDocumento.id as Long)
 
-        profesionalInstance.persona.save flush: true
+        profesionalInstance.persona.save flush: true,validate:false
        // profesionalInstance.persona=personaInstance
 
         if (profesionalInstance.hasErrors()) {
             respond profesionalInstance.errors, view: 'edit'
             return
         }
+try{
+    profesionalInstance.save flush: true,validate:false
 
-        profesionalInstance.save flush: true
+}catch (Exception ex){
+    ex
+}
 
         request.withFormat {
             form multipartForm {

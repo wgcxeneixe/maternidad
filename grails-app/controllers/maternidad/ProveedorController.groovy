@@ -51,7 +51,7 @@ class ProveedorController {
         }
 
         def criteria = Proveedor.createCriteria()
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        params.max = Math.min(params.max ? params.int('max') : 50, 100)
         def proveedores = criteria.list(query, max: params.max, offset: params.offset)
         def filters = [cuit:params.cuit,nombre:params.nombre]
 

@@ -14,4 +14,5 @@ class LineaDetalleSinValor {
     String funcion
     String profesional
     Integer orden
+    String codigoCirculo
 }

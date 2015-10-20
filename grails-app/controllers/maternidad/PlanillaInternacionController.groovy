@@ -3,6 +3,9 @@ package maternidad
 import grails.plugin.springsecurity.annotation.Secured
 import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
 import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
+import pl.touk.excel.export.WebXlsxExporter
+
+import java.text.DecimalFormat
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -32,52 +35,64 @@ class PlanillaInternacionController {
   */
         def query = {
             if (params.dni) {
-                paciente{
+                paciente {
                     eq('nroDocumento', params.dni as Long)
                 }
 
             }
             if (params.nroplanilla) {
-               eq('numeroIngreso',  params.nroplanilla as Integer)
+                eq('numeroIngreso', params.nroplanilla as Integer)
             }
 
             if (params.nombre) {
 
-              or{
-                  paciente{ilike('nombre', '%' + params.nombre + '%')}
-                  paciente{ilike('apellido', '%' + params.nombre + '%')}
-              }
+                or {
+                    paciente { ilike('nombre', '%' + params.nombre + '%') }
+                    paciente { ilike('apellido', '%' + params.nombre + '%') }
+                }
 
 
             }
 
             if (params?.estado) {
-               estadoPlanilla{ eq('id',  params.estado as Long)}
+                estadoPlanilla { eq('id', params.estado as Long) }
             }
 
-            if (params.sort){
-                order(params.sort,params.order)
+            if (params?.plan) {
+                plan { eq('id', params.plan as Long) }
             }
-else {
+
+            if (params?.enteReceptor) {
+                def ente = EnteReceptor.read(params.enteReceptor as Long)
+                def listaOS = ObraSocial.findAllByEnteReceptor(ente)
+                def listaPlan = []
+                listaOS.each {
+                    listaPlan.addAll(it.planes)
+                }
+                plan { 'in'('obrasocial', listaOS) }
+            }
+
+
+            if (params.sort) {
+                order(params.sort, params.order)
+            } else {
                 order("numeroIngreso", "desc")
             }
 
-            eq('activo',true)
+            eq('activo', true)
 
         }
 
         def criteria = PlanillaInternacion.createCriteria()
-        params.max = Math.min(params.max ? params.int('max') : 40, 100)
+        params.max = Math.min(params.max ? params.int('max') : 200, 100)
         def planillas = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [dni: params.dni,nroplanilla:params.nroplanilla,nombre:params.nombre,estado:params.estado]
-
-        def model = [planillaInternacionInstanceList: planillas, planillaInternacionInstanceCount:planillas.totalCount, filters: filters]
+        def filters = [dni: params.dni, nroplanilla: params.nroplanilla, nombre: params.nombre, estado: params.estado, plan: params.plan, enteReceptor: params.enteReceptor]
+        def model = [planillaInternacionInstanceList: planillas, planillaInternacionInstanceCount: planillas.totalCount, filters: filters]
 
         if (request.xhr) {
             // ajax request
             render(template: "lista", model: model)
-        }
-        else {
+        } else {
             model
         }
     }
@@ -89,10 +104,9 @@ else {
 
     def create() {
         def persona = Persona.findById(params?.id as long)
-        if(persona == null){
+        if (persona == null) {
             redirect action: "createconpaciente", method: "GET"
-        }else
-        {
+        } else {
             def planillaInternacion = new PlanillaInternacion(params)
             planillaInternacion.paciente = persona
             respond planillaInternacion
@@ -102,10 +116,10 @@ else {
     def createconpaciente() {
         def persona = new Persona()
         persona.nroDocumento = params?.nrodocumento as long
-        persona.tipoDocumento= TipoDocumento.findByNombre("DNI")
+        persona.tipoDocumento = TipoDocumento.findByNombre("DNI")
         persona.personaFisica = true
 
-        render(view: "createconpaciente", model: [planillaInternacionInstance: new PlanillaInternacion(),personaInstance:persona])
+        render(view: "createconpaciente", model: [planillaInternacionInstance: new PlanillaInternacion(), personaInstance: persona])
         //respond  new PlanillaInternacion(params), model:[persona: Persona]
     }
 
@@ -117,26 +131,26 @@ else {
         }
 
         if (planillaInternacionInstance.hasErrors()) {
-            respond planillaInternacionInstance.errors, view:'create'
+            respond planillaInternacionInstance.errors, view: 'create'
             return
         }
 
 
         def estadoPlanilla = EstadoPlanilla.findByNombre("INICIADA")
 
-        planillaInternacionInstance.estadoPlanilla=estadoPlanilla
+        planillaInternacionInstance.estadoPlanilla = estadoPlanilla
 
-        planillaInternacionInstance.save flush:true
+        planillaInternacionInstance.save flush: true
 
-        if(estadoPlanilla){
+        if (estadoPlanilla) {
 
             def usuario = springSecurityService.currentUser
-            def movimiento= new  MovimientoPlanilla()
-            movimiento.estadoPlanilla=estadoPlanilla
-            movimiento.fecha=new Date()
-            movimiento.planillaInternacion=planillaInternacionInstance
-            movimiento.usuario=usuario as Usuario
-            movimiento.save(flush:true)
+            def movimiento = new MovimientoPlanilla()
+            movimiento.estadoPlanilla = estadoPlanilla
+            movimiento.fecha = new Date()
+            movimiento.planillaInternacion = planillaInternacionInstance
+            movimiento.usuario = usuario as Usuario
+            movimiento.save(flush: true)
         }
 
 
@@ -150,7 +164,7 @@ else {
     }
 
     @Transactional
-    def saveconpersona(PlanillaInternacion planillaInternacionInstance,Persona personaInstance) {
+    def saveconpersona(PlanillaInternacion planillaInternacionInstance, Persona personaInstance) {
         if (planillaInternacionInstance == null) {
             notFound()
             return
@@ -167,7 +181,7 @@ else {
         }
 
         personaInstance.save flush: true
-        planillaInternacionInstance.paciente=personaInstance
+        planillaInternacionInstance.paciente = personaInstance
 
         if (planillaInternacionInstance.hasErrors()) {
             respond planillaInternacionInstance.errors, view: 'createconpaciente'
@@ -175,8 +189,8 @@ else {
         }
 
         Internacion internacion = new Internacion()
-        internacion.fecha=planillaInternacionInstance?.fechaInternacion
-        internacion.diasInternacion=0
+        internacion.fecha = planillaInternacionInstance?.fechaInternacion
+        internacion.diasInternacion = 0
 
         internacion.save(flush: true)
 
@@ -184,19 +198,19 @@ else {
 
         def estadoPlanilla = EstadoPlanilla.findByNombre("INICIADA")
 
-        planillaInternacionInstance.estadoPlanilla=estadoPlanilla
+        planillaInternacionInstance.estadoPlanilla = estadoPlanilla
 
-        planillaInternacionInstance.save flush:true
+        planillaInternacionInstance.save flush: true
 
-        if(estadoPlanilla){
+        if (estadoPlanilla) {
 
             def usuario = springSecurityService.currentUser
-            def movimiento= new  MovimientoPlanilla()
-            movimiento.estadoPlanilla=estadoPlanilla
-            movimiento.fecha=new Date()
-            movimiento.planillaInternacion=planillaInternacionInstance
-            movimiento.usuario=usuario as Usuario
-            movimiento.save(flush:true)
+            def movimiento = new MovimientoPlanilla()
+            movimiento.estadoPlanilla = estadoPlanilla
+            movimiento.fecha = new Date()
+            movimiento.planillaInternacion = planillaInternacionInstance
+            movimiento.usuario = usuario as Usuario
+            movimiento.save(flush: true)
         }
 
         request.withFormat {
@@ -206,7 +220,7 @@ else {
                 //redirect planillaInternacionInstance
                 redirect(action: "index")
             }
-            '*' { respond planillaInternacionInstance, [status: CREATED],view:'index' }
+            '*' { respond planillaInternacionInstance, [status: CREATED], view: 'index' }
         }
     }
 
@@ -224,15 +238,15 @@ else {
         }
 
         if (planillaInternacionInstance.hasErrors()) {
-            respond planillaInternacionInstance.errors, view:'edit'
+            respond planillaInternacionInstance.errors, view: 'edit'
             return
         }
 
-        if(params.planOriginal != planillaInternacionInstance.plan.id.toString()){
+        if (params.planOriginal != planillaInternacionInstance.plan.id.toString()) {
             eliminarDetalles(planillaInternacionInstance?.id)
         }
 
-        planillaInternacionInstance.save flush:true
+        planillaInternacionInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -240,7 +254,7 @@ else {
                 //redirect planillaInternacionInstance
                 redirect(action: "index")
             }
-            '*'{ respond planillaInternacionInstance, [status: OK] }
+            '*' { respond planillaInternacionInstance, [status: OK] }
         }
     }
 
@@ -252,14 +266,14 @@ else {
             return
         }
 
-        planillaInternacionInstance.delete flush:true
+        planillaInternacionInstance.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'PlanillaInternacion.label', default: 'PlanillaInternacion'), planillaInternacionInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -267,20 +281,18 @@ else {
         return
     }
 
-    def derivarpaciente={
-        if(params?.paciente == "" || params?.paciente== null){
+    def derivarpaciente = {
+        if (params?.paciente == "" || params?.paciente == null) {
             redirect action: "buscapaciente", method: "GET"
             return
         }
         def persona = Persona.findByNroDocumento(params?.paciente as long)
-        if(persona == null){
+        if (persona == null) {
             forward(action: "createconpaciente", params: [nrodocumento: params?.paciente])
             //forward(["nrodocumento":params?.paciente])
             //redirect action: "createconpaciente", method: "POST"
             //redirect action: "createconpaciente", method: "POST", params: ["nrodocumento":params?.paciente]
-        }
-        else
-        {
+        } else {
             redirect action: "create", method: "GET", id: persona?.id
         }
     }
@@ -291,76 +303,71 @@ else {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'planillaInternacion.label', default: 'PlanillaInternacion'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
-
-
 
     // ***************************
     // Imprimir orden Internacion
     // ***************************
     def imprimirOrden = {
         def planillaInstance = PlanillaInternacion.get(params.id)
-        if(!planillaInstance){
+        if (!planillaInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
             redirect(action: "index")
-        }else{
+        } else {
 
             def data = OrdenInternacion.generar(planillaInstance)
 
             generarPDF('ordenInternacion.jasper', "Orden", [data], 'orden-' + planillaInstance?.id)
 
-          //  redirect(action: "show", id: planillaInstance.id)
+            //  redirect(action: "show", id: planillaInstance.id)
 
         }
     }
-
 
     // ***************************
     // Imprimir Detalle Valorizado
     // ***************************
     def imprimirDetalle = {
         def planillaInstance = PlanillaInternacion.get(params.id)
-        if(!planillaInstance){
+        if (!planillaInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
             redirect(action: "index")
-        }else{
+        } else {
 
-         try{   def data = DetalleValorizado.generar(planillaInstance)
-            generarPDF('detalleValorizado.jasper', "Detalle", [data], 'detalle-' + planillaInstance?.id)
+            try {
+                def data = DetalleValorizado.generar(planillaInstance)
+                generarPDF('detalleValorizado.jasper', "Detalle", [data], 'detalle-' + planillaInstance?.id)
 
-             //si la planilla tiene el estado en proceso entonces cambiarla a impresa
+                //si la planilla tiene el estado en proceso entonces cambiarla a impresa
 
-             if (planillaInstance.estadoPlanilla.codigo=="EPR" || planillaInstance.estadoPlanilla.codigo=="INI" ){
+                if (planillaInstance.estadoPlanilla.codigo == "EPR" || planillaInstance.estadoPlanilla.codigo == "INI") {
 
-                 def estadoPlanilla = EstadoPlanilla.findByCodigo("IMP")
+                    def estadoPlanilla = EstadoPlanilla.findByCodigo("IMP")
 
-                 def usuario = springSecurityService.currentUser
-                 def movimiento= new  MovimientoPlanilla()
-                 movimiento.estadoPlanilla=estadoPlanilla
-                 movimiento.fecha=new Date()
-                 movimiento.planillaInternacion=planillaInstance
-                 movimiento.usuario=usuario as Usuario
-                 movimiento.save(flush:true)
-
-
-                 planillaInstance.estadoPlanilla=estadoPlanilla
-
-                 planillaInstance.save flush:true
+                    def usuario = springSecurityService.currentUser
+                    def movimiento = new MovimientoPlanilla()
+                    movimiento.estadoPlanilla = estadoPlanilla
+                    movimiento.fecha = new Date()
+                    movimiento.planillaInternacion = planillaInstance
+                    movimiento.usuario = usuario as Usuario
+                    movimiento.save(flush: true)
 
 
-             }
+                    planillaInstance.estadoPlanilla = estadoPlanilla
+
+                    planillaInstance.save flush: true
 
 
-
-         }catch(Exception ex){
-             ex
-         }
+                }
 
 
+            } catch (Exception ex) {
+                ex
+            }
 
-          //  redirect(action: "show", id: planillaInstance.id)
+            //  redirect(action: "show", id: planillaInstance.id)
 
         }
     }
@@ -407,8 +414,6 @@ else {
     }
 
 
-
-
     def imprimirDetalleSinValor = {
 
         def planillaInstance = PlanillaInternacion.get(params.id)
@@ -422,29 +427,27 @@ else {
 
                 generarPDF('detalleSinValor.jasper', "Detalle Sin Valor", [data], 'detalleSinValor-' + planillaInstance?.id)
 
-
                 //si la planilla tiene el estado en proceso entonces cambiarla a impresa
 
-                if (planillaInstance.estadoPlanilla.codigo=="EPR" || planillaInstance.estadoPlanilla.codigo=="INI" ){
+                if (planillaInstance.estadoPlanilla.codigo == "EPR" || planillaInstance.estadoPlanilla.codigo == "INI") {
 
                     def estadoPlanilla = EstadoPlanilla.findByCodigo("IMP")
 
                     def usuario = springSecurityService.currentUser
-                    def movimiento= new  MovimientoPlanilla()
-                    movimiento.estadoPlanilla=estadoPlanilla
-                    movimiento.fecha=new Date()
-                    movimiento.planillaInternacion=planillaInstance
-                    movimiento.usuario=usuario as Usuario
-                    movimiento.save(flush:true)
+                    def movimiento = new MovimientoPlanilla()
+                    movimiento.estadoPlanilla = estadoPlanilla
+                    movimiento.fecha = new Date()
+                    movimiento.planillaInternacion = planillaInstance
+                    movimiento.usuario = usuario as Usuario
+                    movimiento.save(flush: true)
 
 
-                    planillaInstance.estadoPlanilla=estadoPlanilla
+                    planillaInstance.estadoPlanilla = estadoPlanilla
 
-                    planillaInstance.save flush:true
+                    planillaInstance.save flush: true
 
 
                 }
-
 
 
             } catch (Exception ex) {
@@ -540,15 +543,13 @@ else {
 
                 planillaPresentadas = PlanillaInternacion.findAllByPlanAndEstadoPlanilla(planid, estado)
 
-                if(planillaPresentadas?.size()>0){
+                if (planillaPresentadas?.size() > 0) {
                     datos = PlanillasPresentadas.generar(planillaPresentadas)
                     data.add(datos)
                 }
 
 
-
             }
-
 
 
         } catch (Exception ex) {
@@ -562,7 +563,7 @@ else {
 
             try {
 
-                generarPDF('PlanillasPresentadas.jasper', "Planillas Presentadas", data, 'planillasPresentadas'+'-'+new Date().format("dd-MM-yyyy"))
+                generarPDF('PlanillasPresentadas.jasper', "Planillas Presentadas", data, 'planillasPresentadas' + '-' + new Date().format("dd-MM-yyyy"))
             } catch (Exception ex) {
                 ex
             }
@@ -574,7 +575,7 @@ else {
     // ***************************
     // Generar PDF para impresion
     // ***************************
-    def private generarPDF(reporte, titulo, data, nombre){
+    def private generarPDF(reporte, titulo, data, nombre) {
         //Seteamos los directorios de los subreportes y las imagenes
         def params = [:]
 
@@ -596,55 +597,26 @@ else {
     }
 
 
-    def facturarSeleccionadas={
+    def facturarSeleccionadas = {
 
-        def seleccionados=params?.list("facturar")
-
-        seleccionados.each {
-sel ->
-           def planilla=PlanillaInternacion.findById(sel as Integer)
-           def estado=EstadoPlanilla.findByCodigo("AFA")
-
-           planilla.estadoPlanilla=estado
-           planilla.save(flush: true)
-
-
-            def usuario = springSecurityService.currentUser
-            def movimiento= new  MovimientoPlanilla()
-            movimiento.estadoPlanilla=estado
-            movimiento.fecha=new Date()
-            movimiento.planillaInternacion=planilla
-            movimiento.usuario=usuario as Usuario
-            movimiento.save(flush:true)
-
-        }
-
-
-        redirect(action: "index")
-
-    }
-
-
-    def presentarSeleccionadas={
-
-        def seleccionados=params?.list("facturar")
+        def seleccionados = params?.list("facturar")
 
         seleccionados.each {
             sel ->
-                def planilla=PlanillaInternacion.findById(sel as Integer)
-                def estado=EstadoPlanilla.findByCodigo("PRE")
+                def planilla = PlanillaInternacion.findById(sel as Integer)
+                def estado = EstadoPlanilla.findByCodigo("AFA")
 
-                planilla.estadoPlanilla=estado
+                planilla.estadoPlanilla = estado
                 planilla.save(flush: true)
 
 
                 def usuario = springSecurityService.currentUser
-                def movimiento= new  MovimientoPlanilla()
-                movimiento.estadoPlanilla=estado
-                movimiento.fecha=new Date()
-                movimiento.planillaInternacion=planilla
-                movimiento.usuario=usuario as Usuario
-                movimiento.save(flush:true)
+                def movimiento = new MovimientoPlanilla()
+                movimiento.estadoPlanilla = estado
+                movimiento.fecha = new Date()
+                movimiento.planillaInternacion = planilla
+                movimiento.usuario = usuario as Usuario
+                movimiento.save(flush: true)
 
         }
 
@@ -654,11 +626,121 @@ sel ->
     }
 
 
-    def facturar={
+    def presentarSeleccionadas = {
+
+
+        if (params.accion == "presentar") {
+
+            def seleccionados = params?.list("facturar")
+
+            seleccionados.each {
+                sel ->
+                    def planilla = PlanillaInternacion.findById(sel as Integer)
+                    def estado = EstadoPlanilla.findByCodigo("PRE")
+
+                    planilla.estadoPlanilla = estado
+                    planilla.save(flush: true)
+
+
+                    def usuario = springSecurityService.currentUser
+                    def movimiento = new MovimientoPlanilla()
+                    movimiento.estadoPlanilla = estado
+                    movimiento.fecha = new Date()
+                    movimiento.planillaInternacion = planilla
+                    movimiento.usuario = usuario as Usuario
+                    movimiento.save(flush: true)
+
+            }
+            redirect(action: "index")
+        } else {
+            //poner el metodo de exportar
+
+            //obtengo los id de las planillas seleccionadas
+            def seleccionados = params?.list("exportar")
+            if (seleccionados) {
+                seleccionados = seleccionados.collect { new Long(it) }
+
+//                def c = DetalleFactura.createCriteria()
+
+                def planillas = PlanillaInternacion.findAllByActivoAndIdInList(true, seleccionados)
+//                def resultado = c.list {
+//                    planillaInternacion {
+//                        eq("activo", true)
+//                        'in'("id", seleccionados)
+//                    }
+//
+//                    order("planillaInternacion")
+//
+//                }
+
+                def resultado = []
+                planillas.each {
+                    resultado.addAll(it.detalles)
+                }
+
+                String texArchivo = ""
+                if (resultado) {
+                    def nroPlanilla = 0
+                    def hoy = new Date()
+                    int cont = 0
+                    def peri = hoy.format('ddMMyy').toString()
+                    resultado.each() { DetalleFactura detalle ->
+                        if (nroPlanilla != detalle.planillaInternacion.numeroIngreso) cont = 1
+                        texArchivo += convertirACadena(6, detalle.planillaInternacion.numeroIngreso.toString())
+                        texArchivo += convertirACadena(2, cont.toString())
+                        texArchivo += ' 46408'
+                        texArchivo += convertirACadena(6, detalle.planillaInternacion.plan.codigo.toString())
+                        texArchivo += quitarCerosIzquierda(String.format("%06.2f", detalle.cantidad)?.replace(',', ''))
+                        texArchivo += convertirACadena(8, detalle.practica ? detalle.practica.codigo.toString() : (detalle.medicamento ? detalle.medicamento.codigo?.toString() : '500101'))
+                        texArchivo += peri
+                        texArchivo += convertirACadena(4, detalle.funcion.toString())
+                        texArchivo += quitarCerosIzquierda(String.format("%011.2f", (detalle.medicamento ? detalle.medicamento.valor : (detalle.valorGastos + detalle.valorHonorarios)))?.replace(',', ''))
+                        texArchivo += convertirACadena(6, detalle.profesional.codigoCirculo?.toString())
+                        texArchivo += convertirACadena(30, (detalle.planillaInternacion.paciente.apellido + ' ' + detalle.planillaInternacion.paciente.nombre), false)
+                        texArchivo += '\n'
+                        cont++
+                        nroPlanilla = detalle.planillaInternacion.numeroIngreso
+                    }
+                    texArchivo += '\u001A'
+                }
+                def fichero = new File("fichero.txt")
+                fichero.write(texArchivo)
+
+                // Establecemos un nombre de archivo único...
+                response.setHeader("Content-disposition", "attachment; filename=\"fichero.txt\"");
+                // Establecemos el tipo de archivo a PDF...
+                response.contentType = "text-plain"
+                // Enviamos el contenido del PDF
+                response.outputStream << fichero
+                redirect(action: "index")
+//
+//            def headers = ['Profesional-Nombre', 'Profesional-Apellido', 'Profesional-Razon Social'
+//                    , 'Practica', 'Practica-Nombre', 'Fecha', 'Funcion', 'Cantidad', 'Valor Honorario', 'Valor Gasto', 'Paciente-Nombre', 'Paciente-Apellido']
+//            def withProperties = ['profesional.persona.nombre', 'profesional.persona.apellido', 'profesional.persona.razonSocial'
+//                    , 'practica.codigo', 'practica.nombre', 'fecha', 'funcion', 'cantidad', 'valorHonorarios', 'valorGastos', 'planillaInternacion.paciente.nombre', 'planillaInternacion.paciente.apellido']
+//
+//            new WebXlsxExporter().with {
+//                setResponseHeaders(response)
+//                fillHeader(headers)
+//                add(resultado, withProperties)
+//                save(response.outputStream)
+//            }
+            } else {
+                flash.error = "Debe seleccionar al menos una planilla"
+                redirect(action: "index")
+            }
+
+        }
+
+
+    }
+
+
+    def facturar = {
 
 
         def planillas = params.list("planilla")
-        def periodo = (params?.periodo)?:  "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
+        def periodo = (params?.periodo) ?: "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
 
 
         planillas.each {
@@ -692,17 +774,17 @@ sel ->
                     factura.fecha = new Date()
                     factura.periodo = periodo
 
-                    def maxNroFactura=  Factura.createCriteria().get {
+                    def maxNroFactura = Factura.createCriteria().get {
                         projections {
                             max "nrofactura"
                         }
                     } as Long
 
-                    factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
+                    factura.nrofactura = (maxNroFactura) ? maxNroFactura + 1 : 0
 
-                    try{
+                    try {
 
-                        factura.planillaInternacion=planilla
+                        factura.planillaInternacion = planilla
 
                         /* planilla.detalles.each { d->
 
@@ -710,10 +792,10 @@ sel ->
                         }
 */
 
-                        factura.save(flush: true,validate: false)
+                        factura.save(flush: true, validate: false)
 
 
-                    }catch (Exception ex){
+                    } catch (Exception ex) {
                         ex
                     }
 
@@ -754,32 +836,30 @@ sel ->
                     factura.fecha = new Date()
                     factura.periodo = periodo
 
-                    def maxNroFactura=  Factura.createCriteria().get {
+                    def maxNroFactura = Factura.createCriteria().get {
                         projections {
                             max "nrofactura"
                         }
                     } as Long
 
-                    factura.nrofactura= (maxNroFactura)?maxNroFactura+1:0
+                    factura.nrofactura = (maxNroFactura) ? maxNroFactura + 1 : 0
 
-                    try{
+                    try {
 
-                        factura.planillaInternacion= planilla
+                        factura.planillaInternacion = planilla
 
-                     /*   planilla.detalles.each { d->
+                        /*   planilla.detalles.each { d->
 
-                            factura.detallesFactura.add(d)
-                        }
-*/
+                               factura.detallesFactura.add(d)
+                           }
+   */
 
-                        factura.save(flush: true,validate: false)
+                        factura.save(flush: true, validate: false)
 
 
-                    }catch (Exception ex){
+                    } catch (Exception ex) {
                         ex
                     }
-
-
 
 
                 }
@@ -787,28 +867,25 @@ sel ->
 
 
 
-                redirect(controller: "factura",action: "index")
+                redirect(controller: "factura", action: "index")
         }
 
     }
 
 
-
-
     @Transactional
-    def cerrar(){
-
+    def cerrar() {
 
         //def planillas = params.list("planilla")
         def periodo = (params?.periodo) ?: "" + new Date().getAt(Calendar.MONTH) + "/" + new Date().getAt(Calendar.YEAR)
         def directorio = servletContext.getRealPath('/reports') + "/"
-       def data=[]
+        def data = []
 
-       // def estado = EstadoPlanilla.findByCodigo("PRE")
+        // def estado = EstadoPlanilla.findByCodigo("PRE")
         try {
-            data= FacturacionService.cerrar(periodo,directorio)
+            data = FacturacionService.cerrar(periodo, directorio)
 
-            generarPDF('cierreMes.jasper', "Resumen Facturacion", data, 'resumenFacturacion-' + new Date().getAt(Calendar.MONTH) + "-" + new Date().getAt(Calendar.YEAR))
+            generarPDF('cierreMes.jasper', "Resumen Facturacion", data, 'resumenFacturacion-'  + "-" + periodo)
 
         } catch (Exception ex) {
             ex
@@ -818,27 +895,25 @@ sel ->
     }
 
 
+    def asociarProfesional = {
 
-   def asociarProfesional ={
+        def planilla = PlanillaInternacion.get(params.id)
 
-       def planilla=PlanillaInternacion.get(params.id)
-
-       render(view: "asociarProfesional", model: [planillaInternacionInstance: planilla])
+        render(view: "asociarProfesional", model: [planillaInternacionInstance: planilla])
 
 
-   }
+    }
 
-    def saveAsociacionProfesional={
+    def saveAsociacionProfesional = {
 
-        def planilla=PlanillaInternacion.get(params.planillaInternacion.id)
-        def profesional=Profesional.get(params.profesional.id)
+        def planilla = PlanillaInternacion.get(params.planillaInternacion.id)
+        def profesional = Profesional.get(params.profesional.id)
 
-        if (!planilla.profesionales.contains(profesional)){
+        if (!planilla.profesionales.contains(profesional)) {
             planilla.profesionales.add(profesional)
-        }
-        else {
+        } else {
 
-        flash.message="Ya está asociado el Profesional"
+            flash.message = "Ya está asociado el Profesional"
         }
 
         planilla.save(flush: true)
@@ -848,10 +923,9 @@ sel ->
     }
 
 
+    def asociarMedicos = {
 
-    def asociarMedicos ={
-
-        def planilla=PlanillaInternacion.get(params.id)
+        def planilla = PlanillaInternacion.get(params.id)
 
         render(view: "asociarMedicos", model: [planillaInternacionInstance: planilla])
 
@@ -859,17 +933,16 @@ sel ->
     }
 
 
+    def saveAsociacionMedicos = {
 
-    def saveAsociacionMedicos={
-
-        def planilla=PlanillaInternacion.get(params.planillaInternacion.id)
-        planilla.medicoCabecera=(params.medicoCabecera.id)?Profesional.get(params.medicoCabecera.id):null
-        planilla.medicoCirujano=(params.medicoCirujano.id)?Profesional.get(params.medicoCirujano.id):null
-        planilla.medicoAyudante1=(params.medicoAyudante1.id)?Profesional.get(params.medicoAyudante1.id):null
-        planilla.medicoAyudante2=(params.medicoAyudante2.id)?Profesional.get(params.medicoAyudante2.id):null
-        planilla.medicoAnestesista=(params.medicoAnestesista.id)?Profesional.get(params.medicoAnestesista.id):null
-        planilla.medicoOtro1=(params.medicoOtro1.id)?Profesional.get(params.medicoOtro1.id):null
-        planilla.medicoOtro2=(params.medicoOtro2.id)?Profesional.get(params.medicoOtro2.id):null
+        def planilla = PlanillaInternacion.get(params.planillaInternacion.id)
+        planilla.medicoCabecera = (params.medicoCabecera.id) ? Profesional.get(params.medicoCabecera.id) : null
+        planilla.medicoCirujano = (params.medicoCirujano.id) ? Profesional.get(params.medicoCirujano.id) : null
+        planilla.medicoAyudante1 = (params.medicoAyudante1.id) ? Profesional.get(params.medicoAyudante1.id) : null
+        planilla.medicoAyudante2 = (params.medicoAyudante2.id) ? Profesional.get(params.medicoAyudante2.id) : null
+        planilla.medicoAnestesista = (params.medicoAnestesista.id) ? Profesional.get(params.medicoAnestesista.id) : null
+        planilla.medicoOtro1 = (params.medicoOtro1.id) ? Profesional.get(params.medicoOtro1.id) : null
+        planilla.medicoOtro2 = (params.medicoOtro2.id) ? Profesional.get(params.medicoOtro2.id) : null
 
         planilla.save(flush: true)
 
@@ -878,19 +951,112 @@ sel ->
     }
 
 
+    def eliminarDetalles = {
 
-    def eliminarDetalles={
-
-        if(params.id){
-            def planilla=PlanillaInternacion.get(params.id as Integer)
-            def  detalles= DetalleFactura.findAllByPlanillaInternacion(planilla)
+        if (params.id) {
+            def planilla = PlanillaInternacion.get(params.id as Integer)
+            def detalles = DetalleFactura.findAllByPlanillaInternacion(planilla)
             detalles.each {
-                if (it?.practica!=null){
-                it.delete()
+                if (it?.practica != null) {
+                    it.delete()
                 }
             }
         }
 
     }
+
+    private String convertirACadena(int longitud, String texto, Boolean completarDelante = true) {
+        texto = texto.replace('/', '')
+        texto = texto.replace('-', '')
+        texto = texto.replace('*', '')
+        if (texto && texto?.length() >= longitud) {
+            return texto.substring(0, longitud)
+        } else {
+            def res = ""
+            res += texto
+            while (res.length() < longitud) {
+                if (completarDelante) {
+                    res = ' ' + res
+                } else {
+                    res = res + ' '
+                }
+            }
+
+            return res
+        }
+    }
+
+    private String quitarCerosIzquierda(String texto) {
+        def res = ""
+        try{
+        int i = 0
+        def continuar = true
+        while (continuar && i<texto.length()) {
+            if (texto[i] == '0') {
+                res += ' '
+            } else {
+                res += texto.substring(i, texto.length())
+                continuar = false
+            }
+            i++
+        }
+        }catch (e){
+            println e.stackTrace
+            println e.message
+        }
+
+        return res
+
+    }
+
+
+    def imprimirPlanillaPresentadasPorDia = {
+
+        def data = []
+
+        def datos
+        def dia = params.dia as Date
+
+        def mes = params.dia_month as int
+        mes = mes - 1
+        def dia2 = new Date();
+        dia2.set(year: params.dia_year as int, month: mes, dayOfMonth: params.dia_day as int, hourOfDay: 23, minute: 59, second: 59)
+        def estado = EstadoPlanilla.findByCodigo("PRE")
+        def planillas = MovimientoPlanilla.findAllByEstadoPlanillaAndFechaBetween(estado, dia, dia2).planillaInternacion
+
+        def planillaPresentadas
+        def os = ObraSocial.list()
+        os.planes.each {
+            def Plan planid = it?.first()
+
+            planillaPresentadas = PlanillaInternacion.findAllByPlanAndIdInList(planid,planillas.id)
+
+            if (planillaPresentadas?.size() > 0) {
+                datos = PlanillasPresentadas.generar(planillaPresentadas)
+                data.add(datos)
+            }
+
+
+        }
+
+
+        if (!data) {
+            flash.message = "${message(code: 'planillaInternacion.planillaspresentadasnoencontradas', args: [message(code: 'permiso.label', default: 'Planilla'), params.id])}"
+            redirect(action: "index")
+        } else {
+
+            try {
+
+                generarPDF('PlanillasPresentadas.jasper', "Planillas Presentadas", data, 'planillasPresentadas' + '-' + new Date().format("dd-MM-yyyy"))
+            } catch (Exception ex) {
+                ex
+            }
+
+
+        }
+
+
+    }
+
 
 }

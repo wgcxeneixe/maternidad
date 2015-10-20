@@ -34,7 +34,7 @@ class PlanillaInternacionImpresion {
     static generar(PlanillaInternacion planilla){
         def planillaI = new PlanillaInternacionImpresion()
 
-        planillaI.domicilio=(planilla?.paciente?.calle)?:""  +" - "+ ((planilla?.paciente?.numero)?:"")
+        planillaI.domicilio=((planilla?.paciente?.calle)?:"")  +' - '+ ((planilla?.paciente?.numero)?:"") + " PISO:${planilla?.paciente?.piso?:'-'} DPTO:${planilla?.paciente?.departamento?:'-'} (CP:${planilla?.paciente?.codigoPostal}) ${planilla?.paciente?.localidad.nombre} - ${planilla?.paciente?.localidad?.provincia?.nombre}"
         planillaI.estadoCivil=(planilla?.paciente?.estadoCivil?.denominacion)?:""
         planillaI.familiar=planilla?.nombreFamiliarResponsable
         planillaI.historiaClinica=planilla?.numeroIngreso

@@ -180,7 +180,10 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],
 	'/**/favicon.ico':                ['permitAll'],
-    '/**/fonts/**':                     ['permitAll']
+    '/**/fonts/**':                   ['permitAll'],
+    '/console/**':                    ['ROLE_ADMIN'],
+    '/console.*':                     ['ROLE_ADMIN'],
+    "/plugins/console*/**":           ['ROLE_ADMIN']
 ]
 
 maternidad.codigo = 543

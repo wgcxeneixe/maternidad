@@ -13,21 +13,28 @@
 
 <div class="nav" role="navigation">
     <ul>
-       <!-- <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
+        <!-- <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>-->
         <li><g:link class="create" action="buscapaciente"><g:message code="planillaInternacion.new.label"
-                                                              args="[entityName]"/></g:link></li>
+                                                                     args="[entityName]"/></g:link></li>
 
-        <g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
+        <g:if test="${filters?.estado == maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
             <li>
-                <a href="#" id="presentar" class="create" ><g:message code="planillaInternacion.planillaspresentadas" /></a>
-               </li>
+                <a href="#" id="presentar" class="create"><g:message
+                        code="planillaInternacion.planillaspresentadas"/></a>
+            </li>
+
+        </g:if>
+
+        <g:if test="${filters?.estado == maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
+            <li>
+                <a href="#" id="exportar" class="create"><g:message
+                        code="planillaInternacion.exportarSeleccionadas"/></a>
+            </li>
+
         </g:if>
 
     </ul>
 </div>
-
-
-
 
 
 <div class="filters">
@@ -35,78 +42,85 @@
 
         <table>
             <tr>
-                <td> <p><label for="dni">DNI Paciente</label>
-                    <g:textField name="dni" value="${filters?.dni}" /></p></td>
+                <td><p><label for="dni">DNI Paciente</label>
+                    <g:textField name="dni" value="${filters?.dni}"/></p></td>
                 <td>
                     <p><label for="nombre">Nombre</label>
-                        <g:textField name="nombre" value="${filters?.nombre}" /></p></td>
+                        <g:textField name="nombre" value="${filters?.nombre}"/></p></td>
 
                 <td>
                     <p><label for="nroplanilla">Nº Historia</label>
-                        <g:textField id="nroplanilla" name="nroplanilla" value="${filters?.nroplanilla}" /></p></td>
+                        <g:textField id="nroplanilla" name="nroplanilla" value="${filters?.nroplanilla}"/></p></td>
 
 
                 <td>
                     <p><label for="estado">Estado</label>
-                        <g:select id="estado" name="estado" from="${maternidad.EstadoPlanilla.list()}" optionKey="id" value="${filters?.estado}"  noSelection="['': '']"/></p></td>
+                        <g:select id="estado" name="estado" from="${maternidad.EstadoPlanilla.list()}" optionKey="id"
+                                  value="${filters?.estado? Long.valueOf(filters?.estado):''}" noSelection="['': '']"/></p></td>
 
+
+            </tr>
+            <tr>
+                <td colspan="5"><p><label for="plan">Obra Social/Plan</label>
+                    <g:select id="plan" name="plan" from="${maternidad.Plan.list()}" optionKey="id"
+                              value="${filters?.plan? Long.valueOf(filters?.plan):''}" noSelection="['': '']"/></p></td>
                 <td>
-                    <p><g:submitButton name="filter" value="Filtrar" /></p></td>
+                <td colspan="5"><p><label for="enteReceptor">Ente Receptor</label>
+                    <g:select id="plan" name="enteReceptor" from="${maternidad.EnteReceptor.list()}" optionKey="id"
+                              value="${filters?.enteReceptor? Long.valueOf(filters?.enteReceptor):''}" noSelection="['': '']"/></p></td>
+                <td>
+                    <p><br><g:submitButton name="filter" value="Filtrar"/></p></td>
             </tr>
         </table>
-
-
-
 
     </g:form>
 </div>
 
-<g:form name="formPresentar"  controller="planillaInternacion" action="presentarSeleccionadas">
+<g:form name="formPresentar" controller="planillaInternacion" action="presentarSeleccionadas">
+    <input type="hidden" name="accion" id="accion" value="presentar">
+    <g:if test="${filters?.estado == maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
+        <div class="">
+            <label for="periodo">
+                <g:message code="factura.periodo.label" default="Seleccionar Todas"/>
 
-    <g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByCodigo("IMP")?.id?.toString()}">
-    <div class="">
-        <label for="periodo">
-            <g:message code="factura.periodo.label" default="Seleccionar Todas" />
+            </label>
+            <g:checkBox id="seleccionar" name="seleccionar"/>
 
-        </label>
-        <g:checkBox id="seleccionar" name="seleccionar"/>
-
-    </div>
-</g:if>
-<g:render template="lista" model="model"/>
+        </div>
+    </g:if>
+    <g:render template="lista" model="model"/>
 
 </g:form>
 
-<g:if test="${filters?.estado== maternidad.EstadoPlanilla.findByCodigo("PRE")?.id?.toString()}">
+<g:if test="${filters?.estado == maternidad.EstadoPlanilla.findByCodigo("PRE")?.id?.toString()}">
 
+    <g:form name="formFacturarSeleccionadas" controller="planillaInternacion" action="cerrar"
+            params="${[planilla: planillaInternacionInstanceList?.id]}">
 
-    <g:form name="formFacturarSeleccionadas"  controller="planillaInternacion" action="cerrar" params="${[planilla:planillaInternacionInstanceList?.id]}">
+        <div class="">
+            <label for="periodo">
+                <g:message code="factura.periodo.label" default="Periodo"/>
 
+            </label>
+            <g:textField name="periodo" value=""/>
 
-            <div class="">
-                <label for="periodo">
-                    <g:message code="factura.periodo.label" default="Periodo" />
+        </div>
 
-                </label>
-                <g:textField name="periodo" value=""/>
-
-            </div>
-
-       <g:submitButton name="facturarSeleccionados"  value="Facturar"/>
+        <g:submitButton name="facturarSeleccionados" value="Facturar"/>
     </g:form>
-
-
 
 </g:if>
 
 
 <script>
-    jQuery(function() {
+    jQuery(function () {
 
+        //cambio el tipo de combo de O.S.
+        jQuery("#plan").select2({allowClear: true});
 
-        jQuery("#seleccionar").change(function(){
+        jQuery("#seleccionar").change(function () {
             var checkboxes = jQuery(this).closest('form').find(':checkbox');
-            if(jQuery(this).is(':checked')) {
+            if (jQuery(this).is(':checked')) {
                 checkboxes.prop('checked', true);
             } else {
                 checkboxes.prop('checked', false);
@@ -122,14 +136,24 @@
         });
 
         // jQuery("#obrasocial").attr('readonly',true).select2({allowClear: true});
-      //  jQuery("#obrasocial").attr('readonly',true);
+        //  jQuery("#obrasocial").attr('readonly',true);
 
-        jQuery( "#presentar" ).click(function(e) {
-           // e.preventDefault();
+        jQuery("#presentar").click(function (e) {
+            // e.preventDefault();
             //jQuery("#formFacturar").submit();
+            jQuery("#accion").val("presentar");
             jQuery('form[name="formPresentar"]').submit();
 
         });
+
+        jQuery("#exportar").click(function (e) {
+            // e.preventDefault();
+            //jQuery("#formFacturar").submit();
+            jQuery("#accion").val("exportar");
+            jQuery('form[name="formPresentar"]').submit();
+
+        });
+
 
     });
 
@@ -138,7 +162,5 @@
 
 </script>
 
-
-
-    </body>
+</body>
 </html>

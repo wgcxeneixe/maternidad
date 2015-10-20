@@ -54,8 +54,8 @@ class CalculoValoresService {
                     valorPractica = valoresPracticas.find { it?.practica == practica }
                     valorPractica.fechaActualizado = new Date()
                     valorPractica.valorGasto =  Math.round(valorGasto * 100) / 100
-                    valorPractica.valorAnestecista =  Math.round(valorHonorario.get(0) * 100) / 100
-                    valorPractica.valorAyudante = Math.round(valorHonorario.get(1) * 100) / 100
+                    valorPractica.valorAnestecista =  Math.round(valorHonorario.get(1) * 100) / 100
+                    valorPractica.valorAyudante = Math.round(valorHonorario.get(0) * 100) / 100
                     valorPractica.valorEspecialista = Math.round(valorHonorario.get(2) * 100) / 100
                     valorPractica.save(flush: true)
 
@@ -66,8 +66,8 @@ class CalculoValoresService {
                     valorPractica.planConvenio = planConvenio
                     valorPractica.plan = planConvenio.plan
 
-                    valorPractica.valorAnestecista =  Math.round(valorHonorario.get(0) * 100) / 100
-                    valorPractica.valorAyudante = Math.round(valorHonorario.get(1) * 100) / 100
+                    valorPractica.valorAnestecista =  Math.round(valorHonorario.get(1) * 100) / 100
+                    valorPractica.valorAyudante = Math.round(valorHonorario.get(0) * 100) / 100
                     valorPractica.valorEspecialista = Math.round(valorHonorario.get(2) * 100) / 100
 
 
@@ -176,6 +176,53 @@ ex
 
         return lista
     }
+
+
+    def actualizarConvenios(Practica practica) {
+
+        def planConvenios = PlanConvenio.executeQuery("select distinct planConvenio from ValorPractica ")
+        planConvenios.each {
+            def vg = calcularValorGasto(practica, it)
+            def vh = calcularValorHonorario(practica, it)
+
+            def valorP = new ValorPractica()
+            valorP.practica = practica
+            valorP.fechaActualizado = new Date()
+            valorP.plan = it.plan
+            valorP.planConvenio = it
+            valorP.valorGasto = Math.round(vg * 100) / 100
+            valorP.valorAnestecista = Math.round(vh.get(1) * 100) / 100
+            valorP.valorAyudante = Math.round(vh.get(0) * 100) / 100
+            valorP.valorEspecialista = Math.round(vh.get(2) * 100) / 100
+            valorP.save(flush: true)
+        }
+
+
+    }
+
+
+    def actualizarConveniosEdit(Practica practica) {
+
+        def planConvenios = PlanConvenio.executeQuery("select distinct planConvenio from ValorPractica ")
+        planConvenios.each {
+            def vg = calcularValorGasto(practica, it)
+            def vh = calcularValorHonorario(practica, it)
+
+            def valorP = ValorPractica.findByPracticaAndPlanConvenio(practica,it)
+            //valorP.practica = practica
+            valorP.fechaActualizado = new Date()
+            //valorP.plan = it.plan
+            //valorP.planConvenio = it
+            valorP.valorGasto = Math.round(vg * 100) / 100
+            valorP.valorAnestecista = Math.round(vh.get(1) * 100) / 100
+            valorP.valorAyudante = Math.round(vh.get(0) * 100) / 100
+            valorP.valorEspecialista = Math.round(vh.get(2) * 100) / 100
+            valorP.save(flush: true)
+        }
+
+
+    }
+
 
 
 }

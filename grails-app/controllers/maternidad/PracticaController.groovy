@@ -12,6 +12,9 @@ class PracticaController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+
+    def CalculoValoresService
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Practica.list(params), model: [practicaInstanceCount: Practica.count()]
@@ -342,7 +345,15 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
   */
         def query = {
 
-            eq("nomenclada",Boolean.TRUE)
+            if(params.nomenclada){
+                eq("nomenclada",Boolean.TRUE)
+            }
+            else if(!params.nomenclada) {
+               or{ eq("nomenclada",Boolean.FALSE)
+                   isNull("nomenclada")
+               }
+            }
+
 
             if (params.codigo) {
                 ilike('codigo', '%' + params.codigo + '%')
@@ -360,7 +371,7 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
         def criteria = Practica.createCriteria()
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         def practicas = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [codigo:params.codigo,nombre:params.nombre]
+        def filters = [codigo:params.codigo,nombre:params.nombre,nomenclada:params.nomenclada]
 
         def model = [practicaInstanceList: practicas, practicaInstanceTotal:practicas.totalCount, filters: filters]
 
@@ -471,6 +482,10 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
             vuh.save(flush: true)
         }
 
+
+CalculoValoresService.actualizarConvenios(practicaInstance)
+
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'practica.label', default: 'Practica'), practicaInstance.id])
@@ -520,16 +535,16 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
 
         }
 
-        def va=(params.valorAnestesista)?params.valorAnestesista as Double:null
+        def va=(params.valorAnestesista)?params.valorAnestesista as Double:0
 
-        def vay=(params.valorAyudante)?params.valorAyudante as Double:null
+        def vay=(params.valorAyudante)?params.valorAyudante as Double:0
 
-        def ve=(params.valorEspecialista)?params.valorEspecialista as Double:null
+        def ve=(params.valorEspecialista)?params.valorEspecialista as Double:0
 
         //def th=TipoHonorario.findById(params.tipoHonorario.id)
 
 
-        if(vay){
+
             def vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(1))
             if(vuh){
                 vuh.valor=vay
@@ -541,10 +556,10 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
                 vuh.practica=practicaInstance
                 vuh.save(flush: true)
             }
-        }
 
-        if(va){
-            def vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(2))
+
+
+             vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(2))
             if(vuh){
                 vuh.valor=va
                 vuh.save(flush: true)
@@ -555,10 +570,10 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
                 vuh.practica=practicaInstance
                 vuh.save(flush: true)
             }
-        }
 
-        if(ve){
-            def vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(3))
+
+
+        vuh=  ValorUnidadHonorario.findByPracticaAndComponente(practicaInstance,Componente.findById(3))
             if(vuh){
                 vuh.valor=ve
                 vuh.save(flush: true)
@@ -569,7 +584,9 @@ def valorPracticaInstance=ValorPractica.findById(params.valorPractica)
                 vuh.practica=practicaInstance
                 vuh.save(flush: true)
             }
-        }
+
+        CalculoValoresService.actualizarConveniosEdit(practicaInstance)
+
 
         request.withFormat {
             form multipartForm {

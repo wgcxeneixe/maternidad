@@ -11,56 +11,57 @@
 	<field name="nro" class="java.lang.String"/>
 	<field name="codigo" class="java.lang.String"/>
 	<field name="fecha" class="java.lang.String"/>
+	<field name="codigoCirculo" class="java.lang.String"/>
 	<columnHeader>
 		<band height="19">
 			<staticText>
-				<reportElement x="369" y="3" width="43" height="12"/>
+				<reportElement x="383" y="3" width="43" height="12"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CODIGO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="509" y="3" width="41" height="12"/>
+				<reportElement x="519" y="3" width="31" height="12"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[FUNCION]]></text>
+				<text><![CDATA[FUN.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="142" y="3" width="37" height="12"/>
+				<reportElement x="193" y="3" width="37" height="12"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[MAT]]></text>
+				<text><![CDATA[MAT.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="467" y="3" width="37" height="12"/>
+				<reportElement x="475" y="3" width="37" height="12"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[FECHA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="3" width="82" height="12"/>
+				<reportElement x="63" y="3" width="82" height="12"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[PRESTADOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="3" width="64" height="12"/>
+				<reportElement x="253" y="3" width="64" height="12"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[PRACTICA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="413" y="4" width="53" height="12"/>
+				<reportElement x="434" y="4" width="38" height="12"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[CANTIDAD]]></text>
+				<text><![CDATA[CANT.]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="15" width="550" height="1"/>
@@ -70,35 +71,28 @@
 	<detail>
 		<band height="14" splitType="Stretch">
 			<textField>
-				<reportElement x="23" y="1" width="121" height="12"/>
+				<reportElement x="70" y="1" width="121" height="12"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{profesional}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="512" y="1" width="27" height="12"/>
+				<reportElement x="514" y="1" width="27" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{funcion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="144" y="1" width="35" height="12"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="8" isBold="false"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{matricula}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="179" y="1" width="162" height="12"/>
+				<reportElement x="232" y="1" width="152" height="12"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{practica}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00">
-				<reportElement x="406" y="1" width="38" height="12"/>
+				<reportElement x="422" y="1" width="38" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
@@ -112,18 +106,32 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{nro}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="347" y="1" width="56" height="12"/>
+				<reportElement x="379" y="1" width="34" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="444" y="1" width="61" height="12"/>
+				<reportElement x="466" y="1" width="47" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="8" isBold="false"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="0" width="35" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="28" y="1" width="35" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{codigoCirculo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

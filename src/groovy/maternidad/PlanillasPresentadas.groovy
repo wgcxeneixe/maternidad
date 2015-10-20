@@ -22,7 +22,7 @@ class PlanillasPresentadas {
 
             detalle.fechaInternacion =(it?.fechaInternacion)?it?.fechaInternacion?.format("dd-MM-yyyy"):""
             detalle.nombreYApellido=it?.paciente?.toString()
-            detalle.nroFicha=it?.numeroIngreso
+            detalle.nroFicha=(it?.fichaAcler)?it?.fichaAcler:""
             detalle.fechaAlta=(it?.fechaAlta)? it?.fechaAlta?.format("dd-MM-yyyy"):""
             planilla.items.add(detalle)
 
