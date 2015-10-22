@@ -19,7 +19,7 @@ class PagoFacturaController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def jasperService
-
+    def liquidacionService
     def beforeInterceptor = {
 
     }
@@ -48,6 +48,7 @@ class PagoFacturaController {
         if (pagoFactura.facturaPeriodo) {
             pagoFactura.monto = pagoFactura.facturaPeriodo.totalFacturado - pagoFactura.facturaPeriodo.totalPagado - pagoFactura.facturaPeriodo.totalRetencion
         }
+        pagoFactura.porcentajeALiquidar=100
         respond pagoFactura
 
     }
@@ -63,16 +64,24 @@ class PagoFacturaController {
             respond pagoFacturaInstance.errors, view: 'create'
             return
         } else {
-            FacturaPeriodo facturaSeleccionada
-
+            FacturaPeriodo facturaPeriodoSeleccionada
+            Factura facturaSeleccionada
             if (pagoFacturaInstance?.facturaPeriodo) {
-                facturaSeleccionada = FacturaPeriodo?.get(pagoFacturaInstance?.facturaPeriodo?.id)
-                facturaSeleccionada.agregarPago(pagoFacturaInstance)
+                facturaPeriodoSeleccionada = FacturaPeriodo?.get(pagoFacturaInstance?.facturaPeriodo?.id)
+                facturaPeriodoSeleccionada.agregarPago(pagoFacturaInstance)
                 flash.message = 'Se ha agregado un pago a su factura '
                 render(view: 'index', params: [pagoFacturaInstance: pagoFacturaInstance])
             }else{
-                flash.message = 'Ocurrió un error al generar el pago, se perdió la referencia a la factura'
-                respond pagoFacturaInstance.errors, view: 'create'
+                if (pagoFacturaInstance?.factura) {
+                    facturaSeleccionada = Factura?.get(pagoFacturaInstance?.factura?.id)
+                    facturaSeleccionada.agregarPago(pagoFacturaInstance)
+                    liquidacionService.armarLiquidacionDelPago(pagoFacturaInstance)
+                    flash.message = 'Se ha agregado un pago a su factura '
+                    render(view: 'index', params: [pagoFacturaInstance: pagoFacturaInstance])
+                }else{
+                    flash.message = 'Ocurrió un error al generar el pago, se perdió la referencia a la factura'
+                    respond pagoFacturaInstance.errors, view: 'create'
+                }
             }
 
 

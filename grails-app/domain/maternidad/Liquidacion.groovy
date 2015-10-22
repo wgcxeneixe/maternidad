@@ -5,9 +5,10 @@ class Liquidacion {
     Profesional profesional
     Double montoBruto = 0
     Double montoNeto = 0
-    Date fecha = new Date()
+    Date fecha
+    Factura factura
     Integer numeroRecibo
-    Integer nuemroLiquidacion
+    Integer numeroLiquidacion
 
     Set<DetalleLiquidacion> detallesLiquidacion
 
@@ -21,19 +22,49 @@ class Liquidacion {
     String toString() { "${profesional} - ${fecha?.format('dd/MM/yyyy')}" }
 
     //TODO: ver de sacar este método
+//    def agregarPagoFactura(PagoFactura pago) {
+//        if (!detallesLiquidacion) detallesLiquidacion = []
+//        pago?.factura?.planillaInternacion?.detalles?.each {
+//                detalle ->
+//                    if (detalle.profesional == profesional) {
+//                        def detalleLiq = new DetalleLiquidacion(liquidacion: this)
+//                        detalleLiq.agregarPagoFactura(pago, detalle)
+//                        detallesLiquidacion.add(detalleLiq)
+//                        montoBruto += detalleLiq.monto
+//                    }
+//            }
+//
+//
+//        montoNeto = montoBruto
+//
+//        if (pago.retencionPagos) {
+//            pago.retencionPagos.each {
+//                ret ->
+//                    def detRet = new DetalleLiquidacion(liquidacion: this)
+//                    detRet.agregarRetencionPagoFactura(ret)
+//                    detallesLiquidacion.add(detRet)
+//                    montoNeto -= detRet.monto
+//            }
+//        }
+//    }
+
     def agregarPagoFactura(PagoFactura pago) {
         if (!detallesLiquidacion) detallesLiquidacion = []
-        pago.facturaPeriodo.facturas?.each { Factura fac ->
-            fac.planillaInternacion?.detalles?.each {
-                detalle ->
-                    if (detalle.profesional == profesional) {
-                        def detalleLiq = new DetalleLiquidacion(liquidacion: this)
-                        detalleLiq.agregarPagoFactura(pago, detalle)
-                        detallesLiquidacion.add(detalleLiq)
-                        montoBruto += detalleLiq.monto
-                    }
-            }
+        def totalFacturado = 0
+        pago?.factura?.planillaInternacion?.detalles?.each {
+            detalle ->
+                if (detalle.profesional == profesional) {
+                    totalFacturado += detalle.total()
+                }
         }
+
+        if (totalFacturado > 0) {
+            def detalleLiq = new DetalleLiquidacion(liquidacion: this)
+            detalleLiq.agregarPagoFactura(pago, totalFacturado)
+            detallesLiquidacion.add(detalleLiq)
+            montoBruto += detalleLiq.monto
+        }
+
 
         montoNeto = montoBruto
 
@@ -64,6 +95,20 @@ class Liquidacion {
                     montoNeto += detRet.monto
                 }
         }
+    }
+
+    def actualizarTotales() {
+        montoBruto = 0
+        montoNeto = 0
+        def descuentos = 0
+        detallesLiquidacion?.each { DetalleLiquidacion detalle ->
+            if (!detalle.debito) {
+                montoBruto += detalle.monto
+            } else {
+                descuentos += detalle.monto
+            }
+        }
+        montoNeto = montoBruto - descuentos
     }
 }
 

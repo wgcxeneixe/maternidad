@@ -22,11 +22,11 @@ class DetalleLiquidacionController {
     }
 
     def create() {
-        def pago = PagoFactura.read(params?.pago_id)
-        def detalle = new DetalleLiquidacion(params)
-        detalle.pagoFactura = pago
+        def liquidacion = Liquidacion.read(params?.liquidacion_id)
+        def detalleLiquidacionInstance = new DetalleLiquidacion()
+        detalleLiquidacionInstance.liquidacion = liquidacion
 
-        respond detalle
+        respond detalleLiquidacionInstance
     }
 
     @Transactional
@@ -42,13 +42,16 @@ class DetalleLiquidacionController {
         }
 
         detalleLiquidacionInstance.save flush:true
-
+        def liquidacionInstance = detalleLiquidacionInstance.liquidacion
+        liquidacionInstance.detallesLiquidacion.add(detalleLiquidacionInstance)
+        liquidacionInstance.actualizarTotales()
+        liquidacionInstance.save()
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'detalleLiquidacion.label', default: 'DetalleLiquidacion'), detalleLiquidacionInstance.id])
-                redirect detalleLiquidacionInstance
+                redirect liquidacionInstance
             }
-            '*' { respond detalleLiquidacionInstance, [status: CREATED] }
+            '*' { respond liquidacionInstance, [status: CREATED] }
         }
     }
 
@@ -69,13 +72,15 @@ class DetalleLiquidacionController {
         }
 
         detalleLiquidacionInstance.save flush:true
-
+        def liquidacionInstance = detalleLiquidacionInstance.liquidacion
+        liquidacionInstance.actualizarTotales()
+        liquidacionInstance.save(flush: true)
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'DetalleLiquidacion.label', default: 'DetalleLiquidacion'), detalleLiquidacionInstance.id])
-                redirect detalleLiquidacionInstance
+                redirect liquidacionInstance
             }
-            '*'{ respond detalleLiquidacionInstance, [status: OK] }
+            '*' { respond liquidacionInstance, [status: CREATED] }
         }
     }
 

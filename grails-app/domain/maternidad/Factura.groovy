@@ -123,4 +123,21 @@ class Factura {
 */
     }
 
+    def Boolean agregarPago(PagoFactura pago) {
+        pago.factura = this
+        pago.save(flush: true)
+        this.totalPagado += pago.monto + pago.retencion
+        if (!this.pagosFactura) this.pagosFactura = []
+        this.pagosFactura += pago
+
+        if (this?.totalPagado >= totalFacturado) this?.pagoCompleto = true
+        this.save(flush: true)
+
+        //armo las liquidaciones del pago
+        def mapaLiquidaciones = [:]
+        this?.planillaInternacion?.detalles?.profesional?.each {  Profesional prof->
+            if (prof && !mapaLiquidaciones.containsKey(prof)) mapaLiquidaciones.put(prof, new Liquidacion(profesional: prof))
+        }
+    }
+
 }

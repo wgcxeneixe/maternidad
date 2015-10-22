@@ -38,23 +38,23 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: detalleLiquidacionInstance, field: 'detalleFactura', 'error')} ">
-	<label for="detalleFactura">
-		<g:message code="detalleLiquidacion.detalleFactura.label" default="Detalle Factura" />
-		
-	</label>
-	<g:select id="detalleFactura" name="detalleFactura.id" from="${maternidad.DetalleFactura.list()}" optionKey="id" value="${detalleLiquidacionInstance?.detalleFactura?.id}" class="many-to-one" noSelection="['null': '']"/>
-
-</div>
-
-%{--<div class="fieldcontain ${hasErrors(bean: detalleLiquidacionInstance, field: 'liquidacion', 'error')} ">--}%
-	%{--<label for="liquidacion">--}%
-		%{--<g:message code="detalleLiquidacion.liquidacion.label" default="Liquidacion" />--}%
+%{--<div class="fieldcontain ${hasErrors(bean: detalleLiquidacionInstance, field: 'detalleFactura', 'error')} ">--}%
+	%{--<label for="detalleFactura">--}%
+		%{--<g:message code="detalleLiquidacion.detalleFactura.label" default="Detalle Factura" />--}%
 		%{----}%
 	%{--</label>--}%
-	%{--<g:select id="liquidacion" name="liquidacion.id" from="${maternidad.Liquidacion.list()}" optionKey="id" value="${detalleLiquidacionInstance?.liquidacion?.id}" class="many-to-one" noSelection="['null': '']"/>--}%
+	%{--<g:select id="detalleFactura" name="detalleFactura.id" from="${maternidad.DetalleFactura.list()}" optionKey="id" value="${detalleLiquidacionInstance?.detalleFactura?.id}" class="many-to-one" noSelection="['null': '']"/>--}%
 
 %{--</div>--}%
+
+<div class="fieldcontain ${hasErrors(bean: detalleLiquidacionInstance, field: 'liquidacion', 'error')} ">
+	<label for="liquidacion">
+		<g:message code="detalleLiquidacion.liquidacion.label" default="Liquidacion" />
+
+	</label>
+	<g:select id="liquidacion" name="liquidacion.id" from="${maternidad.Liquidacion.findAllById(detalleLiquidacionInstance?.liquidacion?.id)}" optionKey="id" value="${detalleLiquidacionInstance?.liquidacion?.id}" class="many-to-one"/>
+
+</div>
 
 <div class="fieldcontain ${hasErrors(bean: detalleLiquidacionInstance, field: 'monto', 'error')} ">
 	<label for="monto">
@@ -65,14 +65,14 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: detalleLiquidacionInstance, field: 'pagoFactura', 'error')} ">
-	<label for="pagoFactura">
-		<g:message code="detalleLiquidacion.pagoFactura.label" default="Pago Factura" />
-		
-	</label>
-	<g:select id="pagoFactura" name="pagoFactura.id" from="${maternidad.PagoFactura.findAllById(detalleLiquidacionInstance?.pagoFactura?.id)}" optionKey="id" value="${detalleLiquidacionInstance?.pagoFactura?.id}" class="many-to-one" />
+%{--<div class="fieldcontain ${hasErrors(bean: detalleLiquidacionInstance, field: 'pagoFactura', 'error')} ">--}%
+	%{--<label for="pagoFactura">--}%
+		%{--<g:message code="detalleLiquidacion.pagoFactura.label" default="Pago Factura" />--}%
+		%{----}%
+	%{--</label>--}%
+	%{--<g:select id="pagoFactura" name="pagoFactura.id" from="${maternidad.PagoFactura.findAllById(detalleLiquidacionInstance?.pagoFactura?.id)}" optionKey="id" value="${detalleLiquidacionInstance?.pagoFactura?.id}" class="many-to-one" />--}%
 
-</div>
+%{--</div>--}%
 
 %{--<div class="fieldcontain ${hasErrors(bean: detalleLiquidacionInstance, field: 'porcentajePagoFacturaLiquidado', 'error')} ">--}%
 	%{--<label for="porcentajePagoFacturaLiquidado">--}%
