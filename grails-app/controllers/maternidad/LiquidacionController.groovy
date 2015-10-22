@@ -51,6 +51,35 @@ class LiquidacionController {
         }
     }
 
+    def liquidar = {
+        def liquidacionInstance = Liquidacion.read(params?.long('id'))
+        def numeroRecibo = Liquidacion.withCriteria {
+            projections {
+                max('numeroRecibo')
+            }
+        }
+        if (!(numeroRecibo && numeroRecibo.first())) numeroRecibo = [0]
+
+
+        def numeroLiquidacion = Liquidacion.withCriteria {
+            projections {
+                max('numeroLiquidacion')
+            }
+        }
+        if (!(numeroLiquidacion && numeroLiquidacion.first())) numeroLiquidacion = [0]
+
+        liquidacionInstance.numeroLiquidacion = numeroLiquidacion.first()+1
+        liquidacionInstance.numeroRecibo = numeroRecibo.first()+1
+        liquidacionInstance.save(flush: true)
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Liquidacion.label', default: 'Liquidacion'), liquidacionInstance.id])
+                redirect liquidacionInstance
+            }
+            '*' { respond liquidacionInstance, [status: OK] }
+        }
+    }
+
     def edit(Liquidacion liquidacionInstance) {
         respond liquidacionInstance
     }
@@ -203,40 +232,41 @@ class LiquidacionController {
 
 
     def reportLiquidacion = {
-//        println params.dump()
-        def liquidacion = Liquidacion.read(params.long('id'))
 
+        def liquidacion = Liquidacion.read(params.long('id'))
         // Creo un array para guardar los datos
         def data = [:]
-        data += [cuit: liquidacion.profesional.persona.cuit]
-        data += [nombre: liquidacion.profesional?.persona?.apellido]
-        data += [fecha: liquidacion.fecha.format('dd/MM/yyyy')]
-        data += [bruto: liquidacion.montoBruto.toString()]
-        data += [neto: liquidacion.montoNeto.toString()]
-        data += [descuentos: (liquidacion.montoBruto - liquidacion.montoNeto).toString()]
-        data += [maticula: liquidacion.profesional.matriculaProvincial]
+        data += [cuit: liquidacion?.profesional?.persona?.cuit?.toString()]
+        data += [nombre: liquidacion?.profesional?.persona?.apellido]
+        data += [fecha: liquidacion?.fecha?.format('dd/MM/yyyy')]
+        data += [bruto: liquidacion?.montoBruto]
+        data += [neto: liquidacion?.montoNeto]
+        data += [descuentos: liquidacion?.montoBruto - liquidacion?.montoNeto]
+        data += [maticula: liquidacion?.profesional?.matriculaProvincial]
 
-        def listaHaberesToReport=[:]
-        def listaRetencionesToReport=[:]
+        def listaHaberesToReport = []
+        def listaRetencionesToReport = []
 
-        liquidacion.detallesLiquidacion?.each {DetalleLiquidacion detalle->
-            if(detalle.debito){
-                listaRetencionesToReport+=[codigo:detalle?.detalleFactura?.practica?.codigo]
-                listaRetencionesToReport+=[descripcion:detalle?.detalleFactura?.practica?.nombre]
-                listaRetencionesToReport+=[porcentaje:detalle?.porcentajePagoFacturaLiquidado?.toString()]
-                listaRetencionesToReport+=[nombre:detalle?.detalleFactura?.planillaInternacion?.paciente]
-                listaRetencionesToReport+=[fecha:detalle?.pagoFactura?.facturaPeriodo?.periodo]
-                listaRetencionesToReport+=[importe:detalle?.monto?.toString()]
-                listaRetencionesToReport+=[fechaPractica:detalle?.detalleFactura?.fecha?.format('dd/MM/yyyy')]
-            }else{
-                listaHaberesToReport+=[descripcion: detalle?.detalle]
-                listaHaberesToReport+=[importe: detalle?.monto?.toString()]
+        liquidacion?.detallesLiquidacion?.each { DetalleLiquidacion detalle ->
+            def item = [:]
+            if (!detalle.debito) {
+                item += [descripcion: detalle.detalle]
+                item += [porcentaje: detalle?.porcentajePagoFacturaLiquidado]
+                item += [importe: detalle?.monto]
+//                item+=[codigo:detalle?.detalleFactura?.practica?.codigo]
+//                item+=[nombre:detalle?.detalleFactura?.planillaInternacion?.paciente]
+//                item+=[fecha:detalle?.pagoFactura?.facturaPeriodo?.periodo]
+//                item+=[fechaPractica:detalle?.detalleFactura?.fecha?.format('dd/MM/yyyy')]
+                listaHaberesToReport += item
+            } else {
+                item += [descripcion: detalle?.detalle]
+                item += [importe: detalle?.monto?.toString()]
+                listaRetencionesToReport += item
             }
         }
 
-        data += [listaHaberesToReport: [listaHaberesToReport]]
-        data += [listaRetencionesToReport: [listaRetencionesToReport]]
-
+        data += [listaHaberesToReport: listaHaberesToReport]
+        data += [listaRetencionesToReport: listaRetencionesToReport]
 
         try {
             generarPDF('liquidacion.jasper', "liquidacion-${liquidacion.profesional}", [data], "liquidacion-${liquidacion.profesional}")
@@ -259,11 +289,11 @@ class LiquidacionController {
                 reportData: data,
                 parameters: params
         )
-
         // Establecemos un nombre de archivo único...
         response.setHeader("Content-disposition", "attachment; filename=\"${nombre}.pdf\"");
         // Establecemos el tipo de archivo a PDF...
         response.contentType = "application/pdf"
+
         // Enviamos el contenido del PDF
         response.outputStream << jasperService.generateReport(reportDef).toByteArray()
 

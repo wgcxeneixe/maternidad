@@ -18,7 +18,8 @@ class PagoFactura {
     Set<RetencionPago> retencionPagos
 
     static hasMany = [
-            retencionPagos: RetencionPago
+            retencionPagos: RetencionPago,
+            liquidaciones: Liquidacion
     ]
 
 
@@ -90,5 +91,5 @@ class PagoFactura {
         return monto * porcentajeALiquidar / 100
     }
 
-    String toString() { "${fecha?.format('dd/MM/yyyy')} ++ ${monto}" }
+    String toString() { facturaPeriodo? ("${facturaPeriodo.periodo} - ${facturaPeriodo.plan}"):("${fecha?.format('dd/MM/yyyy')} ++ ${monto}") }
 }

@@ -13,6 +13,7 @@
         <th>% A Liquidar</th>
         <th>Fecha Pago</th>
         <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -26,6 +27,7 @@
             <td>${it?.porcentajeALiquidar}</td>
             <td>${it?.fecha?.format('dd/MM/yyyy')}</td>
             <td><g:link class="edit" controller="pagoFactura" name="editarPago" action="edit" params="['id': it?.id]">Editar</g:link></td>
+            <td><g:link class="edit" controller="detalleLiquidacion" name="create" action="create" params="['pago_id': it?.id]">Cargar Conceptos</g:link></td>
         </tr>
     </g:each>
     </tbody>
