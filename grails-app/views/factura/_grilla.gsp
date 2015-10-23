@@ -84,5 +84,5 @@
     </tbody>
 </table>
 <div class="pagination">
-    <g:paginate total="${facturaInstanceCount ?: 0}" params="${filters}"/>
+    <g:paginate total="${facturaInstanceTotal ?: 0}"/>
 </div>

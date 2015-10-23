@@ -20,7 +20,7 @@ class FacturaController {
         def listaFacturasSinPagar = Factura.withCriteria {
             createAlias('plan', 'p')
             eq('anulada', false)
-            eq('pagoCompleto', false)
+            //eq('pagoCompleto', false)
             eq('p.obrasocial.id', obraSocialSeleccionada)
         }
         render(template: 'listaFacturas', model: [listaFacturasSinPagar: listaFacturasSinPagar, obrasocialNombre: obrasocialNombre])

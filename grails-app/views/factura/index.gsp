@@ -17,7 +17,7 @@
 			<ul>
 			<!--	<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li> -->
 				<li><g:link class="create" action="facturar"><g:message code="facturacio.facturar"  /></g:link></li>
-                <li><g:link class="create" action="abrirPagarFactura"><g:message code="default.new.pagoFactura" default="Pagar Facturas Por Obra Social" args="pagarFacturasPorObraSocial" /></g:link></li>
+                <li><g:link class="create" controller="facturaPeriodo" action="abrirPagarFactura"><g:message code="default.new.pagoFactura" default="Pagar Facturas Por Obra Social" args="pagarFacturasPorObraSocial" /></g:link></li>
             </ul>
 
         </div>

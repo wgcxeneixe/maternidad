@@ -23,4 +23,6 @@ class ConceptoProfesional {
         porcentaje( nullable:true, blank:true)
         aplicaSobreBruto( nullable:true, blank:true)
     }
+
+    String toString() { "${codigo} - ${nombre}" }
 }

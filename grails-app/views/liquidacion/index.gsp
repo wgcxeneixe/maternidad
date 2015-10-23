@@ -30,10 +30,11 @@
 					
 						<g:sortableColumn property="montoNeto" title="${message(code: 'liquidacion.montoNeto.label', default: 'Monto Neto')}" />
 					
-						<g:sortableColumn property="nuemroLiquidacion" title="${message(code: 'liquidacion.nuemroLiquidacion.label', default: 'Nuemro Liquidacion')}" />
+						<g:sortableColumn property="numeroLiquidacion" title="${message(code: 'liquidacion.numeroLiquidacion.label', default: 'Nuemro Liquidacion')}" />
 					
 						<g:sortableColumn property="numeroRecibo" title="${message(code: 'liquidacion.numeroRecibo.label', default: 'Numero Recibo')}" />
 
+                        <td></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -41,18 +42,22 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
                         <td>
-                            <g:link controller="liquidacion" action="reportLiquidacion" id="${liquidacionInstance.id}">${liquidacionInstance.profesional}</g:link>
+                            <g:link controller="liquidacion" action="show" id="${liquidacionInstance.id}">${liquidacionInstance.profesional}</g:link>
                         </td>
 					
-						<td>${liquidacionInstance.fecha.format('dd/MM/yyyy')}</td>
+						<td>${liquidacionInstance?.fecha?.format('dd/MM/yyyy')}</td>
 					
 						<td>${fieldValue(bean: liquidacionInstance, field: "montoBruto")}</td>
 					
 						<td>${fieldValue(bean: liquidacionInstance, field: "montoNeto")}</td>
 					
-						<td>${fieldValue(bean: liquidacionInstance, field: "nuemroLiquidacion")}</td>
+						<td>${fieldValue(bean: liquidacionInstance, field: "numeroLiquidacion")}</td>
 					
 						<td>${fieldValue(bean: liquidacionInstance, field: "numeroRecibo")}</td>
+
+                        <td>
+                            <g:link controller="liquidacion" action="reportLiquidacion" id="${liquidacionInstance.id}">imprimir</g:link>
+                        </td>
 
 					</tr>
 				</g:each>

@@ -47,12 +47,12 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: liquidacionInstance, field: 'nuemroLiquidacion', 'error')} required">
-	<label for="nuemroLiquidacion">
-		<g:message code="liquidacion.nuemroLiquidacion.label" default="Nuemro Liquidacion" />
+<div class="fieldcontain ${hasErrors(bean: liquidacionInstance, field: 'numeroLiquidacion', 'error')} required">
+	<label for="numeroLiquidacion">
+		<g:message code="liquidacion.numeroLiquidacion.label" default="Nuemro Liquidacion" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="nuemroLiquidacion" type="number" value="${liquidacionInstance.nuemroLiquidacion}" required=""/>
+	<g:field name="numeroLiquidacion" type="number" value="${liquidacionInstance.numeroLiquidacion}" required=""/>
 
 </div>
 

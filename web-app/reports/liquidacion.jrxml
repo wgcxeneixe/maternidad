@@ -2,16 +2,16 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="7"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/home/leandro/maternidad/maternidad/web-app/reports/"]]></defaultValueExpression>
 	</parameter>
 	<field name="cuit" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="fecha" class="java.lang.String"/>
-	<field name="bruto" class="java.lang.String"/>
-	<field name="neto" class="java.lang.String"/>
-	<field name="descuentos" class="java.lang.String"/>
+	<field name="bruto" class="java.lang.Double"/>
+	<field name="neto" class="java.lang.Double"/>
+	<field name="descuentos" class="java.lang.Double"/>
 	<field name="maticula" class="java.lang.String"/>
 	<field name="listaHaberesToReport" class="java.util.Collection"/>
 	<field name="listaRetencionesToReport" class="java.util.Collection"/>
@@ -60,98 +60,91 @@
 		</band>
 	</title>
 	<detail>
-		<band height="158">
+		<band height="52">
 			<subreport>
-				<reportElement positionType="Float" x="4" y="26" width="548" height="11"/>
+				<reportElement positionType="Float" x="1" y="26" width="548" height="11"/>
 				<subreportParameter name="bruto">
 					<subreportParameterExpression><![CDATA[$F{bruto}]]></subreportParameterExpression>
 				</subreportParameter>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaHaberesToReport})]]></dataSourceExpression>
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "liquidacion_haber_subreport.jasper"]]></subreportExpression>
 			</subreport>
-			<subreport>
-				<reportElement positionType="Float" x="2" y="138" width="548" height="11"/>
-				<subreportParameter name="descuentos">
-					<subreportParameterExpression><![CDATA[$F{descuentos}]]></subreportParameterExpression>
-				</subreportParameter>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaRetencionesToReport})]]></dataSourceExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "liquidacion_retencion_subreport.jasper"]]></subreportExpression>
-			</subreport>
 			<staticText>
 				<reportElement x="2" y="3" width="166" height="20"/>
 				<textElement/>
-				<text><![CDATA[COD. Y NOMBRE O.S.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="441" y="3" width="36" height="20"/>
-				<textElement/>
-				<text><![CDATA[PORC.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="173" y="4" width="65" height="20"/>
-				<textElement/>
-				<text><![CDATA[PERIODO]]></text>
+				<text><![CDATA[HABERES]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="477" y="3" width="76" height="20"/>
 				<textElement/>
 				<text><![CDATA[IMPORTE]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="240" y="4" width="188" height="20"/>
-				<textElement/>
-				<text><![CDATA[DESCRIPCION]]></text>
-			</staticText>
 			<line>
 				<reportElement x="2" y="25" width="552" height="1"/>
 			</line>
-			<line>
-				<reportElement x="2" y="41" width="551" height="2"/>
-			</line>
-			<line>
-				<reportElement x="0" y="135" width="552" height="1"/>
-			</line>
+		</band>
+		<band height="50">
 			<staticText>
-				<reportElement x="1" y="114" width="272" height="20"/>
-				<textElement/>
-				<text><![CDATA[RETENCIONES]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="476" y="114" width="76" height="20"/>
+				<reportElement x="476" y="0" width="76" height="20"/>
 				<textElement/>
 				<text><![CDATA[IMPORTE]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="1" y="0" width="272" height="20"/>
+				<textElement/>
+				<text><![CDATA[RETENCIONES]]></text>
+			</staticText>
 			<line>
-				<reportElement x="1" y="152" width="551" height="1"/>
+				<reportElement x="0" y="21" width="552" height="1"/>
 			</line>
+			<subreport>
+				<reportElement positionType="Float" x="2" y="24" width="548" height="11"/>
+				<subreportParameter name="descuentos">
+					<subreportParameterExpression><![CDATA[$F{descuentos}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaRetencionesToReport})]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "liquidacion_retencion_subreport.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<summary>
 		<band height="96">
-			<textField isBlankWhenNull="true">
-				<reportElement x="410" y="76" width="140" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA["MONTO NETO: "+($F{neto}==null?"0":$F{neto})]]></textFieldExpression>
+			<textField pattern="$#,##0.00;-$#,##0.00" isBlankWhenNull="true">
+				<reportElement x="456" y="62" width="94" height="20"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{neto}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="456" y="44" width="91" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{descuentos}]]></textFieldExpression>
+			<textField pattern="$#,##0.00;-$#,##0.00">
+				<reportElement x="456" y="37" width="91" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{descuentos}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="340" y="44" width="116" height="20"/>
+				<reportElement x="340" y="37" width="116" height="20"/>
 				<textElement/>
 				<text><![CDATA[TOTAL DESCUENTOS: ]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
+			<textField pattern="$#,##0.00;-$#,##0.00" isBlankWhenNull="true">
 				<reportElement x="457" y="13" width="90" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{bruto}]]></textFieldExpression>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{bruto}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="340" y="13" width="116" height="20"/>
 				<textElement/>
 				<text><![CDATA[MONTO BRUTO: ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="5" width="552" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="341" y="62" width="116" height="20"/>
+				<textElement>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[TOTAL NETO: ]]></text>
 			</staticText>
 		</band>
 	</summary>
