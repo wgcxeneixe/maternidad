@@ -260,7 +260,10 @@ class LiquidacionController {
 //                item+=[fechaPractica:detalle?.detalleFactura?.fecha?.format('dd/MM/yyyy')]
                 listaHaberesToReport += item
             } else {
-                item += [descripcion: detalle?.detalle]
+                def concepto = ''
+                if(detalle?.conceptoProfesional)concepto+='('+detalle?.conceptoProfesional?.codigo+'-'+detalle?.conceptoProfesional?.nombre+') '
+                if(detalle?.detalle) concepto +=detalle?.detalle
+                item += [descripcion: concepto]
                 item += [importe: detalle?.monto?.toString()]
                 listaRetencionesToReport += item
             }
