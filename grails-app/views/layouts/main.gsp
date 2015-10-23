@@ -161,6 +161,12 @@
                 <span>Listado de Planillas</span>
             </a>
         </li>
+        <li class="${(controllerName == 'planillaInternacion' && actionName == 'planillasPorPeriodo') ? 'active' : ''}">
+            <a href="${createLink(controller:'planillaInternacion',action: 'planillasPorPeriodo')}" class="auto"> <!-- /CreateLink -->
+                <i class="i i-dot"></i>
+                <span>Planillas Por Periodo</span>
+            </a>
+        </li>
     </ul>
 </li>
 

@@ -503,4 +503,23 @@ class DetalleFacturaController {
     }
 
 
+    def actualizarFechaAlta={
+
+        def planilla=PlanillaInternacion.findById(params.planilla as long)
+
+        if(planilla){
+            if(params.fechaAlta){
+                def fechaAlta=params.fechaAlta as Date
+                planilla.fechaAlta=fechaAlta
+                planilla.save()
+                flash.message = "Fecha Actualizada"
+            }
+        }
+
+
+        redirect(action: "cargaPracticas", params: [id: planilla?.id])
+
+    }
+
+
 }

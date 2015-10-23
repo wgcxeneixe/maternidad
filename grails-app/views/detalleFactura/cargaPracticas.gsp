@@ -50,6 +50,31 @@
         </g:eachError>
     </ul>
 </g:hasErrors>
+
+<g:form action="actualizarFechaAlta" >
+    <fieldset class="form">
+        <div class="fieldcontain  ">
+            <label for="planillaInternacion">
+                <g:message code="detalleFactura.planillaInternacion.label" default="Fecha Alta Actual"/>
+                <span class="required-indicator">*</span>
+            </label>
+        <g:formatDate readonly="true" name="fechaAltaOriginal"  date="${detalleFacturaInstance?.planillaInternacion?.fechaAlta}"></g:formatDate>
+    </div>
+        <div class="fieldcontain  ">
+            <label for="planillaInternacion">
+                <g:message code="detalleFactura.planillaInternacion.label" default="Fecha Alta Nueva"/>
+                <span class="required-indicator">*</span>
+            </label>
+        <g:datePicker name="fechaAlta" value="" noSelection="${['':'--']}"></g:datePicker>
+    </div>
+        <g:hiddenField name="planilla" value="${detalleFacturaInstance?.planillaInternacion?.id}"></g:hiddenField>
+    </fieldset>
+    <fieldset class="buttons">
+        <g:submitButton  name="update" class="save"
+                        value="${message(code: 'default.button.update1.label', default: 'Actualizar Fecha Alta')}"/>
+    </fieldset>
+</g:form>
+
 <g:form id="formulario" url="[resource: detalleFacturaInstance, action: 'saveCarga']">
     <fieldset class="form">
 
@@ -257,8 +282,8 @@
 
 
 //        //idioma de los calendar
-//        jQuery.datepicker.regional[ "es" ];
-//        updateDatePicker();
+        jQuery.datepicker.regional[ "es" ];
+       updateDatePicker();
 
 
         var valorHonorarios = jQuery("#valorHonorarios");

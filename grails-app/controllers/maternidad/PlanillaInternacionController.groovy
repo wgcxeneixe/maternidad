@@ -1117,4 +1117,48 @@ it.save(flush: true)
     }
 
 
+    def planillasPorPeriodo = {
+        def planillasPeriodo=[]
+        if (params.periodo) {
+            planillasPeriodo = Factura.findAllByPeriodo(params.periodo)?.planillaInternacion?.id
+        }
+
+        def query = {
+            if (planillasPeriodo) {
+                'in'("id", planillasPeriodo)
+
+            }else {'in'("id", [0.longValue()])}
+
+
+            if (params?.plan) {
+                plan { eq('id', params.plan as Long) }
+            }
+
+
+
+
+            if (params.sort) {
+                order(params.sort, params.order)
+            } else {
+                order("numeroIngreso", "desc")
+            }
+
+            eq('activo', true)
+
+        }
+
+        def criteria = PlanillaInternacion.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 200, 100)
+        def planillas = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [periodo: params.periodo, plan: params.plan]
+        def model = [planillaInternacionInstanceList: planillas, planillaInternacionInstanceCount: planillas.totalCount, filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "listaPeriodo", model: model)
+        } else {
+            model
+        }
+    }
+
 }
