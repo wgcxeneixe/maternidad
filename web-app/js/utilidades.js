@@ -103,7 +103,7 @@ function updateDatePicker () {
 
 
 function setupGridAjax() {
-    jQuery("#grid").find(".paginateButtons a, th.sortable a").live('click', function(event) {
+    jQuery("body").on('click','.step a', function(event) {
         event.preventDefault();
         var url = jQuery(this).attr('href');
 
@@ -146,6 +146,7 @@ function filterGrid(filterBox) {
         url: url,
         data: data,
         success: function(data) {
+          grid=jQuery("#grid");
             jQuery(grid).fadeOut('fast', function() {jQuery(this).html(data).fadeIn('slow');});
         }
     });

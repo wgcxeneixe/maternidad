@@ -99,4 +99,39 @@ class FacturacionService {
         return factura
     }
 
+
+    def imprimirPeriodo(String periodo,String directorio){
+
+
+
+        try {
+            def data = []
+            def d
+            def planillasss
+            def os = ObraSocial.list()
+            os.planes.each {
+                def Plan planid = it?.first()
+planillasss=Factura.findAllByPeriodoAndPlan(periodo,planid)?.planillaInternacion
+
+
+                if(planillasss?.size()>0){
+
+                    d = CierreMes.generar(planillasss, periodo, directorio)
+
+                    data.add(d)
+
+                }
+            }
+
+            return data
+
+        } catch (Exception ex) {
+            ex
+        }
+
+
+    }
+
+
+
 }

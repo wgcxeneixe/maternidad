@@ -31,7 +31,7 @@
             <tr>
                 <td>
                     <p><label for="periodo">Periodo</label>
-                        <g:textField name="periodo" value="${filters?.periodo}"/></p></td>
+                        <g:textField id="periodoFiltro" name="periodo" value="${filters?.periodo}"/></p></td>
                 <td colspan="5"><p><label for="plan">Obra Social/Plan</label>
                     <g:select id="plan" name="plan" from="${maternidad.Plan.list()}" optionKey="id"
                               value="${filters?.plan? Long.valueOf(filters?.plan):''}" noSelection="['': '']"/></p></td>
@@ -52,12 +52,37 @@
 </div>
 <br />
 
+<g:form class="formImprimir" action="imprimirPeriodo">
 
+    <table>
+
+        <tr>
+           <g:hiddenField id="periodo" name="periodo" ></g:hiddenField>
+
+            <td>
+                <p><br><g:submitButton id="imprimir" name="filter" value="Imprimir Periodo"/></p></td>
+        </tr>
+    </table>
+
+</g:form>
 
 <script>
     jQuery(function () {
 
         jQuery("#plan").select2({allowClear: true});
+
+        jQuery("#imprimir").click(function (event) {
+            event.preventDefault();
+            if ("${planillaInternacionInstanceCount>0?:null}" == 'true') {
+                jQuery("#periodo").val("${filters?.periodo}");
+                jQuery(".formImprimir").submit();
+
+            } else {
+                alert("No hay Planillas para Imprimir");
+            }
+        });
+
+
     });
 
 
