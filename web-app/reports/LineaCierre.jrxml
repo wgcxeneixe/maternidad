@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LineaCierre" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LineaCierre" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4b480025-ef67-4ea3-aeef-5ce129d628b9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -16,63 +16,63 @@
 	<detail>
 		<band height="92">
 			<subreport>
-				<reportElement x="0" y="20" width="595" height="61"/>
+				<reportElement x="0" y="20" width="595" height="61" uuid="8ffbee75-60cb-4cee-a538-5b76d5efe7c0"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{subItems})]]></dataSourceExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "SubLineaCierre.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SubLineaCierre.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement x="6" y="0" width="49" height="20"/>
+				<reportElement x="6" y="0" width="49" height="20" uuid="95df2a99-1e94-408c-bcd9-aa7fd17c6ea9"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Paciente:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="67" y="0" width="78" height="20"/>
+				<reportElement x="67" y="0" width="434" height="20" uuid="395e596f-c055-47af-8f1f-4b5a5e124d33"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{paciente}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{paciente}]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="83">
 			<textField>
-				<reportElement x="514" y="30" width="67" height="20"/>
+				<reportElement x="514" y="30" width="67" height="20" uuid="a4788b9d-27bd-48c8-b422-da4b06d62e14"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalDescartables}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{totalDescartables}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="294" y="54" width="139" height="20"/>
+				<reportElement x="294" y="54" width="139" height="20" uuid="9da58869-0ca2-4e3b-8a07-faa31100798f"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[TOTAL FACTURA]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="514" y="54" width="67" height="20"/>
+				<reportElement x="514" y="54" width="67" height="20" uuid="03c37a89-561e-4528-8db6-e3bb38bf1b12"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalFactura}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{totalFactura}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="514" y="10" width="67" height="20"/>
+				<reportElement x="514" y="10" width="67" height="20" uuid="0e48450c-88aa-497d-b415-c4fd664d112e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="11" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{totalMedicamentos}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{totalMedicamentos}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="294" y="30" width="139" height="20"/>
+				<reportElement x="294" y="30" width="139" height="20" uuid="4bf97cd8-3c67-44cb-a1e4-0bf00db7dd44"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[TOTAL DESCARTABLES]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="294" y="10" width="139" height="20"/>
+				<reportElement x="294" y="10" width="139" height="20" uuid="06b1dc9f-b35e-4403-b849-f36d2cbf2599"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true" isUnderline="true"/>
 				</textElement>

@@ -6,6 +6,48 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'practica.label', default: 'Practica')}" />
     <title><g:message code="default.list.label" args="[entityName]" /></title>
+    <script>
+
+        jQuery(function() {
+
+            jQuery("body").on('click','.pagination a', function(event) {
+                event.preventDefault();
+                var url = jQuery(this).attr('href');
+
+                var grid = jQuery(this).parents("table.ajax");
+                jQuery(grid).html(jQuery("#spinner").html());
+
+                jQuery.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function(data) {
+                        grid=jQuery("#grid");
+                        jQuery(grid).fadeOut('fast', function() {jQuery(this).html(data).fadeIn('slow');});
+                    }
+                })
+            });
+            //setupFilterAjax();
+            jQuery('div.filters :input[type=checkbox],:input[type=radio]').change(function() {
+                var filterBox = jQuery(this).parents("div.filters");
+                filterGrid(filterBox);
+            });
+            jQuery('div.filters :input').keyup(function() {
+                var filterBox = jQuery(this).parents("div.filters");
+                filterGrid(filterBox);
+            });
+            jQuery("div.filters form").submit(function() {
+                var filterBox = jQuery(this).parents("div.filters");
+                filterGrid(filterBox);
+                return false;
+            });
+
+
+        })
+
+    </script>
+
+
+
 </head>
 <body>
 <a href="#list-practica" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -50,7 +92,7 @@
     </div>
 
     <br />
-    <div id="grid">
+    <div id="grid" class="grid">
         <g:render template="grilla" model="model" />
     </div>
     <br />

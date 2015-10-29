@@ -1132,4 +1132,27 @@ it.save(flush: true)
         }
     }
 
+
+
+    def imprimirPeriodo= {
+
+
+        def periodo = (params?.periodo) ?: ""
+        def directorio = servletContext.getRealPath('/reports') + "/"
+        def data = []
+
+
+        try {
+            data = FacturacionService.imprimirPeriodo(periodo, directorio)
+
+            generarPDF('cierreMes.jasper', "Resumen Facturacion", data, 'resumenFacturacion-'  + "-" + periodo)
+
+        } catch (Exception ex) {
+            ex
+        }
+
+
+    }
+
+
 }

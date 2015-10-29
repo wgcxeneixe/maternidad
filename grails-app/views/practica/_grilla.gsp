@@ -1,4 +1,4 @@
-<table>
+<table class="ajax">
     <thead>
     <tr>
 
