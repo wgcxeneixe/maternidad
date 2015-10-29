@@ -661,18 +661,7 @@ class PlanillaInternacionController {
             if (seleccionados) {
                 seleccionados = seleccionados.collect { new Long(it) }
 
-//                def c = DetalleFactura.createCriteria()
-
                 def planillas = PlanillaInternacion.findAllByActivoAndIdInList(true, seleccionados)
-//                def resultado = c.list {
-//                    planillaInternacion {
-//                        eq("activo", true)
-//                        'in'("id", seleccionados)
-//                    }
-//
-//                    order("planillaInternacion")
-//
-//                }
 
                 def resultado = []
                 planillas.each {
@@ -704,28 +693,10 @@ class PlanillaInternacionController {
                     }
                     texArchivo += '\u001A'
                 }
-                def fichero = new File("fichero.txt")
-                fichero.write(texArchivo)
 
-                // Establecemos un nombre de archivo único...
-                response.setHeader("Content-disposition", "attachment; filename=\"fichero.txt\"");
-                // Establecemos el tipo de archivo a PDF...
-                response.contentType = "text-plain"
-                // Enviamos el contenido del PDF
-                response.outputStream << fichero
-                redirect(action: "index")
-//
-//            def headers = ['Profesional-Nombre', 'Profesional-Apellido', 'Profesional-Razon Social'
-//                    , 'Practica', 'Practica-Nombre', 'Fecha', 'Funcion', 'Cantidad', 'Valor Honorario', 'Valor Gasto', 'Paciente-Nombre', 'Paciente-Apellido']
-//            def withProperties = ['profesional.persona.nombre', 'profesional.persona.apellido', 'profesional.persona.razonSocial'
-//                    , 'practica.codigo', 'practica.nombre', 'fecha', 'funcion', 'cantidad', 'valorHonorarios', 'valorGastos', 'planillaInternacion.paciente.nombre', 'planillaInternacion.paciente.apellido']
-//
-//            new WebXlsxExporter().with {
-//                setResponseHeaders(response)
-//                fillHeader(headers)
-//                add(resultado, withProperties)
-//                save(response.outputStream)
-//            }
+                response.setHeader("Content-disposition", "attachment; filename=Fact.NMC ${(new Date()).format('ddMMyy').toString()}.TXT");
+                render(contentType: "text/txt", text: texArchivo.toString());
+
             } else {
                 flash.error = "Debe seleccionar al menos una planilla"
                 redirect(action: "index")
