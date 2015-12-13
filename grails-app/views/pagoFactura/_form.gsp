@@ -2,34 +2,46 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'retencion', 'error')} ">
-    <label for="retencion">
-        <g:message code="pagoFactura.retencion.label" default="Retencion"/>
+%{--<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'retencion', 'error')} ">--}%
+    %{--<label for="retencion">--}%
+        %{--<g:message code="pagoFactura.retencion.label" default="Retencion"/>--}%
 
-    </label>
-    <g:field name="retencion" value="${fieldValue(bean: pagoFacturaInstance, field: 'retencion')}"/>
+    %{--</label>--}%
+    %{--<g:field name="retencion" value="${fieldValue(bean: pagoFacturaInstance, field: 'retencion')}"/>--}%
 
-</div>
+%{--</div>--}%
 
-<div class="fieldcontain ">
-    <label for="aclaracionComprobante">
-        <g:message code="pagoFactura.aclaracionComprobante.label" default="Aclaracion Comprobante"/>
-    </label>
-    <g:textField name="aclaracionComprobante" value="${pagoFacturaInstance?.aclaracionComprobante}"/>
+%{--<div class="fieldcontain ">--}%
+    %{--<label for="aclaracionComprobante">--}%
+        %{--<g:message code="pagoFactura.aclaracionComprobante.label" default="Aclaracion Comprobante"/>--}%
+    %{--</label>--}%
+    %{--<g:textField name="aclaracionComprobante" value="${pagoFacturaInstance?.aclaracionComprobante}"/>--}%
 
-</div>
+%{--</div>--}%
+
+%{--<g:if test="${pagoFacturaInstance?.factura}">--}%
+    %{--<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'factura', 'error')} required">--}%
+        %{--<label for="factura">--}%
+            %{--<g:message code="pagoFactura.factura.label" default="Factura"/>--}%
+            %{--<span class="required-indicator">*</span>--}%
+        %{--</label>--}%
+        %{--${pagoFacturaInstance?.factura}--}%
+        %{--<g:textField id="factura" name="factura.id" required="" value="${pagoFacturaInstance?.factura?.id}"/>--}%
+        %{--${pagoFacturaInstance?.factura?.periodo + ' - ' + pagoFacturaInstance?.factura?.plan}--}%
+    %{--</div>--}%
+%{--</g:if>--}%
 
 <g:if test="${pagoFacturaInstance?.factura}">
-    <div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'factura', 'error')} required">
-        <label for="factura">
-            <g:message code="pagoFactura.factura.label" default="Factura"/>
-            <span class="required-indicator">*</span>
-        </label>
-        ${pagoFacturaInstance?.factura}
-        <g:textField id="factura" name="factura.id" required="" value="${pagoFacturaInstance?.factura?.id}"/>
-        ${pagoFacturaInstance?.factura?.periodo + ' - ' + pagoFacturaInstance?.factura?.plan}
-    </div>
+<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'factura', 'error')} required">
+    <label for="factura">
+        <g:message code="pagoFactura.factura.label" default="Período"/>
+    </label>
+    ${pagoFacturaInstance?.factura?.periodo + ' - ' + pagoFacturaInstance?.factura?.plan}
+    <g:textField id="factura" name="factura.id"  value="${pagoFacturaInstance?.factura?.id}"/>
+
+</div>
 </g:if>
+
 <g:if test="${pagoFacturaInstance?.facturaPeriodo}">
     <div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'facturaPeriodo', 'error')} required">
         <label >
@@ -74,13 +86,13 @@
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'numeroComprobante', 'error')}">
-    <label for="numeroComprobante">
-        <g:message code="pagoFactura.numeroComprobante.label" default="Numero Comprobante"/>
-    </label>
-    <g:field name="numeroComprobante" type="number" value="${pagoFacturaInstance.numeroComprobante}"/>
+%{--<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'numeroComprobante', 'error')}">--}%
+    %{--<label for="numeroComprobante">--}%
+        %{--<g:message code="pagoFactura.numeroComprobante.label" default="Numero Comprobante"/>--}%
+    %{--</label>--}%
+    %{--<g:field name="numeroComprobante" type="number" value="${pagoFacturaInstance.numeroComprobante}"/>--}%
 
-</div>
+%{--</div>--}%
 
 <div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'porcentajeALiquidar', 'error')} required">
     <label for="porcentajeALiquidar">
@@ -127,4 +139,13 @@
               value="${pagoFacturaInstance?.tipoPago?.id}" class="many-to-one"/>
 
 </div>
+
+<div class="fieldcontain ${hasErrors(bean: pagoFacturaInstance, field: 'descartarHonorarios', 'error')} ">
+    <label for="esMensual">
+        <g:message code="conceptoProfesional.esMensual.label" default="Liquidar solo Gastos" />
+    </label>
+    <g:checkBox name="descartarHonorarios" value="${pagoFacturaInstance?.descartarHonorarios}" />
+
+</div>
+
 

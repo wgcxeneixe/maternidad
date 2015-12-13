@@ -135,8 +135,11 @@ class Factura {
 
         //armo las liquidaciones del pago
         def mapaLiquidaciones = [:]
+
         this?.planillaInternacion?.detalles?.profesional?.each {  Profesional prof->
-            if (prof && !mapaLiquidaciones.containsKey(prof)) mapaLiquidaciones.put(prof, new Liquidacion(profesional: prof))
+            if(!pago.descartarHonorarios || prof.esMaternidad()) {
+                if (prof && !mapaLiquidaciones.containsKey(prof)) mapaLiquidaciones.put(prof, new Liquidacion(profesional: prof))
+            }
         }
     }
 

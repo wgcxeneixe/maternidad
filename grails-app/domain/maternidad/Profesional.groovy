@@ -38,6 +38,10 @@ class Profesional {
     codigoCirculo(nullable: true,blank:true)
     }
 
+    def Boolean esMaternidad(){
+        codigoCirculo == 46408
+    }
+
     String toString() { if(persona){"${(codigoCirculo? codigoCirculo?.toString():'0')+' - '+(persona.razonSocial?:(persona.apellido+', '+persona.nombre))}"} else {""} }
 
 }

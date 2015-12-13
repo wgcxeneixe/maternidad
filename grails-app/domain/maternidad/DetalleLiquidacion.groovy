@@ -40,7 +40,7 @@ class DetalleLiquidacion {
         this.retencionPago = retencion
         this.debito = true
         monto = retencionPago.monto * retencion.porcentajeDelPago() / 100
-        detalle = "Prorrateo del Pago de la factura Nro ${detalleFactura.planillaInternacion.factura.nrofactura} plan ${detalleFactura.plan.codigo}"
+        detalle = "Retención del Pago: (${retencion.tipo.codigo}) ${retencion.tipo.descripcion}"
     }
 
     def agregarConceptoPorProfesional(ConceptoPorProfesional cpp) {

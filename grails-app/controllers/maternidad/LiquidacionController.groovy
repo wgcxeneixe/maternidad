@@ -70,7 +70,7 @@ class LiquidacionController {
 
         liquidacionInstance.numeroLiquidacion = numeroLiquidacion.first()+1
         liquidacionInstance.numeroRecibo = numeroRecibo.first()+1
-        liquidacionInstance.fecha=new Date()
+       // liquidacionInstance.fecha=new Date()
         liquidacionInstance.save(flush: true)
         request.withFormat {
             form multipartForm {

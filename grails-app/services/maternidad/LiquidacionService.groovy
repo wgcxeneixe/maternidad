@@ -13,8 +13,10 @@ class LiquidacionService {
         }
 
         pago?.factura?.planillaInternacion?.detalles?.profesional?.each {
+            if (!pago.descartarHonorarios || it.esMaternidad()) {
                 if (it && !mapaLiquidaciones.containsKey(it)) mapaLiquidaciones.put(it, new Liquidacion(profesional: it))
             }
+        }
 
 
 

@@ -51,6 +51,7 @@ class Liquidacion {
     def agregarPagoFactura(PagoFactura pago) {
         if (!detallesLiquidacion) detallesLiquidacion = []
         def totalFacturado = 0
+        fecha = pago.fecha
         pago?.factura?.planillaInternacion?.detalles?.each {
             detalle ->
                 if (detalle.profesional == profesional) {

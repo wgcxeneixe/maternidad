@@ -13,6 +13,7 @@ class PagoFactura {
     String aclaracionComprobante
     Double porcentajeALiquidar  = 0
     Double porcentajeLiquidado  = 0
+    Boolean descartarHonorarios = false
 
 
     Set<RetencionPago> retencionPagos
