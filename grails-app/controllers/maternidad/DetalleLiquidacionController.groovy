@@ -54,9 +54,20 @@ class DetalleLiquidacionController {
             '*' { respond liquidacionInstance, [status: CREATED] }
         }
     }
-
+    @Transactional
     def edit(DetalleLiquidacion detalleLiquidacionInstance) {
-        respond detalleLiquidacionInstance
+        if(params?.boolean('borrar')){
+            if (detalleLiquidacionInstance == null) {
+                notFound()
+                return
+            }
+            detalleLiquidacionInstance = DetalleLiquidacion.read(detalleLiquidacionInstance.id)
+            def liquidacionInstance = detalleLiquidacionInstance?.liquidacion
+            detalleLiquidacionInstance.delete flush:true
+            redirect(controller: 'liquidacion', action: 'show', params: [id:liquidacionInstance.id])
+        }else {
+            respond detalleLiquidacionInstance
+        }
     }
 
     @Transactional

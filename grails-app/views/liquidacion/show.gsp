@@ -120,9 +120,6 @@
             <thead>
             <tr>
 
-                <th><g:message code="detalleLiquidacion.conceptoPorProfesional.label"
-                               default="Concepto Por Profesional"/></th>
-
                 <th><g:message code="detalleLiquidacion.conceptoProfesional.label" default="Concepto Profesional"/></th>
 
                 <g:sortableColumn property="detalle"
@@ -134,14 +131,12 @@
                 <th><g:message code="detalleLiquidacion.detalleFactura.label" default="Monto"/></th>
 
                 <td></td>
+                <td></td>
             </tr>
             </thead>
             <tbody>
             <g:each in="${liquidacionInstance?.detallesLiquidacion}" status="i" var="detalleLiquidacionInstance">
                 <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-
-                    <td><g:link action="show"
-                                id="${detalleLiquidacionInstance.id}">${fieldValue(bean: detalleLiquidacionInstance, field: "conceptoPorProfesional.conceptoProfesional.nombre")}</g:link></td>
 
                     <td>${fieldValue(bean: detalleLiquidacionInstance, field: "conceptoProfesional")}</td>
 
@@ -155,6 +150,12 @@
                         <g:if test="${!liquidacionInstance?.numeroLiquidacion}">
                             <g:link controller="detalleLiquidacion" action="edit"
                                     id="${detalleLiquidacionInstance.id}">modificar</g:link>
+                        </g:if>
+                    </td>
+                    <td>
+                        <g:if test="${!liquidacionInstance?.numeroLiquidacion}">
+                            <g:link controller="detalleLiquidacion" action="edit" params="[borrar:true]"
+                                    id="${detalleLiquidacionInstance.id}" onclick="return confirm('¿Está seguro de borrar el detale?')">eliminar</g:link>
                         </g:if>
                     </td>
 

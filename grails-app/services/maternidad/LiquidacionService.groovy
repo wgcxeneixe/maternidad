@@ -7,10 +7,11 @@ class LiquidacionService {
 
     def Collection<Liquidacion> armarLiquidacionDelPago(PagoFactura pago) {
         def mapaLiquidaciones = [:]
-        def listaLiquidaciones = Liquidacion.findAllByNumeroLiquidacionIsNull()
-        listaLiquidaciones?.each {
-            mapaLiquidaciones.put(it.profesional, it)
-        }
+        //quito esto para que cree nueva liquidaciones para el pago y no se las agregue a las liquidaciones anteriores
+//        def listaLiquidaciones = Liquidacion.findAllByNumeroLiquidacionIsNull()
+//        listaLiquidaciones?.each {
+//            mapaLiquidaciones.put(it.profesional, it)
+//        }
 
         pago?.factura?.planillaInternacion?.detalles?.profesional?.each {
             if (!pago.descartarHonorarios || it.esMaternidad()) {
