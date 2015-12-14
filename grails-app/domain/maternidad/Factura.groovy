@@ -143,4 +143,13 @@ class Factura {
         }
     }
 
+    def paciente ={
+        def planilla = listaPlanillasInternacion()?.first()
+        if(planilla){
+            return planilla
+        }else{
+            return ''
+        }
+    }
+
 }
