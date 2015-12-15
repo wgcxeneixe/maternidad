@@ -1,4 +1,4 @@
-<%@ page import="maternidad.Factura" %>
+<%@ page import="maternidad.PagoFactura; maternidad.Factura" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
@@ -220,7 +220,7 @@
     <h1><g:message code="facturacion.pagos" default="Pagos de la Factura"/></h1>
     <div class="list" id="divListaPagos">
         <g:render template="listaPagos"
-                  model="['listaPagos': facturaInstance?.pagosFactura, 'factura': facturaInstance]"/>
+                  model="['listaPagos': maternidad.PagoFactura.findAllByFactura(Factura.read(facturaInstance?.id)), 'factura': facturaInstance]"/>
 
     </div>
 

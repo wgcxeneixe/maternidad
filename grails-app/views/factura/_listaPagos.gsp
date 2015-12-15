@@ -23,7 +23,7 @@
             <td>${it?.porcentajeLiquidado}</td>
             <td>${it?.porcentajeALiquidar}</td>
             <td>${it?.fecha?.format('dd/MM/yyyy')}</td>
-            <td><g:link class="edit" controller="pagoFactura" name="editarPago" action="edit" params="['id': it?.id]">Editar</g:link></td>
+            <td><g:link class="show" controller="pagoFactura" name="verPago" action="show" params="['id': it?.id]">Ver Pago</g:link></td>
         </tr>
     </g:each>
     </tbody>
