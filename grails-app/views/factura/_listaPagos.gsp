@@ -5,7 +5,6 @@
 <table>
     <thead>
     <tr>
-        <th>Numero Comprobante</th>
         <th>Tipo Pago</th>
         <th>Total Pagado</th>
         <th>Total Retencion</th>
@@ -18,7 +17,6 @@
     <tbody>
     <g:each in="${listaPagos}" status="i" var="it">
         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-            <td>${it?.numeroComprobante}</td>
             <td>${it?.tipoPago}</td>
             <td>${it?.monto}</td>
             <td>${it?.retencion}</td>

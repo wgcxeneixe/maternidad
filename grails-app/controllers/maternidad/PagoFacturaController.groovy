@@ -77,7 +77,7 @@ class PagoFacturaController {
                     facturaSeleccionada.agregarPago(pagoFacturaInstance)
                     liquidacionService.armarLiquidacionDelPago(pagoFacturaInstance)
                     flash.message = 'Se ha agregado un pago a su factura '
-                    render(view: 'index', params: [pagoFacturaInstance: pagoFacturaInstance])
+                    redirect(controller: "factura", action: "show", id: pagoFacturaInstance?.factura?.id)
                 }else{
                     flash.message = 'Ocurrió un error al generar el pago, se perdió la referencia a la factura'
                     respond pagoFacturaInstance.errors, view: 'create'

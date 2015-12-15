@@ -1,6 +1,6 @@
 <%@ page import="maternidad.Factura" %>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'factura.label', default: 'Factura')}"/>
@@ -20,7 +20,7 @@
     </ul>
 </div>
 
-<div id="show-factura" class="content scaffold-show" role="main">
+<br id="show-factura" class="content scaffold-show" role="main">
 <h1><g:message code="default.show.label" args="[entityName]"/></h1>
 <g:if test="${flash.message}">
     <div class="message" role="status">${flash.message}</div>
@@ -206,7 +206,7 @@
     </tbody>
 </table>
 
-
+</br>
 <g:form url="[resource: facturaInstance, action: 'delete']" method="DELETE">
     <fieldset class="buttons">
         <g:link class="edit" action="edit" resource="${facturaInstance}"><g:message
@@ -216,6 +216,16 @@
                                 onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>  -->
     </fieldset>
 </g:form>
+</br>
+    <h1><g:message code="facturacion.pagos" default="Pagos de la Factura"/></h1>
+    <div class="list" id="divListaPagos">
+        <g:render template="listaPagos"
+                  model="['listaPagos': facturaInstance?.pagosFactura, 'factura': facturaInstance]"/>
+
+    </div>
+
+    </br>
+
 
 <g:if test="${facturaInstance.facturaPendienteConfirmacion()}">
 
