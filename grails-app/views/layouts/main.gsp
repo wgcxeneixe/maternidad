@@ -402,6 +402,12 @@
                 <span>Consultar Liquidaciones</span>
             </a>
         </li>
+        <li class="${(controllerName == 'recibo' && actionName == 'index') ? 'active' : ''}">
+            <a href="${createLink(controller:'recibo',action: 'index')}" class="auto"> <!-- /CreateLink -->
+                <i class="i i-dot"></i>
+                <span>Recibos</span>
+            </a>
+        </li>
         %{--<li >--}%
             %{--<a href="${createLink(controller:'liquidacion',action: 'configurarLiquidacion')}" class="auto"> <!-- /CreateLink -->--}%
                 %{--<i class="i i-dot"></i>--}%
