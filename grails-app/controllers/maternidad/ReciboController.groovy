@@ -16,18 +16,66 @@ class ReciboController {
 
     def jasperService
 
-
+/*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Recibo.list(params), model:[reciboInstanceCount: Recibo.count()]
     }
+*/
+
+    def index = {
+
+        def query = {
+            if (params.fechaDesde && params.fechaHasta) {
+                between('fecha', params.fechaDesde as Date, params.fechaHasta as Date)
+                // between('fecha',Date.from, Date.parse("dd-MM-yyyy", params.fechaDesde))
+
+            }
+            if (params.nro) {
+
+                eq('nro', params.nro.toInteger())
+
+            }
+
+            if (params.profesional) {
+
+                eq('profesional.id', params.profesional.toLong())
+
+            }
+
+
+
+            if (params.sort) {
+                order(params.sort, params.order)
+            }
+        }
+
+        def criteria = Recibo.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        def recibos = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [fechaDesde: params.fechaDesde as Date, fechaHasta: params.fechaHasta as Date, profesional: params.profesional, nro: params.nro]
+
+        def model = [reciboInstanceList: recibos, reciboInstanceTotal: recibos?.size(), filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grilla", model: model)
+        } else {
+            model
+        }
+    }
+
+
 
     def show(Recibo reciboInstance) {
         respond reciboInstance
     }
 
     def create() {
-        respond new Recibo(params)
+        def recibo=new Recibo(params)
+        recibo.nro=obtenerUltimoNumero()
+        recibo.total=0
+        respond recibo
     }
 
     @Transactional
@@ -74,7 +122,7 @@ class ReciboController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Recibo.label', default: 'Recibo'), reciboInstance.id])
-                redirect reciboInstance
+                redirect action: "edit",params: [id:reciboInstance.id]
             }
             '*'{ respond reciboInstance, [status: OK] }
         }
@@ -212,7 +260,18 @@ class ReciboController {
 
     }
 
+    private obtenerUltimoNumero(){
+        def numero = 1
+        def lista = Recibo.withCriteria{
 
+            order('nro', 'desc')
+            maxResults(1)
+        }
+        if(lista){
+            numero = lista.get(0).nro + 1
+        }
+        numero
+    }
 
 
 }

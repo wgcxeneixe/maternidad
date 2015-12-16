@@ -6,6 +6,49 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'recibo.label', default: 'Recibo')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+
+		<script>
+
+			jQuery(function() {
+
+				jQuery("body").on('click','.pagination a', function(event) {
+					event.preventDefault();
+					var url = jQuery(this).attr('href');
+
+					var grid = jQuery(this).parents("table.ajax");
+					jQuery(grid).html(jQuery("#spinner").html());
+
+					jQuery.ajax({
+						type: 'GET',
+						url: url,
+						success: function(data) {
+							grid=jQuery("#grid");
+							jQuery(grid).fadeOut('fast', function() {jQuery(this).html(data).fadeIn('slow');});
+						}
+					})
+				});
+				//setupFilterAjax();
+				jQuery('div.filters :input[type=checkbox],:input[type=radio]').change(function() {
+					var filterBox = jQuery(this).parents("div.filters");
+					filterGrid(filterBox);
+				});
+				jQuery('div.filters :input').keyup(function() {
+					var filterBox = jQuery(this).parents("div.filters");
+					filterGrid(filterBox);
+				});
+				jQuery("div.filters form").submit(function() {
+					var filterBox = jQuery(this).parents("div.filters");
+					filterGrid(filterBox);
+					return false;
+				});
+
+
+			})
+
+		</script>
+
+
+
 	</head>
 	<body>
 		<a href="#list-recibo" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -20,39 +63,65 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-			<thead>
-					<tr>
-					
-						<g:sortableColumn property="nro" title="${message(code: 'recibo.nro.label', default: 'Nro')}" />
-					
-						<g:sortableColumn property="fecha" title="${message(code: 'recibo.fecha.label', default: 'Fecha')}" />
-					
-						<th><g:message code="recibo.profesional.label" default="Profesional" /></th>
-					
-						<g:sortableColumn property="total" title="${message(code: 'recibo.total.label', default: 'Total')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${reciboInstanceList}" status="i" var="reciboInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${reciboInstance.id}">${fieldValue(bean: reciboInstance, field: "nro")}</g:link></td>
-					
-						<td><g:formatDate date="${reciboInstance.fecha}" /></td>
-					
-						<td>${fieldValue(bean: reciboInstance, field: "profesional")}</td>
-					
-						<td>${fieldValue(bean: reciboInstance, field: "total")}</td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${reciboInstanceCount ?: 0}" />
+			<div class="filters">
+				<g:form action="index">
+
+					<table >
+						<tr>
+							<td> <p><label for="nro">Nº Recibo</label>
+								<g:field type="number" only-num="" name="nro" value="${filters?.nro}" /></p></td>
+							<td>
+								<p><label for="profesional">Profesional</label>
+									<g:select id="profesional" name="profesional" from="${maternidad.Profesional?.list()}" optionKey="id"  value="" noSelection="['':'']"/>
+								</p></td>
+						</tr>
+
+						<tr>
+							<td> <p><label for="fechaDesde">Desde</label>
+								<g:datePicker name="fechaDesde" precision="day"  value="${filters?.fechaDesde}" format="dd-MM-yyyy" /></p></td>
+							<td> <p><label for="fechaHasta">Hasta</label>
+								<g:datePicker name="fechaHasta" precision="day"  value="${filters?.fechaHasta}" format="dd-MM-yyyy" /></p></td>
+
+
+							<td>
+								<p><g:submitButton name="filter" value="Filtrar" /></p></td>
+						</tr>
+					</table>
+
+
+
+
+				</g:form>
 			</div>
+
+			<br />
+			<div id="grid" class="grid">
+				<g:render template="grilla" model="model" />
+			</div>
+			<br />
+
+
 		</div>
+
+
+	<script>
+		$(function() {
+
+			//idioma de los calendar
+			jQuery.datepicker.regional[ "es" ];
+			updateDatePicker();
+
+			jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+				updateDatePicker();
+			});
+
+			jQuery("#profesional").select2({allowClear: true,width: 'resolve'});
+
+
+		})
+
+	</script>
+
+
 	</body>
 </html>
