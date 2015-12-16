@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanillasPresentadas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aa5b7dbf-ae21-4aa5-a77b-e0b5b8754ba4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="26942241-b81b-4752-ac95-18b7c54a7fdf"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
+	<parameter name="miURL" class="java.lang.String"/>
+	<field name="nro" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="items" class="java.util.Collection"/>
+	<field name="total" class="java.lang.String"/>
+	<field name="profesional" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="26" uuid="4d632314-8959-4c4f-9d18-ae2c72b1a9c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="14" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[NUEVA MATERNIDAD CONCEPCION S.R.L.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="118" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="1" width="555" height="29" uuid="ee1c7726-32a5-49a5-bcd3-0aea0030f264"/>
+			</rectangle>
+			<textField>
+				<reportElement x="126" y="0" width="61" height="20" uuid="919e0766-0937-4e7a-b3fb-56e7f24d248a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="11" y="0" width="115" height="20" uuid="a982f98c-2c6a-43da-a7d0-c92460844e39"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[RECIBO NRO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="1" width="285" height="20" uuid="7c5dd44e-5081-4c77-b311-2af993476f2d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{profesional}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="189" y="1" width="81" height="20" uuid="d2b84d08-06c5-4426-b39e-2acda253d500"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PROFESIONAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="40" width="459" height="40" uuid="021631a1-2428-4440-b903-f1e0b71957cc"/>
+				<textElement verticalAlignment="Top">
+					<font size="14" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Recibi de: NUEVA MATERNIDAD CONCEPCION S.R.L
+En concepto de:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="98" width="67" height="20" uuid="37d93b61-03f3-4478-9f11-51dc215852aa"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="98" width="131" height="20" uuid="024af3a5-3683-485f-98d9-3461e4481f0a"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="423" y="98" width="112" height="20" uuid="943b1125-fd72-4b8e-bb14-c23ce5c7101a"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DEBITO/CREDITO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="59" splitType="Stretch">
+			<subreport>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="11" y="3" width="524" height="36" isPrintWhenDetailOverflows="true" uuid="7a6b23c3-16b1-4304-a9d0-fa3056507ba3"/>
+				<subreportParameter name="miURL">
+					<subreportParameterExpression><![CDATA[$P{miURL}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{items})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "LineaRecibo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<staticText>
+				<reportElement x="10" y="11" width="164" height="21" uuid="6446aeca-876c-412f-9701-d8a4431b21f5"/>
+				<textElement verticalAlignment="Top">
+					<font size="14" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[La cantidad de: PESOS ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="174" y="12" width="150" height="20" uuid="5f24eee5-17b4-478c-b3c1-cae61747ffa8"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="356" y="22" width="76" height="20" uuid="64ddb91c-354d-40ca-9e5f-d6d803014f13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="432" y="22" width="100" height="20" uuid="975c0fab-b499-4320-895a-f4cff97840b0"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
