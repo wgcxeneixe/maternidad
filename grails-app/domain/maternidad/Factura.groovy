@@ -12,6 +12,7 @@ class Factura {
     Double totalMedicamento
     Double totalHonorario
     Double totalGasto
+    Boolean liquidada
 
     PlanillaInternacion planillaInternacion
     // Set<DetalleFactura> detallesFactura

@@ -27,7 +27,9 @@
             <g:message code="factura.fecha.label" default="Pago Completo"/>
         </th>
 
-
+        <th>
+            <g:message code="factura.fecha.label" default="Liquidada"/>
+        </th>
 
         <!--
         <g:sortableColumn property="periodo" title="${message(code: 'factura.periodo.label', default: 'Periodo')}"
@@ -61,7 +63,7 @@
 
 
         <th>
-            <g:message code="factura.fecha.label" default="Ver/Pagos"/>
+            <g:message code="factura.fecha.label" default="Detalle"/>
         </th>
     </tr>
     </thead>
@@ -84,6 +86,8 @@
             <td>${Math.round(facturaInstance?.totalMedicamento * 100) / 100}</td>
 
             <td><g:formatBoolean boolean="${facturaInstance.pagoCompleto}"/></td>
+
+            <td><g:formatBoolean boolean="${facturaInstance.liquidada}"/></td>
 
             <td><g:link class="linkShow" action="show"
                         id="${facturaInstance?.id}">${message(code: 'default.button.show.label')}</g:link></td>

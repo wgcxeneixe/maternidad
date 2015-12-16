@@ -12,6 +12,7 @@
         <th>Total Pagado</th>
         <th>Saldo</th>
         <th>Fecha de Cobro</th>
+        <th>Liquidada</th>
         <th>Pagos</th>
 
     </tr>
@@ -27,6 +28,7 @@
             <td>${item?.totalPagado}</td>
             <td>${item?.totalFacturado - item?.totalPagado}</td>
             <td>${item?.fecha?.format('dd/MM/yyyy')}</td>
+            <td>${item?.liquidada}</td>
             <td>
 
                 <g:set var="pagos" value="${item?.pagosFactura?.size()}"/>

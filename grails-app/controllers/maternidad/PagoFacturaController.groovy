@@ -53,6 +53,16 @@ class PagoFacturaController {
 
     }
 
+    @Transactional(readOnly = false)
+    def crearLiquidaciones(PagoFactura pagoFacturaInstance){
+        liquidacionService.armarLiquidacionDelPago(pagoFacturaInstance)
+        def factura =  Factura.read(pagoFacturaInstance?.factura?.id)
+        factura?.liquidada = true
+        factura.save(flush: true)
+        flash.message = 'Se ha armado la liquidacion del pago'
+        redirect(action: "show", id: pagoFacturaInstance?.id)
+    }
+
     @Transactional
     def save(PagoFactura pagoFacturaInstance) {
         if (pagoFacturaInstance == null) {
@@ -75,7 +85,7 @@ class PagoFacturaController {
                 if (pagoFacturaInstance?.factura) {
                     facturaSeleccionada = Factura?.get(pagoFacturaInstance?.factura?.id)
                     facturaSeleccionada.agregarPago(pagoFacturaInstance)
-                    liquidacionService.armarLiquidacionDelPago(pagoFacturaInstance)
+//                    liquidacionService.armarLiquidacionDelPago(pagoFacturaInstance)
                     flash.message = 'Se ha agregado un pago a su factura '
                     redirect(action: "show", id: pagoFacturaInstance?.id)
                 }else{

@@ -92,7 +92,13 @@
 					
 				</li>
 				</g:if>
-			
+					<li class="fieldcontain">
+						<span id="liquidaSoloGasto-label" class="property-label"><g:message code="pagoFactura.porcentajeALiquidar.label" default="Liquidar solo los gastos" /></span>
+
+						<span class="property-value" aria-labelledby="porcentajeALiquidar-label"><g:formatBoolean boolean="${pagoFacturaInstance?.descartarHonorarios}" /></span>
+
+					</li>
+
 				<g:if test="${pagoFacturaInstance?.porcentajeLiquidado}">
 				<li class="fieldcontain">
 					<span id="porcentajeLiquidado-label" class="property-label"><g:message code="pagoFactura.porcentajeLiquidado.label" default="Porcentaje Liquidado" /></span>
@@ -117,7 +123,7 @@
 				<li class="fieldcontain">
 					<span id="tipoPago-label" class="property-label"><g:message code="pagoFactura.tipoPago.label" default="Tipo Pago" /></span>
 					
-						<span class="property-value" aria-labelledby="tipoPago-label"><g:link controller="tipoPago" action="show" id="${pagoFacturaInstance?.tipoPago?.id}">${pagoFacturaInstance?.tipoPago?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="tipoPago-label"><g:link controller="tipoPago" action="show"  id="${pagoFacturaInstance?.tipoPago?.id}">${pagoFacturaInstance?.tipoPago?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -130,6 +136,11 @@
 				%{--</fieldset>--}%
 			%{--</g:form>--}%
 		</div>
+	<div class="nav" role="navigation">
+		<ul>
+			<li><g:link class="create" action="crearLiquidaciones" onclick="return confirm('¿Está seguro que desea generar la Liquidacion?')" id="${pagoFacturaInstance?.id}"><g:message code="default.list.label1" args="[entityName]" default="Armar la liquidacion del Pago" /></g:link></li>
+		</ul>
+	</div>
 	<div class="list" id="divListaRetenciones">
 		<g:render template="listaRetenciones"
 				  model="['retencionPagoInstanceList': pagoFacturaInstance?.retencionPagos, pagoFacturaInstance: pagoFacturaInstance]"/>

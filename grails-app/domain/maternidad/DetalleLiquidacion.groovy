@@ -39,8 +39,8 @@ class DetalleLiquidacion {
     def agregarRetencionPagoFactura(RetencionPago retencion) {
         this.retencionPago = retencion
         this.debito = true
-        monto = retencionPago.monto * retencion.porcentajeDelPago() / 100
-        detalle = "Retención del Pago: (${retencion.tipo.codigo}) ${retencion.tipo.descripcion}"
+        monto = retencionPago.monto// * retencion.porcentajeDelPago() / 100
+        detalle = "Retención del Pago: (${retencion?.tipo?.codigo}) ${retencion?.tipo?.descripcion}"
     }
 
     def agregarConceptoPorProfesional(ConceptoPorProfesional cpp) {
