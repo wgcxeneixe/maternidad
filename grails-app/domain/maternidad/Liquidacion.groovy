@@ -59,7 +59,7 @@ class Liquidacion {
                 }
         }
 
-        if (profesional.esMaternidad() && totalFacturado > 0) {
+        if (totalFacturado > 0) {
             def detalleLiq = new DetalleLiquidacion(liquidacion: this)
             detalleLiq.agregarPagoFactura(pago, totalFacturado)
             detallesLiquidacion.add(detalleLiq)
@@ -69,7 +69,7 @@ class Liquidacion {
 
         montoNeto = montoBruto
 
-        if (pago.retencionPagos) {
+        if (profesional.esMaternidad() && pago.retencionPagos) {
             pago.retencionPagos.each {
                 ret ->
                     def detRet = new DetalleLiquidacion(liquidacion: this)

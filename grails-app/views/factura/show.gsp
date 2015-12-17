@@ -1,3 +1,4 @@
+
 <%@ page import="maternidad.PagoFactura; maternidad.Factura" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
@@ -20,7 +21,8 @@
     </ul>
 </div>
 
-<br id="show-factura" class="content scaffold-show" role="main">
+<div id="show-factura" class="content scaffold-show" role="main">
+
 <h1><g:message code="default.show.label" args="[entityName]"/></h1>
 <g:if test="${flash.message}">
     <div class="message" role="status">${flash.message}</div>
@@ -217,14 +219,15 @@
     </fieldset>
 </g:form>
 </br>
-    <h1><g:message code="facturacion.pagos" default="Pagos de la Factura"/></h1>
-    <div class="list" id="divListaPagos">
-        <g:render template="listaPagos"
-                  model="['listaPagos': maternidad.PagoFactura.findAllByFactura(Factura.read(facturaInstance?.id)), 'factura': facturaInstance]"/>
+<h1><g:message code="facturacion.pagos" default="Pagos de la Factura"/></h1>
 
-    </div>
+<div class="list" id="divListaPagos">
+    <g:render template="listaPagos"
+              model="['listaPagos': maternidad.PagoFactura.findAllByFactura(Factura.read(facturaInstance?.id)), 'factura': facturaInstance]"/>
 
-    </br>
+</div>
+
+</br>
 
 
 <g:if test="${facturaInstance.facturaPendienteConfirmacion()}">

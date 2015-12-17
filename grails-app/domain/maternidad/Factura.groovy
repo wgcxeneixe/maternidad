@@ -53,7 +53,7 @@ class Factura {
         return res
     }
 
-    String toString() { "Nº ${nrofactura}" }
+    String toString() { "${planillaInternacion } "}
 
     private calcularTotales(Set<DetalleFactura> detalles) {
 
