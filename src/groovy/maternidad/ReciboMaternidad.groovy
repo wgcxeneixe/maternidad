@@ -27,7 +27,7 @@ class ReciboMaternidad {
             lineaRecibo.concepto=it?.conceptoProfesional?.nombre
             lineaRecibo.debitocredito=(it.debitoCredito)?"CREDITO":"DEBITO"
             lineaRecibo.valor=it?.valor?.toString()
-
+lineaRecibo.descripcion=(it.descripcion)?:""
             reciboI?.items?.add(lineaRecibo)
 
         }

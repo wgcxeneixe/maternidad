@@ -8,5 +8,5 @@ class LineaRecibo {
     String valor
     String concepto
     String debitocredito
-
+    String descripcion
 }

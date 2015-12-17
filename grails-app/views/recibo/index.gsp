@@ -78,9 +78,9 @@
 
 						<tr>
 							<td> <p><label for="fechaDesde">Desde</label>
-								<g:datePicker name="fechaDesde" precision="day"  value="${filters?.fechaDesde}" format="dd-MM-yyyy" /></p></td>
+								<g:datePicker name="fechaDesde" precision="day"  value="${filters?.fechaDesde}" default="${new Date().plus(-365)}" format="dd-MM-yyyy" /></p></td>
 							<td> <p><label for="fechaHasta">Hasta</label>
-								<g:datePicker name="fechaHasta" precision="day"  value="${filters?.fechaHasta}" format="dd-MM-yyyy" /></p></td>
+								<g:datePicker name="fechaHasta" precision="day"  value="${filters?.fechaHasta}" default="${new Date().plus(365)}" format="dd-MM-yyyy" /></p></td>
 
 
 							<td>

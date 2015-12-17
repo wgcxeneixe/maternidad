@@ -64,7 +64,9 @@
 			</staticText>
 			<textField>
 				<reportElement x="270" y="1" width="285" height="20" uuid="7c5dd44e-5081-4c77-b311-2af993476f2d"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{profesional}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -83,32 +85,39 @@
 En concepto de:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="340" y="98" width="67" height="20" uuid="37d93b61-03f3-4478-9f11-51dc215852aa"/>
+				<reportElement x="399" y="98" width="45" height="20" uuid="37d93b61-03f3-4478-9f11-51dc215852aa"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[VALOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="26" y="98" width="131" height="20" uuid="024af3a5-3683-485f-98d9-3461e4481f0a"/>
+				<reportElement x="17" y="98" width="131" height="20" uuid="024af3a5-3683-485f-98d9-3461e4481f0a"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[CONCEPTO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="423" y="98" width="112" height="20" uuid="943b1125-fd72-4b8e-bb14-c23ce5c7101a"/>
+				<reportElement x="460" y="98" width="95" height="20" uuid="943b1125-fd72-4b8e-bb14-c23ce5c7101a"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[DEBITO/CREDITO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="218" y="98" width="80" height="20" uuid="b2581d33-0413-43fa-a5d6-c9bb80e8111d"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCION]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="59" splitType="Stretch">
 			<subreport>
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="11" y="3" width="524" height="36" isPrintWhenDetailOverflows="true" uuid="7a6b23c3-16b1-4304-a9d0-fa3056507ba3"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="6" y="3" width="539" height="36" isPrintWhenDetailOverflows="true" uuid="7a6b23c3-16b1-4304-a9d0-fa3056507ba3"/>
 				<subreportParameter name="miURL">
 					<subreportParameterExpression><![CDATA[$P{miURL}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -126,7 +135,7 @@ En concepto de:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="174" y="12" width="150" height="20" uuid="5f24eee5-17b4-478c-b3c1-cae61747ffa8"/>
-				<textElement verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<staticText>

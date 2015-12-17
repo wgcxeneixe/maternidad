@@ -22,12 +22,22 @@
 
 <div class="fieldcontain ${hasErrors(bean: detalleReciboInstance, field: 'debitoCredito', 'error')} ">
 	<label for="debitoCredito">
-		<g:message code="detalleRecibo.debitoCredito.label" default="Debito Credito" />
+		<g:message code="detalleRecibo.debitoCredito.label" default="Crédito" />
 		
 	</label>
 	<g:checkBox name="debitoCredito" value="${detalleReciboInstance?.debitoCredito}" />
 
 </div>
+<div class="fieldcontain ${hasErrors(bean: detalleReciboInstance, field: 'descripcion', 'error')} ">
+	<label for="descripcion">
+		<g:message code="detalleRecibo.observaciones.label" default="Descripcion" />
+
+	</label>
+	<g:textArea name="descripcion" cols="40" rows="5" maxlength="5000" value="${detalleReciboInstance?.descripcion}"/>
+
+</div>
+
+
 <g:if test="${params.idRecibo}">
 	<g:hiddenField name="idRecibo" value="${params.idRecibo}"/>
 

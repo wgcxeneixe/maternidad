@@ -1,7 +1,9 @@
 <table>
     <thead>
     <tr>
-
+        <th>
+            <g:message code="factura.fecha.label" default="Planilla"/>
+        </th>
         <th>
             <g:message code="factura.fecha.label" default="Periodo"/>
         </th>
@@ -71,6 +73,8 @@
     <g:each in="${facturaInstanceList}" status="i" var="facturaInstance">
         <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
+            <td>${facturaInstance?.planillaInternacion?.numeroIngreso}</td>
+
             <td>${fieldValue(bean: facturaInstance, field: "periodo")}</td>
 
             <td>${facturaInstance?.planillaInternacion?.plan}</td>
@@ -97,5 +101,5 @@
 </table>
 
 <div class="pagination">
-    <g:paginate total="${facturaInstanceTotal ?: 0}"/>
+    <g:paginate total="${facturaInstanceTotal ?: 0}" />
 </div>

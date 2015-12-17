@@ -55,7 +55,7 @@ class ReciboController {
         def recibos = criteria.list(query, max: params.max, offset: params.offset)
         def filters = [fechaDesde: params.fechaDesde as Date, fechaHasta: params.fechaHasta as Date, profesional: params.profesional, nro: params.nro]
 
-        def model = [reciboInstanceList: recibos, reciboInstanceTotal: recibos?.size(), filters: filters]
+        def model = [reciboInstanceList: recibos, reciboInstanceTotal: recibos?.totalCount, filters: filters]
 
         if (request.xhr) {
             // ajax request
@@ -165,6 +165,7 @@ class ReciboController {
             detalleRecibo.conceptoProfesional = ConceptoProfesional.get(params.concepto)
             detalleRecibo.debitoCredito = (params.debitocredito == "credito") ? true : false
             detalleRecibo.valor = params.valorDetalle as Double
+            detalleRecibo.descripcion=(params?.descripcion)?:""
             detalleRecibo.save(flush: true)
             recibo.addToDetalle(detalleRecibo)
             def total=0

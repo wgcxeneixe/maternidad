@@ -4,7 +4,7 @@
 
         <g:sortableColumn property="nro" title="${message(code: 'recibo.nro.label', default: 'Nro')}" params="${filters}" />
 
-        <g:message code="recibo.profesional.label" default="Fecha" params="${filters}" />
+       <th> <g:message code="recibo.profesional.label" default="Fecha" params="${filters}" /></th>
 
         <th><g:message code="recibo.profesional.label" default="Profesional" params="${filters}" /></th>
 

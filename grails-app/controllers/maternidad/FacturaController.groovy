@@ -65,10 +65,10 @@ class FacturaController {
                 // between('fecha',Date.from, Date.parse("dd-MM-yyyy", params.fechaDesde))
 
             }
-            if (params.nrofactura) {
-
-                eq('nrofactura', params.nrofactura.toInteger())
-
+            if (params.planilla) {
+planillaInternacion{
+                eq('numeroIngreso', params.planilla.toInteger())
+}
             }
 
             if (params.plan) {
@@ -77,6 +77,9 @@ class FacturaController {
 
             }
 
+            if (params.periodo) {
+                ilike('periodo', '%' + params.periodo + '%')
+            }
 
 
             if (params.sort) {
@@ -87,9 +90,9 @@ class FacturaController {
         def criteria = Factura.createCriteria()
         params.max = Math.min(params.max ? params.int('max') : 20, 100)
         def facturas = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [fechaDesde: params.fechaDesde as Date, fechaHasta: params.fechaHasta as Date, plan: params.plan, nrofactura: params.nrofactura]
+        def filters = [fechaDesde: params.fechaDesde as Date, fechaHasta: params.fechaHasta as Date, plan: params.plan, planilla: params.planilla,periodo:params.periodo]
 
-        def model = [facturaInstanceList: facturas, facturaInstanceTotal: facturas?.size(), filters: filters]
+        def model = [facturaInstanceList: facturas, facturaInstanceTotal: facturas?.totalCount, filters: filters]
 
         if (request.xhr) {
             // ajax request

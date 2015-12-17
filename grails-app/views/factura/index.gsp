@@ -32,8 +32,8 @@
 
                     <table >
                         <tr>
-                            <td> <p><label for="nrofactura">Nº Factura</label>
-                                <g:field type="number" only-num="" name="nrofactura" value="${filters?.nrofactura}" /></p></td>
+                            <td> <p><label for="planilla">Planilla</label>
+                                <g:field type="number" only-num="" name="planilla" value="${filters?.planilla}" /></p></td>
                             <td>
                                 <p><label for="plan">Plan</label>
                                     <g:select id="plan" name="plan" from="${maternidad.Plan.list()}" optionKey="id"  value="" noSelection="['':'']"/>
@@ -42,10 +42,12 @@
 
                          <tr>
                             <td> <p><label for="fechaDesde">Desde</label>
-                                <g:datePicker name="fechaDesde" precision="day"  value="${filters?.fechaDesde}" format="dd-MM-yyyy" /></p></td>
+                                <g:datePicker name="fechaDesde" precision="day"  value="${filters?.fechaDesde}" default="${new Date().plus(-365)}" format="dd-MM-yyyy" /></p></td>
                             <td> <p><label for="fechaHasta">Hasta</label>
-                                <g:datePicker name="fechaHasta" precision="day"  value="${filters?.fechaHasta}" format="dd-MM-yyyy" /></p></td>
+                                <g:datePicker name="fechaHasta" precision="day"  value="${filters?.fechaHasta}" default="${new Date().plus(365)}" format="dd-MM-yyyy" /></p></td>
 
+                             <td> <p><label for="periodo">Periodo</label>
+                                 <g:textField  name="periodo" value="${filters?.periodo}" /></p></td>
 
                             <td>
                                 <p><g:submitButton name="filter" value="Filtrar" /></p></td>

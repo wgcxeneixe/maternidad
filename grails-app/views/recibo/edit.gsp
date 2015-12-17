@@ -53,8 +53,8 @@
 
 				dialog = jQuery( "#dialog-form" ).dialog({
 					autoOpen: false,
-					height: 300,
-					width: 350,
+					height: 500,
+					width: 450,
 					modal: true,
 					buttons: {
 						"Agregar Detalle": add,
@@ -126,7 +126,8 @@
 
 				<g:sortableColumn property="valor" title="${message(code: 'detalleRecibo.valor.label', default: 'Valor')}" />
 
-				<g:sortableColumn property="debitoCredito" title="${message(code: 'detalleRecibo.debitoCredito.label', default: 'Debito Credito')}" />
+				<g:sortableColumn property="debitoCredito" title="${message(code: 'detalleRecibo.debitoCredito.label', default: 'Credito')}" />
+				<th><g:message code="detalleRecibo.conceptoProfesional.label" default="Descripción" /></th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -140,7 +141,8 @@
 					<td>${fieldValue(bean: detalleReciboInstance, field: "valor")}</td>
 
 					<td><g:formatBoolean boolean="${detalleReciboInstance.debitoCredito}" /></td>
-                    <td>  <g:link action="editarDetalle" params="[idRecibo:reciboInstance.id,idDetalle:detalleReciboInstance.id]">Editar</g:link> </td>
+                    <td>${ (detalleReciboInstance?.descripcion?.size()>=40)? detalleReciboInstance?.descripcion?.substring(0,40) +' ...':detalleReciboInstance?.descripcion}</td>
+					<td>  <g:link action="editarDetalle" params="[idRecibo:reciboInstance.id,idDetalle:detalleReciboInstance.id]">Editar</g:link> </td>
 				<td><g:link action="eliminarDetalle" params="[idRecibo:reciboInstance.id,idDetalle:detalleReciboInstance.id]">Eliminar</g:link></td>
 				</tr>
 			</g:each>
@@ -163,12 +165,13 @@
 			<label for="concepto">Concepto Profesional</label>
 			<g:select id="concepto" name="concepto" from="${maternidad.ConceptoProfesional.findAllByActivo(Boolean.TRUE)}" required="true"
 					  optionKey="id" optionValue="nombre"
-					  noSelection="${['': 'Seleccione una Opción...']}" />
+					  noSelection="${['': 'Seleccione una Opción...']}" /></br>
 			<label >Débito</label><g:radio name="debitocredito" value="debito"/>
 			<label >Crédito</label><g:radio name="debitocredito" value="credito" checked="true"/></br>
 			<label for="valorDetalle">Valor</label>
-			<g:field type="number" step="any"  name="valorDetalle"  required="true"/>
-
+			<g:field type="number" step="any"  name="valorDetalle"  required="true"/></br>
+			<label for="descripcion">Descripción</label>
+			<g:textArea name="descripcion" cols="40" rows="5" maxlength="5000" />
 			<!-- Allow form submission with keyboard without duplicating the dialog button -->
 			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 		</fieldset>
