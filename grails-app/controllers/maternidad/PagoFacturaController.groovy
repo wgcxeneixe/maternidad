@@ -60,7 +60,7 @@ class PagoFacturaController {
         factura?.liquidada = true
         factura.save(flush: true)
         flash.message = 'Se ha armado la liquidacion del pago'
-        redirect(action: "show", id: pagoFacturaInstance?.id)
+        redirect(controller: "liquidacion", action: "index")
     }
 
     @Transactional
