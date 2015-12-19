@@ -17,7 +17,8 @@ class LiquidacionController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Liquidacion.list(params), model: [liquidacionInstanceCount: Liquidacion.count()]
+        params.order="desc"
+        respond Liquidacion.listOrderById(params), model: [liquidacionInstanceCount: Liquidacion.count()]
     }
 
     def show(Liquidacion liquidacionInstance) {
