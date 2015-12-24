@@ -101,5 +101,5 @@
 </table>
 
 <div class="pagination">
-    <g:paginate total="${facturaInstanceTotal ?: 0}" />
+    <g:paginate total="${facturaInstanceTotal ?: 0}" params="[fechaDesde:(filters?.fechaDesde)?new java.text.SimpleDateFormat('EEE MMM dd HH:mm:ss z yyyy', Locale.US).parse(filters?.fechaDesde.toString() ):(new Date()),fechaHasta:(filters?.fechaHasta)?new java.text.SimpleDateFormat('EEE MMM dd HH:mm:ss z yyyy', Locale.US).parse(filters?.fechaHasta.toString() ):(new Date()), periodo:filters.periodo]"/>
 </div>

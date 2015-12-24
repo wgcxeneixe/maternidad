@@ -1,5 +1,5 @@
 
-<%@ page import="maternidad.Factura" %>
+<%@ page import="java.text.SimpleDateFormat; maternidad.Factura" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -42,9 +42,9 @@
 
                          <tr>
                             <td> <p><label for="fechaDesde">Desde</label>
-                                <g:datePicker name="fechaDesde" precision="day"  value="${filters?.fechaDesde}" default="${new Date().plus(-365)}" format="dd-MM-yyyy" /></p></td>
+                                <g:datePicker name="fechaDesde" precision="day"  value="${(filters?.fechaDesde)?new java.text.SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US).parse(filters?.fechaDesde.toString() ):(new Date())}" default="${new Date().plus(-365)}" format="EEE MMM dd HH:mm:ss z yyyy" /></p></td>
                             <td> <p><label for="fechaHasta">Hasta</label>
-                                <g:datePicker name="fechaHasta" precision="day"  value="${filters?.fechaHasta}" default="${new Date()}" format="dd-MM-yyyy" /></p></td>
+                                <g:datePicker name="fechaHasta" precision="day"  value="${(filters?.fechaHasta)?new java.text.SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US).parse(filters?.fechaHasta.toString() ):(new Date())}" default="${new Date()}" format="EEE MMM dd HH:mm:ss z yyyy" /></p></td>
 
                              <td> <p><label for="periodo">Periodo</label>
                                  <g:textField  name="periodo" value="${filters?.periodo}" /></p></td>
@@ -54,7 +54,7 @@
                         </tr>
                     </table>
 
-
+                     <g:hiddenField name="filtrar" id="filtrar" value="true" />
 
 
                 </g:form>
