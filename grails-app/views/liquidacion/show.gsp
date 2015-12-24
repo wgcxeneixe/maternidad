@@ -31,7 +31,7 @@
                                                                          default="Fecha"/></span>
 
                 <span class="property-value" aria-labelledby="fecha-label"><g:formatDate
-                        date="${liquidacionInstance?.fecha}"/></span>
+                        date="${liquidacionInstance?.fecha}" /></span>
 
             </li>
         </g:if>
@@ -47,7 +47,6 @@
             </li>
         </g:if>
 
-        <g:if test="${liquidacionInstance?.montoNeto}">
             <li class="fieldcontain">
                 <span id="montoNeto-label" class="property-label"><g:message code="liquidacion.montoNeto.label"
                                                                              default="Monto Neto"/></span>
@@ -56,7 +55,6 @@
                         bean="${liquidacionInstance}" field="montoNeto"/></span>
 
             </li>
-        </g:if>
 
         <g:if test="${liquidacionInstance?.numeroLiquidacion}">
             <li class="fieldcontain">
