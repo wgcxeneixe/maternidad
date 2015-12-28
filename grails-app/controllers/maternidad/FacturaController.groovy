@@ -4,6 +4,9 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import pl.touk.excel.export.WebXlsxExporter
 
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 import static org.springframework.http.HttpStatus.*
 
 @Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -59,9 +62,14 @@ class FacturaController {
 
     def index = {
 
+        def SimpleDateFormat form= new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US)
         def query = {
             if (params.fechaDesde && params.fechaHasta) {
-                between('fecha', params.fechaDesde as Date, params.fechaHasta as Date)
+                if(!params.filtrar){
+                    between('fecha', form.parse(params.fechaDesde.toString()), form.parse(params.fechaHasta.toString()))
+                }else {
+                    between('fecha', params.fechaDesde as Date, params.fechaHasta as Date)
+                }
                 // between('fecha',Date.from, Date.parse("dd-MM-yyyy", params.fechaDesde))
 
             }
@@ -86,11 +94,14 @@ planillaInternacion{
                 order(params.sort, params.order)
             }
         }
+        if (params.fechaDesde && params.fechaHasta) {
+            println params.fechaDesde.class
+        }
 
         def criteria = Factura.createCriteria()
         params.max = Math.min(params.max ? params.int('max') : 20, 100)
         def facturas = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [fechaDesde: params.fechaDesde as Date, fechaHasta: params.fechaHasta as Date, plan: params.plan, planilla: params.planilla,periodo:params.periodo]
+        def filters = [fechaDesde:params?.fechaDesde,fechaHasta:params?.fechaHasta, plan: params.plan, planilla: params.planilla,periodo:params.periodo]
 
         def model = [facturaInstanceList: facturas, facturaInstanceTotal: facturas?.totalCount, filters: filters]
 
