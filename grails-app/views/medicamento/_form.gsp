@@ -52,7 +52,7 @@
 		<g:message code="medicamento.valor.label" default="Valor" />
 		
 	</label>
-	<g:field name="valor" value="${fieldValue(bean: medicamentoInstance, field: 'valor')}"/>
+	<g:field  type="number" name="valor" step="any" value="${medicamentoInstance?.valor}"/>
 
 </div>
 
