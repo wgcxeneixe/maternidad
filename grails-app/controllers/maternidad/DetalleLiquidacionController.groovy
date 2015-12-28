@@ -40,7 +40,7 @@ class DetalleLiquidacionController {
             respond detalleLiquidacionInstance.errors, view:'create'
             return
         }
-
+        detalleLiquidacionInstance.monto = (params?.monto) ? params?.monto as Double : 0
         detalleLiquidacionInstance.save flush:true
         def liquidacionInstance = detalleLiquidacionInstance.liquidacion
         liquidacionInstance.detallesLiquidacion.add(detalleLiquidacionInstance)
@@ -81,7 +81,7 @@ class DetalleLiquidacionController {
             respond detalleLiquidacionInstance.errors, view:'edit'
             return
         }
-
+        detalleLiquidacionInstance.monto = (params?.monto) ? params?.monto as Double : 0
         detalleLiquidacionInstance.save flush:true
         def liquidacionInstance = detalleLiquidacionInstance.liquidacion
         liquidacionInstance.actualizarTotales()

@@ -61,8 +61,7 @@
 		<g:message code="detalleLiquidacion.monto.label" default="Monto" />
 		
 	</label>
-	<g:field name="monto" value="${fieldValue(bean: detalleLiquidacionInstance, field: 'monto')}"/>
-
+	<g:field type="number" step="any" name="monto" value="${fieldValue(bean: detalleLiquidacionInstance, field: 'monto')}"/>
 </div>
 
 %{--<div class="fieldcontain ${hasErrors(bean: detalleLiquidacionInstance, field: 'pagoFactura', 'error')} ">--}%
