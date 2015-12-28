@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" whenResourceMissingType="Empty" isIgnorePagination="true">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="1075"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[]]>
@@ -9,23 +9,40 @@
 	<field name="descripcion" class="java.lang.String"/>
 	<field name="porcentaje" class="java.lang.Double"/>
 	<field name="importe" class="java.lang.Double"/>
-	<detail>
-		<band height="27">
+	<columnHeader>
+		<band height="16">
+			<staticText>
+				<reportElement x="477" y="0" width="76" height="15"/>
+				<textElement/>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="0" width="166" height="15"/>
+				<textElement/>
+				<text><![CDATA[HABERES]]></text>
+			</staticText>
 			<line>
-				<reportElement x="471" y="0" width="1" height="27"/>
+				<reportElement x="0" y="14" width="552" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16">
+			<line>
+				<reportElement x="471" y="0" width="1" height="16"/>
 			</line>
 			<textField>
-				<reportElement x="3" y="5" width="431" height="20"/>
+				<reportElement x="3" y="0" width="431" height="15"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0">
-				<reportElement x="435" y="5" width="32" height="20"/>
+				<reportElement x="435" y="0" width="32" height="15"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression class="java.lang.Double"><![CDATA[$F{porcentaje}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$#,##0.00;-$#,##0.00">
-				<reportElement x="476" y="5" width="56" height="20"/>
+				<reportElement x="476" y="0" width="56" height="15"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression class="java.lang.Double"><![CDATA[$F{importe}]]></textFieldExpression>
 			</textField>

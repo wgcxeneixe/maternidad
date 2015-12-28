@@ -93,21 +93,18 @@
     <g:if test="${!liquidacionInstance?.numeroLiquidacion}">
         <g:form url="[resource: liquidacionInstance, action: 'liquidar']"
                 params="[liquidacion_id: liquidacionInstance?.id,]" method="PUT">
-        %{--<fieldset class="form" style="text-align: left">--}%
-        %{--<div class="fieldcontain ${hasErrors(bean: liquidacionInstance, field: 'numeroRecibo', 'error')} required">--}%
-        %{--<label for="numeroRecibo">--}%
-        %{--<g:message code="liquidacion.numeroRecibo.label" default="Numero Recibo" />--}%
-        %{--</label>--}%
-        %{--<g:field name="numeroRecibo" type="number" value="${liquidacionInstance.numeroRecibo}" required=""/>--}%
-        %{--<g:link class="save" controller="liquidacion" action="liquidar"--}%
-        %{--params="[liquidacion_id: liquidacionInstance?.id,]"><g:message--}%
-        %{--code="default.button.editar.labelss" default="Liquidar"/></g:link>--}%
-        %{--</div>--}%
-        %{--</fieldset>--}%
             <p><g:submitButton name="liquidar" value="Liquidar" style="color: darkred"
                                onclick="return confirm('¿Está seguro que desea Generar esta Liquidación?')"/></p>
         </g:form>
-    </g:if>
+    </g:if><g:else>
+    <div class="nav" role="navigation">
+        <ul>
+            <li><g:link controller="liquidacion" action="reportLiquidacion"  class="list"
+                        id="${liquidacionInstance.id}">imprimir</g:link></li>
+        </ul>
+    </div>
+
+</g:else>
 
     <div id="list-detalleLiquidacion" class="content scaffold-list" role="main">
         <h1><g:message code="default.list.label" args="['de Detalles']"/></h1>
