@@ -3,7 +3,6 @@ package maternidad
 import grails.plugin.springsecurity.annotation.Secured
 import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
 import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
-import pl.touk.excel.export.WebXlsxExporter
 
 import java.text.DecimalFormat
 
