@@ -198,7 +198,18 @@
 					
 				</li>
 				</g:if>
-			
+
+
+
+                <g:if test="${profesionalInstance?.codigoCirculo}">
+                    <li class="fieldcontain">
+                        <span id="circulo-label" class="property-label"><g:message code="profesional.cbu.label" default="Código Circulo" /></span>
+
+                        <span class="property-value" aria-labelledby="circulo-label">${profesionalInstance?.codigoCirculo}</span>
+
+                    </li>
+                </g:if>
+
 				<g:if test="${profesionalInstance?.banco}">
 				<li class="fieldcontain">
 					<span id="banco-label" class="property-label"><g:message code="profesional.banco.label" default="Banco" /></span>

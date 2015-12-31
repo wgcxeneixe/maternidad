@@ -47,6 +47,16 @@
 
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: profesionalInstance, field: 'codigoCirculo', 'error')} ">
+	<label for="cbu">
+		<g:message code="profesional.cbu.label" default="Código Circulo" />
+
+	</label>
+	<g:field type="number" name="codigoCirculo" value="${profesionalInstance?.codigoCirculo}"/>
+
+</div>
+
+
 <div class="fieldcontain ${hasErrors(bean: profesionalInstance, field: 'banco', 'error')} ">
 	<label for="banco">
 		<g:message code="profesional.banco.label" default="Banco" />

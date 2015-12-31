@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanillasPresentadas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aa5b7dbf-ae21-4aa5-a77b-e0b5b8754ba4">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="0.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="table">
@@ -125,7 +125,7 @@ En concepto de:]]></text>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "LineaRecibo.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-		<band height="50">
+		<band height="57">
 			<staticText>
 				<reportElement x="10" y="11" width="164" height="21" uuid="6446aeca-876c-412f-9701-d8a4431b21f5"/>
 				<textElement verticalAlignment="Top">
@@ -149,6 +149,121 @@ En concepto de:]]></text>
 				<reportElement x="432" y="22" width="100" height="20" uuid="975c0fab-b499-4320-895a-f4cff97840b0"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="186">
+			<textField>
+				<reportElement x="174" y="70" width="150" height="20" uuid="96f4201e-05e2-4bb2-8a2f-c0eb0c5f05f5"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="59" width="555" height="29" uuid="c74fa54f-c4b2-4dfa-84c6-82af14f4f7a9"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="32" width="555" height="26" uuid="77f4ae92-fcc9-415c-80fb-f603646670f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="14" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[NUEVA MATERNIDAD CONCEPCION S.R.L.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="163" width="80" height="20" uuid="9ff12072-f6f0-401e-aba1-c969f6da815c"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIPCION]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="126" y="58" width="61" height="20" uuid="473ec98c-e92b-4daf-b2a8-52caf59a542d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="189" y="59" width="81" height="20" uuid="13b9c31d-722e-46f3-a205-46b052e17a50"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PROFESIONAL:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="270" y="59" width="285" height="20" uuid="bee0168a-f85f-4231-ba43-c25047f5cfad"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{profesional}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="48" y="101" width="459" height="40" uuid="d72d8063-5489-4d12-a5e8-95e792ddea6a"/>
+				<textElement verticalAlignment="Top">
+					<font size="14" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Recibi de: NUEVA MATERNIDAD CONCEPCION S.R.L
+En concepto de:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="163" width="131" height="20" uuid="b552d4f4-2355-4e63-b30f-c75704cb4cf7"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CONCEPTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="163" width="45" height="20" uuid="f46d9b9e-fa1e-4778-9ba4-b78fb91f7372"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="163" width="95" height="20" uuid="cef44caa-de0f-4e7e-ab46-9d2035ebc988"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DEBITO/CREDITO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="11" y="58" width="115" height="20" uuid="6ad4a574-72b5-4377-9b48-ecd8fee5853a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[RECIBO NRO:]]></text>
+			</staticText>
+		</band>
+		<band height="71">
+			<subreport>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="6" y="0" width="539" height="36" isPrintWhenDetailOverflows="true" uuid="b283adc6-ab29-47f1-acf1-f86fff420d2d"/>
+				<subreportParameter name="miURL">
+					<subreportParameterExpression><![CDATA[$P{miURL}]]></subreportParameterExpression>
+				</subreportParameter>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{items})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "LineaRecibo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<staticText>
+				<reportElement x="6" y="13" width="164" height="21" uuid="d76766e8-991f-4b9e-a9ae-155dcd6054dd"/>
+				<textElement verticalAlignment="Top">
+					<font size="14" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[La cantidad de: PESOS ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="13" width="76" height="20" uuid="950ca065-ebe9-4824-8486-ffeef699d6ce"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="451" y="13" width="100" height="20" uuid="6f8a3111-4683-4b12-850b-bbf179f6cc15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="13" width="150" height="20" uuid="29dc6736-17cc-41d7-905a-8c38ac31f1e7"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

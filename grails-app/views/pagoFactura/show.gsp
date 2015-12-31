@@ -66,15 +66,14 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${pagoFacturaInstance?.monto}">
+
 				<li class="fieldcontain">
 					<span id="monto-label" class="property-label"><g:message code="pagoFactura.monto.label" default="Monto" /></span>
 					
 						<span class="property-value" aria-labelledby="monto-label"><g:fieldValue bean="${pagoFacturaInstance}" field="monto"/></span>
 					
 				</li>
-				</g:if>
-			
+
 				<g:if test="${pagoFacturaInstance?.numeroComprobante}">
 				<li class="fieldcontain">
 					<span id="numeroComprobante-label" class="property-label"><g:message code="pagoFactura.numeroComprobante.label" default="Numero Comprobante" /></span>

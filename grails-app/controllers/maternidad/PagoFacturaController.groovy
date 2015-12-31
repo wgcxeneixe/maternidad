@@ -70,10 +70,15 @@ class PagoFacturaController {
             return
         }
 
+        pagoFacturaInstance.monto=(params.monto)?params.monto as Double:0
+        pagoFacturaInstance.porcentajeALiquidar=(params.porcentajeALiquidar)?Double.parseDouble(params.porcentajeALiquidar.replace(',','.') as String) :0
+        pagoFacturaInstance.porcentajeLiquidado=(params.porcentajeLiquidado)?params.porcentajeLiquidado as Double:0
+
         if (pagoFacturaInstance.hasErrors()) {
             respond pagoFacturaInstance.errors, view: 'create'
             return
         } else {
+
             FacturaPeriodo facturaPeriodoSeleccionada
             Factura facturaSeleccionada
             if (pagoFacturaInstance?.facturaPeriodo) {
@@ -128,6 +133,10 @@ class PagoFacturaController {
             respond pagoFacturaInstance.errors, view: 'edit'
             return
         }
+
+        pagoFacturaInstance.monto=(params.monto)?params.monto as Double:0
+        pagoFacturaInstance.porcentajeALiquidar=(params.porcentajeALiquidar)?Double.parseDouble(params.porcentajeALiquidar.replace(',','.') as String) :0
+        pagoFacturaInstance.porcentajeLiquidado=(params.porcentajeLiquidado)?params.porcentajeLiquidado as Double:0
 
         pagoFacturaInstance.save flush: true
         pagoFacturaInstance?.facturaPeriodo?.actualizar()

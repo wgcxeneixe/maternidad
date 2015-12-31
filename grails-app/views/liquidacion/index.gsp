@@ -22,63 +22,55 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <table>
-        <thead>
-        <tr>
-            <g:sortableColumn property="profesional"
-                              title="${message(code: 'liquidacion.profesional.label', default: 'Profesional')}"/>
+    <div class="filters">
+        <g:form action="index">
 
-            <g:sortableColumn property="fecha" title="${message(code: 'liquidacion.fecha.label', default: 'Fecha')}"/>
+            <table >
+                <tr>
+                    <td> <p><label for="planilla">Planilla</label>
+                        <g:field type="number" only-num="" name="planilla" value="${filters?.planilla}" /></p></td>
+                    <td>
+                        <p><label for="profesional">Profesional</label>
+                            <g:select id="profesional" name="profesional" from="${maternidad.Profesional.list()}" optionKey="id"  value="${filters.profesional}" noSelection="['':'']"/>
+                        </p></td>
 
-            <g:sortableColumn property="montoBruto"
-                              title="${message(code: 'liquidacion.montoBruto.label', default: 'Monto Bruto')}"/>
+                    <td> <p><label for="periodo">Periodo</label>
+                        <g:textField  name="periodo" value="${filters?.periodo}" /></p></td>
 
-            <g:sortableColumn property="montoNeto"
-                              title="${message(code: 'liquidacion.montoNeto.label', default: 'Monto Neto')}"/>
+                    <td>
+                        <p><g:submitButton name="filter" value="Filtrar" /></p></td>
 
-            <g:sortableColumn property="numeroLiquidacion"
-                              title="${message(code: 'liquidacion.numeroLiquidacion.label', default: 'Nuemro Liquidacion')}"/>
+                </tr>
 
-            <g:sortableColumn property="numeroRecibo"
-                              title="${message(code: 'liquidacion.numeroRecibo.label', default: 'Numero Recibo')}"/>
+            </table>
 
-            <td></td>
-        </tr>
-        </thead>
-        <tbody>
-        <g:each in="${liquidacionInstanceList}" status="i" var="liquidacionInstance">
-            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                <td>
-                    <g:link controller="liquidacion" action="show"
-                            id="${liquidacionInstance.id}">${liquidacionInstance.profesional}</g:link>
-                </td>
-
-                <td>${liquidacionInstance?.fecha?.format('dd/MM/yyyy')}</td>
-
-                <td>${fieldValue(bean: liquidacionInstance, field: "montoBruto")}</td>
-
-                <td>${fieldValue(bean: liquidacionInstance, field: "montoNeto")}</td>
-
-                <td>${fieldValue(bean: liquidacionInstance, field: "numeroLiquidacion")}</td>
-
-                <td>${fieldValue(bean: liquidacionInstance, field: "numeroRecibo")}</td>
-
-                <td>
-                    <g:if test="${liquidacionInstance.numeroLiquidacion}">
-                        <g:link controller="liquidacion" action="reportLiquidacion"
-                                id="${liquidacionInstance.id}">imprimir</g:link>
-                    </g:if>
-                </td>
-
-            </tr>
-        </g:each>
-        </tbody>
-    </table>
-
-    <div class="pagination">
-        <g:paginate total="${liquidacionInstanceCount ?: 0}"/>
+        </g:form>
     </div>
+
+    <br />
+    <div id="grid">
+        <g:render template="grilla" model="model" />
+    </div>
+    <br />
 </div>
+
+<script>
+    $(function() {
+
+        //idioma de los calendar
+        jQuery.datepicker.regional[ "es" ];
+        updateDatePicker();
+
+        jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+            updateDatePicker();
+        });
+
+        jQuery("#profesional").select2({allowClear: true,width: 'resolve'});
+
+
+    })
+
+</script>
 </body>
 </html>

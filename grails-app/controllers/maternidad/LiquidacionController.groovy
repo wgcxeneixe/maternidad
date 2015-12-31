@@ -5,6 +5,8 @@ import grails.transaction.Transactional
 import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
 import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
 
+import java.text.SimpleDateFormat
+
 import static org.springframework.http.HttpStatus.*
 
 @Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
@@ -15,10 +17,58 @@ class LiquidacionController {
 
     def jasperService
 
+    /*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         params.order="desc"
         respond Liquidacion.listOrderById(params), model: [liquidacionInstanceCount: Liquidacion.count()]
+    }
+*/
+
+
+    def index = {
+
+
+        def query = {
+
+            if (params.planilla) {
+               factura{ planillaInternacion{
+                    eq('numeroIngreso', params.planilla.toInteger())
+                }
+               }
+            }
+
+            if (params.profesional) {
+
+                eq('profesional.id', params.profesional.toLong())
+
+            }
+
+            if (params.periodo) {
+                factura{
+                ilike('periodo', '%' + params.periodo + '%')
+                }
+                }
+
+
+            if (params.sort) {
+                order(params.sort, params.order)
+            }
+        }
+
+        def criteria = Liquidacion.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        def liquidaciones = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [ profesional: params.profesional, planilla: params.planilla,periodo:params.periodo]
+
+        def model = [liquidacionInstanceList: liquidaciones, liquidacionInstanceCount: liquidaciones?.totalCount, filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grilla", model: model)
+        } else {
+            model
+        }
     }
 
     def show(Liquidacion liquidacionInstance) {

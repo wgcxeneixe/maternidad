@@ -49,9 +49,10 @@ class PagoFactura {
 //    }
 
     static def validadorPorcentajeALiquidar = {
-        val, PagoFactura obj ->
+       double val , PagoFactura obj ->
             def resp = true
-            if (obj.porcentajeLiquidado + val > 100) {
+            val=val as double
+            if (obj.porcentajeLiquidado  + val > 100) {
                 resp = "pagoFactura.porcentajeALiquidar.invalido"
             }
             resp
@@ -67,13 +68,14 @@ class PagoFactura {
 //    }
 
     static def validadorMonto = {
-        val, Factura obj ->
+      double  val, Factura obj ->
 
             def resp = true
             def totalPagos = obj?.getTotalPagos() - obj?.getTotalRetencion()
             if (val > totalPagos) {
                 resp = "pagoFactura.pago.mayor.a.monto"
             } else {
+                val= val as double
             obj?.totalPagado = obj?.totalPagado +  val
             }
             resp
