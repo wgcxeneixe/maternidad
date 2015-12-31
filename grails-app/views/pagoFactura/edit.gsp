@@ -18,7 +18,6 @@
 			});
 
 
-			jQuery("#porcentajeALiquidar").val(jQuery("#porcentajeALiquidar").val().replace(".",",") );
 
 
 
