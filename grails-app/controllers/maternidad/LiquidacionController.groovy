@@ -315,7 +315,7 @@ class LiquidacionController {
                 if(detalle?.conceptoProfesional)concepto+='('+detalle?.conceptoProfesional?.codigo+'-'+detalle?.conceptoProfesional?.nombre+') '
                 if(detalle?.detalle) concepto +=detalle?.detalle
                 item += [descripcion: concepto]
-                item += [importe: detalle?.monto?.toString()]
+                item += [importe: detalle?.monto]
                 listaRetencionesToReport += item
             }
         }
