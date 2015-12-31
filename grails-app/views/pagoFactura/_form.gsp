@@ -101,9 +101,8 @@
     </label>
     <input id="porcentajeALiquidar" name="porcentajeALiquidar"  value="${pagoFacturaInstance?.porcentajeALiquidar}"
            required="">
-   %{-- <g:field type="number" step="any" name="porcentajeALiquidar" value="${pagoFacturaInstance?.porcentajeALiquidar}"
-             required=""/>
---}%
+    %{--<g:field type="number" step="any" min="1" max="100" name="porcentajeALiquidar" value="${pagoFacturaInstance?.porcentajeALiquidar}"--}%
+             %{--required=""/>--}%
 </div>
 
 <div class="fieldcontain" hidden="hidden">
@@ -154,7 +153,7 @@
 
     jQuery("#porcentajeALiquidar").keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
-        if (jQuery.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 188]) !== -1 ||
+        if (jQuery.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
                     // Allow: Ctrl+A
                 (e.keyCode == 65 && e.ctrlKey === true) ||
                     // Allow: home, end, left, right

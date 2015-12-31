@@ -46,7 +46,7 @@ class PagoFacturaController {
             pagoFactura.monto = pagoFactura.factura.totalFacturado - pagoFactura.factura.totalPagado - pagoFactura.factura.totalRetencion
         }
         if (pagoFactura.facturaPeriodo) {
-            pagoFactura.monto = pagoFactura.facturaPeriodo.totalFacturado - pagoFactura.facturaPeriodo.totalPagado - pagoFactura.facturaPeriodo.totalRetencion
+            pagoFactura.monto = Math.round((pagoFactura.facturaPeriodo.totalFacturado - pagoFactura.facturaPeriodo.totalPagado - pagoFactura.facturaPeriodo.totalRetencion)*100)/100
         }
         pagoFactura.porcentajeALiquidar=100
         respond pagoFactura
@@ -71,10 +71,11 @@ class PagoFacturaController {
         }
 
         pagoFacturaInstance.monto=(params.monto)?params.monto as Double:0
-        pagoFacturaInstance.porcentajeALiquidar=(params.porcentajeALiquidar)?Double.parseDouble(params.porcentajeALiquidar.replace(',','.') as String) :0
+        pagoFacturaInstance.porcentajeALiquidar=(params.porcentajeALiquidar)?params.porcentajeALiquidar as Double:0
         pagoFacturaInstance.porcentajeLiquidado=(params.porcentajeLiquidado)?params.porcentajeLiquidado as Double:0
 
-        if (pagoFacturaInstance.hasErrors()) {
+        if (pagoFacturaInstance.hasErrors() ||  !pagoFacturaInstance.porcentajeALiquidar ||  pagoFacturaInstance.porcentajeALiquidar<0 ||  pagoFacturaInstance.porcentajeALiquidar > 100) {
+            if( !pagoFacturaInstance.porcentajeALiquidar ||  pagoFacturaInstance.porcentajeALiquidar<0 ||  pagoFacturaInstance.porcentajeALiquidar > 100)  pagoFacturaInstance.errors.rejectValue("porcentajeALiquidar", "pagoFactura.porcentajeALiquidar.invalido")
             respond pagoFacturaInstance.errors, view: 'create'
             return
         } else {

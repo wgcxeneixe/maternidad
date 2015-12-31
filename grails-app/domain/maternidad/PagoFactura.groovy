@@ -31,7 +31,7 @@ class PagoFactura {
         factura(nullable: true)
         numeroComprobante(nullable: true)
         tipoPago(nullable: false)
-        porcentajeALiquidar(nullable: false, validator: validadorPorcentajeALiquidar)
+        porcentajeALiquidar(nullable: false)//, validator: validadorPorcentajeALiquidar)
     }
 
     def beforeInsert = {
@@ -48,15 +48,14 @@ class PagoFactura {
 //        retencion = total
 //    }
 
-    static def validadorPorcentajeALiquidar = {
-       double val , PagoFactura obj ->
-            def resp = true
-            val=val as double
-            if (obj.porcentajeLiquidado  + val > 100) {
-                resp = "pagoFactura.porcentajeALiquidar.invalido"
-            }
-            resp
-    }
+//    static def validadorPorcentajeALiquidar = {
+//       double val , PagoFactura obj ->
+//            def resp = true
+//            if (val > 100 || val < 0) {
+//                resp = "pagoFactura.porcentajeALiquidar.invalido"
+//            }
+//            resp
+//    }
 
 //    static def validadorPorcentajeALiquidar = {
 //        val, Factura obj ->
