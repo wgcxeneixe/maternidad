@@ -60,8 +60,10 @@ class FacturaController {
 */
 
     def index = {
-
         def SimpleDateFormat form= new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US)
+        if(!params.fechaDesde) params.fechaDesde = new Date() -365
+        if(!params.fechaHasta) params.fechaHasta = new Date()
+
         def query = {
             if (params.fechaDesde && params.fechaHasta) {
                 if(!params.filtrar){
@@ -89,13 +91,9 @@ planillaInternacion{
             }
 
 
-            if (params.sort) {
-                order(params.sort, params.order)
-            }
+                order("planillaInternacion", "asc")
         }
-        if (params.fechaDesde && params.fechaHasta) {
-            println params.fechaDesde.class
-        }
+
 
         def criteria = Factura.createCriteria()
         params.max = Math.min(params.max ? params.int('max') : 20, 100)

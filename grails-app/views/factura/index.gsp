@@ -42,7 +42,7 @@
 
                          <tr>
                             <td> <p><label for="fechaDesde">Desde</label>
-                                <g:datePicker name="fechaDesde" precision="day"  value="${(filters?.fechaDesde)?new java.text.SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US).parse(filters?.fechaDesde.toString() ):(new Date())}" default="${new Date().plus(-365)}" format="EEE MMM dd HH:mm:ss z yyyy" /></p></td>
+                                <g:datePicker name="fechaDesde" precision="day"  value="${(filters?.fechaDesde)?new java.text.SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US).parse(filters?.fechaDesde.toString() ):(new Date())}" default="${new Date() -365}" format="EEE MMM dd HH:mm:ss z yyyy" /></p></td>
                             <td> <p><label for="fechaHasta">Hasta</label>
                                 <g:datePicker name="fechaHasta" precision="day"  value="${(filters?.fechaHasta)?new java.text.SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US).parse(filters?.fechaHasta.toString() ):(new Date())}" default="${new Date()}" format="EEE MMM dd HH:mm:ss z yyyy" /></p></td>
 
