@@ -683,7 +683,7 @@ class PlanillaInternacionController {
                         texArchivo += convertirACadena(8, detalle.practica ? detalle.practica.codigo.toString() : (detalle.medicamento ? detalle.medicamento.codigo?.toString() : '500101'))
                         texArchivo += peri
                         texArchivo += convertirACadena(4, detalle.funcion.toString())
-                        texArchivo += quitarCerosIzquierda(String.format("%011.2f", (detalle.medicamento ? detalle.medicamento.valor : (detalle.valorGastos + detalle.valorHonorarios)))?.replace(',', ''))
+                        texArchivo += quitarCerosIzquierda(String.format("%011.2f", (detalle.medicamento ? detalle.medicamento.valor : (detalle.valorGastos?:new Double(0) + detalle.valorHonorarios?:new Double(0))))?.replace(',', ''))
                         texArchivo += convertirACadena(6, detalle.profesional.codigoCirculo?.toString())
                         texArchivo += convertirACadena(30, (detalle.planillaInternacion.paciente.apellido + ' ' + detalle.planillaInternacion.paciente.nombre), false)
                         texArchivo += '\n'
