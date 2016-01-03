@@ -136,32 +136,19 @@ class LiquidacionController {
         respond liquidacionInstance
     }
 
-    @Transactional
-    def update(Liquidacion liquidacionInstance) {
+    def borrar={
+        def liquidacionInstance = Liquidacion.read(params.long('id'))
         if (liquidacionInstance == null) {
             notFound()
             return
         }
+        liquidacionInstance.delete flush: true
 
-        if (liquidacionInstance.hasErrors()) {
-            respond liquidacionInstance.errors, view: 'edit'
-            return
-        }
-
-        liquidacionInstance.save flush: true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Liquidacion.label', default: 'Liquidacion'), liquidacionInstance.id])
-                redirect liquidacionInstance
-            }
-            '*' { respond liquidacionInstance, [status: OK] }
-        }
+        redirect(action: index)
     }
 
     @Transactional
     def delete(Liquidacion liquidacionInstance) {
-
         if (liquidacionInstance == null) {
             notFound()
             return
