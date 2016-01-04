@@ -7,6 +7,7 @@ import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
 import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
 
 import java.lang.reflect.Array
+import java.text.SimpleDateFormat
 
 import static org.springframework.http.HttpStatus.*
 
@@ -24,11 +25,70 @@ class PagoFacturaController {
 
     }
 
-
+/*
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond PagoFactura.list(params), model: [pagoFacturaInstanceCount: PagoFactura.count()]
     }
+*/
+
+    def index = {
+        def SimpleDateFormat form= new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US)
+        if(!params.fechaDesde) params.fechaDesde = new Date() -365
+        if(!params.fechaHasta) params.fechaHasta = new Date()
+
+        def query = {
+            if (params.fechaDesde && params.fechaHasta) {
+                if(!params.filtrar){
+                    between('fecha', form.parse(params.fechaDesde.toString()), form.parse(params.fechaHasta.toString()))
+                }else {
+                    between('fecha', params.fechaDesde as Date, params.fechaHasta as Date)
+                }
+                // between('fecha',Date.from, Date.parse("dd-MM-yyyy", params.fechaDesde))
+
+            }
+
+
+            if (params.plan) {
+factura{
+               eq('plan.id', params.plan.toLong())
+}
+            }
+
+            if (params.factura) {
+
+                    eq('factura.id', params.factura.toLong())
+
+            }
+
+
+
+            if (params.periodo) {
+               factura{
+                ilike('periodo', '%' + params.periodo + '%')
+               }
+               }
+
+
+            order("fecha", "asc")
+        }
+
+
+        def criteria = PagoFactura.createCriteria()
+        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        def pagos = criteria.list(query, max: params.max, offset: params.offset)
+        def filters = [fechaDesde:params?.fechaDesde,fechaHasta:params?.fechaHasta, plan: params.plan, factura: params.factura,periodo:params.periodo]
+
+        def model = [pagoFacturaInstanceList:  pagos, pagoFacturaInstanceCount: pagos?.totalCount, filters: filters]
+
+        if (request.xhr) {
+            // ajax request
+            render(template: "grilla", model: model)
+        } else {
+            model
+        }
+    }
+
 
     def show(PagoFactura pagoFacturaInstance) {
         respond pagoFacturaInstance

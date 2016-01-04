@@ -11,8 +11,8 @@
 		<a href="#list-pagoFactura" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" controller="factura" action="abrirPagarFactura"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+			<!--	<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+				<li><g:link class="create" controller="factura" action="abrirPagarFactura"><g:message code="default.new.label" args="[entityName]" /></g:link></li>-->
 			</ul>
 		</div>
 		<div id="list-pagoFactura" class="content scaffold-list" role="main">
@@ -20,47 +20,66 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-			<thead>
-					<tr>
-					
-						<g:sortableColumn property="retencion" title="${message(code: 'pagoFactura.retencion.label', default: 'Retencion')}" />
-					
-						<g:sortableColumn property="aclaracionComprobante" title="${message(code: 'pagoFactura.aclaracionComprobante.label', default: 'Aclaracion Comprobante')}" />
-					
-						<th><g:message code="pagoFactura.factura.label" default="Factura" /></th>
-					
-						<g:sortableColumn property="fecha" title="${message(code: 'pagoFactura.fecha.label', default: 'Fecha')}" />
-					
-						<th><g:message code="pagoFactura.liquidacion.label" default="Liquidacion" /></th>
-					
-						<g:sortableColumn property="monto" title="${message(code: 'pagoFactura.monto.label', default: 'Monto')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${pagoFacturaInstanceList}" status="i" var="pagoFacturaInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${pagoFacturaInstance.id}">${fieldValue(bean: pagoFacturaInstance, field: "retencion")}</g:link></td>
-					
-						<td>${fieldValue(bean: pagoFacturaInstance, field: "aclaracionComprobante")}</td>
-					
-						<td>${fieldValue(bean: pagoFacturaInstance, field: "factura")}</td>
-					
-						<td><g:formatDate date="${pagoFacturaInstance.fecha}" /></td>
-					
-						<td>${fieldValue(bean: pagoFacturaInstance, field: "liquidacion")}</td>
-					
-						<td>${fieldValue(bean: pagoFacturaInstance, field: "monto")}</td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${pagoFacturaInstanceCount ?: 0}" />
+
+
+			<div class="filters">
+				<g:form action="index">
+
+					<table >
+						<tr>
+							<td> <p><label for="factura">Factura</label>
+								<g:select id="factura" name="factura" from="${maternidad.Factura.list()}" optionKey="id"  value="" noSelection="['':'']"/></p></td>
+							<td>
+								<p><label for="plan">Plan</label>
+									<g:select id="plan" name="plan" from="${maternidad.Plan.list()}" optionKey="id"  value="" noSelection="['':'']"/>
+								</p></td>
+						</tr>
+
+						<tr>
+							<td> <p><label for="fechaDesde">Desde</label>
+								<g:datePicker name="fechaDesde" precision="day"  value="${(filters?.fechaDesde)?new java.text.SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US).parse(filters?.fechaDesde.toString() ):(new Date())}" default="${new Date() -365}" format="EEE MMM dd HH:mm:ss z yyyy" /></p></td>
+							<td> <p><label for="fechaHasta">Hasta</label>
+								<g:datePicker name="fechaHasta" precision="day"  value="${(filters?.fechaHasta)?new java.text.SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US).parse(filters?.fechaHasta.toString() ):(new Date())}" default="${new Date()}" format="EEE MMM dd HH:mm:ss z yyyy" /></p></td>
+
+							<td> <p><label for="periodo">Periodo</label>
+								<g:textField  name="periodo" value="${filters?.periodo}" /></p></td>
+
+							<td>
+								<p><g:submitButton name="filter" value="Filtrar" /></p></td>
+						</tr>
+					</table>
+
+					<g:hiddenField name="filtrar" id="filtrar" value="true" />
+
+
+				</g:form>
 			</div>
+
+			<br />
+			<div id="grid">
+				<g:render template="grilla" model="model" />
+			</div>
+			<br />
+
+
+			<script>
+				$(function() {
+
+					//idioma de los calendar
+					jQuery.datepicker.regional[ "es" ];
+					updateDatePicker();
+
+					jQuery("#spinner").ajaxComplete(function (event, request, settings) {
+						updateDatePicker();
+					});
+
+					jQuery("#plan").select2({allowClear: true,width: 'resolve'});
+					jQuery("#factura").select2({allowClear: true,width: 'resolve'});
+
+				})
+
+			</script>
+
 		</div>
 	</body>
 </html>
