@@ -89,6 +89,23 @@
 
             </li>
         </g:if>
+
+        <g:if test="${!liquidacionInstance?.numeroRecibo}">
+            <li class="fieldcontain">
+                <span id="eliminar-label" class="property-label"><g:message code="liquidacion.numeroRecibo.label"
+                                                                             default="Liquidación"/></span>
+
+                <span class="property-value" aria-labelledby="numeroRecibo-label">
+                    <g:link controller="liquidacion" action="borrar" style="color: red"
+                            id="${liquidacionInstance.id}" onclick="return confirm('¿Está seguro de borrar la liquidación?')">Eliminar</g:link>
+                %{--<g:form url="[resource: liquidacionInstance, action: 'borrar']"--}%
+                        %{--params="[liquidacion_id: liquidacionInstance?.id,]" method="PUT">--}%
+                    %{--<p><g:submitButton name="eliminar" value="Eliminar" style="color: darkred"--}%
+                                       %{--onclick="return confirm('¿Está seguro que desea Eliminar esta Liquidación?')"/></p>--}%
+                %{--</g:form>--}%
+            </li>
+        </g:if>
+
     </ol>
     <g:if test="${!liquidacionInstance?.numeroLiquidacion}">
         <g:form url="[resource: liquidacionInstance, action: 'liquidar']"
