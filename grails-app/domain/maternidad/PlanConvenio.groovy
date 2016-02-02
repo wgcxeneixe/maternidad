@@ -11,10 +11,10 @@ class PlanConvenio {
     static belongsTo = [plan:Plan,convenio:Convenio]
 
     static mapping = {
-        convenio cascade:'all-delete-orphan'
-                valoresPracticas cascade:'all-delete-orphan'
-        valoresGalenoGasto cascade:'all-delete-orphan'
-        valoresGalenoHonorario cascade:'all-delete-orphan'
+        convenio cascade:'none'
+                valoresPracticas cascade:'none'
+        valoresGalenoGasto cascade:'none'
+        valoresGalenoHonorario cascade:'none'
     }
 
     static constraints = {
