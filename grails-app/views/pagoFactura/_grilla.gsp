@@ -37,5 +37,5 @@
     </tbody>
 </table>
 <div class="pagination">
-    <g:paginate total="${pagoFacturaInstanceCount ?: 0}" params="[fechaDesde:(filters?.fechaDesde)?new java.text.SimpleDateFormat('EEE MMM dd HH:mm:ss z yyyy', Locale.US).parse(filters?.fechaDesde.toString() ):(new Date()),fechaHasta:(filters?.fechaHasta)?new java.text.SimpleDateFormat('EEE MMM dd HH:mm:ss z yyyy', Locale.US).parse(filters?.fechaHasta.toString() ):(new Date()), periodo:filters.periodo]" />
+    <g:paginate total="${pagoFacturaInstanceCount ?: 0}" params="[fechaDesde:(filters?.fechaDesde)?new java.text.SimpleDateFormat('EEE MMM dd HH:mm:ss z yyyy', Locale.US).parse(filters?.fechaDesde.toString() ):(new Date()),fechaHasta:(filters?.fechaHasta)?new java.text.SimpleDateFormat('EEE MMM dd HH:mm:ss z yyyy', Locale.US).parse(filters?.fechaHasta.toString() ):(new Date()), periodo:filters.periodo,plan:filters?.plan,factura:filters?.factura]" />
 </div>
