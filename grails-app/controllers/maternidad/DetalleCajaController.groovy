@@ -2,6 +2,8 @@ package maternidad
 
 import grails.plugin.springsecurity.annotation.Secured
 
+import java.text.SimpleDateFormat
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -19,12 +21,20 @@ class DetalleCajaController {
 
     def index = {
 
+        def SimpleDateFormat form= new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US)
+        if(!params.fechaDesde) params.fechaDesde = new Date() -365
+        if(!params.fechaHasta) params.fechaHasta = new Date()
+
         def query = {
             if (params.caja) {
                 eq('caja.id', params.caja?.toLong())
             }
             if (params.fechaDesde && params.fechaHasta) {
-                between('fecha', params.fechaDesde as Date, params.fechaHasta as Date)
+                if(!params.filtrar){
+                    between('fecha', form.parse(params.fechaDesde.toString()), form.parse(params.fechaHasta.toString()))
+                }else {
+                    between('fecha', params.fechaDesde as Date, params.fechaHasta as Date)
+                }
                 // between('fecha',Date.from, Date.parse("dd-MM-yyyy", params.fechaDesde))
 
             }

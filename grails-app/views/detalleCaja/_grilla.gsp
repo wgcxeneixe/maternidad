@@ -46,5 +46,5 @@
     </tbody>
 </table>
 <div class="pagination">
-    <g:paginate total="${detalleCajaInstanceCount ?: 0}" params="${filters}" />
+    <g:paginate total="${detalleCajaInstanceCount ?: 0}" params="[fechaDesde:(filters?.fechaDesde)?new java.text.SimpleDateFormat('EEE MMM dd HH:mm:ss z yyyy', Locale.US).parse(filters?.fechaDesde.toString() ):(new Date()),fechaHasta:(filters?.fechaHasta)?new java.text.SimpleDateFormat('EEE MMM dd HH:mm:ss z yyyy', Locale.US).parse(filters?.fechaHasta.toString() ):(new Date()),caja:filters.caja]" />
 </div>

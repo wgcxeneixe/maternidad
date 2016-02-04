@@ -29,13 +29,16 @@
                                 <g:select id="caja" name="caja" from="${maternidad.CajaDiaria.list()}" optionKey="id"  value="${filters?.caja}" noSelection="['':'']"/>
                                 </p></td>
                             <td> <p><label for="fechaDesde">Desde</label>
-                                <g:datePicker name="fechaDesde" precision="day"  value="${filters?.fechaDesde}" format="dd-MM-yyyy" /></p></td>
+                                <g:datePicker name="fechaDesde" precision="day"  value="${(filters?.fechaDesde)?new java.text.SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US).parse(filters?.fechaDesde.toString() ):(new Date())}" default="${new Date() -365}" format="EEE MMM dd HH:mm:ss z yyyy" /></p></td>
                             <td> <p><label for="fechaHasta">Hasta</label>
-                                <g:datePicker name="fechaHasta" precision="day"  value="${filters?.fechaHasta}" format="dd-MM-yyyy" /></p></td>
+                                <g:datePicker name="fechaHasta" precision="day"  value="${(filters?.fechaHasta)?new java.text.SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.US).parse(filters?.fechaHasta.toString() ):(new Date())}" format="EEE MMM dd HH:mm:ss z yyyy" /></p></td>
 <td>
                             <p><g:submitButton name="filter" value="Filtrar" /></p></td>
                         </tr>
                     </table>
+
+                    <g:hiddenField name="filtrar" id="filtrar" value="true" />
+
                 </g:form>
             </div>
 
