@@ -75,7 +75,7 @@ function updateDatePicker () {
 
 
                         displayWidget.datepicker({
-                            yearRange: '1960:2015',
+                            yearRange: '1960:2016',
                             changeMonth: true,
                             changeYear: true,
                             dateFormat: dateFormat,
