@@ -10,7 +10,7 @@ class ValorGalenoGasto {
     static belongsTo = [planConvenio:PlanConvenio]
 
     static mapping = {
-        planConvenio cascade:'all-delete-orphan'
+        planConvenio cascade:'none'
     }
 
 
