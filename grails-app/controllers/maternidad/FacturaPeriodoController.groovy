@@ -3,7 +3,7 @@ package maternidad
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
-@Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+@Secured("hasAnyRole('ROLE_ADMIN','ROLE_FACTURACION')")
 @Transactional(readOnly = true)
 class FacturaPeriodoController {
 

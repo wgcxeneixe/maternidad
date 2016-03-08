@@ -5,14 +5,16 @@ import grails.plugin.springsecurity.annotation.Secured
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(['ROLE_ADMIN'])
+@Secured("hasAnyRole('ROLE_ADMIN','ROLE_GENERAL')")
 @Transactional(readOnly = true)
 class UsuarioController {
 
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def springSecurityService
 
+    @Secured("hasAnyRole('ROLE_ADMIN')")
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Usuario.list(params), model: [usuarioInstanceCount: Usuario.count()]
@@ -22,10 +24,12 @@ class UsuarioController {
         respond usuarioInstance
     }
 
+    @Secured("hasAnyRole('ROLE_ADMIN')")
     def create() {
         respond new Usuario(params)
     }
 
+    @Secured("hasAnyRole('ROLE_ADMIN')")
     @Transactional
     def save(Usuario usuarioInstance) {
         if (usuarioInstance == null) {
@@ -49,10 +53,28 @@ class UsuarioController {
         }
     }
 
+    @Secured("hasAnyRole('ROLE_ADMIN','ROLE_GENERAL')")
     def edit(Usuario usuarioInstance) {
-        respond usuarioInstance
+
+        def user = springSecurityService.currentUser as Usuario
+
+        if (user.getAuthorities().any { it.authority == "ROLE_ADMIN" }) {
+            respond usuarioInstance
+        }
+        else {
+            if(user.id==usuarioInstance.id){
+                respond usuarioInstance
+            }
+            else {
+                redirect action: "index",controller: 'home'
+            }
+        }
+
+
+
     }
 
+    @Secured("hasAnyRole('ROLE_ADMIN','ROLE_GENERAL')")
     @Transactional
     def update(Usuario usuarioInstance) {
         if (usuarioInstance == null) {
@@ -76,6 +98,8 @@ class UsuarioController {
         }
     }
 
+
+    @Secured("hasAnyRole('ROLE_ADMIN')")
     @Transactional
     def delete(Usuario usuarioInstance) {
 

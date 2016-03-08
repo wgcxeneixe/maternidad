@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 
 import static org.springframework.http.HttpStatus.*
 
-@Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+@Secured("hasAnyRole('ROLE_ADMIN','ROLE_LIQUIDACION')")
 @Transactional(readOnly = true)
 class LiquidacionController {
 

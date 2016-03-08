@@ -127,7 +127,7 @@
         <span class="font-bold">INICIO</span>
     </a>
 </li>
-
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_CAJA">
 <li class="${(controllerName == 'cajaDiaria' || controllerName == 'detalleCaja' ) ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
@@ -148,7 +148,9 @@
         </li>
     </ul>
 </li>
+</sec:ifAnyGranted>
 
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_PLANILLA">
 <li class="${controllerName == 'planillaInternacion' ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
@@ -169,8 +171,9 @@
         </li>
     </ul>
 </li>
+</sec:ifAnyGranted>
 
-
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_STOCK">
 <li class="${(controllerName == 'movimientoStock' || controllerName == 'producto' || controllerName == 'destino'  ) ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
@@ -197,8 +200,9 @@
         </li>
     </ul>
 </li>
+</sec:ifAnyGranted>
 
-
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_STOCK">
 <li class="${controllerName == 'proveedor' ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
@@ -225,8 +229,9 @@
         </li>
     </ul>
 </li>
+</sec:ifAnyGranted>
 
-
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_GENERAL">
 <li class="${(controllerName == 'obraSocial' || controllerName == 'plan' ) ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
@@ -267,9 +272,11 @@
 
     </ul>
 </li>
+</sec:ifAnyGranted>
 
 
-<li class="${controllerName == 'convenio' ? 'active' : ''}"> <!-- /Controller -->
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_CONVENIO">
+    <li class="${controllerName == 'convenio' ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
         <span class="font-bold">CONVENIOS</span>
@@ -289,9 +296,9 @@
         </li>
     </ul>
 </li>
+</sec:ifAnyGranted>
 
-
-
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_GENERAL">
 <li class="${controllerName == 'profesional' ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
@@ -306,8 +313,9 @@
         </li>
     </ul>
 </li>
+</sec:ifAnyGranted>
 
-
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_GENERAL">
 <li class="${controllerName == 'banco' ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
@@ -334,15 +342,15 @@
         </li>
     </ul>
 </li>
+</sec:ifAnyGranted>
 
 
 
 
 
 
-
-
-<li class="${controllerName == 'practica' ? 'active' : ''}"> <!-- /Controller -->
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_GENERAL">
+    <li class="${controllerName == 'practica' ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
         <span class="font-bold">NOMENCLADOR</span>
@@ -356,9 +364,9 @@
         </li>
     </ul>
 </li>
+</sec:ifAnyGranted>
 
-
-
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_FACTURACION">
 <li class="${controllerName == 'factura' ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
@@ -387,10 +395,10 @@
         </li>--}%
     </ul>
 </li>
+</sec:ifAnyGranted>
 
-
-
-<li class="${controllerName == 'caja' ? 'active' : ''}"> <!-- /Controller -->
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_LIQUIDACION">
+<li class="${controllerName == 'liquidacion' ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
         <span class="font-bold">LIQUIDACION</span>
@@ -416,9 +424,9 @@
         %{--</li>--}%
     </ul>
 </li>
+</sec:ifAnyGranted>
 
-
-
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_GENERAL">
 <li class="${(controllerName == 'medicamento' || controllerName == 'tipoMedicamento' || controllerName == 'laboratorio') ? 'active' : ''}"> <!-- /Controller -->
     <a href="#" class="auto">
         <i class="i i-folder2 icon"></i>
@@ -450,8 +458,9 @@
 
     </ul>
 </li>
+</sec:ifAnyGranted>
 
-
+<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_GENERAL">
 <li class="${(controllerName == 'tipoDocumento' || controllerName == 'localidad' || controllerName == 'pais'
         || controllerName == 'provincia' || controllerName == 'tipoHonorario' || controllerName == 'tipoGasto' || controllerName == 'componente' || controllerName == 'componenteTipoHonorario'
         || controllerName == 'conceptoProveedor') ? 'active' : ''}">
@@ -601,7 +610,7 @@
     </ul>
 </li>
 
-
+</sec:ifAnyGranted>
 
 
 

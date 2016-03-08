@@ -9,7 +9,7 @@ import java.text.DecimalFormat
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+@Secured("hasAnyRole('ROLE_ADMIN','ROLE_PLANILLA')")
 @Transactional(readOnly = true)
 
 class PlanillaInternacionController {

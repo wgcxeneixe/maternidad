@@ -7,7 +7,7 @@ import grails.transaction.Transactional
 import org.apache.commons.logging.*
 
 
-@Secured("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+@Secured("hasAnyRole('ROLE_ADMIN','ROLE_CONVENIO')")
 @Transactional(readOnly = true)
 class ObraSocialController {
 
