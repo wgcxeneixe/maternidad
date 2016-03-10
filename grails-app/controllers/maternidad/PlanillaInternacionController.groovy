@@ -939,12 +939,21 @@ class PlanillaInternacionController {
 
     def actualizarDetalles(PlanillaInternacion planilla, Plan plan) {
 
-        def planConvenio = PlanConvenio.findByPlan(plan)
+        def convenioList = Convenio.findAllByObrasocialAndActivo(plan?.obrasocial,true,[sort: "id", order: "desc"])
+        def planConvenio
+        if(convenioList && convenioList.size()>0) {
+
+            def planConvenioList = PlanConvenio.findAllByPlanAndConvenio(plan, convenioList.first(), [sort: "id", order: "desc"])
+
+            if (planConvenioList && planConvenioList.size() > 0) planConvenio = planConvenioList.first()
+        }
         def detalles = DetalleFactura.findAllByPlanillaInternacion(planilla)
-        detalles.each {
+
+        detalles?.each {
             if (it?.practica != null) {
 
-                def valorP = ValorPractica.findByPlanConvenioAndPractica(planConvenio, it?.practica)
+                def valorP
+                if (planConvenio) valorP = ValorPractica.findByPlanConvenioAndPractica(planConvenio, it?.practica)
 
                 /*  10 - honorarios    si tiene valor honorario tomar valorhon sino valor especialista
                      20- ayudante
