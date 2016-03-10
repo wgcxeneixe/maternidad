@@ -438,43 +438,52 @@ class DetalleFacturaController {
         def gasto = 0
 
         def plan = Plan.get(params.plan)
-        def planConvenio = PlanConvenio.withCriteria {
-            convenio { eq("activo", true) }
-            eq("plan", plan)
+        def convenioList = Convenio.findAllByObrasocialAndActivo(plan?.obrasocial,true,[sort: "id", order: "desc"])
+        def planConvenio
+        if(convenioList && convenioList.size()>0) {
+
+            def planConvenioList = PlanConvenio.findAllByPlanAndConvenio(plan, convenioList.first(), [sort: "id", order: "desc"])
+            if (planConvenioList && planConvenioList.size() > 0) planConvenio = planConvenioList.first()
         }
+
+
         def practica = Practica.get(params.practica)
         def funcion = params.funcion as Integer
 
-        def valorPractica = ValorPractica.findByPlanConvenioAndPractica(planConvenio, practica)
+        if(planConvenio) {
+            def valorPractica = ValorPractica.findByPlanConvenioAndPractica(planConvenio, practica)
 
-        if (funcion == 10) {
+            if(valorPractica) {
+                if (funcion == 10) {
 
-            if (valorPractica?.valorHonorario) {
-                honorario = valorPractica?.valorHonorario
-            } else {
-                honorario = valorPractica?.valorEspecialista
-            }
-        }
+                    if (valorPractica?.valorHonorario) {
+                        honorario = valorPractica?.valorHonorario
+                    } else {
+                        honorario = valorPractica?.valorEspecialista
+                    }
+                }
 
-        if (funcion == 20) {
-            honorario = valorPractica?.valorAyudante
-        }
+                if (funcion == 20) {
+                    honorario = valorPractica?.valorAyudante
+                }
 
-        if (funcion == 30) {
-            honorario = valorPractica?.valorAnestecista
-        }
+                if (funcion == 30) {
+                    honorario = valorPractica?.valorAnestecista
+                }
 
-        if (funcion == 60) {
-            gasto = valorPractica?.valorGasto
-        }
+                if (funcion == 60) {
+                    gasto = valorPractica?.valorGasto
+                }
 
-        if (funcion == 70) {
-            gasto = valorPractica?.valorGasto
+                if (funcion == 70) {
+                    gasto = valorPractica?.valorGasto
 
-            if (valorPractica?.valorHonorario) {
-                honorario = valorPractica?.valorHonorario
-            } else {
-                honorario = valorPractica?.valorEspecialista
+                    if (valorPractica?.valorHonorario) {
+                        honorario = valorPractica?.valorHonorario
+                    } else {
+                        honorario = valorPractica?.valorEspecialista
+                    }
+                }
             }
         }
 
