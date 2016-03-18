@@ -32,10 +32,11 @@ class LiquidacionController {
         def query = {
 
             if (params.planilla) {
-               factura{ planillaInternacion{
-                    eq('numeroIngreso', params.planilla.toInteger())
+                factura {
+                    planillaInternacion {
+                        eq('numeroIngreso', params.planilla.toInteger())
+                    }
                 }
-               }
             }
 
             if (params.profesional) {
@@ -45,21 +46,24 @@ class LiquidacionController {
             }
 
             if (params.periodo) {
-                factura{
-                ilike('periodo', '%' + params.periodo + '%')
+                factura {
+                    ilike('periodo', '%' + params.periodo + '%')
                 }
-                }
+            }
 
 
             if (params.sort) {
                 order(params.sort, params.order)
+            } else {
+                order('id', 'desc')
             }
+
         }
 
         def criteria = Liquidacion.createCriteria()
         params.max = Math.min(params.max ? params.int('max') : 20, 100)
         def liquidaciones = criteria.list(query, max: params.max, offset: params.offset)
-        def filters = [ profesional: params.profesional, planilla: params.planilla,periodo:params.periodo]
+        def filters = [profesional: params.profesional, planilla: params.planilla, periodo: params.periodo]
 
         def model = [liquidacionInstanceList: liquidaciones, liquidacionInstanceCount: liquidaciones?.totalCount, filters: filters]
 
@@ -119,9 +123,9 @@ class LiquidacionController {
         }
         if (!(numeroLiquidacion && numeroLiquidacion.first())) numeroLiquidacion = [0]
 
-        liquidacionInstance.numeroLiquidacion = numeroLiquidacion.first()+1
-        liquidacionInstance.numeroRecibo = numeroRecibo.first()+1
-       // liquidacionInstance.fecha=new Date()
+        liquidacionInstance.numeroLiquidacion = numeroLiquidacion.first() + 1
+        liquidacionInstance.numeroRecibo = numeroRecibo.first() + 1
+        // liquidacionInstance.fecha=new Date()
         liquidacionInstance.save(flush: true)
         request.withFormat {
             form multipartForm {
@@ -136,7 +140,7 @@ class LiquidacionController {
         respond liquidacionInstance
     }
 
-    def borrar={
+    def borrar = {
         def liquidacionInstance = Liquidacion.read(params.long('id'))
         if (liquidacionInstance == null) {
             notFound()
@@ -299,8 +303,8 @@ class LiquidacionController {
                 listaHaberesToReport += item
             } else {
                 def concepto = ''
-                if(detalle?.conceptoProfesional)concepto+='('+detalle?.conceptoProfesional?.codigo+'-'+detalle?.conceptoProfesional?.nombre+') '
-                if(detalle?.detalle) concepto +=detalle?.detalle
+                if (detalle?.conceptoProfesional) concepto += '(' + detalle?.conceptoProfesional?.codigo + '-' + detalle?.conceptoProfesional?.nombre + ') '
+                if (detalle?.detalle) concepto += detalle?.detalle
                 item += [descripcion: concepto]
                 item += [importe: detalle?.monto]
                 listaRetencionesToReport += item
