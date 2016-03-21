@@ -293,7 +293,11 @@ class LiquidacionController {
         liquidacion?.detallesLiquidacion?.each { DetalleLiquidacion detalle ->
             def item = [:]
             if (!detalle.debito) {
-                item += [descripcion: detalle.detalle]
+                def concepto = ''
+                if (detalle?.conceptoProfesional) concepto += '(' + detalle?.conceptoProfesional?.codigo + '-' + detalle?.conceptoProfesional?.nombre + ') '
+                if (detalle?.detalle) concepto += detalle?.detalle
+
+                item += [descripcion: concepto]
                 item += [porcentaje: detalle?.porcentajePagoFacturaLiquidado]
                 item += [importe: detalle?.monto]
 //                item+=[codigo:detalle?.detalleFactura?.practica?.codigo]
