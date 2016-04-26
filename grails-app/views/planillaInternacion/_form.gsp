@@ -1,6 +1,15 @@
 <%@ page import="maternidad.PlanillaInternacion" %>
 
 
+<div class="fieldcontain">
+    <label for="estadoPlanilla">
+        <g:message code="planillaInternacion.planilla.estado" default="Estado Planilla"/>
+    </label>
+    <g:select id="estadoPlanilla" name="estadoPlanilla.id" from="${maternidad.EstadoPlanilla.list()}" optionKey="id" required=""
+              value="${planillaInternacionInstance?.estadoPlanilla?.id}" class="many-to-one"/>
+
+</div>
+
 <g:if test="${planillaInternacionInstance?.paciente?.id != null}">
 <div class="fieldcontain ${hasErrors(bean: planillaInternacionInstance, field: 'paciente', 'error')} ">
     <label for="paciente">
@@ -17,6 +26,7 @@
     <g:hiddenField name="paciente" value="${planillaInternacionInstance?.paciente?.id}"></g:hiddenField>
 
     <g:hiddenField name="planOriginal" value="${planillaInternacionInstance?.plan?.id}"></g:hiddenField>
+    <g:hiddenField name="estadoOriginal" value="${planillaInternacionInstance?.estadoPlanilla?.id}"></g:hiddenField>
     <!--
     <g:select id="paciente" name="paciente.id" from="${maternidad.Persona.list()}" optionKey="id"
               value="${planillaInternacionInstance?.paciente?.id}" class="many-to-one" noSelection="['null': '']"/>
@@ -117,7 +127,7 @@
         <g:message code="planilla.tipoSocio" default="Tipo Socio" />
 
     </label>
-    <g:select name="tipoSocio" from="${planillaInternacionInstance.constraints.tipoSocio.inList}"  value="${planillaInternacionInstance?.tipoSocio}" />
+    <g:select name="tipoSocio" from="${planillaInternacionInstance?.constraints?.tipoSocio?.inList}"  value="${planillaInternacionInstance?.tipoSocio}" />
 
 </div>
 

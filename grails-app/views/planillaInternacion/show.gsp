@@ -622,6 +622,42 @@ isNull("medicamento")
 
 </div>
 
+    <div id="list-listadoEstados" class="content scaffold-list" role="main">
+
+        <h1><g:message code="planillaInternacion.estados" default="Estados"  /></h1>
+        <div class="nav" role="navigation">
+
+        </div>
+    <table>
+        <thead>
+        <tr>
+
+            <th><g:message code="movimientoPlanilla.estadoPlanilla.label" default="Estado Planilla" /></th>
+
+            <g:sortableColumn property="fecha" title="${message(code: 'movimientoPlanilla.fecha.label', default: 'Fecha')}" />
+
+            <th><g:message code="movimientoPlanilla.planillaInternacion.label" default="Planilla Internacion" /></th>
+
+            <th><g:message code="movimientoPlanilla.usuario.label" default="Usuario" /></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <g:each in="${maternidad.MovimientoPlanilla?.findAllByPlanillaInternacion(planillaInternacionInstance)}" status="i" var="movimientoPlanillaInstance">
+            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+                <td><g:link action="show" id="${movimientoPlanillaInstance.id}">${fieldValue(bean: movimientoPlanillaInstance, field: "estadoPlanilla")}</g:link></td>
+
+                <td><g:formatDate date="${movimientoPlanillaInstance.fecha}" /></td>
+
+                <td>${fieldValue(bean: movimientoPlanillaInstance, field: "planillaInternacion")}</td>
+
+                <td>${fieldValue(bean: movimientoPlanillaInstance, field: "usuario")}</td>
+
+            </tr>
+        </g:each>
+        </tbody>
+    </table>
 
 
     <g:form url="[resource: planillaInternacionInstance, action: 'delete']" method="DELETE">

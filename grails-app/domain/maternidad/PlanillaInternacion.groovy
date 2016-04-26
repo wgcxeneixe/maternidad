@@ -60,7 +60,7 @@ class PlanillaInternacion {
         ocupacion(nullable: true,blank:true)
         tipoSocio(nullable: true,blank:true,inList: ["Titular", "Adherente"])
         fichaAcler(nullable: true,blank:true)
-
+numeroIngreso(nullable: false,blank:false,unique: true)
     }
 
     static hasMany = [
@@ -89,7 +89,7 @@ class PlanillaInternacion {
     }
 
     def beforeValidate(){
-        if(!numeroIngreso){
+        if(!(numeroIngreso)){
 
             def ultimoNro = obtenerUltimoNumero()?.numeroIngreso as Integer
             numeroIngreso = new Integer(ultimoNro?: 4000000)
@@ -97,6 +97,13 @@ class PlanillaInternacion {
                 numeroIngreso = 4000000
             }
             numeroIngreso = numeroIngreso + 1
+        }else{
+          if(!id){
+            if(PlanillaInternacion.findByNumeroIngreso(numeroIngreso)){
+
+            throw new Exception("El numero de Ingreso debe ser único")
+            }
+          }
         }
 
 

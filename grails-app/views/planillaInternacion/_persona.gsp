@@ -53,7 +53,7 @@
         <g:message code="nacimiento.sexo.label" default="Sexo" />
         <span class="required-indicator">*</span>
     </label>
-    <g:select name="sexo" from="${personaInstance.constraints.sexo.inList}" required="" value="${personaInstance?.sexo}" />
+    <g:select name="sexo" from="${personaInstance?.constraints?.sexo?.inList}" required="" value="${personaInstance?.sexo}" />
 
 </div>
 
