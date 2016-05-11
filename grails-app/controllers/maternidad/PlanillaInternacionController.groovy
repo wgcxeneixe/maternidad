@@ -241,6 +241,19 @@ class PlanillaInternacionController {
             return
         }
 
+        if (params.estadoOriginal != planillaInternacionInstance.estadoPlanilla.id.toString()) {
+
+            def usuario = springSecurityService.currentUser
+            def movimiento = new MovimientoPlanilla()
+            movimiento.estadoPlanilla = planillaInternacionInstance.estadoPlanilla
+            movimiento.fecha = new Date()
+            movimiento.planillaInternacion = planillaInternacionInstance
+            movimiento.usuario = usuario as Usuario
+            movimiento.save(flush: true)
+
+        }
+
+
         if (params.planOriginal != planillaInternacionInstance.plan.id.toString()) {
            // eliminarDetalles(planillaInternacionInstance?.id)
            actualizarDetalles(planillaInternacionInstance,planillaInternacionInstance.plan)
