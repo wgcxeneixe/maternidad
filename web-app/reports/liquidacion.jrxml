@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1794cef1-c235-426d-b82d-a54ee8ed6efa">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="92"/>
+	<property name="ireport.y" value="61"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/home/leandro/maternidad/maternidad/web-app/reports/"]]></defaultValueExpression>
 	</parameter>
@@ -19,54 +19,54 @@
 		<band/>
 	</background>
 	<detail>
-		<band height="421" splitType="Immediate">
+		<band height="342" splitType="Immediate">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="342" y="376" width="116" height="15" uuid="f94ba9d1-03fd-459d-963f-193b09b20df7"/>
+				<reportElement positionType="FixRelativeToBottom" x="342" y="287" width="116" height="15" uuid="f94ba9d1-03fd-459d-963f-193b09b20df7"/>
 				<textElement>
 					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[TOTAL NETO: ]]></text>
 			</staticText>
 			<textField pattern="$#,##0.00;-$#,##0.00" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="458" y="376" width="79" height="15" uuid="5ed54df4-2bda-4b3d-a3f5-545e0cdb114b"/>
+				<reportElement positionType="FixRelativeToBottom" x="458" y="287" width="79" height="15" uuid="5ed54df4-2bda-4b3d-a3f5-545e0cdb114b"/>
 				<textElement textAlignment="Right">
 					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{neto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$#,##0.00;-$#,##0.00">
-				<reportElement positionType="FixRelativeToBottom" x="458" y="360" width="79" height="15" uuid="bac0ffb6-beaa-41ac-9d08-fa3e5b9d651c"/>
+				<reportElement positionType="FixRelativeToBottom" x="458" y="271" width="79" height="15" uuid="bac0ffb6-beaa-41ac-9d08-fa3e5b9d651c"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{descuentos}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="342" y="360" width="116" height="15" uuid="70f436a5-b7b6-440f-bc61-3f2ac81d142f"/>
+				<reportElement positionType="FixRelativeToBottom" x="342" y="271" width="116" height="15" uuid="70f436a5-b7b6-440f-bc61-3f2ac81d142f"/>
 				<text><![CDATA[TOTAL DESCUENTOS: ]]></text>
 			</staticText>
 			<textField pattern="$#,##0.00;-$#,##0.00" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="459" y="344" width="78" height="15" uuid="ab4bc93e-a25f-46da-a0a1-76acf59c5011"/>
+				<reportElement positionType="FixRelativeToBottom" x="459" y="255" width="78" height="15" uuid="ab4bc93e-a25f-46da-a0a1-76acf59c5011"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{bruto}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="342" y="344" width="116" height="15" uuid="d5cc6969-7fed-4c6c-aa68-3da388199e0e"/>
+				<reportElement positionType="FixRelativeToBottom" x="342" y="255" width="116" height="15" uuid="d5cc6969-7fed-4c6c-aa68-3da388199e0e"/>
 				<text><![CDATA[MONTO BRUTO: ]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="3" y="328" width="552" height="1" uuid="fe0ad417-86bf-4f3b-a150-f41027e19824"/>
+				<reportElement positionType="FixRelativeToBottom" x="3" y="239" width="552" height="1" uuid="fe0ad417-86bf-4f3b-a150-f41027e19824"/>
 			</line>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="130" y="374" width="100" height="1" uuid="e4ec110c-17cf-4efa-96eb-0821cf5c0c0e"/>
+				<reportElement positionType="FixRelativeToBottom" x="130" y="285" width="100" height="1" uuid="e4ec110c-17cf-4efa-96eb-0821cf5c0c0e"/>
 				<graphicElement>
 					<pen lineStyle="Dashed"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="147" y="376" width="100" height="15" uuid="d0f09698-0494-461f-b7d3-64d40766a68f"/>
+				<reportElement positionType="FixRelativeToBottom" x="147" y="287" width="100" height="15" uuid="d0f09698-0494-461f-b7d3-64d40766a68f"/>
 				<text><![CDATA[Recibí conforme]]></text>
 			</staticText>
 			<subreport>
-				<reportElement positionType="Float" isPrintRepeatedValues="false" x="3" y="183" width="548" height="48" uuid="6a24c7f7-6b2a-45f6-b599-4dc58eecec66"/>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="3" y="165" width="548" height="29" uuid="6a24c7f7-6b2a-45f6-b599-4dc58eecec66"/>
 				<subreportParameter name="bruto">
 					<subreportParameterExpression><![CDATA[$F{bruto}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -74,7 +74,7 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "liquidacion_haber_subreport.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" isPrintRepeatedValues="false" x="3" y="245" width="548" height="48" uuid="c7c6b0be-feaf-4976-9ed7-c67a03bec887"/>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="3" y="198" width="548" height="35" uuid="c7c6b0be-feaf-4976-9ed7-c67a03bec887"/>
 				<subreportParameter name="descuentos">
 					<subreportParameterExpression><![CDATA[$F{descuentos}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -141,11 +141,11 @@
 				<text><![CDATA[ORIGINAL]]></text>
 			</staticText>
 			<image>
-				<reportElement positionType="FixRelativeToBottom" x="4" y="405" width="20" height="16" uuid="e85b8528-4625-49cd-9cbe-56aca7801276"/>
+				<reportElement positionType="FixRelativeToBottom" x="4" y="317" width="20" height="16" uuid="e85b8528-4625-49cd-9cbe-56aca7801276"/>
 				<imageExpression><![CDATA[$P{SUBREPORT_DIR}+"/image/tijera45px.png"]]></imageExpression>
 			</image>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="26" y="412" width="522" height="1" uuid="4e6efb9b-4cf1-414e-b991-2cf748d87e80"/>
+				<reportElement positionType="FixRelativeToBottom" x="26" y="324" width="522" height="1" uuid="4e6efb9b-4cf1-414e-b991-2cf748d87e80"/>
 				<graphicElement>
 					<pen lineStyle="Dashed"/>
 				</graphicElement>
@@ -153,52 +153,52 @@
 		</band>
 		<band height="421" splitType="Immediate">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="342" y="392" width="116" height="15" uuid="1806ec28-1321-419c-9ff7-4acac74ad648"/>
+				<reportElement positionType="FixRelativeToBottom" x="342" y="311" width="116" height="15" uuid="1806ec28-1321-419c-9ff7-4acac74ad648"/>
 				<textElement>
 					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[TOTAL NETO: ]]></text>
 			</staticText>
 			<textField pattern="$#,##0.00;-$#,##0.00" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="458" y="392" width="79" height="15" uuid="eec27bb5-acec-48df-9bd2-de0f96cb476d"/>
+				<reportElement positionType="FixRelativeToBottom" x="458" y="311" width="79" height="15" uuid="eec27bb5-acec-48df-9bd2-de0f96cb476d"/>
 				<textElement textAlignment="Right">
 					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{neto}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$#,##0.00;-$#,##0.00">
-				<reportElement positionType="FixRelativeToBottom" x="458" y="376" width="79" height="15" uuid="a9f261d3-7a6e-4678-afd8-250a4016e050"/>
+				<reportElement positionType="FixRelativeToBottom" x="458" y="295" width="79" height="15" uuid="a9f261d3-7a6e-4678-afd8-250a4016e050"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{descuentos}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="342" y="376" width="116" height="15" uuid="b08c8ac6-9059-423f-989c-23bdae225a5d"/>
+				<reportElement positionType="FixRelativeToBottom" x="342" y="295" width="116" height="15" uuid="b08c8ac6-9059-423f-989c-23bdae225a5d"/>
 				<text><![CDATA[TOTAL DESCUENTOS: ]]></text>
 			</staticText>
 			<textField pattern="$#,##0.00;-$#,##0.00" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="459" y="360" width="78" height="15" uuid="4a6ecd18-9f5b-4ecb-9199-189756652f4a"/>
+				<reportElement positionType="FixRelativeToBottom" x="459" y="279" width="78" height="15" uuid="4a6ecd18-9f5b-4ecb-9199-189756652f4a"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{bruto}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="342" y="360" width="116" height="15" uuid="860971fd-6354-448c-b412-f65b0bff581d"/>
+				<reportElement positionType="FixRelativeToBottom" x="342" y="279" width="116" height="15" uuid="860971fd-6354-448c-b412-f65b0bff581d"/>
 				<text><![CDATA[MONTO BRUTO: ]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="3" y="347" width="552" height="1" uuid="3f8e04d9-7aa0-4a8b-8276-65b6020e08fd"/>
+				<reportElement positionType="FixRelativeToBottom" x="3" y="266" width="552" height="1" uuid="3f8e04d9-7aa0-4a8b-8276-65b6020e08fd"/>
 			</line>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="130" y="390" width="100" height="1" uuid="a85f07d3-25ed-4397-92e1-d4f2c5a807a6"/>
+				<reportElement positionType="FixRelativeToBottom" x="130" y="309" width="100" height="1" uuid="a85f07d3-25ed-4397-92e1-d4f2c5a807a6"/>
 				<graphicElement>
 					<pen lineStyle="Dashed"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="147" y="392" width="100" height="15" uuid="fe160e71-3c52-44c7-8ab8-6a5d75323fb6"/>
+				<reportElement positionType="FixRelativeToBottom" x="147" y="311" width="100" height="15" uuid="fe160e71-3c52-44c7-8ab8-6a5d75323fb6"/>
 				<text><![CDATA[Recibí conforme]]></text>
 			</staticText>
 			<subreport>
-				<reportElement positionType="Float" isPrintRepeatedValues="false" x="2" y="194" width="548" height="49" uuid="02c71b40-48c1-446c-8014-7d4cf660338b"/>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="2" y="179" width="548" height="27" uuid="02c71b40-48c1-446c-8014-7d4cf660338b"/>
 				<subreportParameter name="bruto">
 					<subreportParameterExpression><![CDATA[$F{bruto}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -206,7 +206,7 @@
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "liquidacion_haber_subreport.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="259" width="548" height="48" uuid="804de19f-2902-41c9-932f-be29688d2dfa"/>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="220" width="548" height="31" uuid="804de19f-2902-41c9-932f-be29688d2dfa"/>
 				<subreportParameter name="descuentos">
 					<subreportParameterExpression><![CDATA[$F{descuentos}]]></subreportParameterExpression>
 				</subreportParameter>
