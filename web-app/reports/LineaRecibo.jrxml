@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LineaPlanillasPresentadas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ef6c21f0-12d4-4e21-807b-538508983607">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="concepto" class="java.lang.String"/>
@@ -12,29 +12,29 @@
 	</background>
 	<detail>
 		<band height="20" splitType="Stretch">
-			<textField>
-				<reportElement x="14" y="0" width="203" height="20" uuid="a9f91a31-df86-4ba0-92ed-997cc38d8100"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="1" y="0" width="168" height="20" uuid="a9f91a31-df86-4ba0-92ed-997cc38d8100"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{concepto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="365" y="0" width="58" height="20" uuid="e53f27ec-215b-4f81-b306-fed80dc52a23"/>
+				<reportElement x="444" y="0" width="47" height="20" uuid="e53f27ec-215b-4f81-b306-fed80dc52a23"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="458" y="0" width="135" height="20" uuid="2355541f-41c9-407b-9061-8ec017773002"/>
+				<reportElement x="503" y="0" width="90" height="20" uuid="2355541f-41c9-407b-9061-8ec017773002"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{debitocredito}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="217" y="0" width="148" height="20" uuid="ead33073-d46c-41d9-9f58-44c52024d6f5"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="169" y="0" width="275" height="20" uuid="ead33073-d46c-41d9-9f58-44c52024d6f5"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>

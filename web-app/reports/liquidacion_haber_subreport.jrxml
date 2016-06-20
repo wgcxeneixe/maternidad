@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="5" bottomMargin="5" isFloatColumnFooter="true" whenResourceMissingType="Empty" isIgnorePagination="true">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="5" bottomMargin="5" isFloatColumnFooter="true" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="f4eb097c-0df7-417a-9311-e89687ad3189">
 	<property name="ireport.zoom" value="4.0"/>
-	<property name="ireport.x" value="1423"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[]]>
@@ -12,36 +12,33 @@
 	<columnHeader>
 		<band height="16">
 			<staticText>
-				<reportElement x="497" y="0" width="50" height="15"/>
-				<textElement/>
+				<reportElement x="497" y="0" width="50" height="15" uuid="7b3da8c5-c7e2-483f-9174-020577fa2cc0"/>
 				<text><![CDATA[IMPORTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="0" width="166" height="15"/>
-				<textElement/>
+				<reportElement x="2" y="0" width="166" height="15" uuid="5a3eb8ad-7443-4af3-9fe2-86340899927c"/>
 				<text><![CDATA[HABERES]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="14" width="552" height="1"/>
+				<reportElement x="0" y="14" width="552" height="1" uuid="95b7c36d-92bb-4d2a-b02a-55dd2d2c663e"/>
 			</line>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="16">
-			<textField>
-				<reportElement x="3" y="0" width="431" height="15"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{descripcion}]]></textFieldExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="3" y="0" width="431" height="15" uuid="0c9389ea-e6ba-496a-b907-826d7be9584f"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0" isBlankWhenNull="true">
-				<reportElement x="435" y="0" width="32" height="15" isRemoveLineWhenBlank="true"/>
+				<reportElement x="435" y="0" width="32" height="15" isRemoveLineWhenBlank="true" uuid="1e2a2130-f76a-488c-a38c-b2e59d6824ec"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{porcentaje}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{porcentaje}]]></textFieldExpression>
 			</textField>
 			<textField pattern="$#,##0.00;-$#,##0.00">
-				<reportElement x="481" y="0" width="56" height="15"/>
+				<reportElement x="481" y="0" width="56" height="15" uuid="ae5ea65b-ea33-4dee-a34b-a440e93eb8d1"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression class="java.lang.Double"><![CDATA[$F{importe}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

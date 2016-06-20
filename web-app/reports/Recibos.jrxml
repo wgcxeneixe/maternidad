@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanillasPresentadas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aa5b7dbf-ae21-4aa5-a77b-e0b5b8754ba4">
-	<property name="ireport.zoom" value="0.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="208"/>
+	<property name="ireport.y" value="576"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -85,7 +85,7 @@
 En concepto de:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="399" y="98" width="45" height="20" uuid="37d93b61-03f3-4478-9f11-51dc215852aa"/>
+				<reportElement x="468" y="98" width="45" height="20" uuid="37d93b61-03f3-4478-9f11-51dc215852aa"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
@@ -97,13 +97,6 @@ En concepto de:]]></text>
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[CONCEPTO]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="460" y="98" width="95" height="20" uuid="943b1125-fd72-4b8e-bb14-c23ce5c7101a"/>
-				<textElement verticalAlignment="Bottom">
-					<font size="10" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[DEBITO/CREDITO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="218" y="98" width="80" height="20" uuid="b2581d33-0413-43fa-a5d6-c9bb80e8111d"/>
@@ -224,18 +217,11 @@ En concepto de:]]></text>
 				<text><![CDATA[CONCEPTO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="408" y="163" width="45" height="20" uuid="f46d9b9e-fa1e-4778-9ba4-b78fb91f7372"/>
+				<reportElement x="474" y="163" width="45" height="20" uuid="f46d9b9e-fa1e-4778-9ba4-b78fb91f7372"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[VALOR]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="470" y="163" width="95" height="20" uuid="cef44caa-de0f-4e7e-ab46-9d2035ebc988"/>
-				<textElement verticalAlignment="Bottom">
-					<font size="10" isBold="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[DEBITO/CREDITO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="11" y="58" width="115" height="20" uuid="6ad4a574-72b5-4377-9b48-ecd8fee5853a"/>
