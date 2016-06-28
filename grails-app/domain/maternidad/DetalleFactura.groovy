@@ -38,6 +38,17 @@ class DetalleFactura {
         cantidad(nullable: false,min: Double.valueOf('0.1'))
     }
 
+    def beforeInsert() {
+        if((!this.valorHonorarios) || this.valorHonorarios == null)this.valorHonorarios = new Double(0)
+        if((!this.valorGastos) || this.valorGastos == null)this.valorGastos = new Double(0)
+    }
+
+    def beforeUpdate() {
+        if((!this.valorHonorarios) || this.valorHonorarios == null)this.valorHonorarios = new Double(0)
+        if((!this.valorGastos) || this.valorGastos == null)this.valorGastos = new Double(0)
+    }
+
+
     def  Double total() {
         Double tot = (valorGastos?:0) + (valorHonorarios?:0)
         return  Math.round(tot * 100) / 100
