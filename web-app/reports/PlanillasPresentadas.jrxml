@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlanillasPresentadas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="389"/>
+	<property name="ireport.y" value="96"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -23,13 +23,18 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
-	<subDataset name="Table Dataset 1"/>
+	<subDataset name="dataset1">
+		<field name="nombreYApellido" class="java.lang.String"/>
+		<field name="nroFicha" class="java.lang.String"/>
+		<field name="fechaInternacion" class="java.lang.String"/>
+		<field name="fechaAlta" class="java.lang.String"/>
+	</subDataset>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String"/>
 	<parameter name="miURL" class="java.lang.String"/>
 	<field name="obraSocial" class="java.lang.String"/>
 	<field name="fecha" class="java.lang.String"/>
 	<field name="cantidad" class="java.lang.String"/>
-	<field name="items" class="java.util.Collection"/>
+	<field name="items" class="java.util.List"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -45,7 +50,7 @@
 		</band>
 	</title>
 	<columnHeader>
-		<band height="78" splitType="Stretch">
+		<band height="79" splitType="Stretch">
 			<rectangle>
 				<reportElement x="0" y="1" width="555" height="57"/>
 			</rectangle>
@@ -81,14 +86,14 @@
 				<text><![CDATA[NOMBRE Y APELLIDO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="197" y="58" width="67" height="20"/>
+				<reportElement x="285" y="58" width="67" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Nº FICHA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="347" y="58" width="112" height="20"/>
+				<reportElement x="359" y="58" width="120" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10" isBold="true" isUnderline="true"/>
 				</textElement>
@@ -117,14 +122,36 @@
 	</columnHeader>
 	<detail>
 		<band height="571" splitType="Stretch">
-			<subreport>
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="36" isPrintWhenDetailOverflows="true"/>
-				<subreportParameter name="miURL">
-					<subreportParameterExpression><![CDATA[$P{miURL}]]></subreportParameterExpression>
-				</subreportParameter>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{items})]]></dataSourceExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "LineaPlanillasPresentadas.jasper"]]></subreportExpression>
-			</subreport>
+			<componentElement>
+				<reportElement x="0" y="12" width="555" height="22"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dataset1">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{items})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="22" width="555">
+						<textField>
+							<reportElement x="0" y="0" width="285" height="20"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{nombreYApellido}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="285" y="0" width="69" height="20"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{nroFicha}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="359" y="0" width="100" height="20"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{fechaInternacion}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="479" y="0" width="76" height="20"/>
+							<textElement/>
+							<textFieldExpression class="java.lang.String"><![CDATA[$F{fechaAlta}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
 		</band>
 	</detail>
 	<summary>
