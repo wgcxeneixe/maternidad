@@ -26,8 +26,19 @@ class MovimientoStockController {
               redirect(controller: 'login', action: "auth")
           }
   */
+        /*
+          * Se agrega esta parte de código para erregla la paginacion porque el locale estaba en ingles
+           *
+           * */
+        Locale defaultLocale = Locale.default
+        TimeZone defaultTZ = TimeZone.default
+        Locale locale = Locale.UK
+        Locale.setDefault locale // set this otherwise the test will fail if your locale isn't the same
+        TimeZone.setDefault TimeZone.getTimeZone('Etc/GMT')
+
         def query = {
             if (params.fechaDesde && params.fechaHasta) {
+                if((params.fechaDesde).class.is(String))println(Date.parse('E MMM dd H:m:s z yyyy', params.fechaDesde))
                 between('fecha', params.fechaDesde, params.fechaHasta)
             }
             if (params.codigo) {
