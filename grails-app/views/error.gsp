@@ -31,10 +31,7 @@
 		</g:if>
 		<g:else>
             <p>Revisar el LOG del sistema.</p>
-            <g:logMsg level="error">
                 ${exception}
-            </g:logMsg>
-
 		</g:else>
 	</body>
 </html>

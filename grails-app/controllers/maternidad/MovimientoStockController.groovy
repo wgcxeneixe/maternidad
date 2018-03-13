@@ -38,7 +38,10 @@ class MovimientoStockController {
 
         def query = {
             if (params.fechaDesde && params.fechaHasta) {
-                if((params.fechaDesde).class.is(String))println(Date.parse('E MMM dd H:m:s z yyyy', params.fechaDesde))
+                if((params.fechaDesde).class.is(String)){
+                    params.fechaDesde = Date.parse('E MMM dd H:m:s z yyyy', params.fechaDesde)
+                    params.fechaHasta = Date.parse('E MMM dd H:m:s z yyyy', params.fechaHasta)
+                }
                 between('fecha', params.fechaDesde, params.fechaHasta)
             }
             if (params.codigo) {
